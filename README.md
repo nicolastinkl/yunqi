@@ -14,6 +14,10 @@
 - weichat token: **53046df156240be48b0c3166???** i dont know
 - SystemTitColor **0x008ccd or 0x0082b6** 
 - System font   **36.0f** and color **ffffff**
+- ....
+
+
+
 ------------------------------------
 
 ### From e-mail 
