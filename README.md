@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 #yunqi
 
 
@@ -58,3 +59,10 @@ if you have some Question to ask me, you can contact email <nicolastinkl@gmail.c
 2. 把这些工具组合在一起,才是最厉害的武器(tools)
 3. 一定要快+稳,不要钻牛角尖,这不是读书时代.
 4. 引用张小龙一句话:这只是我解决问题的其中一种方式,可能并非正确,但可以供你们参考取<b>交集</b>
+=======
+三分钟创建精美轻应用
+
+立刻对接百度、微信、UC的数亿用户流量！在手机上实现 展示产品、销售产品、服务客户，不再需要“数人、数月、 数万”……
+
+<a>https://www.cloud7.com.cn/<a/>
+>>>>>>> 6a24880f42229579e8f408ca970355a6f2beec24
