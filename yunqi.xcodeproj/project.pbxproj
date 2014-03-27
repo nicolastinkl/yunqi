@@ -144,6 +144,9 @@
 		86740A9A1839FA2A0041B603 /* UINavigationController+MHDismissModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86740A961839FA2A0041B603 /* UINavigationController+MHDismissModalView.m */; };
 		8675E19218B4B7F10081CEFA /* YQHomeMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8675E19118B4B7F10081CEFA /* YQHomeMessageViewController.m */; };
 		8678350818E40D26002ED9FF /* MLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678350718E40D26002ED9FF /* MLNavigationController.m */; };
+		8678350F18E42FB5002ED9FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8678350B18E42FB5002ED9FF /* InfoPlist.strings */; };
+		8678351018E42FB5002ED9FF /* yunqiTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8678350D18E42FB5002ED9FF /* yunqiTests-Info.plist */; };
+		8678351118E42FB5002ED9FF /* yunqiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678350E18E42FB5002ED9FF /* yunqiTests.m */; };
 		867AF35C18A623A400121DCF /* XCJSelfPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867AF35B18A623A400121DCF /* XCJSelfPhotoViewController.m */; };
 		8681BDBB1834B2A300521D36 /* DirectionsJson.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */; };
 		8681BDBC1834B2A300521D36 /* DirectionsJson.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */; };
@@ -270,8 +273,6 @@
 		86D181F01834822D0005901D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86D181EF1834822D0005901D /* XCTest.framework */; };
 		86D181F11834822D0005901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86D181CD1834822C0005901D /* Foundation.framework */; };
 		86D181F21834822D0005901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86D181D11834822C0005901D /* UIKit.framework */; };
-		86D181FA1834822D0005901D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86D181F81834822D0005901D /* InfoPlist.strings */; };
-		86D181FC1834822D0005901D /* yunqiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D181FB1834822D0005901D /* yunqiTests.m */; };
 		86D1820918349B150005901D /* CRGradientNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D1820818349B150005901D /* CRGradientNavigationBar.m */; };
 		86D182781834AED30005901D /* BTSAnchorPointLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D182181834AED30005901D /* BTSAnchorPointLayer.m */; };
 		86D182791834AED30005901D /* BTSAnchorPointLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D182181834AED30005901D /* BTSAnchorPointLayer.m */; };
@@ -714,6 +715,9 @@
 		8675E19118B4B7F10081CEFA /* YQHomeMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQHomeMessageViewController.m; path = yunqiViews/YQHomeMessageViewController.m; sourceTree = "<group>"; };
 		8678350618E40D26002ED9FF /* MLNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLNavigationController.h; sourceTree = "<group>"; };
 		8678350718E40D26002ED9FF /* MLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLNavigationController.m; sourceTree = "<group>"; };
+		8678350C18E42FB5002ED9FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8678350D18E42FB5002ED9FF /* yunqiTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "yunqiTests-Info.plist"; sourceTree = "<group>"; };
+		8678350E18E42FB5002ED9FF /* yunqiTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = yunqiTests.m; sourceTree = "<group>"; };
 		867AF35A18A623A400121DCF /* XCJSelfPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJSelfPhotoViewController.h; path = viewcontroller/XCJSelfPhotoViewController.h; sourceTree = "<group>"; };
 		867AF35B18A623A400121DCF /* XCJSelfPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJSelfPhotoViewController.m; path = viewcontroller/XCJSelfPhotoViewController.m; sourceTree = "<group>"; };
 		8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DirectionsJson.geojson; sourceTree = "<group>"; };
@@ -937,9 +941,6 @@
 		86D181E81834822D0005901D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		86D181EE1834822D0005901D /* yunqiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yunqiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		86D181EF1834822D0005901D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		86D181F71834822D0005901D /* yunqiTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "yunqiTests-Info.plist"; sourceTree = "<group>"; };
-		86D181F91834822D0005901D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		86D181FB1834822D0005901D /* yunqiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = yunqiTests.m; sourceTree = "<group>"; };
 		86D1820718349B150005901D /* CRGradientNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRGradientNavigationBar.h; sourceTree = "<group>"; };
 		86D1820818349B150005901D /* CRGradientNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRGradientNavigationBar.m; sourceTree = "<group>"; };
 		86D182171834AED30005901D /* BTSAnchorPointLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTSAnchorPointLayer.h; sourceTree = "<group>"; };
@@ -1861,6 +1862,16 @@
 			name = YQNavigation;
 			sourceTree = "<group>";
 		};
+		8678350A18E42FB5002ED9FF /* yunqiTests */ = {
+			isa = PBXGroup;
+			children = (
+				8678350B18E42FB5002ED9FF /* InfoPlist.strings */,
+				8678350D18E42FB5002ED9FF /* yunqiTests-Info.plist */,
+				8678350E18E42FB5002ED9FF /* yunqiTests.m */,
+			);
+			path = yunqiTests;
+			sourceTree = "<group>";
+		};
 		8681BDBD1834B33700521D36 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -2306,8 +2317,8 @@
 		86D181C11834822C0005901D = {
 			isa = PBXGroup;
 			children = (
+				8678350A18E42FB5002ED9FF /* yunqiTests */,
 				86D181D31834822C0005901D /* yunqi */,
-				86D181F51834822D0005901D /* yunqiTests */,
 				86D181CC1834822C0005901D /* Frameworks */,
 				86D181CB1834822C0005901D /* Products */,
 			);
@@ -2390,8 +2401,7 @@
 				86D181D41834822C0005901D /* Supporting Files */,
 				8689D63318B4A87D000A7143 /* StoryboardYunQi.storyboard */,
 			);
-			name = yunqi;
-			path = xianchangjia;
+			path = yunqi;
 			sourceTree = "<group>";
 		};
 		86D181D41834822C0005901D /* Supporting Files */ = {
@@ -2402,25 +2412,6 @@
 				86D181D61834822C0005901D /* InfoPlist.strings */,
 				86D181D91834822C0005901D /* main.m */,
 				86D181DB1834822C0005901D /* yunqi-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		86D181F51834822D0005901D /* yunqiTests */ = {
-			isa = PBXGroup;
-			children = (
-				86D181FB1834822D0005901D /* yunqiTests.m */,
-				86D181F61834822D0005901D /* Supporting Files */,
-			);
-			name = yunqiTests;
-			path = xianchangjiaTests;
-			sourceTree = "<group>";
-		};
-		86D181F61834822D0005901D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				86D181F71834822D0005901D /* yunqiTests-Info.plist */,
-				86D181F81834822D0005901D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -3230,6 +3221,7 @@
 				86D181E91834822D0005901D /* Images.xcassets in Resources */,
 				8668E478187540DB00D20C9E /* btn_comment_disable@2x.png in Resources */,
 				866618A518951B07000228FC /* ChatRecorderView.xib in Resources */,
+				8678351018E42FB5002ED9FF /* yunqiTests-Info.plist in Resources */,
 				86660DC31876BB8B007477C0 /* XCJHomeMenuView.xib in Resources */,
 				86E57CEF18795CC900978AFA /* city.plist in Resources */,
 				86D181D81834822C0005901D /* InfoPlist.strings in Resources */,
@@ -3237,6 +3229,7 @@
 				8668E47D187540DB00D20C9E /* like_comment_bg@2x.png in Resources */,
 				868A0EF818B3624300C2875F /* XCJFindMMView.xib in Resources */,
 				8681BDBB1834B2A300521D36 /* DirectionsJson.geojson in Resources */,
+				8678350F18E42FB5002ED9FF /* InfoPlist.strings in Resources */,
 				86E57CF318795FD800978AFA /* HZAreaPickerView.xib in Resources */,
 				866618A718951B07000228FC /* ChatVoiceRecorderVC.xib in Resources */,
 				86EB76441859A66800836947 /* logo80x80.png in Resources */,
@@ -3267,7 +3260,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8681BDBC1834B2A300521D36 /* DirectionsJson.geojson in Resources */,
-				86D181FA1834822D0005901D /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3491,6 +3483,7 @@
 				865632EE185FFDDA00E9903C /* XCJUserViewController.m in Sources */,
 				86494CC01881437600C22B14 /* XCJMessageReplylistController.m in Sources */,
 				869CE52F186BE38D0004C1EC /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
+				8678351118E42FB5002ED9FF /* yunqiTests.m in Sources */,
 				868B5D5E1893D065004D1743 /* XCJChatSendInfoView.m in Sources */,
 				869CE522186BE38D0004C1EC /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				869CE533186BE38D0004C1EC /* MagicalRecord+Options.m in Sources */,
@@ -3605,7 +3598,6 @@
 				86D182911834AED30005901D /* UIImage+RoundedCorner.m in Sources */,
 				86D182F71834AF540005901D /* FMResultSet.m in Sources */,
 				86D182FB1834AF540005901D /* SandboxFile.m in Sources */,
-				86D181FC1834822D0005901D /* yunqiTests.m in Sources */,
 				86D1827F1834AED30005901D /* NSDataAddition.m in Sources */,
 				86D182F11834AF540005901D /* FMDatabaseAdditions.m in Sources */,
 				86740A981839FA2A0041B603 /* UIImage+ImageEffects.m in Sources */,
@@ -3661,6 +3653,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		8678350B18E42FB5002ED9FF /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8678350C18E42FB5002ED9FF /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		86D181D61834822C0005901D /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3675,14 +3675,6 @@
 				86D181E01834822C0005901D /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		86D181F81834822D0005901D /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				86D181F91834822D0005901D /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
