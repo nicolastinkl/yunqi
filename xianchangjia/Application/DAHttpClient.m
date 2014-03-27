@@ -18,6 +18,35 @@
 
 SINGLETON_GCD(DAHttpClient);
 
+///
+/**
+ *  云起接口请求
+ *
+ *  @param parames <#parames description#>
+ *  @param action  <#action description#>
+ *  @param success <#success description#>
+ *  @param error   <#error description#>
+ *  @param failure <#failure description#>
+ *
+ *  @return <#return value description#>
+ */
+- (NSURLSessionDataTask*)defautlRequestWithParameters:(NSMutableDictionary *) parames Action:(NSString *) action success:(SLObjectBlock)success error:(SLIndexBlock)error
+{
+    //parames[@"token"] = @"??????";
+    SLLog(@"json : %@",[parames JSONString]);
+    return [[AFAppAPIClient sharedClient] POST:[NSString stringWithFormat:@"/%@",action] parameters:parames success:^(NSURLSessionDataTask * __unused task, id JSON) {
+        
+        NSInteger r = [[JSON valueForKeyPath:@"code"] intValue];
+        if(JSON && r == 200){
+            success(JSON);
+        }else{
+			error(0);           //0  failure
+        }
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *err) {
+        error(1);               //1 error
+    }];
+
+}
 /**
  *  孩子王所有网络请求接口
  *

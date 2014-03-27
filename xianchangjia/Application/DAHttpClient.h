@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AFNetworking.h"
 #import "blocktypedef.h"
-@interface DAHttpClient :  AFHTTPSessionManager
+@interface DAHttpClient : AFHTTPSessionManager
 {
 	NSString        *_apiBaseUrlString;
 }
@@ -21,4 +21,8 @@
 
 
 - (NSURLSessionDataTask*)defautlRequestWithParameters:(NSMutableDictionary *) parames controller:(NSString *) controller Action:(NSString *) action success:(SLObjectBlock)success error:(SLIndexBlock)error failure:(SLErrorBlock)failure;
+
+
+- (NSURLSessionDataTask*)defautlRequestWithParameters:(NSMutableDictionary *) parames Action:(NSString *) action success:(SLObjectBlock)success error:(SLIndexBlock)error;
+
 @end

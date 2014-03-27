@@ -8,8 +8,8 @@
 
 #import "AFAppAPIClient.h"
 
-static NSString * const AFAppDotNetAPIBaseURLString =@"http://api.xianchangjia.com/";
-//@"http://app.kidswant.com.cn/";// 
+static NSString * const AFAppDotNetAPIBaseURLString =@"https://www.cloud7.com.cn/Cloud7/WebApp";
+
 @implementation AFAppAPIClient
 
 + (instancetype)sharedClient {
@@ -17,7 +17,8 @@ static NSString * const AFAppDotNetAPIBaseURLString =@"http://api.xianchangjia.c
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedClient = [[AFAppAPIClient alloc] initWithBaseURL:[NSURL URLWithString:AFAppDotNetAPIBaseURLString]];
-        [_sharedClient setSecurityPolicy:[AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey]];
+//        [_sharedClient setSecurityPolicy:[AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey]];
+        [_sharedClient setSecurityPolicy:[AFSecurityPolicy defaultPolicy]];
     });
     
     return _sharedClient;

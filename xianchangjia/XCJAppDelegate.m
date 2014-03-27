@@ -38,6 +38,8 @@
 static NSString * const kLaixinStoreName = @"YunqiDB";
 
 #define UIColorFromRGB(rgbValue)[UIColor colorWithRed:((float)((rgbValue&0xFF0000)>>16))/255.0 green:((float)((rgbValue&0xFF00)>>8))/255.0 blue:((float)(rgbValue&0xFF))/255.0 alpha:1.0]
+
+
 @interface XCJAppDelegate()<UITabBarControllerDelegate>
 
 @end
@@ -659,6 +661,7 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
         
     }];
 }
+
 -(void)applicationDidFinishLaunching:(UIApplication *)application
 {
     NSArray *colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0xf16149).CGColor, (id)UIColorFromRGB(0xf14959).CGColor, nil];

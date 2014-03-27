@@ -19,16 +19,42 @@
 
 @implementation LXRequestFacebookManager
 
+/**
+ *  https connection
+ *
+ *  @param completion <#completion description#>
+ *  @param action     <#action description#>
+ *  @param parems     <#parems description#>
+ */
 - (void)requestPostActionWithCompletion:(CompletionBlock)completion withAction:(NSString *) action withParems:(NSMutableDictionary * ) parems
 {
-    SLog(@"parems : %@",parems);
-    [[YQSocialRequestHTTPSClient sharedClient] POST:action parameters:parems success:^(NSURLSessionDataTask *task, id responseObject) {
+    SLLog(@"parems : %@",parems);
+    [[YQSocialRequestHTTPSClient sharedClient] POST:[NSString stringWithFormat:@"/%@",action] parameters:parems success:^(NSURLSessionDataTask *task, id responseObject) {
         SLog(@"responseObject : %@",responseObject);
         if (completion) {
             completion(responseObject, nil);
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-         SLog(@" error : %@",error);
+        SLog(@"Error: %@", error );
+        if (completion) {
+            completion(nil, error);
+        }
+    }];
+}
+
+- (void)requestPostActionWithYQUAUSLLCompletion:(CompletionBlock)completion withAction:(NSString *) action withParems:(NSMutableDictionary * ) parems
+{
+    if (!parems) {
+        return;
+    }
+    SLLog(@"parems : %@",parems);
+    [[IQSocialRequestBaseClient sharedClient] POST:action parameters:parems success:^(NSURLSessionDataTask *task, id responseObject) {
+        SLog(@"responseObject : %@",responseObject);
+        if (completion) {
+            completion(responseObject, nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        SLog(@" error : %@",error);
         if (completion) {
             completion(nil, error);
         }

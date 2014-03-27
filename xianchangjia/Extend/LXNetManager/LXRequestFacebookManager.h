@@ -11,8 +11,17 @@
 
 @interface LXRequestFacebookManager : NSObject
 
+/**
+ *  https login
+ *
+ *  @param completion <#completion description#>
+ *  @param action     <#action description#>
+ *  @param parems     <#parems description#>
+ */
 - (void)requestPostActionWithCompletion:(CompletionBlock)completion withAction:(NSString *) action withParems:(NSMutableDictionary * ) parems;
 
+
+- (void)requestPostActionWithYQUAUSLLCompletion:(CompletionBlock)completion withAction:(NSString *) action withParems:(NSMutableDictionary * ) parems;
 
 - (void)requestGetURLWithCompletion:(CompletionBlock)completion withParems:(NSString * ) parems;
 

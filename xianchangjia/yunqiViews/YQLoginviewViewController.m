@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *Text_LoginPwd;
 @property (weak, nonatomic) IBOutlet UIButton *Button_login;
 @property (weak, nonatomic) IBOutlet UIView *view_bg;
+
+@property (weak, nonatomic) IBOutlet UIImageView *image_line;
 @end
 
 @implementation YQLoginviewViewController
@@ -29,7 +31,6 @@
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -37,15 +38,20 @@
     
     [self.Button_login infoStyle];
     
+    self.image_line.height = .5f;
+    
+    self.Text_LoginName.text = @"ciznx@qq.com";
+    self.Text_LoginPwd.text = @"111111";
     
 }
+
 - (IBAction)hiddenKeyboardClick:(id)sender {
     
     [self.Text_LoginName resignFirstResponder];
     [self.Text_LoginPwd resignFirstResponder];
     [UIView animateWithDuration:0.3 animations:^{
         // default top is 70  when keyboard show ... 0
-        self.view_bg.top = 160;
+        self.view_bg.top = 0;
     }];
     
 }
@@ -83,7 +89,7 @@
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     [UIView animateWithDuration:0.3 animations:^{
-        self.view_bg.top = 60;
+        self.view_bg.top = -50;
     }];
 }
 
@@ -92,10 +98,9 @@
     [UIView animateWithDuration:0.3 animations:^{
         // default top is 70  when keyboard show ... 0
         
-        self.view_bg.top = 160;
+        self.view_bg.top = 0;
     }];
 }
-
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
@@ -106,8 +111,6 @@
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter]  removeObserver:self];
 }
-
-
 
 - (IBAction)loginClick:(id)sender {
     [SVProgressHUD showWithStatus:@"正在登录..."];
@@ -121,25 +124,46 @@
     NSMutableDictionary * mutaDict = [[NSMutableDictionary alloc] init];
     [mutaDict setValue:@"iPhone" forKey:@"devicetype"];
     [mutaDict setValue:openUDID forKey:@"deviceid"];
-    [mutaDict setValue:[NSString stringWithFormat:@"%@.cloud7.com.cn",username] forKey:@"domain"];
+    //.cloud7.com.cn
+    [mutaDict setValue:@"" forKey:@"domain"];
     [mutaDict setValue:username forKey:@"username"];
     [mutaDict setValue:pwd forKey:@"password"];
+    
     [[[LXAPIController sharedLXAPIController] requestLaixinManager] requestPostActionWithCompletion:^(id response, NSError *error) {
+          [SVProgressHUD dismiss];
         if (response) {
-            /*token	令牌
-             tokenExpire	令牌过期的时间
-             notifyTargetId	用于连接推送平台的 targetId
-             notifyServerUrl	推送通知服务器的URL位置*/
-            
-            [SVProgressHUD dismiss];
+            /*
+             code = 200;
+             data =     {
+             hostName = "apiservicetest.cloud7.com.cn";
+             token = "x0tMaZQtslIksQGL0sgspnqDW+BtFozy//unzGXdcQvNnaEzT1Al7e6Z56AnzHQG5AVG3MfAUpZXYmuFCSte9085+VgCrBeNnXSFKiXr8LFpl8Dgrq/eNeIk";
+             tokenValidDuration = 259200;
+             };
+             message = OK;
+             */
+        
         }
         else{
+            /*[USER_DEFAULT setValue:@"9355ecae751e0fe082a74be147de954845a2e2a25bf6c504831d74d3369f5a03" forKey:KeyChain_Laixin_account_sessionid];
+            [USER_DEFAULT setValue:@"9355ecae751e0fe082a74be147de954845a2e2a25bf6c504831d74d3369f5a03" forKey:KeyChain_yunqi_account_token];
+            [USER_DEFAULT setValue:@"2015-02-23" forKey:KeyChain_yunqi_account_tokenExpire];
+            [USER_DEFAULT setValue:@"22" forKey:KeyChain_yunqi_account_notifyTargetId];
+            [USER_DEFAULT setValue:@"http://yunqi.com" forKey:KeyChain_yunqi_account_notifyServerUrl];
+            
+            [USER_DEFAULT setBool:YES forKey:KeyChain_Laixin_account_HasLogin];
+            [USER_DEFAULT synchronize];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:LaixinSetupDBMessageNotification object:@"9355ecae751e0fe082a74be147de954845a2e2a25bf6c504831d74d3369f5a03" ];
+            [self dismissViewControllerAnimated:YES completion:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"TKthefristLogin" object:nil];
+            }];
+             */
+            //debug
             [UIAlertView showAlertViewWithMessage:@"登录失败"];
-            [SVProgressHUD dismiss];
         }
         
         
-    } withAction:@"DeviceSignin" withParems:mutaDict];
+    } withAction:@"Cloud7/WebApp/DeviceSignin" withParems:mutaDict];
     
 }
 

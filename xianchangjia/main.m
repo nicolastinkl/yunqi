@@ -10,10 +10,11 @@
 
 #import "XCJAppDelegate.h"
 #import "XCJApplication.h"
+#import "YQDelegate.h"
 int main(int argc, char * argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, NSStringFromClass([XCJApplication class]), NSStringFromClass([XCJAppDelegate class]));
+        return UIApplicationMain(argc, argv, NSStringFromClass([XCJApplication class]), NSStringFromClass([YQDelegate class]));
     }
     
 }

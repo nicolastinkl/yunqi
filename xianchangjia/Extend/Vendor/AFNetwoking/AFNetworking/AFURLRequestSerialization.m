@@ -263,7 +263,9 @@ NSArray * AFQueryStringPairsFromKeyAndValue(NSString *key, id value) {
     NSURL *url = [NSURL URLWithString:URLString];
 
     NSParameterAssert(url);
-
+    
+    NSLog(@"url %@",url);
+    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:method];
 

@@ -143,6 +143,7 @@
 		86740A991839FA2A0041B603 /* UINavigationController+MHDismissModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86740A961839FA2A0041B603 /* UINavigationController+MHDismissModalView.m */; };
 		86740A9A1839FA2A0041B603 /* UINavigationController+MHDismissModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86740A961839FA2A0041B603 /* UINavigationController+MHDismissModalView.m */; };
 		8675E19218B4B7F10081CEFA /* YQHomeMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8675E19118B4B7F10081CEFA /* YQHomeMessageViewController.m */; };
+		8678350818E40D26002ED9FF /* MLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678350718E40D26002ED9FF /* MLNavigationController.m */; };
 		867AF35C18A623A400121DCF /* XCJSelfPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867AF35B18A623A400121DCF /* XCJSelfPhotoViewController.m */; };
 		8681BDBB1834B2A300521D36 /* DirectionsJson.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */; };
 		8681BDBC1834B2A300521D36 /* DirectionsJson.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */; };
@@ -160,6 +161,8 @@
 		8681BE421839AACD00521D36 /* InviteInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8681BE401839AACD00521D36 /* InviteInfo.m */; };
 		8683FA95187FE26100CEFA45 /* XCJPostTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8683FA94187FE26100CEFA45 /* XCJPostTextViewController.m */; };
 		8683FA98187FE38400CEFA45 /* XCJPostTextNaviController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8683FA97187FE38400CEFA45 /* XCJPostTextNaviController.m */; };
+		8684975718BF34A400E983CB /* YQWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8684975618BF34A400E983CB /* YQWebViewController.m */; };
+		8684975B18BF37AD00E983CB /* AMScrollingNavbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8684975A18BF37AD00E983CB /* AMScrollingNavbarViewController.m */; };
 		8688CCCC188E513F002CD2C8 /* FacialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8688CCCB188E513F002CD2C8 /* FacialView.m */; };
 		86893DAD187FA7B700DC0CB8 /* XCJGroupMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86893DAC187FA7B700DC0CB8 /* XCJGroupMenuView.m */; };
 		86893DAF187FA7CA00DC0CB8 /* XCJGroupMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86893DAE187FA7CA00DC0CB8 /* XCJGroupMenuView.xib */; };
@@ -432,6 +435,8 @@
 		86EB770E185AB1AE00836947 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 86EB7704185AAD7D00836947 /* libz.1.2.5.dylib */; };
 		86EB770F185AB1AE00836947 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 86EB7706185AADB100836947 /* libz.1.dylib */; };
 		86EB7711185AB1D800836947 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86EB7710185AB1D800836947 /* ImageIO.framework */; };
+		86F2AF2D18BF2C4E00EF8F17 /* YQWeChatMoel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F2AF2C18BF2C4E00EF8F17 /* YQWeChatMoel.m */; };
+		86F2AF3018BF309100EF8F17 /* YQDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F2AF2F18BF309100EF8F17 /* YQDelegate.m */; };
 		86F9B9AE1872865600ED768B /* XCJChangeUserInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F9B9AD1872865600ED768B /* XCJChangeUserInfoController.m */; };
 		86F9B9B218728AFE00ED768B /* XCJUserInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F9B9B118728AFE00ED768B /* XCJUserInfoController.m */; };
 		86F9B9B61872A3CB00ED768B /* FCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F9B9B51872A3CB00ED768B /* FCMessage.m */; };
@@ -707,6 +712,8 @@
 		86740A961839FA2A0041B603 /* UINavigationController+MHDismissModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+MHDismissModalView.m"; sourceTree = "<group>"; };
 		8675E19018B4B7F10081CEFA /* YQHomeMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YQHomeMessageViewController.h; path = yunqiViews/YQHomeMessageViewController.h; sourceTree = "<group>"; };
 		8675E19118B4B7F10081CEFA /* YQHomeMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQHomeMessageViewController.m; path = yunqiViews/YQHomeMessageViewController.m; sourceTree = "<group>"; };
+		8678350618E40D26002ED9FF /* MLNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLNavigationController.h; sourceTree = "<group>"; };
+		8678350718E40D26002ED9FF /* MLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLNavigationController.m; sourceTree = "<group>"; };
 		867AF35A18A623A400121DCF /* XCJSelfPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJSelfPhotoViewController.h; path = viewcontroller/XCJSelfPhotoViewController.h; sourceTree = "<group>"; };
 		867AF35B18A623A400121DCF /* XCJSelfPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJSelfPhotoViewController.m; path = viewcontroller/XCJSelfPhotoViewController.m; sourceTree = "<group>"; };
 		8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DirectionsJson.geojson; sourceTree = "<group>"; };
@@ -729,6 +736,10 @@
 		8683FA94187FE26100CEFA45 /* XCJPostTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJPostTextViewController.m; path = viewcontroller/XCJPostTextViewController.m; sourceTree = "<group>"; };
 		8683FA96187FE38400CEFA45 /* XCJPostTextNaviController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJPostTextNaviController.h; path = viewcontroller/XCJPostTextNaviController.h; sourceTree = "<group>"; };
 		8683FA97187FE38400CEFA45 /* XCJPostTextNaviController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJPostTextNaviController.m; path = viewcontroller/XCJPostTextNaviController.m; sourceTree = "<group>"; };
+		8684975518BF34A400E983CB /* YQWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YQWebViewController.h; path = yunqiViews/YQWebViewController.h; sourceTree = "<group>"; };
+		8684975618BF34A400E983CB /* YQWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQWebViewController.m; path = yunqiViews/YQWebViewController.m; sourceTree = "<group>"; };
+		8684975918BF37AD00E983CB /* AMScrollingNavbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMScrollingNavbarViewController.h; sourceTree = "<group>"; };
+		8684975A18BF37AD00E983CB /* AMScrollingNavbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMScrollingNavbarViewController.m; sourceTree = "<group>"; };
 		8688CCCA188E513F002CD2C8 /* FacialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacialView.h; sourceTree = "<group>"; };
 		8688CCCB188E513F002CD2C8 /* FacialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacialView.m; sourceTree = "<group>"; };
 		86893DAB187FA7B700DC0CB8 /* XCJGroupMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJGroupMenuView.h; path = viewcontroller/views/XCJGroupMenuView.h; sourceTree = "<group>"; };
@@ -1172,6 +1183,10 @@
 		86EB7706185AADB100836947 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = usr/lib/libz.1.dylib; sourceTree = SDKROOT; };
 		86EB770C185AB14F00836947 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		86EB7710185AB1D800836947 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		86F2AF2B18BF2C4E00EF8F17 /* YQWeChatMoel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YQWeChatMoel.h; sourceTree = "<group>"; };
+		86F2AF2C18BF2C4E00EF8F17 /* YQWeChatMoel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YQWeChatMoel.m; sourceTree = "<group>"; };
+		86F2AF2E18BF309100EF8F17 /* YQDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YQDelegate.h; sourceTree = "<group>"; };
+		86F2AF2F18BF309100EF8F17 /* YQDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YQDelegate.m; sourceTree = "<group>"; };
 		86F9B9AC1872865600ED768B /* XCJChangeUserInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJChangeUserInfoController.h; path = viewcontroller/XCJChangeUserInfoController.h; sourceTree = "<group>"; };
 		86F9B9AD1872865600ED768B /* XCJChangeUserInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJChangeUserInfoController.m; path = viewcontroller/XCJChangeUserInfoController.m; sourceTree = "<group>"; };
 		86F9B9B018728AFE00ED768B /* XCJUserInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJUserInfoController.h; path = viewcontroller/XCJUserInfoController.h; sourceTree = "<group>"; };
@@ -1443,6 +1458,8 @@
 		8664024318B4B45D00DBF6D0 /* YunqiViewcontroller */ = {
 			isa = PBXGroup;
 			children = (
+				8678350518E40D0B002ED9FF /* YQNavigation */,
+				8684975418BF348500E983CB /* YQWebView */,
 				8675E18F18B4B7CB0081CEFA /* Homeview */,
 				8664024418B4B46600DBF6D0 /* Loginview */,
 			);
@@ -1835,6 +1852,15 @@
 			name = Homeview;
 			sourceTree = "<group>";
 		};
+		8678350518E40D0B002ED9FF /* YQNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				8678350618E40D26002ED9FF /* MLNavigationController.h */,
+				8678350718E40D26002ED9FF /* MLNavigationController.m */,
+			);
+			name = YQNavigation;
+			sourceTree = "<group>";
+		};
 		8681BDBD1834B33700521D36 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1862,6 +1888,25 @@
 				8681BDCB1836153000521D36 /* YLLabel.m */,
 			);
 			path = YLLabel;
+			sourceTree = "<group>";
+		};
+		8684975418BF348500E983CB /* YQWebView */ = {
+			isa = PBXGroup;
+			children = (
+				8684975818BF37AD00E983CB /* AMScrollingNavbar */,
+				8684975518BF34A400E983CB /* YQWebViewController.h */,
+				8684975618BF34A400E983CB /* YQWebViewController.m */,
+			);
+			name = YQWebView;
+			sourceTree = "<group>";
+		};
+		8684975818BF37AD00E983CB /* AMScrollingNavbar */ = {
+			isa = PBXGroup;
+			children = (
+				8684975918BF37AD00E983CB /* AMScrollingNavbarViewController.h */,
+				8684975A18BF37AD00E983CB /* AMScrollingNavbarViewController.m */,
+			);
+			path = AMScrollingNavbar;
 			sourceTree = "<group>";
 		};
 		86893DAA187FA79300DC0CB8 /* Views */ = {
@@ -2336,6 +2381,8 @@
 				86D1820518349B0A0005901D /* Support */,
 				86D181DC1834822C0005901D /* XCJAppDelegate.h */,
 				86D181DD1834822C0005901D /* XCJAppDelegate.m */,
+				86F2AF2E18BF309100EF8F17 /* YQDelegate.h */,
+				86F2AF2F18BF309100EF8F17 /* YQDelegate.m */,
 				86CA8EF518A25E3000AFB15D /* XCJApplication.h */,
 				86CA8EF618A25E3000AFB15D /* XCJApplication.m */,
 				86D181DF1834822C0005901D /* Main.storyboard */,
@@ -2763,6 +2810,8 @@
 				8692E3C51864364F00F9E1DD /* XCJAddressBook.m */,
 				8668E44A187517C000D20C9E /* XCJGroupPost_list.h */,
 				8668E44B187517C000D20C9E /* XCJGroupPost_list.m */,
+				86F2AF2B18BF2C4E00EF8F17 /* YQWeChatMoel.h */,
+				86F2AF2C18BF2C4E00EF8F17 /* YQWeChatMoel.m */,
 			);
 			path = DAOModel;
 			sourceTree = "<group>";
@@ -3272,6 +3321,7 @@
 				86C642321887A3D200E0CDDB /* CTAssetsPickerController.m in Sources */,
 				86EB76D9185AA6CC00836947 /* UIAlertView+AFNetworking.m in Sources */,
 				86EB76EC185AA72F00836947 /* MessageCell.m in Sources */,
+				86F2AF3018BF309100EF8F17 /* YQDelegate.m in Sources */,
 				868B5D45189284C6004D1743 /* UIImage+ImageWithColor.m in Sources */,
 				86660DD318780BCF007477C0 /* XCJAddFriendTableController.m in Sources */,
 				86E57CFB18796D1100978AFA /* THBubbleColor.m in Sources */,
@@ -3340,6 +3390,7 @@
 				8668E489187541BB00D20C9E /* Comment.m in Sources */,
 				8681BDCC1836153000521D36 /* YLLabel.m in Sources */,
 				86EB76DD185AA6CC00836947 /* UIWebView+AFNetworking.m in Sources */,
+				8678350818E40D26002ED9FF /* MLNavigationController.m in Sources */,
 				86ADDA291893D761000A0C22 /* XCJWholeNaviController.m in Sources */,
 				86EB76BE185AA6CC00836947 /* MessageList.m in Sources */,
 				86494CC31881511800C22B14 /* FCReplyMessage.m in Sources */,
@@ -3383,12 +3434,14 @@
 				869CE534186BE38D0004C1EC /* MagicalRecord+Setup.m in Sources */,
 				86EB76C7185AA6CC00836947 /* ObjcRuntime.m in Sources */,
 				867AF35C18A623A400121DCF /* XCJSelfPhotoViewController.m in Sources */,
+				8684975B18BF37AD00E983CB /* AMScrollingNavbarViewController.m in Sources */,
 				86FB210118716C80006BDE32 /* XCJRegisterViewController.m in Sources */,
 				86D183061834AFB00005901D /* XCDataDBFactory.m in Sources */,
 				869CE532186BE38D0004C1EC /* MagicalRecord+iCloud.m in Sources */,
 				866C156018ADE75F0054F686 /* DCIntrospect.m in Sources */,
 				869CE527186BE38D0004C1EC /* NSManagedObject+MagicalRecord.m in Sources */,
 				86D182B81834AED30005901D /* MyMD5.m in Sources */,
+				86F2AF2D18BF2C4E00EF8F17 /* YQWeChatMoel.m in Sources */,
 				86D1828C1834AED30005901D /* UIImage+Alpha.m in Sources */,
 				86EB76D8185AA6CC00836947 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				86EB76CC185AA6CC00836947 /* UIView+AutolayoutDebug.m in Sources */,
@@ -3514,6 +3567,7 @@
 				86D182861834AED30005901D /* OpenUDID.m in Sources */,
 				86660DD018780BB6007477C0 /* XCJAddFriendNaviController.m in Sources */,
 				8683FA98187FE38400CEFA45 /* XCJPostTextNaviController.m in Sources */,
+				8684975718BF34A400E983CB /* YQWebViewController.m in Sources */,
 				86E57D0118796EB500978AFA /* XCJCreateChatViewController.m in Sources */,
 				86D9A886186D294600147631 /* LXUser.m in Sources */,
 				86F9B9B61872A3CB00ED768B /* FCMessage.m in Sources */,

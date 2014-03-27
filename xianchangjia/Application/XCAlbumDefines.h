@@ -59,7 +59,8 @@ typedef enum {
 #define FILE_MANAGER                [NSFileManager defaultManager]
 #define LocalServiceIP               @"http://192.168.8.247"
 
-#define SystemKidsColor             0xfcd412
+#define SystemKidsColor             0x0082b6 //008ccd
+
 #define TableName                   @"KidswantProject.db"
 
 #define APP_CACHES_PATH             [NSSearchPathForDirectoriesInDomains (NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0]
@@ -100,6 +101,20 @@ typedef enum {
 #define KeyChain_Laixin_message_GroupBeinvite @"KeyChain_Laixin_message_GroupBeinvite"
 
 #define KeyChain_Laixin_Code_Jihuo @"KeyChain_Laixin_Code_Jihuo"
+
+
+
+/* yunqi */
+/*
+ token	令牌
+ tokenExpire	令牌过期的时间
+ notifyTargetId	用于连接推送平台的 targetId
+ notifyServerUrl	推送通知服务器的URL位置*/
+#define KeyChain_yunqi_account_token @"KeyChain_yunqi_account_token"
+#define KeyChain_yunqi_account_tokenExpire @"KeyChain_yunqi_account_tokenExpire"
+#define KeyChain_yunqi_account_notifyTargetId @"KeyChain_yunqi_account_notifyTargetId"
+#define KeyChain_yunqi_account_notifyServerUrl @"KeyChain_yunqi_account_notifyServerUrl"
+
 
 /*-----------------------------
  1. 类型1----新的好友动态
