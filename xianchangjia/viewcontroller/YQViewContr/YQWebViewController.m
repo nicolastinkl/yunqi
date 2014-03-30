@@ -34,7 +34,7 @@
     webview.backgroundColor = [UIColor clearColor];
 //    [webview setHeight:APP_SCREEN_HEIGHT];
 //    [self followScrollView:webview];
-
+    [self.view showIndicatorViewLargeBlue];
     [webview loadRequest:
      [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://m.xmato.com/"]]];
 }
@@ -50,10 +50,13 @@
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [self.view hideIndicatorViewBlueOrGary];
     [self.navigationController finishSGProgress];
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
+    [self.view hideIndicatorViewBlueOrGary];
+    [self showErrorInfoWithRetry];
     [self.navigationController finishSGProgress];
 }
 

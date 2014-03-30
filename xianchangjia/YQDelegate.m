@@ -90,7 +90,7 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     self.launchingWithAps=[launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey]; 
-    
+    [self initAllControlos];
     //注册推送通知
     [[UIApplication sharedApplication]
      registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
@@ -129,14 +129,14 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
                                                object:nil];
     
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(LoginInReceivingAllMessage)
+                                                 name:@"LoginInReceivingAllMessage"
+                                               object:nil];
     
     
     
-    /*
-     [[NSNotificationCenter defaultCenter] addObserver:self
-     selector:@selector(LoginInReceivingAllMessage)
-     name:@"LoginInReceivingAllMessage"
-     object:nil];*/
+    
     /*
     YQHomeMessageViewController *vc = [[YQHomeMessageViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.tabBarItem = [[UITabBarItem alloc]initWithTabBarSystemItem:UITabBarSystemItemFeatured tag:0];
@@ -168,6 +168,64 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     // Override point for customization after application launch.
     return YES;
 }
+
+- (void) initAllControlos
+{
+    self.tabBarController = (UITabBarController *)((UIWindow*)[UIApplication sharedApplication].windows[0]).rootViewController;
+//    self.tabBarController.delegate = self;
+    {
+        UITabBarItem * item = self.tabBarController.tabBar.items[0];
+        item.selectedImage = [UIImage imageNamed:@"msgitem_Click"];
+    }
+    {
+        UITabBarItem * item = self.tabBarController.tabBar.items[1];
+        item.selectedImage = [UIImage imageNamed:@"orderitem_click"];
+    }
+  
+    {
+        UITabBarItem * item = self.tabBarController.tabBar.items[2];
+        item.selectedImage = [UIImage imageNamed:@"orderitem_clicked"];
+    }
+   
+    {
+        UITabBarItem * item = self.tabBarController.tabBar.items[3];
+        item.selectedImage = [UIImage imageNamed:@"meitem_Click"];
+    }
+}
+
+
+-(void) LoginInReceivingAllMessage
+{
+    /*
+    double delayInSeconds = 0.3;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        if([YQDelegate hasLogin]){
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"webSocketdidreceingWithMsg" object:nil];
+            
+            NSString * sessionid = [USER_DEFAULT stringForKey:KeyChain_Laixin_account_sessionid];
+            NSDictionary * parames = @{@"sessionid":sessionid};
+            [[MLNetworkingManager sharedManager] sendWithAction:@"session.start"  parameters:parames success:^(MLRequest *request, id responseObjectsss) {
+                
+                NSDictionary * userinfo = responseObjectsss[@"result"];
+                LXUser *currentUser = [[LXUser alloc] initWithDict:userinfo];
+                if (currentUser) {
+                    [[LXAPIController sharedLXAPIController] setCurrentUser:currentUser];
+                    [self ReceiveAllMessage];
+                }else{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"webSocketdidFailWithError" object:nil];
+                }
+            } failure:^(MLRequest *request, NSError *error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"webSocketdidFailWithError" object:nil];
+            }];
+        }
+    });*/
+}
+
+
+
 
 
 - (void)laixinCloseNotification:(NSNotification *)notification

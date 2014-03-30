@@ -180,37 +180,34 @@
     
     [self setUpSequencer];
     
-    if (self.gid) {
-        // get user count
-        {
-            [[MLNetworkingManager sharedManager] sendWithAction:@"group.members" parameters:@{@"gid":self.gid} success:^(MLRequest *request, id responseObject) {
-                if (responseObject) {
-                    NSDictionary * dict =  responseObject[@"result"];
-                    NSArray * arr =  dict[@"members"];
-                    if (arr.count > 0) {
-                        userArray = arr;
-                        self.title = [NSString stringWithFormat:@"群聊(%d)",arr.count+1];
-                    }
-                }
-            } failure:^(MLRequest *request, NSError *error) {
-            }];
-        }
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"more"] style:UIBarButtonItemStyleDone  target:self action:@selector(SeeGroupInfoClick:)];
-    }else{
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"threadInfoTimeline"] style:UIBarButtonItemStyleDone target:self action:@selector(SeeUserInfoClick:)];
-        if (!self.userinfo) {
-            // from db or networking
-            [[[LXAPIController sharedLXAPIController] requestLaixinManager] getUserDesPtionCompletion:^(id response, NSError *error) {
-                if (response) {
-                    self.userinfo = response;
-                    self.title = self.userinfo.nick;
-                }
-            } withuid:self.conversation.facebookId];
-        }
-    }
+    self.title = self.conversation.facebookName;
     
     //初始化播放器
     player = [[AVAudioPlayer alloc]init];
+    
+    
+    /*get history message*/
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    [params setValue:self.conversation.facebookId forKey:@"weChatId"];
+    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/Thread" success:^(id obj) {
+        SLog(@"obj %@",obj);
+        NSArray * dataarray = obj[@"data"];
+        [dataarray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            /*<Object>
+             <time>2014-03-27T10:52:20.000Z</time>
+             <message>
+                <msgType>text</msgType>
+                <content>你好吗</content>
+             </message>
+             <to>ocUAet-37VbV_EJGaKwf3TRPGXI8</to>
+             <from>ciznx@qq.com</from>
+             </Object>*/
+            
+            
+        }];
+    } error:^(NSInteger index) {
+        SLog(@" error :%d ",index);
+    }];
     
 } 
 
@@ -1910,24 +1907,9 @@
     UIImageView * imageview_BG = (UIImageView *)[cell.contentView subviewWithTag:6];
     
     if ([message.messageStatus boolValue]) {
-        if (self.gid) {
-            //message.messageId // this is uid
-            if (![message.messageId isNilOrEmpty]) {
-                [[[LXAPIController sharedLXAPIController] requestLaixinManager] getUserDesPtionCompletion:^(id obj, NSError *error) {
-                    if (obj) {
-                        FCUserDescription * localdespObject = obj;
-                        [imageview setImageWithURL:[NSURL URLWithString:[tools getUrlByImageUrl:localdespObject.headpic Size:100]]];
-                        labelName.text = localdespObject.nick;
-                    }
-                    
-                } withuid:message.messageId];
-            }
-        }else{
             //Incoming
-            [imageview setImageWithURL:[NSURL URLWithString:[tools getUrlByImageUrl:self.userinfo.headpic Size:100]]];
-            labelName.text = self.userinfo.nick;
-        }
-//        imageview_BG.image = [UIImage imageNamed:@"bubbleLeftTail"];
+            [imageview setImageWithURL:[NSURL URLWithString:[tools getUrlByYQImageUrl:self.conversation.facebookavatar]]];
+            labelName.text = self.conversation.facebookName;
         labelContent.textColor = [UIColor blackColor];
         cell.backgroundColor = [UIColor clearColor];
        

@@ -40,6 +40,9 @@
 #import "XCJAddFriendNaviController.h"
 #import "XCJScanViewController.h"
 #import "FCFriends.h"
+#import "YQLoginviewViewController.h"
+
+#define audioLengthDefine 1024
 
 @interface XCJMsgListController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,XCJHomeMenuViewDelegate>//,UISearchDisplayDelegate,UISearchBarDelegate
 {
@@ -115,27 +118,13 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(uploadDataWithLogin:) name:@"MainappControllerUpdateData" object:nil];
     
-    
-    NSInteger numberOfRows = 0;
-    // Return the number of rows in the section.
-    if ([[self.fetchedResultsController sections] count] > 0) {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
-        numberOfRows = [sectionInfo numberOfObjects];
-    }
-    
-    if (numberOfRows <= 0) {
-        // show info
-        [self showErrorText:@"暂时还没有消息"];
-    }else{
-        [self hiddeErrorText];
-    }
     // The search bar is hidden when the view becomes visible the first time
-    self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchDisplayController.searchBar.bounds));
+//    self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchDisplayController.searchBar.bounds));
     // title消息 切换
-    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketdidFailWithError:) name:@"webSocketdidFailWithError" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketdidFailWithError:) name:@"webSocketdidFailWithError" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketDidOpen:) name:@"webSocketDidOpen" object:nil];
-        
+//    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketDidOpen:) name:@"webSocketDidOpen" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketdidreceingWithMsg:) name:@"webSocketdidreceingWithMsg" object:nil];
     
     static dispatch_once_t onceToken;
@@ -148,18 +137,18 @@
     });
 }
 
-- (void)scrollTableViewToSearchBarAnimated:(BOOL)animated
-{
-    [self.tableView scrollRectToVisible:self.searchbar.frame animated:animated];
-}
+//- (void)scrollTableViewToSearchBarAnimated:(BOOL)animated
+//{
+//    [self.tableView scrollRectToVisible:self.searchbar.frame animated:animated];
+//}
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if ([self.searchbar isFirstResponder]) {
-        [self.searchbar resignFirstResponder];
-    }
-
-}
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    if ([self.searchbar isFirstResponder]) {
+//        [self.searchbar resignFirstResponder];
+//    }
+//
+//}
 #pragma mark – UISearchDisplayController delegate methods
 //- (void)filterContentForSearchText:(NSString*)searchText {
 ////    NSMutableArray * array = [[NSMutableArray alloc] init];
@@ -262,10 +251,153 @@
     
 }
 
--(void)   initHomeData
+-(void)  initHomeData
 {
     self.managedObjectContext = [NSManagedObjectContext MR_defaultContext];
     [self reloadFetchedResults:nil];
+    
+    if ([Conversation MR_findFirst] == nil) {
+        //check from net
+        [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:nil Action:@"AdminApi/WeChat/SessionList" success:^(id response) {
+            if (response) {
+                NSArray * dataArray = response[@"data"];
+                [dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    if (obj) {
+                        NSString * name = [DataHelper getStringValue:obj[@"name"] defaultValue:@""];
+                        NSString * wechatId = [DataHelper getStringValue:obj[@"wechatId"] defaultValue:@""];
+                        NSString * content = [DataHelper getStringValue:obj[@"lastMessage"] defaultValue:@""];
+                        NSString * lastMessageTime = [DataHelper getStringValue:obj[@"lastMessageTime"] defaultValue:@""];
+                        NSInteger newMessageCount = [DataHelper getIntegerValue:obj[@"newMessageCount"] defaultValue:0];
+                        NSString * avatar = [DataHelper getStringValue:obj[@"avatar"] defaultValue:@""];
+                        NSString * imageurl  = [DataHelper getStringValue:obj[@"imageurl"] defaultValue:@""];
+                        NSDate * date = [tools datebyStr:lastMessageTime];
+
+                        NSString * typeMessage = [tools getStringValue:obj[@"type"] defaultValue:@""];
+                        if([typeMessage isEqualToString:@""])
+                            typeMessage = @"txt";
+                            
+                        // Build the predicate to find the person sought
+                        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId == %@", wechatId];
+                        Conversation *conversation = [Conversation MR_findFirstWithPredicate:predicate inContext:localContext];
+                        if(conversation == nil)
+                        {
+                            conversation =  [Conversation MR_createInContext:localContext];
+                        }
+                        
+                        FCMessage *msg = [FCMessage MR_createInContext:localContext];
+                        if ([content isNilOrEmpty]) {
+                            content = @"";
+                        }
+                        msg.text = content;
+                        //                    SLog(@"receiveTime : %@",date);
+                        msg.sentDate = date;
+                        // message did come, this will be on left
+                        msg.messageStatus = @(YES);
+                        msg.messageId = [tools getStringValue:obj[@"msgid"] defaultValue:@"0"];
+                        
+                        if ([typeMessage isEqualToString:@"txt"]) {
+                            if ([content containString:@"sticker_"]) {
+                                msg.messageType = @(messageType_emj);
+                                //                                        conversation.lastMessage = @"[表情]";
+                            }else{
+                                msg.messageType = @(messageType_text);
+                                //                                        conversation.lastMessage = content;
+                            }
+                        }else if ([typeMessage isEqualToString:@"emj"]) {
+                            if ([content containString:@"sticker_"]) {
+                                msg.messageType = @(messageType_emj);
+                                //                                        conversation.lastMessage = @"[表情]";
+                            }else{
+                                msg.messageType = @(messageType_text);
+                                //                                        conversation.lastMessage = content;
+                            }
+                        }else if ([typeMessage isEqualToString:@"pic"]) {
+                            //image
+                            msg.messageType = @(messageType_image);
+                            //                                    conversation.lastMessage = @"[图片]";
+                            msg.imageUrl = imageurl;
+                        }else if ([typeMessage isEqualToString:@"vic"]) {
+                            //audio
+                            NSString * audiourl = [tools getStringValue:obj[@"voice"] defaultValue:@""];
+                            //                                    conversation.lastMessage = @"[语音]";
+                            msg.audioUrl = audiourl;
+                            msg.messageType = @(messageType_audio);
+                            int length  = [obj[@"length"] intValue];
+                            msg.audioLength = @(length/audioLengthDefine);
+                        }else if ([typeMessage isEqualToString:@"map"]) {
+                            //                                    conversation.lastMessage = @"[位置信息]";
+                            msg.imageUrl = imageurl;
+                            msg.messageType = @(messageType_map);
+                        }else if ([typeMessage isEqualToString:@"video"]) {
+                            //                                    conversation.lastMessage = @"[视频]";
+                            msg.videoUrl = imageurl;
+                            msg.messageType = @(messageType_video);
+                        }
+                        
+                        conversation.facebookName = name;
+                        conversation.messageType = @(XCMessageActivity_UserPrivateMessage);
+                        conversation.lastMessageDate = date;
+                        conversation.messageId = [NSString stringWithFormat:@"%@_%@",XCMessageActivity_User_privateMessage,[tools getStringValue:obj[@"msgid"] defaultValue:@"0"]];
+                        if ([typeMessage isEqualToString:@"txt"]) {
+                            if ([content containString:@"sticker_"]) {
+                                conversation.lastMessage = @"[表情]";
+                            }else{
+                                conversation.lastMessage = content;
+                            }
+                        }else if ([typeMessage isEqualToString:@"emj"]) {
+                            if ([content containString:@"sticker_"]) {
+                                conversation.lastMessage = @"[表情]";
+                            }else{
+                                conversation.lastMessage = content;
+                            }
+                        }else if ([typeMessage isEqualToString:@"pic"]) {
+                            //image
+                            conversation.lastMessage = @"[图片]";
+                        }else if ([typeMessage isEqualToString:@"vic"]) {
+                            conversation.lastMessage = @"[语音]";
+                        }else if ([typeMessage isEqualToString:@"map"]) {
+                            conversation.lastMessage = @"[位置信息]";
+                        }else if ([typeMessage isEqualToString:@"video"]) {
+                            conversation.lastMessage = @"[视频]";
+                        }
+                        
+                        conversation.messageStutes = @(messageStutes_incoming);
+                        conversation.facebookId = wechatId;
+                        conversation.facebookavatar = avatar;
+                        // increase badge number.
+                        int badgeNumber = [conversation.badgeNumber intValue];
+                        badgeNumber += newMessageCount;
+                        conversation.badgeNumber = [NSNumber numberWithInt:badgeNumber];
+                        [conversation addMessagesObject:msg];
+                        [localContext MR_saveToPersistentStoreAndWait];
+                        [self hiddeErrorText];
+   
+                        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+                        
+                    }
+                    
+                }];
+                
+            }
+            
+            
+            
+        } error:^(NSInteger index) {
+            
+        }];
+        
+        if ([Conversation MR_findFirst] == nil) {
+            // show info
+            [self showErrorText:@"暂时还没有消息"];
+        }else{
+            [self hiddeErrorText];
+        }
+        
+    }
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginInReceivingAllMessage" object:nil];
+    
+    return;
     
     NSString * sessionid = [USER_DEFAULT stringForKey:KeyChain_Laixin_account_sessionid];
     NSDictionary * parames = @{@"sessionid":sessionid};
@@ -452,8 +584,11 @@
 
 -(IBAction)OpenLoginview:(id)sender
 {
-    UINavigationController * XCJLoginNaviController =  [self.storyboard instantiateViewControllerWithIdentifier:@"XCJLoginNaviController"];
-    [self presentViewController:XCJLoginNaviController animated:NO completion:nil];
+
+    YQLoginviewViewController * loginview = [self.storyboard instantiateViewControllerWithIdentifier:@"YQLoginviewViewController"];
+    [self.navigationController presentViewController:loginview animated:NO completion:^{
+        
+    }];
 }
 
 -(void) webSocketDidOpen:(NSNotification * ) noty
@@ -834,85 +969,20 @@
     
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UIImageView * imageIcon = (UIImageView *)[cell.contentView viewWithTag:4];  //icon
-    
-    Conversation * conver = (Conversation *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    switch ([conver.messageType intValue]) {
-        case XCMessageActivity_UserPrivateMessage:
-        {
-            //check user info
-            [[[LXAPIController sharedLXAPIController] requestLaixinManager] getUserDesPtionCompletion:^(id response, NSError * error) {
-                if (response) {
-                    FCUserDescription * localdespObject = response;
-                    ((UILabel *)[cell.contentView viewWithTag:1]).text  = localdespObject.nick;  //nick
-                    [imageIcon setImageWithURL:[NSURL URLWithString:[tools getUrlByImageUrl:[NSString stringWithFormat:@"%@",localdespObject.headpic] Size:100]]];
-                }else{
-                    // from network
-                    
-                     [[[LXAPIController sharedLXAPIController] requestLaixinManager] getUserDesByNetCompletion:^(id userinfo , NSError *error) {
-                         FCUserDescription * localdespObject = userinfo;
-                         ((UILabel *)[cell.contentView viewWithTag:1]).text  = localdespObject.nick;  //nick
-                         [imageIcon setImageWithURL:[NSURL URLWithString:[tools getUrlByImageUrl:[NSString stringWithFormat:@"%@",localdespObject.headpic] Size:100]]];
-                     } withuid:conver.facebookId];
-                }
-            } withuid:conver.facebookId];
-        }
-            break;
-        default:
-            // ok
-            
-            break;
-    }
-}
-
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Conversation * conver = (Conversation *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     UIImageView * imageIcon = (UIImageView *)[cell.contentView viewWithTag:4];  //icon
     imageIcon.backgroundColor = [UIColor lightGrayColor];
     UIImageView * imageStuts = (UIImageView *)[cell.contentView viewWithTag:5];  //status
+    ((UILabel *)[cell.contentView viewWithTag:1]).text =conver.facebookName;  // name
     ((UILabel *)[cell.contentView viewWithTag:2]).text  = conver.lastMessage;  // description
-    ((UILabel *)[cell.contentView viewWithTag:3]).text  = [tools FormatStringForDate:conver.lastMessageDate];  //time
-    
+    ((UILabel *)[cell.contentView viewWithTag:3]).text  = [tools FormatStringForDate:conver.lastMessageDate];
+    [imageIcon setImageWithURL:[NSURL URLWithString:[tools getUrlByYQImageUrl:conver.facebookavatar]] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+    imageIcon.layer.cornerRadius = 5;
+    imageIcon.layer.masksToBounds = YES;
 //    UIImageView * imageFrame = (UIImageView *)[cell.contentView viewWithTag:6]; // frame
-    switch ([conver.messageType intValue]) {
-        case XCMessageActivity_UserPrivateMessage:
-        {// 私信
-             switch ([conver.messageStutes intValue]) {
-                case messageStutes_incoming:
-                    [imageStuts setImage:[UIImage imageNamed:@"inboxRepliedIcon"]];
-                    break;
-                case messageStutes_outcoming:
-                    [imageStuts setImage:[UIImage imageNamed:@"inboxSeenIcon"]];
-                    break;
-                case messageStutes_error:
-                    [imageStuts setImage:[UIImage imageNamed:@"inboxErrorIcon"]];
-                    break;
-                default:
-                    break;
-            }
-        }
-            break;
-        case XCMessageActivity_UserGroupMessage:
-        {
-            [imageIcon setImage:[UIImage imageNamed:@"buddy_header_icon_group"]];
-            ((UILabel *)[cell.contentView viewWithTag:1]).text  = conver.facebookName;
-            
-            if ([conver.isMute boolValue]) {
-                [imageStuts setImage:[UIImage imageNamed:@"inboxMutedIcon"]];
-            }else{
-                [imageStuts setImage:nil];
-            }
-        }
-            break;
-        default:
-            // ok
-            
-            break;
-    }
-    
+    [imageStuts setImage:nil];
     UITabBar *tabBar =(UITabBar*) [cell.contentView viewWithTag:12];
     for (UIView *viewTab in tabBar.subviews) {
         for (UIView *subview in viewTab.subviews) {

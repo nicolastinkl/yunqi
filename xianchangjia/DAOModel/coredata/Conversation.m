@@ -17,6 +17,7 @@
 @dynamic facebookId;
 @dynamic facebookName;
 @dynamic lastMessage;
+@dynamic facebookavatar;
 @dynamic lastMessageDate;
 @dynamic messageId;
 @dynamic messageStutes;

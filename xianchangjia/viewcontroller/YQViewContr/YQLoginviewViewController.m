@@ -157,7 +157,7 @@
                [USER_DEFAULT synchronize];
                [[NSNotificationCenter defaultCenter] postNotificationName:LaixinSetupDBMessageNotification object:token];
                [self dismissViewControllerAnimated:YES completion:^{
-                   [[NSNotificationCenter defaultCenter] postNotificationName:@"TKthefristLogin" object:nil];
+                   [[NSNotificationCenter defaultCenter] postNotificationName:@"MainappControllerUpdateData" object:nil];
                }];
            }else{
                //error from server ...

@@ -23,6 +23,7 @@ enum messageStutes_type {
 @property (nonatomic, retain) NSNumber * badgeNumber;
 @property (nonatomic, retain) NSString * facebookId;
 @property (nonatomic, retain) NSString * facebookName;
+@property (nonatomic, retain) NSString * facebookavatar;
 @property (nonatomic, retain) id lastMessage;
 @property (nonatomic, retain) NSDate * lastMessageDate;
 @property (nonatomic, retain) NSString * messageId;
