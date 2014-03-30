@@ -312,6 +312,7 @@
 		86CA79ED18C5C7BA00348185 /* CRFAQTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CA79EB18C5C7BA00348185 /* CRFAQTableViewController.m */; };
 		86CA79EE18C5C7BA00348185 /* CRFAQTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86CA79EC18C5C7BA00348185 /* CRFAQTableViewController.xib */; };
 		86CA8EF718A25E3000AFB15D /* XCJApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CA8EF618A25E3000AFB15D /* XCJApplication.m */; };
+		86CE2E8818E7D227002FDEFB /* YQListOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CE2E8718E7D227002FDEFB /* YQListOrderInfo.m */; };
 		86D181CE1834822C0005901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86D181CD1834822C0005901D /* Foundation.framework */; };
 		86D181D01834822C0005901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86D181CF1834822C0005901D /* CoreGraphics.framework */; };
 		86D181D21834822C0005901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86D181D11834822C0005901D /* UIKit.framework */; };
@@ -1075,6 +1076,8 @@
 		86CA79EC18C5C7BA00348185 /* CRFAQTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CRFAQTableViewController.xib; sourceTree = "<group>"; };
 		86CA8EF518A25E3000AFB15D /* XCJApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCJApplication.h; sourceTree = "<group>"; };
 		86CA8EF618A25E3000AFB15D /* XCJApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCJApplication.m; sourceTree = "<group>"; };
+		86CE2E8618E7D227002FDEFB /* YQListOrderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YQListOrderInfo.h; sourceTree = "<group>"; };
+		86CE2E8718E7D227002FDEFB /* YQListOrderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YQListOrderInfo.m; sourceTree = "<group>"; };
 		86D181CA1834822C0005901D /* yunqi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yunqi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86D181CD1834822C0005901D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		86D181CF1834822C0005901D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -3164,6 +3167,8 @@
 				8692E3C51864364F00F9E1DD /* XCJAddressBook.m */,
 				8668E44A187517C000D20C9E /* XCJGroupPost_list.h */,
 				8668E44B187517C000D20C9E /* XCJGroupPost_list.m */,
+				86CE2E8618E7D227002FDEFB /* YQListOrderInfo.h */,
+				86CE2E8718E7D227002FDEFB /* YQListOrderInfo.m */,
 			);
 			path = DAOModel;
 			sourceTree = "<group>";
@@ -3945,6 +3950,7 @@
 				86268A3718C08DEF000F0A48 /* XCJNearbyInfoViewContr.m in Sources */,
 				869CE544186BE3A00004C1EC /* NSString+DDXML.m in Sources */,
 				8613A6F6187F9ADC002B9013 /* FCBeInviteGroup.m in Sources */,
+				86CE2E8818E7D227002FDEFB /* YQListOrderInfo.m in Sources */,
 				86494CC918838C3C00C22B14 /* FCContactsPhone.m in Sources */,
 				86D182F61834AF540005901D /* FMResultSet.m in Sources */,
 				8690DEDD18C9A1C000A14A51 /* XCJPayInfo.m in Sources */,
