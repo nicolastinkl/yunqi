@@ -10,6 +10,7 @@
 #import "XCAlbumAdditions.h"
 #import "YQListOrderInfo.h"
 #import "UIButton+Bootstrap.h"
+#import "YQOrderMetaViewcontroller.h"
 
 @interface XCJOrderTableViewController ()
 {
@@ -149,14 +150,27 @@
  {
 
      if (currentSelectedSegmentIndex == 0) {
+//         if(onlinePayOrderList.count == 0)
+//            [self showErrorText:@"没有相关订单"];
+//         else
+//            [self showErrorText:@""];
+         
          return onlinePayOrderList.count;
      }
      
      if (currentSelectedSegmentIndex == 1) {
+//         if(offlinePayOrderList.count == 0)
+//             [self showErrorText:@"没有相关订单"];
+//         else
+//             [self showErrorText:@""];
          return offlinePayOrderList.count;
      }
      
      if (currentSelectedSegmentIndex == 2) {
+//         if(AllOrderList.count == 0)
+////             [self showErrorText:@"没有相关订单"];
+//         else
+//             [self showErrorText:@""];
          return AllOrderList.count;
      }
      
@@ -217,8 +231,7 @@
         UILabel * label_price = (UILabel*) [cell.contentView subviewWithTag:4];
         UILabel * label_number = (UILabel*) [cell.contentView subviewWithTag:5];
         YQOrderProducts * product =  orderInfo.orderProducts[indexPath.row];
-        [imageview setImageWithURL:[NSURL URLWithString:[tools getUrlByYQImageUrl:product.productImageUrl]] placeholderImage:[UIImage imageNamed:@"aio_ogactivity_default"]];
-        
+        [imageview setImageWithURL:[NSURL URLWithString:product.productImageUrl] placeholderImage:[UIImage imageNamed:@"aio_ogactivity_default"]];
         label_name.text = product.productName;
         label_des.text = product.productDesc;
         label_price.text = product.price;
@@ -298,7 +311,16 @@
             break;
     }
     YQListOrderInfo *orderInfo = currentArray[indexPath.section];
-    
+    YQOrderMetaViewcontroller * ordrmeta = [self.storyboard instantiateViewControllerWithIdentifier:@"YQOrderMetaViewcontroller"];
+    ordrmeta.orderpro = orderInfo;
+    if (currentSelectedSegmentIndex == 0) {
+        ordrmeta.title = @"在线支付详情";
+    }else     if (currentSelectedSegmentIndex == 1) {
+        ordrmeta.title = @"货到付款详情";
+    }else     if (currentSelectedSegmentIndex == 2) {
+        ordrmeta.title = @"全部订单详情";
+    }
+    [self.navigationController pushViewController:ordrmeta animated:YES];
     // goto next pageview
     
 }

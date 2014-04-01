@@ -56,10 +56,22 @@
     orderinfo.receiptDateUtc = [DataHelper getStringValue:dict[@"receiptDateUtc"] defaultValue:@""];
     orderinfo.transactionId = [DataHelper getStringValue:dict[@"transactionId"] defaultValue:@""];
      
-    orderinfo.orderNo = [DataHelper getIntegerValue:dict[@"orderNo"] defaultValue:0];
+    orderinfo.orderNo = [DataHelper getStringValue:dict[@"orderNo"]  defaultValue:@""];
     orderinfo.orderStatus = [DataHelper getIntegerValue:dict[@"orderStatus"] defaultValue:0];
     orderinfo.paymentMethodType = [DataHelper getIntegerValue:dict[@"paymentMethodType"] defaultValue:0];
     orderinfo.paymentStatus = [DataHelper getIntegerValue:dict[@"paymentStatus"] defaultValue:0];
+    
+    
+    NSDictionary * consingneeDict = [DataHelper getDictionaryValue:dict[@"consignee"] defaultValue:nil];
+    if (consingneeDict) {
+        orderinfo.consingee = [YQConsignee turnObject:consingneeDict];
+    }
+
+    NSDictionary * shipmentDict = [DataHelper getDictionaryValue:dict[@"shipment"] defaultValue:nil];
+    if (shipmentDict) {
+        orderinfo.shipment = [YQShipment turnObject:shipmentDict];
+    }
+    
     return orderinfo;
 }
 @end
@@ -87,6 +99,37 @@
     orderPro.price = [DataHelper getStringValue:dict[@"price"] defaultValue:@""];
     orderPro.productDesc = [DataHelper getStringValue:dict[@"productDesc"] defaultValue:@""];
     return  orderPro;
+}
+
+@end
+
+
+@implementation YQConsignee
+
++ (instancetype)turnObject:(NSDictionary*)dict
+{
+    YQConsignee * consignee = [[self alloc] init];
+    consignee.name = [DataHelper getStringValue:dict[@"name"] defaultValue:@""];
+    consignee.tel = [DataHelper getStringValue:dict[@"tel"] defaultValue:@""];
+    consignee.address = [DataHelper getStringValue:dict[@"address"] defaultValue:@""];
+    
+    return consignee;
+}
+
+@end
+
+
+@implementation YQShipment
+
++ (instancetype)turnObject:(NSDictionary*)dict
+{
+    YQShipment * shipment = [[self alloc] init];
+    
+    shipment.Sid = [DataHelper getStringValue:dict[@"id"] defaultValue:@""];
+    shipment.shipping = [DataHelper getStringValue:dict[@"shipping"] defaultValue:@""];
+    shipment.shippingTrackId = [DataHelper getStringValue:dict[@"shippingTrackId"] defaultValue:@""];
+    
+    return shipment;
 }
 
 @end

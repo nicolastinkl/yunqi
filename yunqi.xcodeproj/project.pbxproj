@@ -15,6 +15,8 @@
 		86045FCD18B2FF9F0002581E /* NSData+crc32.m in Sources */ = {isa = PBXBuildFile; fileRef = 86045FCC18B2FF9F0002581E /* NSData+crc32.m */; };
 		86045FD018B31A910002581E /* XCJSelectLaixinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86045FCF18B31A910002581E /* XCJSelectLaixinViewController.m */; };
 		86045FD318B346290002581E /* XCJSelectAgeModefilViewContr.m in Sources */ = {isa = PBXBuildFile; fileRef = 86045FD218B346290002581E /* XCJSelectAgeModefilViewContr.m */; };
+		8605B9DE18EA911D00D456F6 /* YQOrderMetaViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8605B9DD18EA911D00D456F6 /* YQOrderMetaViewcontroller.m */; };
+		8605B9E218EA9EA500D456F6 /* YQUserOrdersViewConsoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8605B9E118EA9EA500D456F6 /* YQUserOrdersViewConsoller.m */; };
 		8607385418AB4BFC003830DE /* SJAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8607385318AB4BFC003830DE /* SJAvatarBrowser.m */; };
 		8613A6F6187F9ADC002B9013 /* FCBeInviteGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 8613A6F5187F9ADC002B9013 /* FCBeInviteGroup.m */; };
 		861C0F4A18DC2F6C001DA32F /* PPCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 861C0F4418DC2F6C001DA32F /* PPCircleButton.m */; };
@@ -536,6 +538,10 @@
 		86045FCF18B31A910002581E /* XCJSelectLaixinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJSelectLaixinViewController.m; path = viewcontroller/XCJSelectLaixinViewController.m; sourceTree = "<group>"; };
 		86045FD118B346290002581E /* XCJSelectAgeModefilViewContr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJSelectAgeModefilViewContr.h; path = viewcontroller/XCJSelectAgeModefilViewContr.h; sourceTree = "<group>"; };
 		86045FD218B346290002581E /* XCJSelectAgeModefilViewContr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJSelectAgeModefilViewContr.m; path = viewcontroller/XCJSelectAgeModefilViewContr.m; sourceTree = "<group>"; };
+		8605B9DC18EA911D00D456F6 /* YQOrderMetaViewcontroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YQOrderMetaViewcontroller.h; path = viewcontroller/YQViewContr/YQOrderMetaViewcontroller.h; sourceTree = "<group>"; };
+		8605B9DD18EA911D00D456F6 /* YQOrderMetaViewcontroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQOrderMetaViewcontroller.m; path = viewcontroller/YQViewContr/YQOrderMetaViewcontroller.m; sourceTree = "<group>"; };
+		8605B9E018EA9EA500D456F6 /* YQUserOrdersViewConsoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YQUserOrdersViewConsoller.h; path = viewcontroller/YQViewContr/YQUserOrdersViewConsoller.h; sourceTree = "<group>"; };
+		8605B9E118EA9EA500D456F6 /* YQUserOrdersViewConsoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQUserOrdersViewConsoller.m; path = viewcontroller/YQViewContr/YQUserOrdersViewConsoller.m; sourceTree = "<group>"; };
 		8607385218AB4BFC003830DE /* SJAvatarBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAvatarBrowser.h; sourceTree = "<group>"; };
 		8607385318AB4BFC003830DE /* SJAvatarBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAvatarBrowser.m; sourceTree = "<group>"; };
 		8613A6F4187F9ADC002B9013 /* FCBeInviteGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FCBeInviteGroup.h; path = DAOModel/coredata/FCBeInviteGroup.h; sourceTree = "<group>"; };
@@ -2100,6 +2106,10 @@
 				8678356418E43C2D002ED9FF /* YQWebViewController.m */,
 				8678356818E44731002ED9FF /* XCJOrderTableViewController.h */,
 				8678356918E44731002ED9FF /* XCJOrderTableViewController.m */,
+				8605B9DC18EA911D00D456F6 /* YQOrderMetaViewcontroller.h */,
+				8605B9DD18EA911D00D456F6 /* YQOrderMetaViewcontroller.m */,
+				8605B9E018EA9EA500D456F6 /* YQUserOrdersViewConsoller.h */,
+				8605B9E118EA9EA500D456F6 /* YQUserOrdersViewConsoller.m */,
 			);
 			name = YQViewController;
 			sourceTree = "<group>";
@@ -3847,6 +3857,7 @@
 				86D1828C1834AED30005901D /* UIImage+Alpha.m in Sources */,
 				86EB76D8185AA6CC00836947 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				86EB76CC185AA6CC00836947 /* UIView+AutolayoutDebug.m in Sources */,
+				8605B9DE18EA911D00D456F6 /* YQOrderMetaViewcontroller.m in Sources */,
 				86494CBC188139A100C22B14 /* ConverReply.m in Sources */,
 				8622C880187D2BEC00776A38 /* XCJErrorView.m in Sources */,
 				86EB76BD185AA6CC00836947 /* Message.m in Sources */,
@@ -3995,6 +4006,7 @@
 				8666189E18951B07000228FC /* UIView+Animation.m in Sources */,
 				86D182AE1834AED30005901D /* LKDB+Mapping.m in Sources */,
 				869DAE1C18D94C2E0078168B /* ZAActivityBar.m in Sources */,
+				8605B9E218EA9EA500D456F6 /* YQUserOrdersViewConsoller.m in Sources */,
 				8668E480187540DB00D20C9E /* MLJson.m in Sources */,
 				86D9A8A2186D30C800147631 /* FCConversationModel.m in Sources */,
 				86ADDA2F1893DAC7000A0C22 /* MKMapView+ZoomLevel.m in Sources */,

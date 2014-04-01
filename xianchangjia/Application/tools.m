@@ -546,7 +546,7 @@
 + (NSString *) getUrlByYQImageUrl:(NSString * ) url
 {
     NSString * hostname = [USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName];
-    return [NSString stringWithFormat:@"%@%@",hostname,url];
+    return  url;//[NSString stringWithFormat:@"%@%@",hostname,url];
     
 }
 @end

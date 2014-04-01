@@ -964,7 +964,6 @@ static NSString * const kLaixinStoreName = @"Laixins";
     }
 }
 
-
 - (void) initAllControlos
 {
     if (!self.tabBarController) {

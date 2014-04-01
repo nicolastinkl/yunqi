@@ -17,4 +17,7 @@
 
 @property (nonatomic, strong) NSString * gid;
 
+-(IBAction)SeeUserOrdersClick:(id)sender;
+
+
 @end

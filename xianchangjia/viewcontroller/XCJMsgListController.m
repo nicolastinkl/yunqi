@@ -271,7 +271,7 @@
                         NSString * avatar = [DataHelper getStringValue:obj[@"avatar"] defaultValue:@""];
                         NSString * imageurl  = [DataHelper getStringValue:obj[@"imageurl"] defaultValue:@""];
                         NSDate * date = [tools datebyStr:lastMessageTime];
-
+                        NSString * lastMessageId  = [DataHelper getStringValue:obj[@"lastMessageId"] defaultValue:@""];
                         NSString * typeMessage = [tools getStringValue:obj[@"type"] defaultValue:@""];
                         if([typeMessage isEqualToString:@""])
                             typeMessage = @"txt";
@@ -289,6 +289,7 @@
                         if ([content isNilOrEmpty]) {
                             content = @"";
                         }
+                        msg.messageId = lastMessageId;
                         msg.text = content;
                         //                    SLog(@"receiveTime : %@",date);
                         msg.sentDate = date;
@@ -335,6 +336,7 @@
                             msg.messageType = @(messageType_video);
                         }
                         
+                        conversation.messageId = lastMessageId;
                         conversation.facebookName = name;
                         conversation.messageType = @(XCMessageActivity_UserPrivateMessage);
                         conversation.lastMessageDate = date;

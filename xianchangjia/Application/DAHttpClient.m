@@ -23,9 +23,7 @@ SINGLETON_GCD(DAHttpClient);
 - (NSURLSessionDataTask *)getRequestWithParameters:(NSMutableDictionary *) parames Action:(NSString *) action success:(SLObjectBlock)success error:(SLIndexBlock)error
 {
     return [[AFAppAPIClient sharedClient] GET:action parameters:parames success:^(NSURLSessionDataTask * __unused task, id JSON) {
-        
-        NSInteger r = [[JSON valueForKeyPath:@"code"] intValue];
-        if(JSON && r == 200){
+        if(JSON){
             success(JSON);
         }else{
 			error(0);           //0  failure

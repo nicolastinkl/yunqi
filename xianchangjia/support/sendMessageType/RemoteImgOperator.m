@@ -81,6 +81,39 @@
             case messageType_text:
             case messageType_emj:
             {
+                
+                NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+                [params setValue:userID forKey:@"weChatId"];
+                [params setValue:@{@"content":content,@"msgtype":@"text"} forKey:@"message"];
+                [params setValue:@"" forKey:@"messageId"]; //new message
+                
+                [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/SessionList" success:^(id response) {
+                    int errorCode  = [DataHelper getIntegerValue:response[@"errcode"] defaultValue:-1];
+                    if (errorCode == 0) {
+                        dict[@"messageId"] = @"guid";
+                        
+                        if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgSuccess:fromGuid:)])
+                        {
+                            // delegate 通知获取成功
+                            [blockSelf.delegate sendMessage:blockSelf sendMsgSuccess:dict fromGuid:guid];
+                        }
+                    }else{
+                        if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgFailed:fromGuid:)])
+                        {
+                            // delegate 通知获取失败
+                            [blockSelf.delegate sendMessage:blockSelf sendMsgFailed:dict fromGuid:guid];
+                        }
+                    }
+//                    NSString * messageId = [tools getStringValue:dic[@"msgid"] defaultValue:nil];
+                } error:^(NSInteger index) {
+                    //error ..... session not found
+                    if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgFailed:fromGuid:)])
+                    {
+                        // delegate 通知获取失败
+                        [blockSelf.delegate sendMessage:blockSelf sendMsgFailed:dict fromGuid:guid];
+                    }
+                }];
+                /*
                 NSDictionary * parames = @{@"uid":userID,@"content":content};
                 [[MLNetworkingManager sharedManager] sendWithAction:@"message.send" parameters:parames success:^(MLRequest *request, id responseObject) {
                     // {"push": false, "errno": 1, "result": {}, "cdata": "MWUEM", "error": "session not found"}
@@ -114,7 +147,7 @@
                         // delegate 通知获取失败
                         [blockSelf.delegate sendMessage:blockSelf sendMsgFailed:dict fromGuid:guid];
                     }
-                }];
+                }];*/
             }
                 break;
                 

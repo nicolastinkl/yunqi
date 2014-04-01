@@ -45,6 +45,8 @@
 #import "UIImage+Resize.h"
 #import "IDMPhoto.h"
 #import "IDMPhotoBrowser.h"
+#import "YQUserOrdersViewConsoller.h"
+
 
 #warning like iMesage will dismiss the keyboard
 //#import "UIViewController+TAPKeyboardPop.h"
@@ -114,6 +116,7 @@
     
     UIButton * buttonChangeAudio = (UIButton *) [self.inputContainerView subviewWithTag:7];
     [buttonChangeAudio addTarget:self action:@selector(SHowAudioButtonClick:) forControlEvents:UIControlEventTouchUpInside ];
+    
     
     {
         UIButton * buttonAudioss = (UIButton *) [self.inputContainerView subviewWithTag:9];
@@ -209,7 +212,20 @@
         SLog(@" error :%d ",index);
     }];
     
-} 
+}
+
+/**
+ * see user orders
+ *  @param sender <#sender description#>
+ */
+-(IBAction)SeeUserOrdersClick:(id)sender
+{    
+    YQUserOrdersViewConsoller * orders = [self.storyboard instantiateViewControllerWithIdentifier:@"YQUserOrdersViewConsoller"];
+    orders.wechatId = self.conversation.facebookId;
+    orders.title = [NSString stringWithFormat:@"%@的订单",self.conversation.facebookName];
+    [self.navigationController pushViewController:orders animated:YES];
+    
+}
 
 -(IBAction)ShowkeyboardButtonClick:(id)sender
 {
