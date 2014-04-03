@@ -256,10 +256,22 @@
     self.managedObjectContext = [NSManagedObjectContext MR_defaultContext];
     [self reloadFetchedResults:nil];
     
-    if ([Conversation MR_findFirst] == nil) {
+    if (YES) {//[Conversation MR_findFirst] == nil
         //check from net
         [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:nil Action:@"AdminApi/WeChat/SessionList" success:^(id response) {
+            
             if (response) {
+                SLog(@"response : %@",response);
+            //delete all
+                {
+                     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId == %@", @""];
+                    BOOL bol = [Conversation MR_deleteAllMatchingPredicate:predicate inContext:localContext];
+                    if (bol) {
+                        [localContext MR_saveToPersistentStoreAndWait];
+                    }
+                }
+ 
                 NSArray * dataArray = response[@"data"];
                 [dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     if (obj) {
@@ -269,13 +281,10 @@
                         NSString * lastMessageTime = [DataHelper getStringValue:obj[@"lastMessageTime"] defaultValue:@""];
                         NSInteger newMessageCount = [DataHelper getIntegerValue:obj[@"newMessageCount"] defaultValue:0];
                         NSString * avatar = [DataHelper getStringValue:obj[@"avatar"] defaultValue:@""];
-                        NSString * imageurl  = [DataHelper getStringValue:obj[@"imageurl"] defaultValue:@""];
                         NSDate * date = [tools datebyStr:lastMessageTime];
+                        SLog(@"date %@",date);
+                        
                         NSString * lastMessageId  = [DataHelper getStringValue:obj[@"lastMessageId"] defaultValue:@""];
-                        NSString * typeMessage = [tools getStringValue:obj[@"type"] defaultValue:@""];
-                        if([typeMessage isEqualToString:@""])
-                            typeMessage = @"txt";
-                            
                         // Build the predicate to find the person sought
                         NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId == %@", wechatId];
@@ -285,84 +294,16 @@
                             conversation =  [Conversation MR_createInContext:localContext];
                         }
                         
-                        FCMessage *msg = [FCMessage MR_createInContext:localContext];
+//                        FCMessage *msg = [FCMessage MR_createInContext:localContext];
                         if ([content isNilOrEmpty]) {
                             content = @"";
                         }
-                        msg.messageId = lastMessageId;
-                        msg.text = content;
-                        //                    SLog(@"receiveTime : %@",date);
-                        msg.sentDate = date;
-                        // message did come, this will be on left
-                        msg.messageStatus = @(YES);
-                        msg.messageId = [tools getStringValue:obj[@"msgid"] defaultValue:@"0"];
-                        
-                        if ([typeMessage isEqualToString:@"txt"]) {
-                            if ([content containString:@"sticker_"]) {
-                                msg.messageType = @(messageType_emj);
-                                //                                        conversation.lastMessage = @"[表情]";
-                            }else{
-                                msg.messageType = @(messageType_text);
-                                //                                        conversation.lastMessage = content;
-                            }
-                        }else if ([typeMessage isEqualToString:@"emj"]) {
-                            if ([content containString:@"sticker_"]) {
-                                msg.messageType = @(messageType_emj);
-                                //                                        conversation.lastMessage = @"[表情]";
-                            }else{
-                                msg.messageType = @(messageType_text);
-                                //                                        conversation.lastMessage = content;
-                            }
-                        }else if ([typeMessage isEqualToString:@"pic"]) {
-                            //image
-                            msg.messageType = @(messageType_image);
-                            //                                    conversation.lastMessage = @"[图片]";
-                            msg.imageUrl = imageurl;
-                        }else if ([typeMessage isEqualToString:@"vic"]) {
-                            //audio
-                            NSString * audiourl = [tools getStringValue:obj[@"voice"] defaultValue:@""];
-                            //                                    conversation.lastMessage = @"[语音]";
-                            msg.audioUrl = audiourl;
-                            msg.messageType = @(messageType_audio);
-                            int length  = [obj[@"length"] intValue];
-                            msg.audioLength = @(length/audioLengthDefine);
-                        }else if ([typeMessage isEqualToString:@"map"]) {
-                            //                                    conversation.lastMessage = @"[位置信息]";
-                            msg.imageUrl = imageurl;
-                            msg.messageType = @(messageType_map);
-                        }else if ([typeMessage isEqualToString:@"video"]) {
-                            //                                    conversation.lastMessage = @"[视频]";
-                            msg.videoUrl = imageurl;
-                            msg.messageType = @(messageType_video);
-                        }
-                        
                         conversation.messageId = lastMessageId;
                         conversation.facebookName = name;
                         conversation.messageType = @(XCMessageActivity_UserPrivateMessage);
                         conversation.lastMessageDate = date;
-                        conversation.messageId = [NSString stringWithFormat:@"%@_%@",XCMessageActivity_User_privateMessage,[tools getStringValue:obj[@"msgid"] defaultValue:@"0"]];
-                        if ([typeMessage isEqualToString:@"txt"]) {
-                            if ([content containString:@"sticker_"]) {
-                                conversation.lastMessage = @"[表情]";
-                            }else{
-                                conversation.lastMessage = content;
-                            }
-                        }else if ([typeMessage isEqualToString:@"emj"]) {
-                            if ([content containString:@"sticker_"]) {
-                                conversation.lastMessage = @"[表情]";
-                            }else{
-                                conversation.lastMessage = content;
-                            }
-                        }else if ([typeMessage isEqualToString:@"pic"]) {
-                            //image
-                            conversation.lastMessage = @"[图片]";
-                        }else if ([typeMessage isEqualToString:@"vic"]) {
-                            conversation.lastMessage = @"[语音]";
-                        }else if ([typeMessage isEqualToString:@"map"]) {
-                            conversation.lastMessage = @"[位置信息]";
-                        }else if ([typeMessage isEqualToString:@"video"]) {
-                            conversation.lastMessage = @"[视频]";
-                        }
+//                        conversation.messageId = [NSString stringWithFormat:@"%@_%@",XCMessageActivity_User_privateMessage,[tools getStringValue:obj[@"msgid"] defaultValue:@"0"]];
+                        conversation.lastMessage = content ;
                         
                         conversation.messageStutes = @(messageStutes_incoming);
                         conversation.facebookId = wechatId;
@@ -371,10 +312,10 @@
                         int badgeNumber = [conversation.badgeNumber intValue];
                         badgeNumber += newMessageCount;
                         conversation.badgeNumber = [NSNumber numberWithInt:badgeNumber];
-                        [conversation addMessagesObject:msg];
+//                        [conversation addMessagesObject:msg];
                         [localContext MR_saveToPersistentStoreAndWait];
                         [self hiddeErrorText];
-   
+
                         [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
                         
                     }

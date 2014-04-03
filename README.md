@@ -5,7 +5,7 @@
 
 ## MARK
 
-- Package name : **7cm.cloud7.yqqq  **
+- Package name : **7cm.cloud7.yqqq**
 - Version: **1.0.0**
 - Auth:<http://terry.cloud7.com.cn>
 - Seesion:<http://cloud7.com.cn>
@@ -14,8 +14,12 @@
 - weichat token: **53046df156240be48b0c3166???** i dont know
 - SystemTitColor **0x008ccd or 0x0082b6** 
 - System font   **36.0f** and color **ffffff**
-- ....
 
+
+============
+*   orderStatus	订单状态*  10：未付款*  20:未发货*  30:已发货*  40:交易完成*  50:交易关闭/取消
+=============* paymentMethodType	支付方式的类型* 10：货到付款* 20：在线支付
+ 
 
 
 ------------------------------------

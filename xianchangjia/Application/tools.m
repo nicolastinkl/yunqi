@@ -378,6 +378,8 @@
 {
 	NSDate *fromDate;
 	if (strTime) {
+        strTime = [strTime stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+        strTime = [strTime stringByReplacingOccurrencesOfString:@".000Z" withString:@""];
 		NSDateFormatter *format=[[NSDateFormatter alloc] init];
 		[format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 		NSDate *fromdate=[format dateFromString:strTime];
@@ -388,6 +390,15 @@
 	return fromDate;
 }
 
++(NSString *) datebyStrByYQQQ:(NSString *) strTime
+{
+	if (strTime) {
+        strTime = [strTime stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+        strTime = [strTime stringByReplacingOccurrencesOfString:@".000Z" withString:@""];
+        return strTime;
+    }
+    return @"";
+}
 
 + (NSString*)timeLabelTextOfTime:(NSTimeInterval)time
 {

@@ -51,6 +51,7 @@
 + (NSString*)timeLabelTextOfTime:(NSTimeInterval)time;
 + (NSString*)timeLabelTextOfTimeMoth:(NSTimeInterval)time;
 + (NSString*)randomStringWithLength:(NSUInteger)length;
++(NSString *) datebyStrByYQQQ:(NSString *) strTime;
 +(void) SetMaxPostID:(NSString * ) postid;
 + (NSString *)getStringValue:(id)object
                 defaultValue:(NSString *)defaultValue;

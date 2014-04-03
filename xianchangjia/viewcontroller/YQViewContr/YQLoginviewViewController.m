@@ -149,6 +149,8 @@
                    hostname = [NSString stringWithFormat:@"http://%@",hostname];
                NSString * token = [DataHelper getStringValue:dataDict[@"token"] defaultValue:@""];
                NSString * tokenValidDuration = [DataHelper getStringValue:dataDict[@"tokenValidDuration"] defaultValue:@""];
+               
+               [USER_DEFAULT setValue:username forKey:KeyChain_yunqi_account_name];
                [USER_DEFAULT setValue:hostname forKey:KeyChain_yunqi_account_notifyServerhostName];
                [USER_DEFAULT setValue:tokenValidDuration forKey:KeyChain_yunqi_account_tokenExpire];
                [USER_DEFAULT setValue:token forKey:KeyChain_yunqi_account_token];

@@ -117,6 +117,10 @@ typedef enum {
 #define KeyChain_yunqi_account_notifyTargetId           @"KeyChain_yunqi_account_notifyTargetId" NS_AVAILABLE_IPHONE(7.0)
 #define KeyChain_yunqi_account_notifyServerhostName     @"KeyChain_yunqi_account_notifyServerhostName"
 
+#define KeyChain_yunqi_account_name                    @"KeyChain_yunqi_account_name"
+
+
+
 /*-----------------------------
  1. 类型1----新的好友动态
  2. 类型2----新的被人评论

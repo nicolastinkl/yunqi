@@ -80,14 +80,13 @@
         switch (messagetype) {
             case messageType_text:
             case messageType_emj:
-            {
-                
+            {                
                 NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
                 [params setValue:userID forKey:@"weChatId"];
                 [params setValue:@{@"content":content,@"msgtype":@"text"} forKey:@"message"];
-                [params setValue:@"" forKey:@"messageId"]; //new message
+                [params setValue:strGUID forKey:@"messageId"]; //new message
                 
-                [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/SessionList" success:^(id response) {
+                [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/SendMessage" success:^(id response) {
                     int errorCode  = [DataHelper getIntegerValue:response[@"errcode"] defaultValue:-1];
                     if (errorCode == 0) {
                         dict[@"messageId"] = @"guid";
@@ -219,13 +218,18 @@
     //MRAK: that can be upload every files
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *parameters=[[NSMutableDictionary alloc] init];
-    [parameters setValue:parems[@"token"]  forKey:@"token"];
-    [parameters setValue:@(typeindex) forKey:@"x:filetype"];
-    [parameters setValue:parems[@"text"] forKey:@"x:content"];
-    [parameters setValue:parems[@"length"] forKey:@"x:length"];
-    [parameters setValue:parems[@"userid"] forKey:@"x:toid"];
+    [parameters setValue:parems[@"token"]  forKey:@"weChatId"];
+    if (typeindex == 1) {
+        //image
+        [parameters setValue:@{@"msgtype":@"image",@"mediaPath":strSrcURL} forKey:@"message"];
+    }else if(typeindex == 2){
+        [parameters setValue:@{@"msgtype":@"voice",@"mediaPath":strSrcURL} forKey:@"message"];
+    }
+    [parameters setValue:guid  forKey:@"messageId"];
+    
+    
     __block NSData * FileData;
-    AFHTTPRequestOperation * operation =  [manager POST:@"http://up.qiniu.com/" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    AFHTTPRequestOperation * operation =  [manager POST:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         // 1是图片，2是声音，3是视频
         switch (typeindex) {
             case 1:

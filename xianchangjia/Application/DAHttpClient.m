@@ -24,6 +24,7 @@ SINGLETON_GCD(DAHttpClient);
 {
     return [[AFAppAPIClient sharedClient] GET:action parameters:parames success:^(NSURLSessionDataTask * __unused task, id JSON) {
         if(JSON){
+            SLog(@"json : %@",JSON);
             success(JSON);
         }else{
 			error(0);           //0  failure

@@ -225,6 +225,22 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
 }
 
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSString* devtokenstring=[[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+	devtokenstring=[devtokenstring stringByReplacingOccurrencesOfString:@" " withString:@""];
+	devtokenstring=[devtokenstring stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+	devtokenstring=[devtokenstring stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    //devtokenstring:  d8009e6c8e074d1bbcb592f321367feaef5674a82fc4cf3b78b066b7c8ad59bd
+    SLLog(@"devtokenstring : %@",devtokenstring);
+    
+    [USER_DEFAULT setValue:devtokenstring forKey:KeyChain_Laixin_account_devtokenstring];
+    [USER_DEFAULT synchronize];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error NS_AVAILABLE_IOS(3_0)
+{
+    SLLog(@"error : %@",[error.userInfo objectForKey:NSLocalizedDescriptionKey]);
+}
 
 
 

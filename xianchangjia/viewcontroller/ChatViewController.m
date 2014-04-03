@@ -48,8 +48,8 @@
 #import "YQUserOrdersViewConsoller.h"
 
 
-#warning like iMesage will dismiss the keyboard
-//#import "UIViewController+TAPKeyboardPop.h"
+//#warning like iMesage will dismiss the keyboard
+#import "UIViewController+TAPKeyboardPop.h"
 
 #define  keyboardHeight 216
 #define  facialViewWidth 300
@@ -187,31 +187,87 @@
     
     //初始化播放器
     player = [[AVAudioPlayer alloc]init];
-    
-    
+
+    FCMessage *msg =   [self.messageList firstObject];
+    if (msg == nil) {
+        [self.view showIndicatorViewLargeBlue];
+        [self initchatdata:nil];
+    }
+
+}
+
+-(void) initchatdata:(NSString * ) messageId
+{
     /*get history message*/
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setValue:self.conversation.facebookId forKey:@"weChatId"];
-    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/Thread" success:^(id obj) {
+    if (messageId) {
+        [params setValue:messageId forKey:@"messageId"];
+    }
+
+    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/Thead" success:^(id obj) {
+        [self.view hideIndicatorViewBlueOrGary];
         SLog(@"obj %@",obj);
         NSArray * dataarray = obj[@"data"];
         [dataarray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            /*<Object>
-             <time>2014-03-27T10:52:20.000Z</time>
-             <message>
-                <msgType>text</msgType>
-                <content>你好吗</content>
-             </message>
-             <to>ocUAet-37VbV_EJGaKwf3TRPGXI8</to>
-             <from>ciznx@qq.com</from>
-             </Object>*/
-            
-            
+            if(obj)
+            {
+                
+                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                NSString * date = [DataHelper getStringValue:obj[@"time"] defaultValue:@""];
+                NSDictionary * messageDict = obj[@"message"];
+                NSString * typeMessage = [DataHelper getStringValue:messageDict[@"msgType"] defaultValue:@""];
+                NSString * content = [DataHelper getStringValue:messageDict[@"content"] defaultValue:@""];
+                NSString * to = [DataHelper getStringValue:obj[@"to"] defaultValue:@""];
+                NSString * from = [DataHelper getStringValue:obj[@"from"] defaultValue:@""];
+                NSString * messageId = [DataHelper getStringValue:obj[@"messageId"] defaultValue:@""];
+
+                FCMessage *msg = [FCMessage MR_createInContext:localContext];
+                if ([content isNilOrEmpty]) {
+                    content = @"";
+                }
+                msg.text = content;
+                msg.sentDate = [tools datebyStr:date];
+                
+                msg.messageId = messageId;
+                if ([typeMessage isEqualToString:@"text"]) {
+                    msg.messageType = @(messageType_text);
+                }else if ([typeMessage isEqualToString:@"image"]) {
+                    //image
+                    msg.messageType = @(messageType_image);
+                    NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
+                    msg.imageUrl = publicUrl;
+                }else if ([typeMessage isEqualToString:@"voice"]) {
+                    //audio
+                    NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
+                    msg.audioUrl = publicUrl;
+                    msg.messageType = @(messageType_audio);
+                    int length  = 10;//
+                    msg.audioLength = @(length/audioLengthDefine);
+                }else{
+                    msg.messageType = @(messageType_text);
+                    
+                }
+                if ([from isEqualToString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name]] && [to isEqualToString:self.conversation.facebookName]) {
+                    // me
+                    // message did come, this will be on left
+                    msg.messageStatus = @(NO);
+                }else{
+                    //other
+                    // message did come, this will be on left
+                    msg.messageStatus = @(YES);
+                }
+                [self.conversation addMessagesObject:msg];
+                [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
+                
+                [self.messageList insertObject:msg atIndex:0];
+            }
+            [self.tableView reloadData];
         }];
     } error:^(NSInteger index) {
+        [self.view hideIndicatorViewBlueOrGary];
         SLog(@" error :%d ",index);
     }];
-    
 }
 
 /**
@@ -545,8 +601,8 @@
     }
 	// Do any additional setup after loading the view.
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleWillShowKeyboardNotification:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleWillHideKeyboardNotification:) name:UIKeyboardWillHideNotification object:nil];
     
     /* receive websocket message
      */
@@ -567,6 +623,111 @@
     
     [self.tableView reloadData];
 }
+
+
+#pragma mark - Keyboard notifications
+
+- (void)handleWillShowKeyboardNotification:(NSNotification *)notification
+{
+    
+    [self keyboardWillShowHide:notification];
+    [self scrollToBottonWithAnimation:YES];
+}
+
+- (void)handleWillHideKeyboardNotification:(NSNotification *)notification
+{
+    [self keyboardWillShowHide:notification];
+    
+    if(self.inputContainerView)
+    {
+        ( (UIButton*) [self.inputContainerView subviewWithTag:4]).hidden = NO;
+        ( (UIButton*) [self.inputContainerView subviewWithTag:5]).hidden = YES;
+    }
+}
+
+#pragma mark - Keyboard
+- (void)keyboardWillShowHide:(NSNotification *)notification
+{
+    //    self.tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
+    
+    NSDictionary *userInfo = [notification userInfo];
+    NSTimeInterval duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
+    CGRect keyboardFrame = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect keyboardFrameForTextField = [self.inputContainerView.superview convertRect:keyboardFrame fromView:nil];
+    CGRect keyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect newTextFieldFrame = self.inputContainerView.frame;
+    newTextFieldFrame.origin.y = keyboardFrameForTextField.origin.y - newTextFieldFrame.size.height;
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:duration];
+    [UIView setAnimationCurve:curve];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    CGFloat keyboardY = [self.view convertRect:keyboardRect fromView:nil].origin.y;
+    
+    CGRect inputViewFrame = self.inputContainerView.frame;
+    CGFloat inputViewFrameY = keyboardY - inputViewFrame.size.height;
+    // for ipad modal form presentations
+    CGFloat messageViewFrameBottom = self.view.frame.size.height - inputViewFrame.size.height;
+    if (inputViewFrameY > messageViewFrameBottom)
+        inputViewFrameY = messageViewFrameBottom;
+    
+    [self.inputContainerView setTop:inputViewFrameY];
+    
+    [self setTableViewInsetsWithBottomValue:self.view.frame.size.height
+     - self.inputContainerView.frame.origin.y - self.inputContainerView.height];
+    
+    [UIView commitAnimations];
+    
+    {
+        //    [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState | curve animations:^{
+        //        self.tableView.height = self.view.height - keyboardFrame.size.height - self.inputContainerView.height;
+        //        self.inputContainerView.frame = newTextFieldFrame;
+        //    } completion:nil];
+        
+        //tableView滚动到底部
+        //    [self scrollToBottonWithAnimation:YES];
+        
+        
+        //    if (self.keyboardView&&self.keyboardView.frameY<self.keyboardView.window.frameHeight) {
+        //        //到这里说明其不是第一次推出来的，而且中间变化，无需动画直接变
+        ////        self.inputContainerViewBottomConstraint.top = keyboardFrame.size.height;
+        //        self.inputContainerView.top = self.view.height - keyboardFrame.size.height - self.inputContainerView.height;
+        ////        [self.view setNeedsUpdateConstraints];
+        //        return;
+        //    }
+        
+        //    [self animateChangeWithConstant:keyboardFrame.size.height withDuration:[info[UIKeyboardAnimationDurationUserInfoKey] doubleValue] andCurve:[info[UIKeyboardAnimationCurveUserInfoKey] integerValue]];
+        
+        //晚一小会获取。
+        //   [self performSelector:@selector(resetKeyboardView) withObject:nil afterDelay:0.001];
+    }
+    
+}
+
+
+#pragma mark - Dismissive text view delegate
+
+- (void)setTableViewInsetsWithBottomValue:(CGFloat)bottom
+{
+    UIEdgeInsets insets = [self tableViewInsetsWithBottomValue:bottom];
+    self.tableView.contentInset = insets;
+    //    self.tableView.scrollIndicatorInsets = insets;
+}
+
+- (UIEdgeInsets)tableViewInsetsWithBottomValue:(CGFloat)bottom
+{
+    UIEdgeInsets insets = UIEdgeInsetsZero;
+    
+    if ([self respondsToSelector:@selector(topLayoutGuide)]) {
+        insets.top = self.topLayoutGuide.length;
+    }
+    insets.bottom = bottom;
+    
+    return insets;
+}
+
 
  -(void)sensorStateChange:(NSNotificationCenter *)notification
 {
@@ -614,12 +775,16 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollViewDat
 {
     if ([scrollViewDat isKindOfClass:[UITableView class]]) {
         self.tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
+        if ([self.inputTextView isFirstResponder]) {
+            [self.inputTextView resignFirstResponder];
+        }
     }
-
+    
 }
 
 - (void)webSocketDidReceivePushMessage:(NSNotification *)notification
