@@ -18,6 +18,7 @@
     }
     return self;
 }
+
 - (IBAction)takePhotoClick:(id)sender {
     [self.delegate takePhotoClick];
 }

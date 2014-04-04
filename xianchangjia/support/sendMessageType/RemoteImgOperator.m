@@ -83,13 +83,13 @@
             {                
                 NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
                 [params setValue:userID forKey:@"weChatId"];
-                [params setValue:@{@"content":content,@"msgtype":@"text"} forKey:@"message"];
+                [params setValue:@{@"content":content,@"msgType":@"text"} forKey:@"message"];
                 [params setValue:strGUID forKey:@"messageId"]; //new message
                 
-                [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/SendMessage" success:^(id response) {
-                    int errorCode  = [DataHelper getIntegerValue:response[@"errcode"] defaultValue:-1];
-                    if (errorCode == 0) {
-                        dict[@"messageId"] = @"guid";
+                [[DAHttpClient sharedDAHttpClient] postRequestWithParameters:params Action:@"AdminApi/WeChat/SendMessage" success:^(id response) {
+                    int errorCode  = [DataHelper getIntegerValue:response[@"code"] defaultValue:-1];
+                    if (errorCode == 200) {
+                        dict[@"messageId"] = strGUID;
                         
                         if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgSuccess:fromGuid:)])
                         {
@@ -218,18 +218,19 @@
     //MRAK: that can be upload every files
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSMutableDictionary *parameters=[[NSMutableDictionary alloc] init];
-    [parameters setValue:parems[@"token"]  forKey:@"weChatId"];
+    NSString * userID = [DataHelper getStringValue:parems[@"userid"] defaultValue:@""];
+    [parameters setValue:userID  forKey:@"weChatId"];
     if (typeindex == 1) {
         //image
-        [parameters setValue:@{@"msgtype":@"image",@"mediaPath":strSrcURL} forKey:@"message"];
+        [parameters setValue:@{@"msgType":@"image",@"mediaPath":strSrcURL} forKey:@"message"];
     }else if(typeindex == 2){
-        [parameters setValue:@{@"msgtype":@"voice",@"mediaPath":strSrcURL} forKey:@"message"];
+        [parameters setValue:@{@"msgType":@"voice",@"mediaPath":strSrcURL} forKey:@"message"];
     }
     [parameters setValue:guid  forKey:@"messageId"];
     
     
     __block NSData * FileData;
-    AFHTTPRequestOperation * operation =  [manager POST:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    AFHTTPRequestOperation * operation =  [manager POST:[NSString stringWithFormat:@"%@%@",[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName],@"/AdminApi/WeChat/SendMessage"] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         // 1是图片，2是声音，3是视频
         switch (typeindex) {
             case 1:
@@ -252,33 +253,34 @@
                     FileData  = UIImageJPEGRepresentation(image, 0.5);
                 }
 //                NSData *FileData  =  [UIImage imageToWebP:newimage quality:75.0];
-                [formData appendPartWithFileData:FileData name:@"file" fileName:@"file" mimeType:@"image/jpeg"];
+                [formData appendPartWithFileData:FileData name:@"mediaPath" fileName:@"mediaPath" mimeType:@"image/jpeg"];
               
             }
                 break;
             case 2:
             {
                 FileData = [NSData dataWithContentsOfFile:strSrcURL];
-                [formData appendPartWithFileData:FileData name:@"file" fileName:@"file" mimeType:@"audio/amr-wb"]; //录音
+                [formData appendPartWithFileData:FileData name:@"mediaPath" fileName:@"mediaPath" mimeType:@"audio/amr-wb"]; //录音
             }
                 break;
             case 3:
             {
                 FileData = [NSData dataWithContentsOfFile:strSrcURL];
-                [formData appendPartWithFileData:FileData name:@"file" fileName:@"file" mimeType:@"audio/mp4-wb"]; //视频
+                [formData appendPartWithFileData:FileData name:@"mediaPath" fileName:@"mediaPath" mimeType:@"audio/mp4-wb"]; //视频
             }
                 break;
             default:
                 break;
         }
+        
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            SLog(@"responseObject :%@",responseObject);        
-        if ([responseObject[@"errno"] intValue] == 0) {
-            NSDictionary * dic = responseObject[@"result"];
-            NSString * messageId = [tools getStringValue:dic[@"msgid"] defaultValue:@""];
-            NSString *url = [tools getStringValue:dic[@"url"] defaultValue:@""];
-            parems[@"messageId"]  = messageId;
-            parems[@"url"]  = url;
+        SLog(@"responseObject :%@",responseObject);
+        if ([responseObject[@"code"] intValue] == 200) {
+//            NSDictionary * dic = responseObject[@"result"];
+//            NSString * messageId = [tools getStringValue:dic[@"msgid"] defaultValue:@""];
+//            NSString *url = [tools getStringValue:dic[@"url"] defaultValue:@""];
+            parems[@"messageId"]  = guid;
+            parems[@"url"]  = strSrcURL;
             if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgSuccess:fromGuid:)])
             {
                 // delegate 通知获取成功

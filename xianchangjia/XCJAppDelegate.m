@@ -16,7 +16,7 @@
 #import "LXChatDBStoreManager.h"
 #import "UIAlertViewAddition.h"
 #import "XCJLoginNaviController.h"
-#import <AudioToolbox/AudioToolbox.h>
+//#import <AudioToolbox/AudioToolbox.h>
 #import "blocktypedef.h"
 #import "XCAlbumDefines.h"
 #import "Conversation.h"
@@ -496,7 +496,6 @@ static NSString * const kLaixinStoreName = @"Laixins";
                 msg.videoUrl = imageurl;
                 msg.messageType = @(messageType_video);
             }
-
             
             conversation.lastMessageDate = date;
             conversation.messageType = @(XCMessageActivity_UserPrivateMessage);
@@ -597,7 +596,6 @@ static NSString * const kLaixinStoreName = @"Laixins";
                 }else{
                     [self.tabBarController.tabBar.items[2] setBadgeValue:[NSString stringWithFormat:@"%d",[ConverRe.badgeNumber intValue]]];
                 }
-                
             }
 
           

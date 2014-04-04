@@ -4,11 +4,10 @@
 //
 //  Created by apple on 2/27/14.
 //  Copyright (c) 2014 jijia. All rights reserved.
-//
+
 
 #import "YQDelegate.h"
 #import "MobClick.h"
-
 #import "CRGradientNavigationBar.h"
 #import "XCAlbumAdditions.h"
 #import "XCAlbumDefines.h"
@@ -26,6 +25,7 @@
 #import "Conversation.h"
 #import "FCReplyMessage.h"
 #import "LXUser.h"
+#import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 #import "FCBeAddFriend.h"
 #import "XCJGroupPost_list.h"
@@ -102,9 +102,26 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     if ([YQDelegate hasLogin]) {
         [self laixinStepupDB:[USER_DEFAULT valueForKey:KeyChain_yunqi_account_token]];
         
+        //retry
+        [[DAHttpClient sharedDAHttpClient] postRequestWithParameters:nil Action:@"AdminApi/Web7.Cloud7Tenant/RegActiveTarget" success:^(id obj) {
+        } error:^(NSInteger index) {
+        }];
+        
     }else{
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     }
+    
+    
+    //第一次调用这个方法的时候，系统会提示用户让他同意你的app获取麦克风的数据
+    // 其他时候调用方法的时候，则不会提醒用户
+    // 而会传递之前的值来要求用户同意
+    [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+        if (granted) {
+            // 用户同意获取数据
+        } else {
+            // 可以显示一个提示框告诉用户这个app没有得到允许？
+        }
+    }];
     
     //[[UIView appearance] setTintColor:[UIColor colorWithHex:SystemKidsColor]];
     //[[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHex:SystemKidsColor]];
@@ -173,13 +190,24 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
 {
     self.tabBarController = (UITabBarController *)((UIWindow*)[UIApplication sharedApplication].windows[0]).rootViewController;
 //    self.tabBarController.delegate = self;
+    
+    if ([UITabBar instancesRespondToSelector:@selector(setSelectedImageTintColor:)]) {
+        [self.tabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithHex:0xff008ccd]];
+    }
+    
+//        [self.tabBarController.tabBar setBarTintColor:[UIColor colorWithHex:0xff008ccd]];
+    
     {
+        
+        UIImage *musicImage = [UIImage imageNamed:@"msgitem_Click"];
+        musicImage = [musicImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+
         UITabBarItem * item = self.tabBarController.tabBar.items[0];
-        item.selectedImage = [UIImage imageNamed:@"msgitem_Click"];
+        item.selectedImage = musicImage;
     }
     {
         UITabBarItem * item = self.tabBarController.tabBar.items[1];
-        item.selectedImage = [UIImage imageNamed:@"orderitem_click"];
+        item.selectedImage = [UIImage imageNamed:@"orderitem_clickpng"];
     }
   
     {

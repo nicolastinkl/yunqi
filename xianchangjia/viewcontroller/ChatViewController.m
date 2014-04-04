@@ -109,7 +109,10 @@
 //    panRecognizer.delegate = self;
 //    [self.tableView addGestureRecognizer:panRecognizer];
     
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+    NSMutableArray * array = [[NSMutableArray alloc] init];
+    self.messageList =array;
+    
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     
     UIButton * button = (UIButton *) [self.inputContainerView subviewWithTag:1];
     [button defaultStyle];
@@ -181,7 +184,9 @@
 //    [EmjView addSubview:pageControl];
     [self.view addSubview:EmjView];
     
-    [self setUpSequencer];
+    
+#warning mark data message
+//    [self setUpSequencer];
     
     self.title = self.conversation.facebookName;
     
@@ -263,6 +268,7 @@
                 [self.messageList insertObject:msg atIndex:0];
             }
             [self.tableView reloadData];
+            [self scrollToBottonWithAnimation:NO];
         }];
     } error:^(NSInteger index) {
         [self.view hideIndicatorViewBlueOrGary];
@@ -324,7 +330,29 @@
 
 -(void) SendMediaSource:(NSString *) filePath  withType:(NSInteger ) type
 {
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+    FCMessage *msg = [FCMessage MR_createInContext:localContext];
+    msg.text = @"";
+    msg.messageSendStatus = @(4); // ready to send
+    msg.messageguid = [self getMD4HashWithObj];
+    msg.sentDate = [NSDate date];
+    msg.messageType = @(messageType_audio);
+    msg.audioUrl = filePath;
+    int leg = [self getFileSize:filePath];
+    msg.audioLength = @(leg/audioLengthDefine);
+    // message did not come, this will be on rigth
+    msg.messageStatus = @(NO);
+    msg.messageId = [self getMD4HashWithObj];
+    self.conversation.lastMessage = @"[语音]";
+    self.conversation.lastMessageDate = [NSDate date];
+    self.conversation.badgeNumber = @0;
+    self.conversation.messageStutes = @(messageStutes_outcoming);
+    [self.conversation addMessagesObject:msg];
+    [self.messageList addObject:msg];
+    [localContext MR_saveToPersistentStoreAndWait];
+    [self insertTableRow];
     
+    return;
     NSString  *token =  [[EGOCache globalCache] stringForKey:@"uploadtoken"];
     if(token.length > 0){
         NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
@@ -1613,10 +1641,18 @@
     
 }
 
+/**
+ *  send image
+ *
+ *  @param url <#url description#>
+ *  @param key <#key description#>
+ */
 - (void) SendImageURL:(UIImage * ) url  withKey:(NSString *) key
 {
 //    [SVProgressHUD showWithStatus:@"正在发送..."];
-    [self uploadFile:url  key:key];
+//    [self uploadFile:url  key:key];
+    [self uploadImage:url token:key];
+    
 }
 
 - (void)uploadContent:(NSDictionary *)theInfo {
@@ -1762,7 +1798,7 @@
     // message did not come, this will be on rigth
     msg.messageStatus = @(NO);
     msg.messageSendStatus = @(4); // ready to send
-    msg.messageId = @"";
+    msg.messageId = [self getMD4HashWithObj];
     msg.messageguid = [self getMD4HashWithObj];
     self.conversation.lastMessage = @"[图片]";
     self.conversation.lastMessageDate = [NSDate date];
@@ -2107,8 +2143,17 @@
     if ([message.messageType intValue] == messageType_image) {
         //display image  115 108
         labelContent.text  = @"";
-        [imageview_Img setImageWithURL:[NSURL URLWithString:[tools getUrlByImageUrl:message.imageUrl Size:160]] placeholderImage:[UIImage imageNamed:@"aio_image_default"]];
-//        imageview_Img.fullScreenImageURL = [NSURL URLWithString:message.imageUrl];
+        // /private/var/mobile/Applications/8703284D-476D-40A3-AE21-3BD108796AB5/tmp/5b87a4c4e8a4113611b9a1e77a38f1e5.jpg
+        
+        if ([message.imageUrl containString:@"private/var/mobile"]) {
+            UIImage * imageviewLocal =  [UIImage imageWithContentsOfFile:message.imageUrl];
+            UIImage * imageviewLocalNew = [imageviewLocal imageByScalingAndCroppingForSize:CGSizeMake(100, 100)];
+            [imageview_Img setImage:imageviewLocalNew];
+        }else{
+            [imageview_Img setImageWithURL:[NSURL URLWithString:[tools getUrlByImageUrl:message.imageUrl Size:160]] placeholderImage:[UIImage imageNamed:@"aio_image_default"]];
+            //        imageview_Img.fullScreenImageURL = [NSURL URLWithString:message.imageUrl];
+
+        }
         imageview_Img.userInteractionEnabled = YES;
         UITapGestureRecognizer * ges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(SeeBigImageviewClick:)];
         [imageview_Img addGestureRecognizer:ges];

@@ -100,6 +100,8 @@
 		866516A5187BF276001F05F6 /* qrspec.c in Sources */ = {isa = PBXBuildFile; fileRef = 8665169A187BF276001F05F6 /* qrspec.c */; };
 		866516A6187BF276001F05F6 /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = 8665169C187BF276001F05F6 /* rscode.c */; };
 		866516A7187BF276001F05F6 /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 8665169E187BF276001F05F6 /* split.c */; };
+		86656CC618EE8422009B7726 /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86656CC318EE8422009B7726 /* CircleView.m */; };
+		86656CC718EE8422009B7726 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86656CC518EE8422009B7726 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		86660DC11876BB78007477C0 /* XCJHomeMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86660DC01876BB78007477C0 /* XCJHomeMenuView.m */; };
 		86660DC31876BB8B007477C0 /* XCJHomeMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86660DC21876BB8B007477C0 /* XCJHomeMenuView.xib */; };
 		86660DC91876DA0D007477C0 /* XCJCreateNaviController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86660DC81876DA0D007477C0 /* XCJCreateNaviController.m */; };
@@ -174,6 +176,7 @@
 		8678356A18E44731002ED9FF /* XCJOrderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8678356918E44731002ED9FF /* XCJOrderTableViewController.m */; };
 		867AF35C18A623A400121DCF /* XCJSelfPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867AF35B18A623A400121DCF /* XCJSelfPhotoViewController.m */; };
 		867B054018C41D3B00A562FA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867B053D18C41D3B00A562FA /* libWeChatSDK.a */; };
+		867FEE8C18EEB29200F9DAEE /* YQSearchOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867FEE8B18EEB29200F9DAEE /* YQSearchOrderViewController.m */; };
 		8681BDBB1834B2A300521D36 /* DirectionsJson.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */; };
 		8681BDBC1834B2A300521D36 /* DirectionsJson.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */; };
 		8681BDC01834B34D00521D36 /* XCJSceneInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8681BDBF1834B34D00521D36 /* XCJSceneInfo.m */; };
@@ -190,6 +193,8 @@
 		8681BE421839AACD00521D36 /* InviteInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8681BE401839AACD00521D36 /* InviteInfo.m */; };
 		8683FA95187FE26100CEFA45 /* XCJPostTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8683FA94187FE26100CEFA45 /* XCJPostTextViewController.m */; };
 		8683FA98187FE38400CEFA45 /* XCJPostTextNaviController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8683FA97187FE38400CEFA45 /* XCJPostTextNaviController.m */; };
+		8685C03518ED49E000A6A1FD /* YQMakeSendMetaViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8685C03418ED49E000A6A1FD /* YQMakeSendMetaViewcontroller.m */; };
+		8685C03818ED4D6B00A6A1FD /* YQSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8685C03718ED4D6B00A6A1FD /* YQSettingsViewController.m */; };
 		8688CCCC188E513F002CD2C8 /* FacialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8688CCCB188E513F002CD2C8 /* FacialView.m */; };
 		86893DAD187FA7B700DC0CB8 /* XCJGroupMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86893DAC187FA7B700DC0CB8 /* XCJGroupMenuView.m */; };
 		86893DAF187FA7CA00DC0CB8 /* XCJGroupMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86893DAE187FA7CA00DC0CB8 /* XCJGroupMenuView.xib */; };
@@ -198,6 +203,7 @@
 		868A0EF218B3608000C2875F /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 868A0EF118B3608000C2875F /* iCarousel.m */; };
 		868A0EF518B3621E00C2875F /* XCJFindMMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 868A0EF418B3621E00C2875F /* XCJFindMMView.m */; };
 		868A0EF818B3624300C2875F /* XCJFindMMView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 868A0EF718B3624300C2875F /* XCJFindMMView.xib */; };
+		868AC8A418ED60A10068CC77 /* YQURLForwardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868AC8A318ED60A10068CC77 /* YQURLForwardViewController.m */; };
 		868B5D3918922FE4004D1743 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B5D3818922FE4004D1743 /* EGOCache.m */; };
 		868B5D3B18924E53004D1743 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 868B5D3A18924E53004D1743 /* Default-568h@2x.png */; };
 		868B5D44189284C6004D1743 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B5D3E189284C6004D1743 /* UIImage+Blur.m */; };
@@ -302,6 +308,7 @@
 		86ADDA2F1893DAC7000A0C22 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ADDA2E1893DAC7000A0C22 /* MKMapView+ZoomLevel.m */; };
 		86ADDA361894E73F000A0C22 /* UIImage+WebP.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ADDA341894E73E000A0C22 /* UIImage+WebP.m */; };
 		86ADDA371894E73F000A0C22 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ADDA351894E73E000A0C22 /* WebP.framework */; };
+		86AECB4A18ED5C420070934F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AECB4918ED5C420070934F /* StoreKit.framework */; };
 		86AFF8CE18D6F5D7000BBAD4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AFF8CD18D6F5D7000BBAD4 /* CoreTelephony.framework */; };
 		86BDD4FE18BC501C00F621F6 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86BDD4FD18BC501C00F621F6 /* CoreText.framework */; };
 		86BDD51C18BC6F5100F621F6 /* libOHAttributedLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86BDD51B18BC6F4700F621F6 /* libOHAttributedLabel.a */; };
@@ -701,6 +708,10 @@
 		8665169D187BF276001F05F6 /* rscode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rscode.h; sourceTree = "<group>"; };
 		8665169E187BF276001F05F6 /* split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = split.c; sourceTree = "<group>"; };
 		8665169F187BF276001F05F6 /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
+		86656CC218EE8422009B7726 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
+		86656CC318EE8422009B7726 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
+		86656CC418EE8422009B7726 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		86656CC518EE8422009B7726 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		86660DBF1876BB78007477C0 /* XCJHomeMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJHomeMenuView.h; path = viewcontroller/views/XCJHomeMenuView.h; sourceTree = "<group>"; };
 		86660DC01876BB78007477C0 /* XCJHomeMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJHomeMenuView.m; path = viewcontroller/views/XCJHomeMenuView.m; sourceTree = "<group>"; };
 		86660DC21876BB8B007477C0 /* XCJHomeMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XCJHomeMenuView.xib; path = viewcontroller/views/XCJHomeMenuView.xib; sourceTree = "<group>"; };
@@ -834,6 +845,8 @@
 		867B053D18C41D3B00A562FA /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		867B053E18C41D3B00A562FA /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		867B053F18C41D3B00A562FA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		867FEE8A18EEB29200F9DAEE /* YQSearchOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YQSearchOrderViewController.h; path = viewcontroller/YQViewContr/YQSearchOrderViewController.h; sourceTree = "<group>"; };
+		867FEE8B18EEB29200F9DAEE /* YQSearchOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQSearchOrderViewController.m; path = viewcontroller/YQViewContr/YQSearchOrderViewController.m; sourceTree = "<group>"; };
 		8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DirectionsJson.geojson; sourceTree = "<group>"; };
 		8681BDBE1834B34D00521D36 /* XCJSceneInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCJSceneInfo.h; sourceTree = "<group>"; };
 		8681BDBF1834B34D00521D36 /* XCJSceneInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCJSceneInfo.m; sourceTree = "<group>"; };
@@ -854,6 +867,10 @@
 		8683FA94187FE26100CEFA45 /* XCJPostTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJPostTextViewController.m; path = viewcontroller/XCJPostTextViewController.m; sourceTree = "<group>"; };
 		8683FA96187FE38400CEFA45 /* XCJPostTextNaviController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJPostTextNaviController.h; path = viewcontroller/XCJPostTextNaviController.h; sourceTree = "<group>"; };
 		8683FA97187FE38400CEFA45 /* XCJPostTextNaviController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJPostTextNaviController.m; path = viewcontroller/XCJPostTextNaviController.m; sourceTree = "<group>"; };
+		8685C03318ED49E000A6A1FD /* YQMakeSendMetaViewcontroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YQMakeSendMetaViewcontroller.h; path = viewcontroller/YQViewContr/YQMakeSendMetaViewcontroller.h; sourceTree = "<group>"; };
+		8685C03418ED49E000A6A1FD /* YQMakeSendMetaViewcontroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQMakeSendMetaViewcontroller.m; path = viewcontroller/YQViewContr/YQMakeSendMetaViewcontroller.m; sourceTree = "<group>"; };
+		8685C03618ED4D6B00A6A1FD /* YQSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YQSettingsViewController.h; path = viewcontroller/YQViewContr/YQSettingsViewController.h; sourceTree = "<group>"; };
+		8685C03718ED4D6B00A6A1FD /* YQSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQSettingsViewController.m; path = viewcontroller/YQViewContr/YQSettingsViewController.m; sourceTree = "<group>"; };
 		8688CCCA188E513F002CD2C8 /* FacialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacialView.h; sourceTree = "<group>"; };
 		8688CCCB188E513F002CD2C8 /* FacialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacialView.m; sourceTree = "<group>"; };
 		86893DAB187FA7B700DC0CB8 /* XCJGroupMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJGroupMenuView.h; path = viewcontroller/views/XCJGroupMenuView.h; sourceTree = "<group>"; };
@@ -868,6 +885,8 @@
 		868A0EF318B3621E00C2875F /* XCJFindMMView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJFindMMView.h; path = viewcontroller/views/XCJFindMMView.h; sourceTree = "<group>"; };
 		868A0EF418B3621E00C2875F /* XCJFindMMView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJFindMMView.m; path = viewcontroller/views/XCJFindMMView.m; sourceTree = "<group>"; };
 		868A0EF718B3624300C2875F /* XCJFindMMView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XCJFindMMView.xib; path = viewcontroller/views/XCJFindMMView.xib; sourceTree = "<group>"; };
+		868AC8A218ED60A10068CC77 /* YQURLForwardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YQURLForwardViewController.h; path = viewcontroller/YQViewContr/YQURLForwardViewController.h; sourceTree = "<group>"; };
+		868AC8A318ED60A10068CC77 /* YQURLForwardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQURLForwardViewController.m; path = viewcontroller/YQViewContr/YQURLForwardViewController.m; sourceTree = "<group>"; };
 		868B5D3718922FE4004D1743 /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
 		868B5D3818922FE4004D1743 /* EGOCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
 		868B5D3A18924E53004D1743 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -1060,6 +1079,7 @@
 		86ADDA331894E73E000A0C22 /* UIImage+WebP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WebP.h"; sourceTree = "<group>"; };
 		86ADDA341894E73E000A0C22 /* UIImage+WebP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WebP.m"; sourceTree = "<group>"; };
 		86ADDA351894E73E000A0C22 /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebP.framework; sourceTree = "<group>"; };
+		86AECB4918ED5C420070934F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		86AFF8C618D6F559000BBAD4 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		86AFF8C918D6F560000BBAD4 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		86AFF8CB18D6F580000BBAD4 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Instabug.framework; path = xianchangjia/instabug/Instabug.framework; sourceTree = "<group>"; };
@@ -1373,6 +1393,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86AECB4A18ED5C420070934F /* StoreKit.framework in Frameworks */,
 				86AFF8CE18D6F5D7000BBAD4 /* CoreTelephony.framework in Frameworks */,
 				86BDD51C18BC6F5100F621F6 /* libOHAttributedLabel.a in Frameworks */,
 				86BDD4FE18BC501C00F621F6 /* CoreText.framework in Frameworks */,
@@ -1751,6 +1772,17 @@
 			path = libs/libqrencode;
 			sourceTree = "<group>";
 		};
+		86656CC118EE8422009B7726 /* RefreshTableHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				86656CC218EE8422009B7726 /* CircleView.h */,
+				86656CC318EE8422009B7726 /* CircleView.m */,
+				86656CC418EE8422009B7726 /* EGORefreshTableHeaderView.h */,
+				86656CC518EE8422009B7726 /* EGORefreshTableHeaderView.m */,
+			);
+			path = RefreshTableHeaderView;
+			sourceTree = "<group>";
+		};
 		86660DBE1876BB51007477C0 /* MenuView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2110,6 +2142,14 @@
 				8605B9DD18EA911D00D456F6 /* YQOrderMetaViewcontroller.m */,
 				8605B9E018EA9EA500D456F6 /* YQUserOrdersViewConsoller.h */,
 				8605B9E118EA9EA500D456F6 /* YQUserOrdersViewConsoller.m */,
+				8685C03318ED49E000A6A1FD /* YQMakeSendMetaViewcontroller.h */,
+				8685C03418ED49E000A6A1FD /* YQMakeSendMetaViewcontroller.m */,
+				8685C03618ED4D6B00A6A1FD /* YQSettingsViewController.h */,
+				8685C03718ED4D6B00A6A1FD /* YQSettingsViewController.m */,
+				868AC8A218ED60A10068CC77 /* YQURLForwardViewController.h */,
+				868AC8A318ED60A10068CC77 /* YQURLForwardViewController.m */,
+				867FEE8A18EEB29200F9DAEE /* YQSearchOrderViewController.h */,
+				867FEE8B18EEB29200F9DAEE /* YQSearchOrderViewController.m */,
 			);
 			name = YQViewController;
 			sourceTree = "<group>";
@@ -2651,6 +2691,7 @@
 		86D181CC1834822C0005901D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				86AECB4918ED5C420070934F /* StoreKit.framework */,
 				86AFF8CD18D6F5D7000BBAD4 /* CoreTelephony.framework */,
 				86AFF8CB18D6F580000BBAD4 /* Instabug.framework */,
 				86AFF8C918D6F560000BBAD4 /* GLKit.framework */,
@@ -2758,6 +2799,7 @@
 		86D1820518349B0A0005901D /* SupportView */ = {
 			isa = PBXGroup;
 			children = (
+				86656CC118EE8422009B7726 /* RefreshTableHeaderView */,
 				861C0F4218DC2F6C001DA32F /* PinPad */,
 				866287E518CCB28500891B2D /* TKViewMoreCell */,
 				862EC4CE188E2A80006F4D43 /* AnimationLabel */,
@@ -3791,6 +3833,7 @@
 				86E392B618A8B46500FFD8C7 /* XCJFriendGroupViewController.m in Sources */,
 				869CE52E186BE38D0004C1EC /* NSPersistentStore+MagicalRecord.m in Sources */,
 				8690DECF18C8895000A14A51 /* script.js in Sources */,
+				868AC8A418ED60A10068CC77 /* YQURLForwardViewController.m in Sources */,
 				86FB20F6186D8215006BDE32 /* FCFriends.m in Sources */,
 				865632E9185FFDDA00E9903C /* XCJMessageCenterViewController.m in Sources */,
 				865632E8185FFDDA00E9903C /* XCJLoginViewController.m in Sources */,
@@ -3838,6 +3881,7 @@
 				86E57CF018795CC900978AFA /* HZAreaPickerView.m in Sources */,
 				86EB76D5185AA6CC00836947 /* AFURLResponseSerialization.m in Sources */,
 				868B5D46189284C6004D1743 /* UIImage+Screenshot.m in Sources */,
+				86656CC718EE8422009B7726 /* EGORefreshTableHeaderView.m in Sources */,
 				869CE52D186BE38D0004C1EC /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				8692E3C61864364F00F9E1DD /* XCJAddressBook.m in Sources */,
 				86DEA2F918C8382F0003694C /* XCJFindRoomViewControl.m in Sources */,
@@ -3852,6 +3896,7 @@
 				86D183061834AFB00005901D /* XCDataDBFactory.m in Sources */,
 				869CE532186BE38D0004C1EC /* MagicalRecord+iCloud.m in Sources */,
 				866C156018ADE75F0054F686 /* DCIntrospect.m in Sources */,
+				8685C03818ED4D6B00A6A1FD /* YQSettingsViewController.m in Sources */,
 				869CE527186BE38D0004C1EC /* NSManagedObject+MagicalRecord.m in Sources */,
 				86D182B81834AED30005901D /* MyMD5.m in Sources */,
 				86D1828C1834AED30005901D /* UIImage+Alpha.m in Sources */,
@@ -3864,6 +3909,7 @@
 				8607385418AB4BFC003830DE /* SJAvatarBrowser.m in Sources */,
 				869CE525186BE38D0004C1EC /* NSManagedObject+MagicalDataImport.m in Sources */,
 				866C156818ADE75F0054F686 /* IDMZoomingScrollView.m in Sources */,
+				86656CC618EE8422009B7726 /* CircleView.m in Sources */,
 				866287DD18CB3F7F00891B2D /* XCJInviteCommentViewController.m in Sources */,
 				86EB76DF185AA6CC00836947 /* base64.c in Sources */,
 				86D182D71834AF2D0005901D /* DADataEnvironment.m in Sources */,
@@ -3884,6 +3930,7 @@
 				8690DED718C974C500A14A51 /* PayPellog.m in Sources */,
 				86AC094018893AC100C3BE30 /* XCJMessageReplyInfoViewController.m in Sources */,
 				86EB76CF185AA6CC00836947 /* AFHTTPRequestOperationManager.m in Sources */,
+				8685C03518ED49E000A6A1FD /* YQMakeSendMetaViewcontroller.m in Sources */,
 				866F0623185724EE007A57CF /* SinaWeiboRequest.m in Sources */,
 				8681BDC41834B53C00521D36 /* DAImageResizedImageView.m in Sources */,
 				869CE526186BE38D0004C1EC /* NSManagedObject+MagicalFinders.m in Sources */,
@@ -3912,6 +3959,7 @@
 				869CE533186BE38D0004C1EC /* MagicalRecord+Options.m in Sources */,
 				869DAE2318D94D4F0078168B /* SKBounceAnimation.m in Sources */,
 				8690DECA18C8891900A14A51 /* SDCachedURLResponse.m in Sources */,
+				867FEE8C18EEB29200F9DAEE /* YQSearchOrderViewController.m in Sources */,
 				86E57CE318794E2900978AFA /* XCJChangeNickViewController.m in Sources */,
 				866F0622185724EE007A57CF /* SinaWeiboAuthorizeView.m in Sources */,
 				865632E2185FFDDA00E9903C /* ChatListViewController.m in Sources */,

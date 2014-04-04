@@ -11,14 +11,18 @@
 #import "YQListOrderInfo.h"
 #import "UIButton+Bootstrap.h"
 #import "YQOrderMetaViewcontroller.h"
+#import "YQMakeSendMetaViewcontroller.h"
+#import "YQSearchOrderViewController.h"
 
-@interface XCJOrderTableViewController ()
+
+@interface XCJOrderTableViewController ()<UIScrollViewDelegate,UISearchBarDelegate>
 {
     NSMutableArray * onlinePayOrderList;
     NSMutableArray * offlinePayOrderList;
     NSMutableArray * AllOrderList;
     int currentSelectedSegmentIndex;
 }
+@property (weak, nonatomic) IBOutlet UISearchBar *seachbar;
 @end
 
 @implementation XCJOrderTableViewController
@@ -52,6 +56,17 @@
     [self initDatawithNet];
 }
 
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollViewDat
+{
+    if ([scrollViewDat isKindOfClass:[UITableView class]]) {
+//        self.tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
+        if ([self.seachbar isFirstResponder]) {
+            [self.seachbar resignFirstResponder];
+        }
+    }
+}
+
+
 -(void) initDatawithNet{
     [self.view showIndicatorViewLargeBlue];
     [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:nil Action:@"AdminApi/OrderManager/ListOrders" success:^(id obj) {
@@ -64,10 +79,6 @@
         
         [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if (obj) {
-                if(idx < 1)
-                {
-                    SLog(@"obj ^^ %@",obj);
-                }
                 YQListOrderInfo * orderinfo = [YQListOrderInfo turnObject:obj];
                 [AllOrderList addObject:orderinfo];
             }
@@ -137,6 +148,51 @@
     
     [self reloadArrays];    
 }
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    //starting searching
+    if ([searchBar.text isEmpty]) {
+        return;
+    }
+    if ([self.seachbar isFirstResponder]) {
+        [self.seachbar resignFirstResponder];
+    }
+    [SVProgressHUD showWithStatus:@"正在搜索..."];
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    [params setValue:searchBar.text forKey:@"keyword"];
+    
+    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/OrderManager/SearchOrders" success:^(id obj) {
+        
+        NSDictionary * dataDict = obj[@"data"];
+        NSArray * array = dataDict[@"orders"];
+        NSMutableArray * searchList = [[NSMutableArray alloc] init];
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if (obj) {
+                YQListOrderInfo * orderinfo = [YQListOrderInfo turnObject:obj];
+                [searchList addObject:orderinfo];
+            }
+        }];
+        
+        if (searchList.count > 0) {
+            //target view
+            [SVProgressHUD dismiss];
+            YQSearchOrderViewController * searchview = [self.storyboard instantiateViewControllerWithIdentifier:@"YQSearchOrderViewController"];
+            searchview.AllOrderList = [searchList mutableCopy];
+            [self.navigationController pushViewController:searchview animated:YES];
+        }else{
+            [UIAlertView showAlertViewWithMessage:@"没有相关数据"];
+        }
+        
+        
+    } error:^(NSInteger index) {
+        SLog(@"error : %d",index);
+        [UIAlertView showAlertViewWithMessage:@"搜索失败，请检查您的网络设置"];
+    }];
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -246,27 +302,47 @@
         label_price.text = orderInfo.orderTotal;
         label_number.text = [NSString stringWithFormat:@"x%d",orderInfo.orderProducts.count];
         
-        if (orderInfo.orderStatus == 10) {
-            [button setTitle:@"标记已发货" forState:UIControlStateNormal];
+        //(orderInfo.paymentStatus == 30 || orderInfo.paymentMethodType == 10)  &&
+        if (orderInfo.orderStatus == 20 ) {
+            // 支付完成 未发货
+            [button setTitle:@"标记发货" forState:UIControlStateNormal];
             [button infoStyle];
             button.enabled = YES;
-        }else if (orderInfo.orderStatus == 20) {
-            [button setTitle:@"已发货" forState:UIControlStateNormal];
-            [button sendMessageStyle];
-            button.enabled = YES;
-        }else if (orderInfo.orderStatus == 30) {
-            button.enabled = NO;
-            [button labelphotoStyle];
-            [button setTitle:@"交易完成" forState:UIControlStateNormal];
-        }else if (orderInfo.orderStatus == 40) {
-            button.enabled = NO;
-            [button dangerStyle];
-            [button setTitle:@"交易关闭/取消" forState:UIControlStateNormal];
+            button.hidden = NO;
+        }else{
+            button.hidden = YES;
         }
+        [button addTarget:self action:@selector(signSendMetaClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return cell;
 }
+
+-(IBAction)signSendMetaClick:(id)sender
+{
+    UITableViewCell * cell = (UITableViewCell *) ((UIButton *) sender).superview.superview.superview;
+    NSUInteger index = [self.tableView indexPathForCell:cell].section;
+    NSMutableArray * currentArray;
+    switch (currentSelectedSegmentIndex) {
+        case 0:
+            currentArray = onlinePayOrderList;
+            break;
+        case 1:
+            currentArray = offlinePayOrderList;
+            break;
+        case 2:
+            currentArray = AllOrderList;
+            break;
+            
+        default:
+            break;
+    }
+    YQListOrderInfo *orderInfo = currentArray[index];
+    YQMakeSendMetaViewcontroller * viewcon = [self.storyboard instantiateViewControllerWithIdentifier:@"YQMakeSendMetaViewcontroller"];
+    viewcon.orderpro = orderInfo;
+    [self.navigationController pushViewController:viewcon animated:YES];
+}
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

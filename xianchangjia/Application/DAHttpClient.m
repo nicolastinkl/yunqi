@@ -33,6 +33,20 @@ SINGLETON_GCD(DAHttpClient);
         error(1);               //1 error
     }];
 }
+
+- (NSURLSessionDataTask *) postRequestWithParameters:(NSMutableDictionary *) parames Action:(NSString *) action success:(SLObjectBlock)success error:(SLIndexBlock)error
+{
+    return [[AFAppAPIClient sharedClient] POST:action parameters:parames success:^(NSURLSessionDataTask * __unused task, id JSON) {
+        if(JSON){
+            SLog(@"json : %@",JSON);
+            success(JSON);
+        }else{
+			error(0);           //0  failure
+        }
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *err) {
+        error(1);               //1 error
+    }];
+}
 /**
  *  所有网络请求接口
  *

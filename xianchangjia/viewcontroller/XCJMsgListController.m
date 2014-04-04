@@ -42,24 +42,32 @@
 #import "FCFriends.h"
 #import "YQLoginviewViewController.h"
 
+#import "EGORefreshTableHeaderView.h"
 #define audioLengthDefine 1024
 
-@interface XCJMsgListController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,XCJHomeMenuViewDelegate>//,UISearchDisplayDelegate,UISearchBarDelegate
+@interface XCJMsgListController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,XCJHomeMenuViewDelegate,EGORefreshTableHeaderDelegate>//,UISearchDisplayDelegate,UISearchBarDelegate
 {
     int tryCatchCount;
     XCJHomeMenuView * menuView;
     NSArray *allItems;
     
+    EGORefreshTableHeaderView *_refreshHeaderView;
+	
+	//  Reloading var should really be your tableviews datasource
+	//  Putting it here for demo purposes
+	BOOL _reloading;
 }
-
 @property (nonatomic, copy) NSArray *allReslutItems;
-
 @property (weak, nonatomic) IBOutlet UISearchBar *searchbar;
-
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
 - (void)showRecipe:(Conversation *) friend animated:(BOOL)animated;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
+- (void)reloadTableViewDataSource;
+- (void)doneLoadingTableViewData;
+
 @end
 
 @implementation XCJMsgListController
@@ -121,9 +129,9 @@
     // The search bar is hidden when the view becomes visible the first time
 //    self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(self.searchDisplayController.searchBar.bounds));
     // title消息 切换
-//    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketdidFailWithError:) name:@"webSocketdidFailWithError" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketdidFailWithError:) name:@"webSocketdidFailWithError" object:nil];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketDidOpen:) name:@"webSocketDidOpen" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketDidOpen:) name:@"webSocketDidOpen" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketdidreceingWithMsg:) name:@"webSocketdidreceingWithMsg" object:nil];
     
@@ -132,10 +140,89 @@
         if (![XCJAppDelegate hasLogin]) {
             [self OpenLoginview:nil];
         }else{
+            if (_refreshHeaderView == nil) {
+                /* EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:self.tableView.frame];
+                 
+                 view.delegate = self;
+                 [self.view insertSubview:view belowSubview:self.tableView];
+                 _refreshHeaderView = view;*/
+                
+            }
+//            self.tableView.contentInset = UIEdgeInsetsZero;
             [self initHomeData];
+         //   [self reloadTableViewDataSource];
+            //  update the last update date
+//            [_refreshHeaderView refreshLastUpdatedDate];
         }
     });
 }
+
+
+
+#pragma mark -
+#pragma mark Data Source Loading / Reloading Methods
+
+- (void)reloadTableViewDataSource{
+	
+	//  should be calling your tableviews data source model to reload
+	//  put here just for demo
+	_reloading = YES;
+    [self initHomeData];
+}
+
+- (void)doneLoadingTableViewData{
+	
+	//  model should call this when its done loading
+	_reloading = NO;
+	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+	
+}
+
+
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [_refreshHeaderView egoRefreshScrollViewWillBeginScroll:scrollView];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+	
+	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+	
+	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+	
+}
+
+
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+	
+	[self reloadTableViewDataSource];
+	
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+	
+	return _reloading; // should return if data source model is reloading
+	
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+	
+	return [NSDate date]; // should return date data source was last changed
+	
+}
+
+
 
 //- (void)scrollTableViewToSearchBarAnimated:(BOOL)animated
 //{
@@ -258,10 +345,12 @@
     
     if (YES) {//[Conversation MR_findFirst] == nil
         //check from net
+        
+        [self webSocketdidreceingWithMsg:nil];
         [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:nil Action:@"AdminApi/WeChat/SessionList" success:^(id response) {
             
             if (response) {
-                SLog(@"response : %@",response);
+                [self webSocketDidOpen:nil];
             //delete all
                 {
                      NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
@@ -316,18 +405,17 @@
                         [localContext MR_saveToPersistentStoreAndWait];
                         [self hiddeErrorText];
 
-                        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-                        
+                        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];                        
                     }
                     
                 }];
                 
             }
-            
-            
-            
+            [self doneLoadingTableViewData];
         } error:^(NSInteger index) {
-            
+            [self webSocketdidFailWithError:nil];
+            [self.tableView reloadData];
+            [self doneLoadingTableViewData];            
         }];
         
         if ([Conversation MR_findFirst] == nil) {
@@ -524,7 +612,6 @@
     }
 }
 
-
 -(IBAction)OpenLoginview:(id)sender
 {
 
@@ -536,37 +623,37 @@
 
 -(void) webSocketDidOpen:(NSNotification * ) noty
 {
-    self.title = @"来信";
+    self.title = @"微信";
     [self.navigationItem.titleView sizeToFit];
     [self.tableView hideIndicatorViewBlueOrGary];
     
-    XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    UITabBarItem  *item = delegate.tabBarController.tabBar.items[0] ;
-    //    item.title = @"";
-    UIView * view = [item valueForKey:@"view"];
-    [view.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[UIImageView class]]) {
-            [self stopAnimation:obj];
-        }
-    }];
+    /*    XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
+     
+     UITabBarItem  *item = delegate.tabBarController.tabBar.items[0] ;
+     //    item.title = @"";
+     UIView * view = [item valueForKey:@"view"];
+     [view.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+     if ([obj isKindOfClass:[UIImageView class]]) {
+     [self stopAnimation:obj];
+     }
+     }];*/
     
 }
 
 -(void) webSocketdidFailWithError:(NSNotification * ) noty
 {
-    self.title = @"来信(未连接)";
+    self.title = @"微信(未连接)";
     [self.navigationItem.titleView sizeToFit];
-    XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    UITabBarItem  *item = delegate.tabBarController.tabBar.items[0] ;
-    //    item.title = @"";
-    UIView * view = [item valueForKey:@"view"];
-    [view.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[UIImageView class]]) {
-            [self stopAnimation:obj];
-        }
-    }];
+    /*XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
+     
+     UITabBarItem  *item = delegate.tabBarController.tabBar.items[0] ;
+     //    item.title = @"";
+     UIView * view = [item valueForKey:@"view"];
+     [view.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+     if ([obj isKindOfClass:[UIImageView class]]) {
+     [self stopAnimation:obj];
+     }
+     }];*/
 }
 
 - (void)startAnimation:(UIView *)button{
@@ -592,18 +679,18 @@
 
 -(void) webSocketdidreceingWithMsg:(NSNotification * ) noty
 {
-    self.title = @"来信(收取中...)";
+    self.title = @"微信(正在加载...)";
     
-    XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    UITabBarItem  *item = delegate.tabBarController.tabBar.items[0] ;
-    //    item.title = @"";
-    UIView * view = [item valueForKey:@"view"];
-    [view.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[UIImageView class]]) {
-            [self startAnimation:obj];
-        }
-    }];
+    /*XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
+     
+     UITabBarItem  *item = delegate.tabBarController.tabBar.items[0] ;
+     //    item.title = @"";
+     UIView * view = [item valueForKey:@"view"];
+     [view.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+     if ([obj isKindOfClass:[UIImageView class]]) {
+     [self startAnimation:obj];
+     }
+     }];*/
     
     
     [self.navigationItem.titleView sizeToFit];
