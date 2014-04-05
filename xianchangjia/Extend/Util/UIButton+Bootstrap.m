@@ -11,6 +11,7 @@
 #import "tools.h"
 
 @implementation UIButton (Bootstrap)
+
 -(void)sendMessageStyle
 {
     self.layer.borderWidth = 0.5;
@@ -19,6 +20,18 @@
     [self setAdjustsImageWhenHighlighted:NO];
     self.layer.borderColor = [ios7BlueColor CGColor];
     self.backgroundColor = [UIColor clearColor];
+    [self setTitleColor:ios7BlueColor forState:UIControlStateNormal];
+
+}
+
+-(void)sendMessageWhiteStyle
+{
+    self.layer.borderWidth = 0.5;
+    self.layer.cornerRadius = 4.0;
+    self.layer.masksToBounds = YES;
+    [self setAdjustsImageWhenHighlighted:NO];
+    self.layer.borderColor = [ios7BlueColor CGColor];
+    self.backgroundColor = [UIColor whiteColor];
     [self setTitleColor:ios7BlueColor forState:UIControlStateNormal];
 
 }

@@ -13,16 +13,24 @@
 #import "YQOrderMetaViewcontroller.h"
 #import "YQMakeSendMetaViewcontroller.h"
 #import "YQSearchOrderViewController.h"
-
-
-@interface XCJOrderTableViewController ()<UIScrollViewDelegate,UISearchBarDelegate>
+#import "PWLoadMoreTableFooterView.h"
+#import "YQDelegate.h"
+@interface XCJOrderTableViewController ()<UIScrollViewDelegate,UISearchBarDelegate,PWLoadMoreTableFooterDelegate>
 {
     NSMutableArray * onlinePayOrderList;
     NSMutableArray * offlinePayOrderList;
     NSMutableArray * AllOrderList;
     int currentSelectedSegmentIndex;
+    
+    PWLoadMoreTableFooterView *_loadMoreFooterView;
+    BOOL _datasourceIsLoading;
+    bool _allLoaded;
+    
 }
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segementbar;
+
 @property (weak, nonatomic) IBOutlet UISearchBar *seachbar;
+
 @end
 
 @implementation XCJOrderTableViewController
@@ -45,15 +53,29 @@
      */
     [self _init];
     
+    //config the load more view
+    if (_loadMoreFooterView == nil) {
+		
+		PWLoadMoreTableFooterView *view = [[PWLoadMoreTableFooterView alloc] init];
+		view.delegate = self;
+		_loadMoreFooterView = view;
+		
+	}
+    self.tableView.tableFooterView = _loadMoreFooterView;
+    
     /**
      *  MARK: init 0..
      */
     currentSelectedSegmentIndex = 0;
     
+    _allLoaded = NO;
+    _datasourceIsLoading = YES;
+    
     /**
      * MARK: init net data.
      */
-    [self initDatawithNet];
+//    [self.view showIndicatorViewLargeBlue];
+    [self initDatawithNet:0];    
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollViewDat
@@ -66,45 +88,114 @@
     }
 }
 
-
--(void) initDatawithNet{
-    [self.view showIndicatorViewLargeBlue];
-    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:nil Action:@"AdminApi/OrderManager/ListOrders" success:^(id obj) {
-        
-        NSDictionary * dataDict = obj[@"data"];
-        int cashOnDeliveryCount = [DataHelper getIntegerValue:dataDict[@"cashOnDeliveryCount"] defaultValue:0];
-        int onlinePaymentCount = [DataHelper getIntegerValue:dataDict[@"onlinePaymentCount"] defaultValue:0];
-        int allNoProcessCount = [DataHelper getIntegerValue:dataDict[@"allNoProcessCount"] defaultValue:0];
-        NSArray * array = dataDict[@"orders"];
-        
-        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if (obj) {
-                YQListOrderInfo * orderinfo = [YQListOrderInfo turnObject:obj];
-                [AllOrderList addObject:orderinfo];
+-(void) initDatawithNet :(NSInteger) lastOrderid
+{
+    
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    if (lastOrderid > 0) {
+        [params setValue:@(lastOrderid) forKey:@"lastOrderId"];
+    }
+    
+    [params setValue:@"30" forKey:@"max"];
+    
+    __block  int countPays;
+    
+    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/OrderManager/ListOrders" success:^(id obj) {
+        if([DataHelper getIntegerValue:obj[@"code"] defaultValue:-1])
+        {
+            NSDictionary * dataDict = obj[@"data"];
+            int cashOnDeliveryCount = [DataHelper getIntegerValue:dataDict[@"cashOnDeliveryCount"] defaultValue:0];
+            int onlinePaymentCount = [DataHelper getIntegerValue:dataDict[@"onlinePaymentCount"] defaultValue:0];
+            int allNoProcessCount = [DataHelper getIntegerValue:dataDict[@"allNoProcessCount"] defaultValue:0];
+            countPays = allNoProcessCount;
+            [self.segementbar setTitle:[NSString stringWithFormat:@"在线支付(%d)",onlinePaymentCount] forSegmentAtIndex:0];
+            [self.segementbar setTitle:[NSString stringWithFormat:@"货到付款(%d)",cashOnDeliveryCount]  forSegmentAtIndex:1];
+            [self.segementbar setTitle:[NSString stringWithFormat:@"全部订单(%d)",allNoProcessCount]  forSegmentAtIndex:2];
+            
+            NSArray * array = dataDict[@"orders"];
+            
+            [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if (obj) {
+                    YQListOrderInfo * orderinfo = [YQListOrderInfo turnObject:obj];
+                    [AllOrderList addObject:orderinfo];
+                }
+            }];
+            [self.view hideIndicatorViewBlueOrGary];
+            if ([array count] > 0) {
+                [self reloadArrays];
             }
-        }];
-        [self.view hideIndicatorViewBlueOrGary];
-        if ([array count] > 0) {
-            [self reloadArrays];
+            
+            if (array.count >= 30) {
+                _allLoaded = NO;
+            }else{
+                _allLoaded = YES;
+            }
+            _datasourceIsLoading = NO;
+            [self doneLoadingTableViewData];
+            
+        }
+        YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
+        if (countPays > 0) {
+            [delegate.tabBarController.tabBar.items[1] setBadgeValue:[NSString stringWithFormat:@"%d",countPays]];
+        }else{
+            [delegate.tabBarController.tabBar.items[1] setBadgeValue:nil];
         }
         
     } error:^(NSInteger index) {
-        [self.view hideIndicatorViewBlueOrGary];
-        [self showErrorInfoWithRetry];
+        [UIAlertView showAlertViewWithMessage:@"请求失败，请检查您的网络设置" ];
+        
+//        [self.view hideIndicatorViewBlueOrGary];
+//        [self showErrorInfoWithRetry];
+        _datasourceIsLoading = NO;
+        [self doneLoadingTableViewData];
         SLog(@"error : %d",index);
     }];
 }
 
+
+#pragma mark -
+#pragma mark PWLoadMoreTableFooterDelegate Methods
+
+- (void)pwLoadMore {
+    //just make sure when loading more, DO NOT try to refresh your data
+    //Especially when you do your work asynchronously
+    //Unless you are pretty sure what you are doing
+    //When you are refreshing your data, you will not be able to load more if you have pwLoadMoreTableDataSourceIsLoading and config it right
+    //disable the navigationItem is only demo purpose
+    
+    _datasourceIsLoading = YES;
+    YQListOrderInfo *orderInfo = [AllOrderList lastObject];
+    [self initDatawithNet:orderInfo.orderid];
+    
+}
+#pragma mark -
+#pragma mark Data Source Loading / Reloading Methods
+- (void)doneLoadingTableViewData {
+	//  model should call this when its done loading
+	[_loadMoreFooterView pwLoadMoreTableDataSourceDidFinishedLoading];
+    [self.tableView reloadData];
+}
+
+
+- (BOOL)pwLoadMoreTableDataSourceIsLoading {
+    return _datasourceIsLoading;
+}
+- (BOOL)pwLoadMoreTableDataSourceAllLoaded {
+    return _allLoaded;
+}
+
+
 -(void) reloadArrays{
 {
-//        NSPredicate * preonLine = [NSPredicate predicateWithFormat:@" orderStatus = %@ and paymentStatus=%@",@"10",@"10"];
-         NSPredicate * preonLine = [NSPredicate predicateWithFormat:@"orderStatus = 10 AND paymentStatus = 30"];
+    //AND paymentStatus = 30
+         NSPredicate * preonLine = [NSPredicate predicateWithFormat:@"paymentMethodType = 20"];
          onlinePayOrderList = [AllOrderList filteredArrayUsingPredicate:preonLine];
         
     }
     
     {
-        NSPredicate * preonLine = [NSPredicate predicateWithFormat:@"orderStatus = 10 AND paymentStatus < 30"];
+        //AND paymentStatus < 30
+        NSPredicate * preonLine = [NSPredicate predicateWithFormat:@"paymentMethodType = 10"];
         offlinePayOrderList = [AllOrderList filteredArrayUsingPredicate:preonLine];
         
     }

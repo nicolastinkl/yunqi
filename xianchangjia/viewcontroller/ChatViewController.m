@@ -47,6 +47,10 @@
 #import "IDMPhotoBrowser.h"
 #import "YQUserOrdersViewConsoller.h"
 
+#import <OHAttributedLabel/OHAttributedLabel.h>
+#import <OHAttributedLabel/NSAttributedString+Attributes.h>
+#import <OHAttributedLabel/OHASBasicMarkupParser.h>
+
 
 //#warning like iMesage will dismiss the keyboard
 #import "UIViewController+TAPKeyboardPop.h"
@@ -55,8 +59,9 @@
 #define  facialViewWidth 300
 #define facialViewHeight 180
 #define  audioLengthDefine  1050
+static NSInteger const kAttributedLabelTag = 100;
 
-@interface ChatViewController () <UITableViewDataSource,UITableViewDelegate, UIGestureRecognizerDelegate,UITextViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIAlertViewDelegate,XCJChatSendImgViewControllerdelegate,UIScrollViewDelegate,facialViewDelegate,XCJChatSendInfoViewDelegate,VoiceRecorderBaseVCDelegate>
+@interface ChatViewController () <UITableViewDataSource,UITableViewDelegate, UIGestureRecognizerDelegate,UITextViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIAlertViewDelegate,XCJChatSendImgViewControllerdelegate,UIScrollViewDelegate,facialViewDelegate,XCJChatSendInfoViewDelegate,VoiceRecorderBaseVCDelegate,OHAttributedLabelDelegate>
 {
     AFHTTPRequestOperation *  operation;
     NSString * TokenAPP;
@@ -69,6 +74,9 @@
     XCJChatSendInfoView *SendInfoView;
     NSURL * playingURL;
     XCJChatMessageCell * playingCell;
+    
+    BOOL _loading;
+    BOOL AllLoad;
 }
 @property (weak, nonatomic) IBOutlet UIView *inputContainerView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -76,6 +84,8 @@
 @property (weak, nonatomic) UIView *keyboardView;
 @property (strong,nonatomic) NSMutableArray *messageList;
 @property (nonatomic, readonly) RemoteImgListOperator *m_objImgListOper;
+@property (weak, nonatomic) IBOutlet UILabel *label_titleToast;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityindret;
 
 
 @property (retain, nonatomic)  ChatVoiceRecorderVC      *recorderVC;
@@ -104,6 +114,11 @@
 {
     [super viewDidLoad];
     
+    [[OHAttributedLabel appearance] setLinkColor:ios7BlueColor];
+    [[OHAttributedLabel appearance] setHighlightedLinkColor:[UIColor colorWithWhite:0.4 alpha:0.3]];
+    [[OHAttributedLabel appearance] setLinkUnderlineStyle:kCTUnderlineStyleNone];
+    
+    self.tableView.backgroundColor = [UIColor colorWithHex:0xffefefef];
     //加个拖动手势
 //    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
 //    panRecognizer.delegate = self;
@@ -111,8 +126,6 @@
     
     NSMutableArray * array = [[NSMutableArray alloc] init];
     self.messageList =array;
-    
-//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     
     UIButton * button = (UIButton *) [self.inputContainerView subviewWithTag:1];
     [button defaultStyle];
@@ -123,7 +136,7 @@
     
     {
         UIButton * buttonAudioss = (UIButton *) [self.inputContainerView subviewWithTag:9];
-        [buttonAudioss sendMessageStyle];
+        [buttonAudioss sendMessageWhiteStyle];
         [buttonAudioss setTitle:@"按住说话" forState:UIControlStateNormal];
 //        [buttonAudioss addTarget:self action:@selector(speakClick:) forControlEvents:UIControlStateNormal];
         //添加长按手势
@@ -181,43 +194,47 @@
     
     EmjView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, keyboardHeight)];
     [EmjView addSubview:scrollView];
-//    [EmjView addSubview:pageControl];
+    [EmjView addSubview:pageControl];
     [self.view addSubview:EmjView];
-    
-    
-#warning mark data message
-//    [self setUpSequencer];
-    
+
     self.title = self.conversation.facebookName;
     
     //初始化播放器
     player = [[AVAudioPlayer alloc]init];
 
+    /**
+     *  init _data
+     */
+    [self setUpSequencer:0];
+    
     FCMessage *msg =   [self.messageList firstObject];
     if (msg == nil) {
-        [self.view showIndicatorViewLargeBlue];
+//        [self.view showIndicatorViewLargeBlue];
         [self initchatdata:nil];
     }
-
 }
+
 
 -(void) initchatdata:(NSString * ) messageId
 {
+    [self viewdidloading];
+    _loading = YES;
     /*get history message*/
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setValue:self.conversation.facebookId forKey:@"weChatId"];
+    [params setValue:@(20) forKey:@"max"];
     if (messageId) {
         [params setValue:messageId forKey:@"messageId"];
     }
 
     [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/Thead" success:^(id obj) {
+
         [self.view hideIndicatorViewBlueOrGary];
         SLog(@"obj %@",obj);
         NSArray * dataarray = obj[@"data"];
         [dataarray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             if(obj)
             {
-                
                 NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                 NSString * date = [DataHelper getStringValue:obj[@"time"] defaultValue:@""];
                 NSDictionary * messageDict = obj[@"message"];
@@ -227,51 +244,69 @@
                 NSString * from = [DataHelper getStringValue:obj[@"from"] defaultValue:@""];
                 NSString * messageId = [DataHelper getStringValue:obj[@"messageId"] defaultValue:@""];
 
-                FCMessage *msg = [FCMessage MR_createInContext:localContext];
-                if ([content isNilOrEmpty]) {
-                    content = @"";
-                }
-                msg.text = content;
-                msg.sentDate = [tools datebyStr:date];
+                /*
+                 check message id can insert???
+                */
                 
-                msg.messageId = messageId;
-                if ([typeMessage isEqualToString:@"text"]) {
-                    msg.messageType = @(messageType_text);
-                }else if ([typeMessage isEqualToString:@"image"]) {
-                    //image
-                    msg.messageType = @(messageType_image);
-                    NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
-                    msg.imageUrl = publicUrl;
-                }else if ([typeMessage isEqualToString:@"voice"]) {
-                    //audio
-                    NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
-                    msg.audioUrl = publicUrl;
-                    msg.messageType = @(messageType_audio);
-                    int length  = 10;//
-                    msg.audioLength = @(length/audioLengthDefine);
-                }else{
-                    msg.messageType = @(messageType_text);
+                FCMessage * message =  [FCMessage MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageId]];
+                if (!message ) {
                     
+                    FCMessage *msg = [FCMessage MR_createInContext:localContext];
+                    if ([content isNilOrEmpty]) {
+                        content = @"";
+                    }
+                    msg.text = content;
+                    msg.sentDate = [tools datebyStr:date];
+                    msg.wechatid = self.conversation.facebookId; // proment
+                    msg.messageId = messageId;
+                    if ([typeMessage isEqualToString:@"text"]) {
+                        msg.messageType = @(messageType_text);
+                    }else if ([typeMessage isEqualToString:@"image"]) {
+                        //image
+                        msg.messageType = @(messageType_image);
+                        NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
+                        msg.imageUrl = publicUrl;
+                    }else if ([typeMessage isEqualToString:@"voice"]) {
+                        //audio
+                        NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
+                        msg.audioUrl = publicUrl;
+                        msg.messageType = @(messageType_audio);
+                        int length  = 10;//
+                        msg.audioLength = @(length/audioLengthDefine);
+                    }else{
+                        msg.messageType = @(messageType_text);
+                        
+                    }
+                    if ([from isEqualToString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name]] && [to isEqualToString:self.conversation.facebookName]) {
+                        // me
+                        // message did come, this will be on left
+                        msg.messageStatus = @(NO);
+                    }else{
+                        //other
+                        // message did come, this will be on left
+                        msg.messageStatus = @(YES);
+                    }
+                    [self.conversation addMessagesObject:msg];
+                    [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
+                    
+                    [self.messageList addObject:msg];
                 }
-                if ([from isEqualToString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name]] && [to isEqualToString:self.conversation.facebookName]) {
-                    // me
-                    // message did come, this will be on left
-                    msg.messageStatus = @(NO);
-                }else{
-                    //other
-                    // message did come, this will be on left
-                    msg.messageStatus = @(YES);
-                }
-                [self.conversation addMessagesObject:msg];
-                [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
                 
-                [self.messageList insertObject:msg atIndex:0];
             }
+            
+            if (dataarray.count == 20) {
+                AllLoad = NO;
+            }else{
+                AllLoad = YES;
+                [self viewdidloadedComplete];
+            }
+            _loading = NO;
             [self.tableView reloadData];
             [self scrollToBottonWithAnimation:NO];
         }];
     } error:^(NSInteger index) {
         [self.view hideIndicatorViewBlueOrGary];
+        _loading = NO;
         SLog(@" error :%d ",index);
     }];
 }
@@ -321,7 +356,7 @@
             SLog(@"amr : %@",strAMRName);
             UIButton * buttonAudio = (UIButton *) [self.inputContainerView subviewWithTag:9];
             [buttonAudio setTitle:@"按住开始" forState:UIControlStateNormal];
-            [buttonAudio sendMessageStyle];
+            [buttonAudio sendMessageWhiteStyle];
             //2.audio   3.video
             [self SendMediaSource:strAMRName withType:2];
         }
@@ -333,6 +368,7 @@
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     FCMessage *msg = [FCMessage MR_createInContext:localContext];
     msg.text = @"";
+    msg.wechatid = self.conversation.facebookId;
     msg.messageSendStatus = @(4); // ready to send
     msg.messageguid = [self getMD4HashWithObj];
     msg.sentDate = [NSDate date];
@@ -542,19 +578,12 @@
         [self speakClick:nil];
     }//长按结束
     else if(longPressedRecognizer.state == UIGestureRecognizerStateEnded || longPressedRecognizer.state == UIGestureRecognizerStateCancelled){
-        [buttonAudio sendMessageStyle];
+        [buttonAudio sendMessageWhiteStyle];
+        buttonAudio.backgroundColor = [UIColor whiteColor];
         [buttonAudio setTitle:@"按住说话" forState:UIControlStateNormal];
 //        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"nScreenTouch" object:nil userInfo:[NSDictionary dictionaryWithObject:nil forKey:@"data"]]];
     }
 }
-
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollViewss
-//{
-//    if (scrollViewss && scrollViewss == scrollView) {
-//        int page = scrollView.contentOffset.x / 320;//通过滚动的偏移量来判断目前页面所对应的小白点
-//        pageControl.currentPage = page;//pagecontroll响应值的变化
-//    }
-//}
 
 - (IBAction)changePage:(id)sender {
     int page = pageControl.currentPage;//获取当前pagecontroll的值
@@ -593,21 +622,68 @@
     [self.navigationController pushViewController:groupsettingview animated:YES];
 }
 
-- (void) setUpSequencer
+- (void) setUpSequencer:(NSInteger )_currentPage
 {
+     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
-    __weak ChatViewController *self_ = self;
+    NSEntityDescription *entity = [NSEntityDescription  entityForName:@"FCMessage" inManagedObjectContext:localContext];
+    
+    [request setEntity:entity];
+    
+    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"wechatid == %@",self.conversation.facebookId];
+    [request setPredicate:predicate];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor  alloc] initWithKey:@"sentDate"  ascending:YES];
+    
+    NSArray *sortDescriptors = [[NSArray  alloc] initWithObjects:sortDescriptor, nil];
+    
+    [request setSortDescriptors:sortDescriptors];
+    
+    [request   setFetchLimit:20];
+    
+    [request  setFetchOffset:_currentPage * 20];
+    
+    NSArray  *rssTemp  =[FCMessage MR_executeFetchRequest:request];
+    
+    if (rssTemp.count == 20) {
+        AllLoad = NO;
+    }else{
+        AllLoad = YES;
+        [self viewdidloadedComplete];
+    }
+    if (rssTemp.count > 0) {
+        if (_currentPage == 0) {
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+            [self.messageList addObjectsFromArray:rssTemp];
+            
+            [self.tableView reloadData];
+            //tableView底部
+            [self scrollToBottonWithAnimation:NO];
+            
+        }else{
+            [rssTemp enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [self.messageList insertObject:obj atIndex:0];
+            }];              
+            [self.tableView reloadData];
+        }
+    }
+    
+    
+    
+    
+    /*__weak ChatViewController *self_ = self;
      Sequencer *sequencer = [[Sequencer alloc] init];
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        self_.messageList = [NSMutableArray arrayWithArray:[[[LXAPIController sharedLXAPIController] chatDataStoreManager] fetchAllMessagesInConversation:self_.conversation]];
-//        [self_.messageList turnObjectCore:[NSMutableArray arrayWithArray:[[[LXAPIController sharedLXAPIController] chatDataStoreManager] fetchAllMessagesInConversation:self_.conversation]]];
-        [self_.tableView reloadData];
-        //tableView底部
-        [self scrollToBottonWithAnimation:NO];
-        
-        completion(nil);
-    }];
-    [sequencer run];
+     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+     self_.messageList = [NSMutableArray arrayWithArray:[[[LXAPIController sharedLXAPIController] chatDataStoreManager] fetchAllMessagesInConversation:self_.conversation]];
+     //        [self_.messageList turnObjectCore:[NSMutableArray arrayWithArray:[[[LXAPIController sharedLXAPIController] chatDataStoreManager] fetchAllMessagesInConversation:self_.conversation]]];
+     [self_.tableView reloadData];
+     //tableView底部
+     [self scrollToBottonWithAnimation:NO];
+     
+     completion(nil);
+     }];
+     [sequencer run];*/
     
 }
 
@@ -619,7 +695,6 @@
 //    return _messageList;
 //}
 
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if ([self.conversation.badgeNumber intValue] > 0) {
@@ -627,6 +702,8 @@
         [[[LXAPIController sharedLXAPIController] chatDataStoreManager] saveContext];
       //  [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMessageTabBarItemBadge" object:nil];
     }
+
+   
 	// Do any additional setup after loading the view.
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleWillShowKeyboardNotification:) name:UIKeyboardWillShowNotification object:nil];
@@ -657,15 +734,16 @@
 
 - (void)handleWillShowKeyboardNotification:(NSNotification *)notification
 {
-    
+
     [self keyboardWillShowHide:notification];
+         scrollView.delegate = self;
     [self scrollToBottonWithAnimation:YES];
 }
 
 - (void)handleWillHideKeyboardNotification:(NSNotification *)notification
 {
     [self keyboardWillShowHide:notification];
-    
+    scrollView.delegate = nil;
     if(self.inputContainerView)
     {
         ( (UIButton*) [self.inputContainerView subviewWithTag:4]).hidden = NO;
@@ -803,6 +881,48 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollViewDat
+{
+    
+    if (scrollViewDat && scrollViewDat == scrollView) {
+        int page = scrollView.contentOffset.x / 320;//通过滚动的偏移量来判断目前页面所对应的小白点
+        pageControl.currentPage = page;//pagecontroll响应值的变化
+    }
+    
+    if ([scrollViewDat isKindOfClass:[UITableView class]]) {
+        
+        if (AllLoad) {
+            return;
+        }
+        if ( scrollViewDat.contentOffset.y < -30.0f && !_loading) {
+            
+            SLog(@"scrollView.contentOffset.y %f",scrollViewDat.contentOffset.y);
+            FCMessage * message =  [self.messageList firstObject];
+            if (message.messageId && [message.messageId length] > 0) {
+                [self initchatdata:message.messageId];
+            }else{
+                [self viewdidloadedComplete];
+            }
+        }
+        
+    }
+}
+
+- (void) viewdidloadedComplete
+{
+    AllLoad = YES;
+    self.activityindret.hidden = YES;
+    self.label_titleToast.text = @"加载完成";
+}
+
+- (void) viewdidloading
+{
+    self.activityindret.hidden = NO;
+    self.label_titleToast.text = @"加载中...";
+}
+
+
+
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollViewDat
 {
@@ -878,7 +998,7 @@
             }else{
                 FCMessage *msg = [FCMessage MR_createInContext:localContext];
                 msg.text = content;
-                
+                msg.wechatid = self.conversation.facebookId;
                 msg.sentDate = date;
                 // message did come, this will be on left
                 msg.messageStatus = @(YES);
@@ -956,6 +1076,7 @@
                 NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                 FCMessage *msg = [FCMessage MR_createInContext:localContext];
                 msg.text = content;
+                msg.wechatid = self.conversation.facebookId;
                 NSTimeInterval receiveTime  = [dicMessage[@"time"] doubleValue];
                 NSDate *date = [NSDate dateWithTimeIntervalSince1970:receiveTime];
                 msg.sentDate = date;
@@ -1047,6 +1168,7 @@
                 NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                 FCMessage *msg = [FCMessage MR_createInContext:localContext];
                 msg.text = content;
+                msg.wechatid = self.conversation.facebookId;
                 NSTimeInterval receiveTime  = [dicMessage[@"time"] doubleValue];
                 NSDate *date = [NSDate dateWithTimeIntervalSince1970:receiveTime];
                 msg.sentDate = date;
@@ -1082,6 +1204,7 @@
                 NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                 FCMessage *msg = [FCMessage MR_createInContext:localContext];
                 msg.text = content;
+                msg.wechatid = self.conversation.facebookId;
                 NSTimeInterval receiveTime  = [dicMessage[@"time"] doubleValue];
                 NSDate *date = [NSDate dateWithTimeIntervalSince1970:receiveTime];
                 msg.sentDate = date;
@@ -1126,6 +1249,9 @@
     //删除Observer
 //	[self.messageList removeObserver:self forKeyPath:@"array"];
 
+    scrollView.delegate  = nil;
+    [_tableView setDelegate:nil];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -1158,6 +1284,7 @@
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     FCMessage *msg = [FCMessage MR_createInContext:localContext];
     msg.text = str;
+    msg.wechatid = self.conversation.facebookId;
     msg.sentDate = [NSDate date];
     msg.messageType = @(messageType_emj);
     msg.messageSendStatus = @(4); // ready to send
@@ -1197,6 +1324,7 @@
             NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
             FCMessage *msg = [FCMessage MR_createInContext:localContext];
             msg.text = str;
+            msg.wechatid = self.conversation.facebookId;
             msg.sentDate = [NSDate date];
             msg.messageType = @(messageType_emj);
             // message did not come, this will be on rigth
@@ -1248,6 +1376,7 @@
                     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                     FCMessage *msg = [FCMessage MR_createInContext:localContext];
                     msg.text = text;
+                    msg.wechatid = self.conversation.facebookId;
                     msg.sentDate = [NSDate date];
                     msg.messageType = @(messageType_text);
                     // message did not come, this will be on rigth
@@ -1282,12 +1411,13 @@
             NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
             FCMessage *msg = [FCMessage MR_createInContext:localContext];
             msg.text = text;
+            msg.wechatid = self.conversation.facebookId;
             msg.sentDate = [NSDate date];
             msg.messageType = @(messageType_text);
             // message did not come, this will be on rigth
             msg.messageStatus = @(NO);
             msg.messageSendStatus = @(4); // ready to send
-            msg.messageId = @"";
+            msg.messageId = [self getMD4HashWithObj];
             msg.messageguid = [self getMD4HashWithObj];
             self.conversation.lastMessage = text;
             self.conversation.lastMessageDate = [NSDate date];
@@ -1430,6 +1560,7 @@
     
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     FCMessage *msg = [FCMessage MR_createInContext:localContext];
+    msg.wechatid = self.conversation.facebookId;
     msg.sentDate = [NSDate date];
     msg.imageUrl = file;
     msg.messageType = @(messageType_map);
@@ -1532,6 +1663,7 @@
                                 
                                 NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                                 FCMessage *msg = [FCMessage MR_createInContext:localContext];
+                                msg.wechatid = self.conversation.facebookId;
                                 msg.sentDate = [NSDate date];
                                 msg.messageType = @(messageType_map);
                                 
@@ -1709,6 +1841,7 @@
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     FCMessage *msg = [FCMessage MR_createInContext:localContext];
     msg.text = @"";
+    msg.wechatid = self.conversation.facebookId;
     msg.sentDate = [NSDate date];
     msg.messageType = @(messageType_image);
     
@@ -1794,6 +1927,7 @@
     msg.text = @"";
     msg.sentDate = [NSDate date];
     msg.imageUrl = file;
+    msg.wechatid = self.conversation.facebookId;
     msg.messageType = @(messageType_image);
     // message did not come, this will be on rigth
     msg.messageStatus = @(NO);
@@ -2021,6 +2155,21 @@
     return   fmaxf(20.0f, sizeToFit.width + 10 );
 }
 
+
+- (CGFloat)heightForCellWithPost:(NSString *)post withWidth:(float) width{
+    NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f],NSFontAttributeName,nil];
+    
+    [post sizeWithAttributes:tdic];
+    //ios7方法，获取文本需要的size，限制宽度
+    CGSize  actualsize = [post boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:tdic context:nil].size;
+    
+    //#pragma clang diagnostic push
+    //#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    //    CGSize sizeToFit = [post sizeWithFont:[UIFont systemFontOfSize:15.0f] constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    //#pragma clang diagnostic pop
+    return  fmaxf(20.0f, actualsize.height );
+}
+
 #pragma mark  cellfor
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -2055,18 +2204,47 @@
     else
         CellIdentifier = @"XCJMyChatMessageCell";
     
+    
+    
+    
     XCJChatMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     [cell setCurrentMessage:message];
     [cell setConversation:self.conversation];
     UIImageView * imageview = (UIImageView *) [cell.contentView subviewWithTag:1];
+    
+    imageview.layer.cornerRadius = 4;
+    imageview.layer.masksToBounds = YES;
+    
     UILabel * labelName = (UILabel *) [cell.contentView subviewWithTag:2];
     UILabel * labelTime = (UILabel *) [cell.contentView subviewWithTag:3];
-    UILabel * labelContent = (UILabel *) [cell.contentView subviewWithTag:4];
+    int ssinde = indexPath.row%3;
+    if (ssinde == 0) {
+        labelTime.layer.cornerRadius = 4.0;
+        labelTime.layer.masksToBounds = YES;
+        labelTime.hidden = NO;
+    }else{
+        
+        labelTime.hidden = YES;
+    }
+    
+//    UILabel * labelContensst = (UILabel *) [cell.contentView subviewWithTag:4];
     UILabel * address = (UILabel *) [cell.contentView subviewWithTag:8];
     UIActivityIndicatorView * indictorView = (UIActivityIndicatorView *) [cell.contentView subviewWithTag:9];
     UIButton * retryButton = (UIButton *) [cell.contentView subviewWithTag:10];
     UIButton * audioButton = (UIButton *) [cell.contentView subviewWithTag:11];
     UIImageView * Image_playing = (UIImageView*)[cell.contentView subviewWithTag:12];
+    OHAttributedLabel* labelContent = (OHAttributedLabel*)[cell viewWithTag:kAttributedLabelTag];
+    if (labelContent == nil) {
+        labelContent = [[OHAttributedLabel alloc] initWithFrame:CGRectMake(0,0,0,0)];
+        labelContent.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        labelContent.centerVertically = YES;
+        labelContent.automaticallyAddLinksForType = NSTextCheckingAllTypes;
+        labelContent.delegate = self;
+        labelContent.highlightedTextColor = [UIColor whiteColor];
+        labelContent.tag = kAttributedLabelTag;
+        [cell addSubview:labelContent];
+//        labelContent.backgroundColor = [UIColor colorWithRed:0.142 green:1.000 blue:0.622 alpha:0.210];
+    }
     if ([message.messageSendStatus intValue] == 1) //sending
     {
 //        if (message.messageId && message.messageId.length > 0) ;
@@ -2138,7 +2316,16 @@
         labelName.text = [USER_DEFAULT stringForKey:KeyChain_Laixin_account_user_nick];
         labelContent.textColor = [UIColor whiteColor];
     }
-    labelTime.text = [tools FormatStringForDate:message.sentDate];
+    NSString * timeStr = [tools FormatStringForDate:message.sentDate];
+    NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f],NSFontAttributeName,nil];
+    CGSize sizetime = [timeStr sizeWithAttributes:tdic];    
+    labelTime.text = timeStr ;
+    sizetime.width +=6;
+    sizetime.height +=6;
+    [labelTime setSize:sizetime];
+    labelTime.left = (APP_SCREEN_WIDTH - labelTime.width)/2;
+    
+    
     audioButton.left = 400.0f;
     if ([message.messageType intValue] == messageType_image) {
         //display image  115 108
@@ -2160,12 +2347,13 @@
         
         imageview_Img.hidden = NO;
         
-        [imageview_BG setHeight:108.0f];
-        [imageview_BG setWidth:115.0f];
+        [imageview_BG setHeight:121.0f];
+        [imageview_BG setWidth:125.0f];
+        
         if ([message.messageStatus boolValue])
         {
             [imageview_BG setLeft:55.0f];
-            [imageview_Img setLeft:65.0f];
+            [imageview_Img setLeft:70.0f];
             
             
             indictorView.left = imageview_BG.left + imageview_BG.width  + 5;
@@ -2177,8 +2365,8 @@
         }
         else
         {
-            [imageview_BG setLeft:147 ];
-            [imageview_Img setLeft:152.0f];
+            [imageview_BG setLeft:137.0f ];
+            [imageview_Img setLeft:147.0f];
             
             indictorView.left = APP_SCREEN_WIDTH - 70 - imageview_BG.width - 10 - 5;
             indictorView.top = imageview_BG.height/2  + 20;
@@ -2195,31 +2383,51 @@
         address.text = @"";
         address.hidden = YES;
         
-        
+        labelContent.frame = CGRectMake(0, 0, 0, 0);
+        labelContent.attributedText = nil;
     }else if ([message.messageType intValue] == messageType_text) {
         
-        labelContent.text = message.text;
+        NSMutableAttributedString* mas = [NSMutableAttributedString attributedStringWithString:message.text];
+        [mas setFont:[UIFont systemFontOfSize: 17.0f]];
+        [mas setTextColor:[UIColor blackColor]];        
+        [mas setTextAlignment:kCTTextAlignmentLeft lineBreakMode:kCTLineBreakByCharWrapping];
+        [OHASBasicMarkupParser processMarkupInAttributedString:mas];
+        
+        labelContent.attributedText = mas;
+        
+//        labelContent.text = message.text;
         //    [self creatAttributedLabel:message.content Label:labelContent];
         /*build test frame */
-        [labelContent sizeToFit];
+//        [labelContent sizeToFit];
         imageview_Img.hidden = YES;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        CGSize sizeToFit = [ message.text sizeWithFont:labelContent.font constrainedToSize:CGSizeMake(222.0f, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-#pragma clang diagnostic pop
-        [labelContent setWidth:sizeToFit.width+2];
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+//        CGSize sizeToFit = [ message.text sizeWithFont:labelContent.font constrainedToSize:CGSizeMake(222.0f, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+//#pragma clang diagnostic pop
+        
+        CGSize sizeToFit = [mas sizeConstrainedToSize:CGSizeMake(222.0f, CGFLOAT_MAX)];
+        
+        [labelContent setWidth:sizeToFit.width];
         [labelContent setHeight:sizeToFit.height]; // set label content frame with tinkl
         
         //min height and width  is 35.0f
         //    fmaxf(35.0f, sizeToFit.height + 5.0f ) ,fmaxf(35.0f, sizeToFit.width + 10.0f )
-        [imageview_BG setHeight:fmaxf(35.0f, sizeToFit.height + 18.0f )];
-        [imageview_BG setWidth:fmaxf(35.0f, sizeToFit.width + 23.0f )];
+        [imageview_BG setHeight:fmaxf(54.0f, sizeToFit.height + 10)];
+        [imageview_BG setWidth:fmaxf(70.0f, sizeToFit.width + 20)];
+        if (sizeToFit.height > 54) {
+            imageview_BG.height += 10;
+            imageview_BG.width += 10;
+        }
         
-        if ([message.messageStatus boolValue])
+//        [labelContent setLeft:imageview_BG.left + 5];
+//        [labelContent setTop:imageview_BG.top + 5];
+        
+        
+        if ([message.messageStatus boolValue])  //me
         {
             [imageview_BG setLeft:55.0f];
-            [labelContent setLeft:68.0f];
-            
+//            [labelContent setLeft:68.0f];
+            labelContent.center = CGPointMake(imageview_BG.center.x+3, imageview_BG.center.y-5);
             
             indictorView.left = imageview_BG.left + imageview_BG.width  + 5;
             indictorView.top = imageview_BG.height/2  + 20;
@@ -2230,17 +2438,16 @@
         else
         {
             [imageview_BG setLeft: APP_SCREEN_WIDTH - (imageview_BG.width + 55)];
-            [labelContent setLeft: APP_SCREEN_WIDTH - (labelContent.width + 77 -10 )  ];
+//            [labelContent setLeft: APP_SCREEN_WIDTH - (labelContent.width + 77 -10 )  ];
+            labelContent.center = CGPointMake(imageview_BG.center.x, imageview_BG.center.y-3);
             
-            
-            indictorView.left = APP_SCREEN_WIDTH - 70 - imageview_BG.width - 10 - 5;
+            indictorView.left = APP_SCREEN_WIDTH - 70 - imageview_BG.width - 10 ;
             indictorView.top = imageview_BG.height/2  + 20;
             
-            retryButton.left = APP_SCREEN_WIDTH - 70 - imageview_BG.width - 10 -10 ;
-            retryButton.top = imageview_BG.height/2  + 10;
+            retryButton.left = APP_SCREEN_WIDTH - 70 - imageview_BG.width - 10 -5 ;
+            retryButton.top = imageview_BG.height/2  + 5;
         }
-        
-        
+
         imageview_BG.hidden = NO;
         address.text = @"";
         address.hidden = YES;
@@ -2337,14 +2544,17 @@
         
     }else if([message.messageType intValue] == messageType_audio)
     {
-        labelContent.text = @"";
+        labelContent.frame = CGRectMake(0, 0, 0, 0);
+        labelContent.attributedText = nil;
+        
+//        labelContent.text = @"";
         //    [self creatAttributedLabel:message.content Label:labelContent];
         /*build test frame */
         [labelContent sizeToFit];
         imageview_Img.hidden = YES;
         //min height and width  is 35.0f
         //    fmaxf(35.0f, sizeToFit.height + 5.0f ) ,fmaxf(35.0f, sizeToFit.width + 10.0f )
-        [imageview_BG setHeight:35.0f];
+        [imageview_BG setHeight:54.0f];
         [imageview_BG setWidth:80.0f];
         
         imageview_BG.hidden = NO;
@@ -2381,7 +2591,7 @@
         if ([message.messageStatus boolValue])
         {
             [imageview_BG setLeft:55.0f];
-            [audioButton setWidth:90];
+            [audioButton setWidth:100];
             audioButton.left = 50.0f;
             Image_playing.left = imageview_BG.left + imageview_BG.width + 10;
             
@@ -2421,7 +2631,28 @@
     return cell;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+#pragma mark - OHAttributedLabel Delegate Method
+/////////////////////////////////////////////////////////////////////////////
 
+-(BOOL)attributedLabel:(OHAttributedLabel *)attributedLabel shouldFollowLink:(NSTextCheckingResult *)linkInfo
+{
+    [UIAlertView showAlertViewWithMessage:[NSString stringWithFormat:@"Should open link: %@", linkInfo.extendedURL]];
+    return NO;
+    if ([[UIApplication sharedApplication] canOpenURL:linkInfo.extendedURL])
+    {
+        return YES;
+    }
+    else
+    {
+        // Unsupported link type (especially phone links are not supported on Simulator, only on device)
+        [UIAlertView showAlertViewWithMessage:[NSString stringWithFormat:@"Should open link: %@", linkInfo.extendedURL]];
+        return NO;
+    }
+}
+
+
+#pragma mark SeeBigImageviewClick
 -(void) SeeBigImageviewClick:(id) sender
 {
     UITapGestureRecognizer * ges = sender;
@@ -2622,7 +2853,7 @@
 - (CGFloat)heightForCellWithPost:(NSString *)post {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    CGSize sizeToFit = [post sizeWithFont:[UIFont systemFontOfSize:15.0f] constrainedToSize:CGSizeMake(220.0f, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize sizeToFit = [post sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:CGSizeMake(220.0f, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
 #pragma clang diagnostic pop
     return  fmaxf(35.0f, sizeToFit.height + 35.0f );
 }
@@ -2677,7 +2908,22 @@
     if ([message.messageType intValue] == messageType_map) {
         return 206.0f;
     }
-    return [self heightForCellWithPost:message.text]+20.0f;
+    
+    if ([message.messageType intValue] == messageType_text) {
+        
+        NSMutableAttributedString* mas = [NSMutableAttributedString attributedStringWithString:message.text];
+        [mas setFont:[UIFont systemFontOfSize: 17.0f]];
+        [mas setTextColor:[UIColor blackColor]];
+        [mas setTextAlignment:kCTTextAlignmentLeft lineBreakMode:kCTLineBreakByCharWrapping];
+        [OHASBasicMarkupParser processMarkupInAttributedString:mas];
+        CGSize sizeToFit = [mas sizeConstrainedToSize:CGSizeMake(222.0f, CGFLOAT_MAX)];
+        return sizeToFit.height + 60;
+    }
+    if ([message.messageType intValue] == messageType_audio) {
+        return 80.0f;
+    }
+    
+    return 0.0f;
 }
 
 #pragma mark - Keyboard

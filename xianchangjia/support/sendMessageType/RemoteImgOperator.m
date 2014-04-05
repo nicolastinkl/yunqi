@@ -230,7 +230,7 @@
     
     
     __block NSData * FileData;
-    AFHTTPRequestOperation * operation =  [manager POST:[NSString stringWithFormat:@"%@%@",[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName],@"/AdminApi/WeChat/SendMessage"] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    AFHTTPRequestOperation * operation =  [manager POST:[NSString stringWithFormat:@"%@%@",[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName],@"/AdminApi/MediaManager/MediaUpload"] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         // 1是图片，2是声音，3是视频
         switch (typeindex) {
             case 1:

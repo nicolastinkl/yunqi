@@ -41,7 +41,7 @@
 #import "XCJScanViewController.h"
 #import "FCFriends.h"
 #import "YQLoginviewViewController.h"
-
+#import "YQDelegate.h"
 #import "EGORefreshTableHeaderView.h"
 #define audioLengthDefine 1024
 
@@ -137,7 +137,7 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (![XCJAppDelegate hasLogin]) {
+        if (![YQDelegate hasLogin]) {
             [self OpenLoginview:nil];
         }else{
             if (_refreshHeaderView == nil) {
@@ -155,8 +155,15 @@
 //            [_refreshHeaderView refreshLastUpdatedDate];
         }
     });
+    
+    [self.navigationItem.rightBarButtonItem setAction:@selector(refershData:)];
 }
 
+
+-(IBAction)refershData:(id)sender
+{
+    [self filldata];
+}
 
 
 #pragma mark -
@@ -338,92 +345,102 @@
     
 }
 
+-(void) filldata
+{
+    //check from net
+    [self startAnimation:self.navigationItem.rightBarButtonItem.customView];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    [self webSocketdidreceingWithMsg:nil];
+    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:nil Action:@"AdminApi/WeChat/SessionList" success:^(id response) {
+        
+        if (response) {
+            [self webSocketDidOpen:nil];
+            //delete all
+            {
+                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId == %@", @""];
+                BOOL bol = [Conversation MR_deleteAllMatchingPredicate:predicate inContext:localContext];
+                if (bol) {
+                    [localContext MR_saveToPersistentStoreAndWait];
+                }
+            }
+            
+            NSArray * dataArray = response[@"data"];
+            [dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if (obj) {
+                    NSString * name = [DataHelper getStringValue:obj[@"name"] defaultValue:@""];
+                    NSString * wechatId = [DataHelper getStringValue:obj[@"wechatId"] defaultValue:@""];
+                    NSString * content = [DataHelper getStringValue:obj[@"lastMessage"] defaultValue:@""];
+                    NSString * lastMessageTime = [DataHelper getStringValue:obj[@"lastMessageTime"] defaultValue:@""];
+                    NSInteger newMessageCount = [DataHelper getIntegerValue:obj[@"newMessageCount"] defaultValue:0];
+                    NSString * avatar = [DataHelper getStringValue:obj[@"avatar"] defaultValue:@""];
+                    NSDate * date = [tools datebyStr:lastMessageTime];
+                    SLog(@"date %@",date);
+                    
+                    NSString * lastMessageId  = [DataHelper getStringValue:obj[@"lastMessageId"] defaultValue:@""];
+                    // Build the predicate to find the person sought
+                    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId == %@", wechatId];
+                    Conversation *conversation = [Conversation MR_findFirstWithPredicate:predicate inContext:localContext];
+                    if(conversation == nil)
+                    {
+                        conversation =  [Conversation MR_createInContext:localContext];
+                    }
+                    
+                    //                        FCMessage *msg = [FCMessage MR_createInContext:localContext];
+                    if ([content isNilOrEmpty]) {
+                        content = @"";
+                    }
+                    conversation.messageId = lastMessageId;
+                    conversation.facebookName = name;
+                    conversation.messageType = @(XCMessageActivity_UserPrivateMessage);
+                    conversation.lastMessageDate = date;
+                    //                        conversation.messageId = [NSString stringWithFormat:@"%@_%@",XCMessageActivity_User_privateMessage,[tools getStringValue:obj[@"msgid"] defaultValue:@"0"]];
+                    conversation.lastMessage = content ;
+                    
+                    conversation.messageStutes = @(messageStutes_incoming);
+                    conversation.facebookId = wechatId;
+                    conversation.facebookavatar = avatar;
+                    // increase badge number.
+                    //                        int badgeNumber = [conversation.badgeNumber intValue];
+                    //                        badgeNumber = newMessageCount;
+                    conversation.badgeNumber = [NSNumber numberWithInt:newMessageCount];
+                    //                        [conversation addMessagesObject:msg];
+                    [localContext MR_saveToPersistentStoreAndWait];
+                    [self hiddeErrorText];
+                    [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+                }
+                
+            }];
+            
+        }
+        [self doneLoadingTableViewData];
+        
+        [self stopAnimation:self.navigationItem.rightBarButtonItem.customView];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    } error:^(NSInteger index) {
+        [self webSocketdidFailWithError:nil];
+        [self.tableView reloadData];
+        [self doneLoadingTableViewData];
+        [self stopAnimation:self.navigationItem.rightBarButtonItem.customView];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }];
+    
+    if ([Conversation MR_findFirst] == nil) {
+        // show info
+        [self showErrorText:@"暂时还没有消息"];
+    }else{
+        [self hiddeErrorText];
+    }
+}
+
 -(void)  initHomeData
 {
     self.managedObjectContext = [NSManagedObjectContext MR_defaultContext];
     [self reloadFetchedResults:nil];
-    
-    if (YES) {//[Conversation MR_findFirst] == nil
-        //check from net
-        
-        [self webSocketdidreceingWithMsg:nil];
-        [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:nil Action:@"AdminApi/WeChat/SessionList" success:^(id response) {
-            
-            if (response) {
-                [self webSocketDidOpen:nil];
-            //delete all
-                {
-                     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId == %@", @""];
-                    BOOL bol = [Conversation MR_deleteAllMatchingPredicate:predicate inContext:localContext];
-                    if (bol) {
-                        [localContext MR_saveToPersistentStoreAndWait];
-                    }
-                }
- 
-                NSArray * dataArray = response[@"data"];
-                [dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    if (obj) {
-                        NSString * name = [DataHelper getStringValue:obj[@"name"] defaultValue:@""];
-                        NSString * wechatId = [DataHelper getStringValue:obj[@"wechatId"] defaultValue:@""];
-                        NSString * content = [DataHelper getStringValue:obj[@"lastMessage"] defaultValue:@""];
-                        NSString * lastMessageTime = [DataHelper getStringValue:obj[@"lastMessageTime"] defaultValue:@""];
-                        NSInteger newMessageCount = [DataHelper getIntegerValue:obj[@"newMessageCount"] defaultValue:0];
-                        NSString * avatar = [DataHelper getStringValue:obj[@"avatar"] defaultValue:@""];
-                        NSDate * date = [tools datebyStr:lastMessageTime];
-                        SLog(@"date %@",date);
-                        
-                        NSString * lastMessageId  = [DataHelper getStringValue:obj[@"lastMessageId"] defaultValue:@""];
-                        // Build the predicate to find the person sought
-                        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId == %@", wechatId];
-                        Conversation *conversation = [Conversation MR_findFirstWithPredicate:predicate inContext:localContext];
-                        if(conversation == nil)
-                        {
-                            conversation =  [Conversation MR_createInContext:localContext];
-                        }
-                        
-//                        FCMessage *msg = [FCMessage MR_createInContext:localContext];
-                        if ([content isNilOrEmpty]) {
-                            content = @"";
-                        }
-                        conversation.messageId = lastMessageId;
-                        conversation.facebookName = name;
-                        conversation.messageType = @(XCMessageActivity_UserPrivateMessage);
-                        conversation.lastMessageDate = date;
-//                        conversation.messageId = [NSString stringWithFormat:@"%@_%@",XCMessageActivity_User_privateMessage,[tools getStringValue:obj[@"msgid"] defaultValue:@"0"]];
-                        conversation.lastMessage = content ;
-                        
-                        conversation.messageStutes = @(messageStutes_incoming);
-                        conversation.facebookId = wechatId;
-                        conversation.facebookavatar = avatar;
-                        // increase badge number.
-                        int badgeNumber = [conversation.badgeNumber intValue];
-                        badgeNumber += newMessageCount;
-                        conversation.badgeNumber = [NSNumber numberWithInt:badgeNumber];
-//                        [conversation addMessagesObject:msg];
-                        [localContext MR_saveToPersistentStoreAndWait];
-                        [self hiddeErrorText];
-
-                        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];                        
-                    }
-                    
-                }];
-                
-            }
-            [self doneLoadingTableViewData];
-        } error:^(NSInteger index) {
-            [self webSocketdidFailWithError:nil];
-            [self.tableView reloadData];
-            [self doneLoadingTableViewData];            
-        }];
-        
-        if ([Conversation MR_findFirst] == nil) {
-            // show info
-            [self showErrorText:@"暂时还没有消息"];
-        }else{
-            [self hiddeErrorText];
-        }
+   
+    if ([Conversation MR_findFirst] == nil) {
+        [self filldata];
         
     }
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginInReceivingAllMessage" object:nil];
@@ -679,7 +696,7 @@
 
 -(void) webSocketdidreceingWithMsg:(NSNotification * ) noty
 {
-    self.title = @"微信(正在加载...)";
+    self.title = @"微信(正在载入...)";
     
     /*XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
      
@@ -934,7 +951,7 @@
             badgeNumber += [con.badgeNumber intValue];
         }];
         SLLog(@"badgeNumber %d   ",badgeNumber);
-        XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
+        YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
         if (badgeNumber > 0) {
             [delegate.tabBarController.tabBar.items[0] setBadgeValue:[NSString stringWithFormat:@"%d",badgeNumber]];
             [UIApplication sharedApplication].applicationIconBadgeNumber = badgeNumber;
@@ -1168,7 +1185,7 @@
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    return NO;
     Conversation * conver = (Conversation *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     switch ([conver.messageType intValue]) {
         case XCMessageActivity_UserPrivateMessage:

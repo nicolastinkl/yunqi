@@ -36,6 +36,7 @@
 #import "FCContactsPhone.h"
 #import "FCUserDescription.h"
 #import "FCMessage.h"
+#import "Reachability.h"
 
 static NSString * const kLaixinStoreName = @"YunqiDB";
 
@@ -98,6 +99,12 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
                                          UIRemoteNotificationTypeAlert |
                                          UIRemoteNotificationTypeNewsstandContentAvailability)];
     
+    Reachability* reach = [Reachability reachabilityForInternetConnection];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
+    [reach startNotifier];
     
     if ([YQDelegate hasLogin]) {
         [self laixinStepupDB:[USER_DEFAULT valueForKey:KeyChain_yunqi_account_token]];
@@ -185,6 +192,24 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     // Override point for customization after application launch.
     return YES;
 }
+
+-(void) reachabilityChanged: (NSNotification*)note {
+    Reachability * reach = [note object];
+    if(![reach isReachable])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"webSocketdidFailWithError" object:nil];
+        // notify websocket close
+//        [UIAlertView showAlertViewWithMessage:@"网络不可用,请检查您的网络设置"];
+        
+    }else{
+        // notify websocket reConntect
+//        [self LoginInReceivingAllMessage];
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"webSocketDidOpen" object:nil];
+    }
+    
+}
+
+
 
 - (void) initAllControlos
 {

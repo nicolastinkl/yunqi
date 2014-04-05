@@ -86,6 +86,7 @@
         <attribute name="sentDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wechatid" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="conversation" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="messages" inverseEntity="Conversation" syncable="YES"/>
         <relationship name="messageUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FCUserDescription" inverseName="userDespMsg" inverseEntity="FCUserDescription" syncable="YES"/>
     </entity>
@@ -133,7 +134,7 @@
         <element name="FCContactsPhone" positionX="0" positionY="0" width="128" height="120"/>
         <element name="FCFriends" positionX="0" positionY="0" width="128" height="75"/>
         <element name="FCHomeGroupMsg" positionX="0" positionY="0" width="128" height="195"/>
-        <element name="FCMessage" positionX="0" positionY="0" width="128" height="285"/>
+        <element name="FCMessage" positionX="0" positionY="0" width="128" height="300"/>
         <element name="FCReplyMessage" positionX="0" positionY="0" width="128" height="165"/>
         <element name="FCUserDescription" positionX="0" positionY="0" width="128" height="390"/>
     </elements>

@@ -13,7 +13,15 @@
 #import "UIButton+Bootstrap.h"
 #import "YQMakeSendMetaViewcontroller.h"
 
-@interface YQSearchOrderViewController ()<UISearchBarDelegate>
+#import "PWLoadMoreTableFooterView.h"
+
+@interface YQSearchOrderViewController ()<UISearchBarDelegate,UIScrollViewDelegate,PWLoadMoreTableFooterDelegate>
+{
+    PWLoadMoreTableFooterView *_loadMoreFooterView;
+	BOOL _datasourceIsLoading;
+    bool _allLoaded;
+}
+
 @property (weak, nonatomic) IBOutlet UISearchBar *seachbar;
 @end
 
@@ -32,11 +40,49 @@
 {
     [super viewDidLoad];
     
+    /**
+     *  change place holder text color
+     */
+    for (UIView *subView in self.seachbar.subviews)
+    {
+        for (UIView *secondLevelSubview in subView.subviews){
+            if ([secondLevelSubview isKindOfClass:[UITextField class]])
+            {
+                UITextField *searchBarTextField = (UITextField *)secondLevelSubview;
+                
+                //set font color here
+                searchBarTextField.textColor = [UIColor whiteColor];
+                
+                break;
+            }
+        }
+    }
+    
+    
+    //config the load more view
+    if (_loadMoreFooterView == nil) {
+		
+		PWLoadMoreTableFooterView *view = [[PWLoadMoreTableFooterView alloc] init];
+		view.delegate = self;
+		_loadMoreFooterView = view;
+		
+	}
+    self.tableView.tableFooterView = _loadMoreFooterView;
+    
+//    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    if (self.AllOrderList.count >= 30) {
+        _allLoaded = NO;
+    }else{
+        _allLoaded = YES;
+    }
+    [self doneLoadingTableViewData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,7 +92,15 @@
 }
 
 
-
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollViewDat
+{
+    if ([scrollViewDat isKindOfClass:[UITableView class]]) {
+        //        self.tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
+        if ([self.seachbar isFirstResponder]) {
+            [self.seachbar resignFirstResponder];
+        }
+    }
+}
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
@@ -57,39 +111,72 @@
     if ([self.seachbar isFirstResponder]) {
         [self.seachbar resignFirstResponder];
     }
-    [SVProgressHUD showWithStatus:@"正在搜索..."];
-    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
-    [params setValue:searchBar.text forKey:@"keyword"];
     
+    /**
+     *  clear data and view status
+     */
+    [[self AllOrderList] removeAllObjects];
+    [self.tableView reloadData];
+    [self hiddeErrorText];
+    [_loadMoreFooterView resetLoadMore];
+    
+    [SVProgressHUD showWithStatus:@"正在搜索..."];
+ 
+    [self loaddatawithindex:0];
+   
+}
+
+-(void) loaddatawithindex:(NSInteger)lastOrderId
+{
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    [params setValue:self.seachbar.text forKey:@"keyword"];
+    if (lastOrderId > 0) {
+        [params setValue:@(lastOrderId) forKey:@"lastOrderId"];
+    }
     [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/OrderManager/SearchOrders" success:^(id obj) {
-        
-        NSDictionary * dataDict = obj[@"data"];
-        NSArray * array = dataDict[@"orders"];
-        NSMutableArray * searchList = [[NSMutableArray alloc] init];
-        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if (obj) {
-                YQListOrderInfo * orderinfo = [YQListOrderInfo turnObject:obj];
-                [searchList addObject:orderinfo];
+        if([DataHelper getIntegerValue:obj[@"code"] defaultValue:-1] == 200)
+        {
+            NSDictionary * dataDict = obj[@"data"];
+            NSArray * array = dataDict[@"orders"];
+            [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if (obj) {
+                    YQListOrderInfo * orderinfo = [YQListOrderInfo turnObject:obj];
+                    [self.AllOrderList addObject:orderinfo];
+                }
+            }];
+            
+            if (lastOrderId == 0) {
+                //* init _ data*//
+                if (array.count > 0) {
+                    [self hiddeErrorText];
+                    //target view
+                    [self.tableView reloadData];
+                }else{
+                    _allLoaded = YES;
+                    [self doneLoadingTableViewData];
+                    [self showErrorText:[NSString stringWithFormat:@"没有'%@'相关数据",self.seachbar.text]];
+                }
+                [SVProgressHUD dismiss];
+                
+            }else
+            {
+                //load more data
+                _datasourceIsLoading = NO;
+                [self doneLoadingTableViewData];
             }
-        }];
-        
-        if (searchList.count > 0) {
-            //target view
-            [SVProgressHUD dismiss];
-            YQSearchOrderViewController * searchview = [self.storyboard instantiateViewControllerWithIdentifier:@"YQSearchOrderViewController"];
-            searchview.AllOrderList = [searchList mutableCopy];
-            [self.navigationController pushViewController:searchview animated:YES];
         }else{
-            [UIAlertView showAlertViewWithMessage:@"没有相关数据"];
+           //SLog(@"error : %d",index);
+            _datasourceIsLoading = NO;
+            [self doneLoadingTableViewData];
+            [UIAlertView showAlertViewWithMessage:@"搜索失败，请检查您的网络设置"];
         }
-        
         
     } error:^(NSInteger index) {
         SLog(@"error : %d",index);
+        _datasourceIsLoading = NO;
+        [self doneLoadingTableViewData];
         [UIAlertView showAlertViewWithMessage:@"搜索失败，请检查您的网络设置"];
     }];
-    
-    
 }
 
 
@@ -182,5 +269,40 @@
     viewcon.orderpro = orderInfo;
     [self.navigationController pushViewController:viewcon animated:YES];
 }
+
+
+
+#pragma mark -
+#pragma mark Data Source Loading / Reloading Methods
+- (void)doneLoadingTableViewData {
+	//  model should call this when its done loading
+	[_loadMoreFooterView pwLoadMoreTableDataSourceDidFinishedLoading];
+    [self.tableView reloadData];
+}
+
+#pragma mark -
+#pragma mark PWLoadMoreTableFooterDelegate Methods
+
+- (void)pwLoadMore {
+    //just make sure when loading more, DO NOT try to refresh your data
+    //Especially when you do your work asynchronously
+    //Unless you are pretty sure what you are doing
+    //When you are refreshing your data, you will not be able to load more if you have pwLoadMoreTableDataSourceIsLoading and config it right
+    //disable the navigationItem is only demo purpose
+    
+    _datasourceIsLoading = YES;
+    YQListOrderInfo *orderInfo = [self.AllOrderList lastObject];
+    [self loaddatawithindex:orderInfo.orderid];
+    
+}
+
+
+- (BOOL)pwLoadMoreTableDataSourceIsLoading {
+    return _datasourceIsLoading;
+}
+- (BOOL)pwLoadMoreTableDataSourceAllLoaded {
+    return _allLoaded;
+}
+
 
 @end

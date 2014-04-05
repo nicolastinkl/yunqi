@@ -177,6 +177,10 @@
 		867AF35C18A623A400121DCF /* XCJSelfPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867AF35B18A623A400121DCF /* XCJSelfPhotoViewController.m */; };
 		867B054018C41D3B00A562FA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867B053D18C41D3B00A562FA /* libWeChatSDK.a */; };
 		867FEE8C18EEB29200F9DAEE /* YQSearchOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867FEE8B18EEB29200F9DAEE /* YQSearchOrderViewController.m */; };
+		867FEE9018EECA2300F9DAEE /* PWLoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 867FEE8F18EECA2300F9DAEE /* PWLoadMoreTableFooterView.m */; };
+		867FEE9218EFC91A00F9DAEE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 867FEE9118EFC91A00F9DAEE /* Default-568h@2x.png */; };
+		867FEE9918EFEA2000F9DAEE /* XCJXIBTESTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867FEE9718EFEA2000F9DAEE /* XCJXIBTESTViewController.m */; };
+		867FEE9A18EFEA2000F9DAEE /* XCJXIBTESTViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 867FEE9818EFEA2000F9DAEE /* XCJXIBTESTViewController.xib */; };
 		8681BDBB1834B2A300521D36 /* DirectionsJson.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */; };
 		8681BDBC1834B2A300521D36 /* DirectionsJson.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */; };
 		8681BDC01834B34D00521D36 /* XCJSceneInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8681BDBF1834B34D00521D36 /* XCJSceneInfo.m */; };
@@ -205,7 +209,6 @@
 		868A0EF818B3624300C2875F /* XCJFindMMView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 868A0EF718B3624300C2875F /* XCJFindMMView.xib */; };
 		868AC8A418ED60A10068CC77 /* YQURLForwardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868AC8A318ED60A10068CC77 /* YQURLForwardViewController.m */; };
 		868B5D3918922FE4004D1743 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B5D3818922FE4004D1743 /* EGOCache.m */; };
-		868B5D3B18924E53004D1743 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 868B5D3A18924E53004D1743 /* Default-568h@2x.png */; };
 		868B5D44189284C6004D1743 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B5D3E189284C6004D1743 /* UIImage+Blur.m */; };
 		868B5D45189284C6004D1743 /* UIImage+ImageWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B5D40189284C6004D1743 /* UIImage+ImageWithColor.m */; };
 		868B5D46189284C6004D1743 /* UIImage+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B5D42189284C6004D1743 /* UIImage+Screenshot.m */; };
@@ -847,6 +850,12 @@
 		867B053F18C41D3B00A562FA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		867FEE8A18EEB29200F9DAEE /* YQSearchOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YQSearchOrderViewController.h; path = viewcontroller/YQViewContr/YQSearchOrderViewController.h; sourceTree = "<group>"; };
 		867FEE8B18EEB29200F9DAEE /* YQSearchOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQSearchOrderViewController.m; path = viewcontroller/YQViewContr/YQSearchOrderViewController.m; sourceTree = "<group>"; };
+		867FEE8E18EECA2300F9DAEE /* PWLoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWLoadMoreTableFooterView.h; sourceTree = "<group>"; };
+		867FEE8F18EECA2300F9DAEE /* PWLoadMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWLoadMoreTableFooterView.m; sourceTree = "<group>"; };
+		867FEE9118EFC91A00F9DAEE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "defaultPng/Default-568h@2x.png"; sourceTree = "<group>"; };
+		867FEE9618EFEA2000F9DAEE /* XCJXIBTESTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJXIBTESTViewController.h; path = viewcontroller/test/XCJXIBTESTViewController.h; sourceTree = "<group>"; };
+		867FEE9718EFEA2000F9DAEE /* XCJXIBTESTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJXIBTESTViewController.m; path = viewcontroller/test/XCJXIBTESTViewController.m; sourceTree = "<group>"; };
+		867FEE9818EFEA2000F9DAEE /* XCJXIBTESTViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XCJXIBTESTViewController.xib; path = viewcontroller/test/XCJXIBTESTViewController.xib; sourceTree = "<group>"; };
 		8681BDBA1834B2A300521D36 /* DirectionsJson.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DirectionsJson.geojson; sourceTree = "<group>"; };
 		8681BDBE1834B34D00521D36 /* XCJSceneInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCJSceneInfo.h; sourceTree = "<group>"; };
 		8681BDBF1834B34D00521D36 /* XCJSceneInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCJSceneInfo.m; sourceTree = "<group>"; };
@@ -889,7 +898,6 @@
 		868AC8A318ED60A10068CC77 /* YQURLForwardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQURLForwardViewController.m; path = viewcontroller/YQViewContr/YQURLForwardViewController.m; sourceTree = "<group>"; };
 		868B5D3718922FE4004D1743 /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
 		868B5D3818922FE4004D1743 /* EGOCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
-		868B5D3A18924E53004D1743 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		868B5D3D189284C6004D1743 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
 		868B5D3E189284C6004D1743 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
 		868B5D3F189284C6004D1743 /* UIImage+ImageWithColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithColor.h"; sourceTree = "<group>"; };
@@ -1589,7 +1597,7 @@
 		862D25BB18585D7C005208C8 /* image */ = {
 			isa = PBXGroup;
 			children = (
-				868B5D3A18924E53004D1743 /* Default-568h@2x.png */,
+				867FEE9118EFC91A00F9DAEE /* Default-568h@2x.png */,
 				8692E3BC18642DB700F9E1DD /* Default.png */,
 				8692E3BD18642DB700F9E1DD /* Default@2x.png */,
 				86EB76401859A66800836947 /* logo58x58.png */,
@@ -1775,6 +1783,8 @@
 		86656CC118EE8422009B7726 /* RefreshTableHeaderView */ = {
 			isa = PBXGroup;
 			children = (
+				867FEE8E18EECA2300F9DAEE /* PWLoadMoreTableFooterView.h */,
+				867FEE8F18EECA2300F9DAEE /* PWLoadMoreTableFooterView.m */,
 				86656CC218EE8422009B7726 /* CircleView.h */,
 				86656CC318EE8422009B7726 /* CircleView.m */,
 				86656CC418EE8422009B7726 /* EGORefreshTableHeaderView.h */,
@@ -2162,6 +2172,16 @@
 				867B053F18C41D3B00A562FA /* WXApiObject.h */,
 			);
 			path = WeChatSDK_1.4.2.1;
+			sourceTree = "<group>";
+		};
+		867FEE9318EFE9D500F9DAEE /* XibTest */ = {
+			isa = PBXGroup;
+			children = (
+				867FEE9618EFEA2000F9DAEE /* XCJXIBTESTViewController.h */,
+				867FEE9718EFEA2000F9DAEE /* XCJXIBTESTViewController.m */,
+				867FEE9818EFEA2000F9DAEE /* XCJXIBTESTViewController.xib */,
+			);
+			name = XibTest;
 			sourceTree = "<group>";
 		};
 		8681BDBD1834B33700521D36 /* Models */ = {
@@ -2826,6 +2846,7 @@
 		86D1820A1834AC1B0005901D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				867FEE9318EFE9D500F9DAEE /* XibTest */,
 				8678355E18E43BF7002ED9FF /* YQViewController */,
 				86DEA2F518C8381C0003694C /* FindRoom */,
 				86268A2D18C0644A000F0A48 /* NearbyInvite */,
@@ -3667,6 +3688,7 @@
 				8668E47D187540DB00D20C9E /* like_comment_bg@2x.png in Resources */,
 				868A0EF818B3624300C2875F /* XCJFindMMView.xib in Resources */,
 				8681BDBB1834B2A300521D36 /* DirectionsJson.geojson in Resources */,
+				867FEE9218EFC91A00F9DAEE /* Default-568h@2x.png in Resources */,
 				866287E318CC4CFA00891B2D /* XCJCommentView.xib in Resources */,
 				86E57CF318795FD800978AFA /* HZAreaPickerView.xib in Resources */,
 				866618A718951B07000228FC /* ChatVoiceRecorderVC.xib in Resources */,
@@ -3679,7 +3701,7 @@
 				8668E47B187540DB00D20C9E /* btn_unlike@2x.png in Resources */,
 				8690DE8C18C872C900A14A51 /* room0001.jpg in Resources */,
 				86EB76451859A66800836947 /* logo120x120.png in Resources */,
-				868B5D3B18924E53004D1743 /* Default-568h@2x.png in Resources */,
+				867FEE9A18EFEA2000F9DAEE /* XCJXIBTESTViewController.xib in Resources */,
 				8622C882187D2BFA00776A38 /* XCJErrorView.xib in Resources */,
 				867014A9185185F100518B6D /* JsonImageurls.json in Resources */,
 				86D181E11834822C0005901D /* Main.storyboard in Resources */,
@@ -3738,6 +3760,7 @@
 				869DDC621874422600560AFD /* Conversation.m in Sources */,
 				86D182901834AED30005901D /* UIImage+RoundedCorner.m in Sources */,
 				86ADDA2C1893D8F5000A0C22 /* MMLocationManager.m in Sources */,
+				867FEE9918EFEA2000F9DAEE /* XCJXIBTESTViewController.m in Sources */,
 				86D1827C1834AED30005901D /* MCProgressBarView.m in Sources */,
 				86D182B41834AED30005901D /* NSObject+LKDBHelper.m in Sources */,
 				8668E474187540DB00D20C9E /* ActivityTableViewCell.m in Sources */,
@@ -3967,6 +3990,7 @@
 				86D183021834AF9F0005901D /* tools.m in Sources */,
 				868B5D3918922FE4004D1743 /* EGOCache.m in Sources */,
 				869CE529186BE38D0004C1EC /* NSManagedObjectContext+MagicalObserving.m in Sources */,
+				867FEE9018EECA2300F9DAEE /* PWLoadMoreTableFooterView.m in Sources */,
 				869DDC5F1872BB9300560AFD /* XCJMsgListController.m in Sources */,
 				86EB76DA185AA6CC00836947 /* UIButton+AFNetworking.m in Sources */,
 				86F9B9AE1872865600ED768B /* XCJChangeUserInfoController.m in Sources */,

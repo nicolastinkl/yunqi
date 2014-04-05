@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *Text_LoginPwd;
 @property (weak, nonatomic) IBOutlet UIButton *Button_login;
 @property (weak, nonatomic) IBOutlet UIView *view_bg;
+@property (weak, nonatomic) IBOutlet UIImageView *image_sign_log;
 
 @property (weak, nonatomic) IBOutlet UIImageView *image_line;
 @end
@@ -39,6 +40,9 @@
     [self.Button_login infoStyle];
     
     self.image_line.height = .5f;
+    
+    
+    self.image_sign_log.top = APP_SCREEN_CONTENT_HEIGHT - self.image_sign_log.height -5;
     
     self.Text_LoginName.text = @"ciznx@qq.com";
     self.Text_LoginPwd.text = @"111111";
@@ -150,11 +154,16 @@
                NSString * token = [DataHelper getStringValue:dataDict[@"token"] defaultValue:@""];
                NSString * tokenValidDuration = [DataHelper getStringValue:dataDict[@"tokenValidDuration"] defaultValue:@""];
                
+               NSString * logoUrl = [DataHelper getStringValue:dataDict[@"logoUrl"] defaultValue:@""];
+               
+               
                [USER_DEFAULT setValue:username forKey:KeyChain_yunqi_account_name];
                [USER_DEFAULT setValue:hostname forKey:KeyChain_yunqi_account_notifyServerhostName];
                [USER_DEFAULT setValue:tokenValidDuration forKey:KeyChain_yunqi_account_tokenExpire];
                [USER_DEFAULT setValue:token forKey:KeyChain_yunqi_account_token];
                [USER_DEFAULT setValue:token forKey:KeyChain_Laixin_account_sessionid];
+               [USER_DEFAULT setValue:logoUrl forKey:KeyChain_Laixin_account_user_headpic];
+               
                [USER_DEFAULT setBool:YES forKey:KeyChain_Laixin_account_HasLogin];
                [USER_DEFAULT synchronize];
                [[NSNotificationCenter defaultCenter] postNotificationName:LaixinSetupDBMessageNotification object:token];
