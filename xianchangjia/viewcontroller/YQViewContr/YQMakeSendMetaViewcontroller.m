@@ -35,7 +35,6 @@
 //    UIButton * buttonComplete = (UIButton * )self.navigationItem.rightBarButtonItem.customView;
 //    [buttonComplete infoStyle];
 
-    [self.navigationItem.rightBarButtonItem setAction:@selector(complete:)];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -46,11 +45,13 @@
 
 -(IBAction)complete:(id)sender
 {
-    [SVProgressHUD show];
+    [self.wuliuName resignFirstResponder];
+    [self.wuliuNumber resignFirstResponder];
+    [SVProgressHUD showWithStatus:@"正在处理发货..."];
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setValue:@(self.orderpro.orderid) forKey:@"orderId"];
     [params setValue:self.wuliuName.text forKey:@"shipping"];
-    [params setValue:self.wuliuNumber forKey:@"shippingTrackId"];
+    [params setValue:self.wuliuNumber.text forKey:@"shippingTrackId"];
     
     //orderpro
     [[DAHttpClient sharedDAHttpClient] postRequestWithParameters:params Action:@"AdminApi/OrderManager/OrderShipped" success:^(id obj) {

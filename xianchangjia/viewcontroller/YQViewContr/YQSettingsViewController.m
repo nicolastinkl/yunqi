@@ -61,7 +61,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        
+        [SVProgressHUD show];
         NSString* openUDID = [OpenUDID value];
         NSMutableDictionary * mutaDict = [[NSMutableDictionary alloc] init];
         [mutaDict setValue:@"iPhone"    forKey:@"devicetype"];

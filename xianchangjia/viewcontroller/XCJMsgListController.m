@@ -60,6 +60,7 @@
 @property (nonatomic, copy) NSArray *allReslutItems;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchbar;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *rightbar;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 - (void)showRecipe:(Conversation *) friend animated:(BOOL)animated;
@@ -156,7 +157,28 @@
         }
     });
     
-    [self.navigationItem.rightBarButtonItem setAction:@selector(refershData:)];
+    
+    // update unread message badge number
+    if ([YQDelegate hasLogin]) {
+        NSPredicate * preCMD = [NSPredicate predicateWithFormat:@"badgeNumber > %d",0];
+        //        NSInteger  inter =  [Conversation MR_countOfEntitiesWithPredicate:preCMD];
+        NSArray * array = [Conversation MR_findAllWithPredicate:preCMD];
+        __block int badgeNumber = 0;
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            Conversation * con = obj;
+            badgeNumber += [con.badgeNumber intValue];
+        }];
+        SLLog(@"badgeNumber %d   ",badgeNumber);
+        YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
+        if (badgeNumber > 0) {
+            [delegate.tabBarController.tabBar.items[0] setBadgeValue:[NSString stringWithFormat:@"%d",badgeNumber]];
+            [UIApplication sharedApplication].applicationIconBadgeNumber = badgeNumber;
+        }else{
+            [delegate.tabBarController.tabBar.items[0] setBadgeValue:nil];
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        }
+    }
+    
 }
 
 
@@ -348,12 +370,12 @@
 -(void) filldata
 {
     //check from net
-    [self startAnimation:self.navigationItem.rightBarButtonItem.customView];
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    [self startAnimation:self.rightbar.customView];
+    self.rightbar.enabled = NO;
     [self webSocketdidreceingWithMsg:nil];
     [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:nil Action:@"AdminApi/WeChat/SessionList" success:^(id response) {
         
-        if (response) {
+        if (response && [DataHelper getIntegerValue:response[@"code"] defaultValue:0] == 200) {
             [self webSocketDidOpen:nil];
             //delete all
             {
@@ -416,14 +438,14 @@
         }
         [self doneLoadingTableViewData];
         
-        [self stopAnimation:self.navigationItem.rightBarButtonItem.customView];
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        [self stopAnimation:self.rightbar.customView];
+        self.rightbar.enabled = YES;
     } error:^(NSInteger index) {
         [self webSocketdidFailWithError:nil];
         [self.tableView reloadData];
         [self doneLoadingTableViewData];
-        [self stopAnimation:self.navigationItem.rightBarButtonItem.customView];
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        [self stopAnimation:self.rightbar.customView];
+        self.rightbar.enabled = YES;
     }];
     
     if ([Conversation MR_findFirst] == nil) {
@@ -723,6 +745,7 @@
     if (_fetchedResultsController == nil) {
         self.fetchedResultsController = [Conversation MR_fetchAllSortedBy:@"lastMessageDate" ascending:NO withPredicate:nil groupBy:nil delegate:self];
     }
+    
 	return _fetchedResultsController;
 }
 
@@ -941,7 +964,7 @@
             break;
 	}
     // update unread message badge number
-    if ([USER_DEFAULT stringForKey:KeyChain_Laixin_account_sessionid]) {
+    if ([YQDelegate hasLogin]) {
         NSPredicate * preCMD = [NSPredicate predicateWithFormat:@"badgeNumber > %d",0];
         //        NSInteger  inter =  [Conversation MR_countOfEntitiesWithPredicate:preCMD];
         NSArray * array = [Conversation MR_findAllWithPredicate:preCMD];

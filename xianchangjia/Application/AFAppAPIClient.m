@@ -19,7 +19,8 @@
 
 + (instancetype)sharedClient {
       static AFAppAPIClient *_sharedClient = nil;
-    NSString * kAPIBaseURLString = [USER_DEFAULT valueForKey:KeyChain_yunqi_account_notifyServerhostName];
+    NSString * kAPIBaseURLString = [USER_DEFAULT valueForKey:KeyChain_yunqi_account_notifyServerhostName];//@"http://cool1.cloud7.com.cn/";
+    //[USER_DEFAULT valueForKey:KeyChain_yunqi_account_notifyServerhostName];
     SLog(@"kAPIBaseURLString : %@",kAPIBaseURLString);
     if ([kAPIBaseURLString length]  > 5) {
       

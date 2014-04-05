@@ -30,5 +30,3 @@
 - (void) sendImageContentURLData:(NSString * ) url;
 
 @end
-
-

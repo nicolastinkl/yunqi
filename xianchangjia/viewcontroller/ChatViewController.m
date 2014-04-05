@@ -248,49 +248,49 @@ static NSInteger const kAttributedLabelTag = 100;
                  check message id can insert???
                 */
                 
-                FCMessage * message =  [FCMessage MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageId]];
-                if (!message ) {
-                    
-                    FCMessage *msg = [FCMessage MR_createInContext:localContext];
-                    if ([content isNilOrEmpty]) {
-                        content = @"";
-                    }
-                    msg.text = content;
-                    msg.sentDate = [tools datebyStr:date];
-                    msg.wechatid = self.conversation.facebookId; // proment
-                    msg.messageId = messageId;
-                    if ([typeMessage isEqualToString:@"text"]) {
-                        msg.messageType = @(messageType_text);
-                    }else if ([typeMessage isEqualToString:@"image"]) {
-                        //image
-                        msg.messageType = @(messageType_image);
-                        NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
-                        msg.imageUrl = publicUrl;
-                    }else if ([typeMessage isEqualToString:@"voice"]) {
-                        //audio
-                        NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
-                        msg.audioUrl = publicUrl;
-                        msg.messageType = @(messageType_audio);
-                        int length  = 10;//
-                        msg.audioLength = @(length/audioLengthDefine);
-                    }else{
-                        msg.messageType = @(messageType_text);
-                        
-                    }
-                    if ([from isEqualToString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name]] && [to isEqualToString:self.conversation.facebookName]) {
-                        // me
-                        // message did come, this will be on left
-                        msg.messageStatus = @(NO);
-                    }else{
-                        //other
-                        // message did come, this will be on left
-                        msg.messageStatus = @(YES);
-                    }
-                    [self.conversation addMessagesObject:msg];
-                    [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
-                    
-                    [self.messageList addObject:msg];
+//                FCMessage * message =  [FCMessage MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageId]];
+//                if (!message ) {                }
+                FCMessage *msg = [FCMessage MR_createInContext:localContext];
+                if ([content isNilOrEmpty]) {
+                    content = @"";
                 }
+                msg.text = content;
+                msg.sentDate = [tools datebyStr:date];
+                msg.wechatid = self.conversation.facebookId; // proment
+                msg.messageId = messageId;
+                if ([typeMessage isEqualToString:@"text"]) {
+                    msg.messageType = @(messageType_text);
+                }else if ([typeMessage isEqualToString:@"image"]) {
+                    //image
+                    msg.messageType = @(messageType_image);
+                    NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
+                    msg.imageUrl = publicUrl;
+                }else if ([typeMessage isEqualToString:@"voice"]) {
+                    //audio
+                    NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
+                    msg.audioUrl = publicUrl;
+                    msg.messageType = @(messageType_audio);
+                    int length  = 10;//
+                    msg.audioLength = @(length/audioLengthDefine);
+                }else{
+                    msg.messageType = @(messageType_text);
+                    
+                }
+                
+                if ([from isEqualToString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name]] && [to isEqualToString:self.conversation.facebookId]) {
+                    // me
+                    // message did come, this will be on right
+                    msg.messageStatus = @(NO);
+                }else{
+                    //other
+                    // message did come, this will be on left
+                    msg.messageStatus = @(YES);
+                }
+                [self.conversation addMessagesObject:msg];
+                [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
+                
+                [self.messageList insertObject:msg atIndex:0];
+                
                 
             }
             
@@ -2204,9 +2204,6 @@ static NSInteger const kAttributedLabelTag = 100;
     else
         CellIdentifier = @"XCJMyChatMessageCell";
     
-    
-    
-    
     XCJChatMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     [cell setCurrentMessage:message];
     [cell setConversation:self.conversation];
@@ -2415,8 +2412,8 @@ static NSInteger const kAttributedLabelTag = 100;
         [imageview_BG setHeight:fmaxf(54.0f, sizeToFit.height + 10)];
         [imageview_BG setWidth:fmaxf(70.0f, sizeToFit.width + 20)];
         if (sizeToFit.height > 54) {
-            imageview_BG.height += 10;
-            imageview_BG.width += 10;
+            imageview_BG.height += 20;
+            imageview_BG.width += 25;
         }
         
 //        [labelContent setLeft:imageview_BG.left + 5];
@@ -2547,20 +2544,22 @@ static NSInteger const kAttributedLabelTag = 100;
         labelContent.frame = CGRectMake(0, 0, 0, 0);
         labelContent.attributedText = nil;
         
-//        labelContent.text = @"";
-        //    [self creatAttributedLabel:message.content Label:labelContent];
+//      labelContent.text = @"";
+//      [self creatAttributedLabel:message.content Label:labelContent];
+
         /*build test frame */
         [labelContent sizeToFit];
         imageview_Img.hidden = YES;
         //min height and width  is 35.0f
         //    fmaxf(35.0f, sizeToFit.height + 5.0f ) ,fmaxf(35.0f, sizeToFit.width + 10.0f )
         [imageview_BG setHeight:54.0f];
-        [imageview_BG setWidth:80.0f];
+        [imageview_BG setWidth:90.0f];
         
         imageview_BG.hidden = NO;
         address.text = @"";
         address.hidden = YES;
-        
+        [audioButton setWidth:100];
+
         [audioButton.layer setValue:message.audioUrl forKey:@"audiourl"];
         //SLog(@"message.audioLength %@",message.audioLength);
         
@@ -2578,21 +2577,24 @@ static NSInteger const kAttributedLabelTag = 100;
                
             }
         }
+        
         if (displayLength <= 0) {
             // length for local path
             int  localLength = [self getFileSize:message.audioUrl];
             displayLength = localLength/audioLengthDefine;
         }
+        if (displayLength > 0) {
          [audioButton setTitle:[NSString stringWithFormat:@"%d''",displayLength] forState:UIControlStateNormal];
+        }else{
+          [audioButton setTitle:@" " forState:UIControlStateNormal];
+        }
         
         [audioButton addTarget:self action:@selector(playaudioClick:) forControlEvents:UIControlEventTouchUpInside];
- 
         
         if ([message.messageStatus boolValue])
         {
             [imageview_BG setLeft:55.0f];
-            [audioButton setWidth:100];
-            audioButton.left = 50.0f;
+            audioButton.left = 60.0f;
             Image_playing.left = imageview_BG.left + imageview_BG.width + 10;
             
             indictorView.left = imageview_BG.left + imageview_BG.width  + 5;
@@ -2600,6 +2602,10 @@ static NSInteger const kAttributedLabelTag = 100;
             
             retryButton.left = imageview_BG.left + imageview_BG.width;
             retryButton.top = imageview_BG.height/2  + 10;
+            
+            UIImage * image = [UIImage imageNamed:@"chat_my_bottom_voice_press"];
+            audioButton.imageEdgeInsets = UIEdgeInsetsMake(0.,0., 0., audioButton.frame.size.width - (image.size.width + 5));
+            audioButton.titleEdgeInsets = UIEdgeInsetsMake(0., 0., 0., image.size.width);
         }
         else
         {
@@ -2621,10 +2627,10 @@ static NSInteger const kAttributedLabelTag = 100;
          if ([message.messageStatus boolValue])
          {
              //other
-             [audioButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+             [audioButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
          }else {
              //self
-             [audioButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+             [audioButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
          }
     }
     
@@ -2650,7 +2656,6 @@ static NSInteger const kAttributedLabelTag = 100;
         return NO;
     }
 }
-
 
 #pragma mark SeeBigImageviewClick
 -(void) SeeBigImageviewClick:(id) sender
@@ -2775,9 +2780,9 @@ static NSInteger const kAttributedLabelTag = 100;
                 [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
                 [audioSession setActive:YES error:nil];
                 
-                 if ([filename containString:@"wavToAmr.amr"]) {
-                     filename = [filename stringByReplacingOccurrencesOfString:@"wavToAmr.amr" withString:@""];
-                 }
+                if ([filename containString:@"wavToAmr.amr"]) {
+                    filename = [filename stringByReplacingOccurrencesOfString:@"wavToAmr.amr" withString:@""];
+                }
                 playingURL = [NSURL URLWithString:[VoiceRecorderBaseVC getPathByFileName:filename ofType:@"wav"]];
                 
                 player = [[AVAudioPlayer alloc] initWithContentsOfURL:playingURL error:nil];

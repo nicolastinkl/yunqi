@@ -157,6 +157,7 @@
                 FCMessage *msg = [FCMessage MR_createInContext:localContext];
                 msg.text = self.currentMessage.text;
                 msg.sentDate = self.currentMessage.sentDate;
+                msg.wechatid = self.currentMessage.wechatid;
                 msg.messageType = self.currentMessage.messageType;
                 // message did not come, this will be on rigth
                 msg.messageStatus = self.currentMessage.messageStatus;
@@ -172,7 +173,7 @@
                 msg.messageguid = guid;
                 msg.audioLength = self.currentMessage.audioLength;
                 [self.conversation addMessagesObject:msg];
-                [self.conversation removeMessagesObject:self.currentMessage];
+                //[self.conversation removeMessagesObject:self.currentMessage];
                 [localContext MR_saveToPersistentStoreAndWait];
 
                 SLLog(@"send ok");

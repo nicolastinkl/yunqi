@@ -21,6 +21,11 @@
 - (void)requestPostActionWithCompletion:(CompletionBlock)completion withParems:(NSMutableDictionary * ) parems withAction:(NSString * ) action
 {
     SLog(@"parems %@",parems);
+    
+//    [parems  setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_token] forKey:@"token"];
+//    [parems  setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_token] forKey:@"timestamp"];
+//    //签名值，生成方法：将DeviceId、已登录的用户名和时间戳三个值的字符串形式拼接后，对整体进行MD5加密（小写值）
+//    [parems  setValue:@"" forKey:@"sign"];
     [[IQSocialRequestBaseClient sharedClient] POST:action parameters:parems success:^(NSURLSessionDataTask *task, id responseObject) {
         SLog(@"%@",responseObject);
         if (completion) {

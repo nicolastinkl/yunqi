@@ -46,26 +46,19 @@
                                         <rect key="frame" x="17" y="192" width="286" height="91"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入域名" minimumFontSize="17" id="MWo-5r-tE2">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入用户名" minimumFontSize="17" id="MWo-5r-tE2">
                                         <rect key="frame" x="62" y="202" width="124" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="xNk-Gc-SLV" id="AbJ-fe-ZNQ"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=".cloud7.com.cn" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BCC-ia-QB7">
-                                        <rect key="frame" x="170" y="206" width="130" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" minimumFontSize="17" clearButtonMode="whileEditing" id="4HC-11-k51">
                                         <rect key="frame" x="62" y="247" width="214" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="xNk-Gc-SLV" id="fy1-JS-iSz"/>
@@ -796,7 +789,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="物流信息 " id="2Ya-ZQ-vsW">
-                        <barButtonItem key="rightBarButtonItem" title="保存" style="done" id="dNR-zN-fG9"/>
+                        <barButtonItem key="rightBarButtonItem" title="保存" style="done" id="dNR-zN-fG9">
+                            <connections>
+                                <action selector="complete:" destination="h8q-bf-ELI" id="h19-oU-NvV"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="wuliuName" destination="OP2-IC-HcO" id="Exu-Hb-1TG"/>
@@ -1096,6 +1093,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="hAN-BN-0sl"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="rightbar" destination="hAN-BN-0sl" id="X72-EC-u44"/>
                         <outlet property="searchbar" destination="vde-kY-mTA" id="iTr-ze-axd"/>
                         <segue destination="P6i-1c-yn0" kind="push" identifier="Chat" id="MVq-OF-ffB"/>
                     </connections>
