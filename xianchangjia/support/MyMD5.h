@@ -19,4 +19,13 @@
  *****/
 
 +(NSString *) md5: (NSString *) inPutText ;
+
+/**
+ *  16位
+ *
+ *  @param inputtext <#inputtext description#>
+ *
+ *  @return <#return value description#>
+ */
++(NSString*) md532 :(NSString * ) inputtext;
 @end

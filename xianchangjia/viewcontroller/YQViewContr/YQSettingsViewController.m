@@ -66,7 +66,7 @@
         NSMutableDictionary * mutaDict = [[NSMutableDictionary alloc] init];
         [mutaDict setValue:@"iPhone"    forKey:@"devicetype"];
         [mutaDict setValue:openUDID     forKey:@"deviceid"];
-        [mutaDict setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_token]     forKey:@"token"];
+        [mutaDict setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_token]  forKey:@"token"];
         [mutaDict setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName]     forKey:@"hostname"];
         [[[LXAPIController sharedLXAPIController] requestLaixinManager]  requestPostActionWithCompletion:^(id response, NSError *error) {
             /*
@@ -95,7 +95,7 @@
 
             }else{
                 //error from server ...
-                [UIAlertView showAlertViewWithMessage:@"登录失败"];
+                [UIAlertView showAlertViewWithMessage:@"退出登录失败"];
             }
         } withParems:mutaDict withAction:@"Cloud7/WebApp/DeviceSignout"];
         

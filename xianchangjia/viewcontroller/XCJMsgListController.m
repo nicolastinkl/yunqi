@@ -60,7 +60,7 @@
 @property (nonatomic, copy) NSArray *allReslutItems;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchbar;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *rightbar;
+@property (weak, nonatomic) IBOutlet UIButton *rightbar;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 - (void)showRecipe:(Conversation *) friend animated:(BOOL)animated;
@@ -370,7 +370,7 @@
 -(void) filldata
 {
     //check from net
-    [self startAnimation:self.rightbar.customView];
+    [self startAnimation:self.rightbar];
     self.rightbar.enabled = NO;
     [self webSocketdidreceingWithMsg:nil];
     [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:nil Action:@"AdminApi/WeChat/SessionList" success:^(id response) {
@@ -379,12 +379,12 @@
             [self webSocketDidOpen:nil];
             //delete all
             {
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId == %@", @""];
-                BOOL bol = [Conversation MR_deleteAllMatchingPredicate:predicate inContext:localContext];
-                if (bol) {
-                    [localContext MR_saveToPersistentStoreAndWait];
-                }
+//                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+//                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId == %@", @""];
+//                BOOL bol = [Conversation MR_deleteAllMatchingPredicate:predicate inContext:localContext];
+//                if (bol) {
+//                    [localContext MR_saveToPersistentStoreAndWait];
+//                }
             }
             
             NSArray * dataArray = response[@"data"];
@@ -418,8 +418,7 @@
                     conversation.messageType = @(XCMessageActivity_UserPrivateMessage);
                     conversation.lastMessageDate = date;
                     //                        conversation.messageId = [NSString stringWithFormat:@"%@_%@",XCMessageActivity_User_privateMessage,[tools getStringValue:obj[@"msgid"] defaultValue:@"0"]];
-                    conversation.lastMessage = content ;
-                    
+                    conversation.lastMessage = content ;                    
                     conversation.messageStutes = @(messageStutes_incoming);
                     conversation.facebookId = wechatId;
                     conversation.facebookavatar = avatar;
@@ -438,13 +437,13 @@
         }
         [self doneLoadingTableViewData];
         
-        [self stopAnimation:self.rightbar.customView];
+        [self stopAnimation:self.rightbar];
         self.rightbar.enabled = YES;
     } error:^(NSInteger index) {
         [self webSocketdidFailWithError:nil];
         [self.tableView reloadData];
         [self doneLoadingTableViewData];
-        [self stopAnimation:self.rightbar.customView];
+        [self stopAnimation:self.rightbar];
         self.rightbar.enabled = YES;
     }];
     
@@ -662,7 +661,7 @@
 
 -(void) webSocketDidOpen:(NSNotification * ) noty
 {
-    self.title = @"微信";
+    self.title = @"最近消息";
     [self.navigationItem.titleView sizeToFit];
     [self.tableView hideIndicatorViewBlueOrGary];
     
@@ -681,7 +680,7 @@
 
 -(void) webSocketdidFailWithError:(NSNotification * ) noty
 {
-    self.title = @"微信(未连接)";
+    self.title = @"最近消息(未连接)";
     [self.navigationItem.titleView sizeToFit];
     /*XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
      
@@ -718,7 +717,7 @@
 
 -(void) webSocketdidreceingWithMsg:(NSNotification * ) noty
 {
-    self.title = @"微信(正在载入...)";
+    self.title = @"最近消息(正在载入...)";
     
     /*XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
      

@@ -612,11 +612,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "828"
-            endingLineNumber = "828"
+            startingLineNumber = "827"
+            endingLineNumber = "827"
             landmarkName = "-webSocketDidReceivePushMessage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -628,11 +628,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1036"
-            endingLineNumber = "1036"
+            startingLineNumber = "1035"
+            endingLineNumber = "1035"
             landmarkName = "-showRecipe:animated:"
             landmarkType = "5">
          </BreakpointContent>
@@ -644,11 +644,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1144"
-            endingLineNumber = "1144"
+            startingLineNumber = "1143"
+            endingLineNumber = "1143"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -660,11 +660,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "740"
-            endingLineNumber = "740"
+            startingLineNumber = "739"
+            endingLineNumber = "739"
             landmarkName = "@implementation XCJMsgListController"
             landmarkType = "3">
          </BreakpointContent>
@@ -676,11 +676,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "737"
-            endingLineNumber = "737"
+            startingLineNumber = "736"
+            endingLineNumber = "736"
             landmarkName = "@implementation XCJMsgListController"
             landmarkType = "3">
          </BreakpointContent>
@@ -692,11 +692,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/Extend/LXNetManager/LXRequestFacebookManager.m"
-            timestampString = "418407910.138112"
+            timestampString = "418444183.385527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "-getUserDesPtionCompletion:withuid:"
             landmarkType = "5">
          </BreakpointContent>
@@ -708,11 +708,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1048"
-            endingLineNumber = "1048"
+            startingLineNumber = "1047"
+            endingLineNumber = "1047"
             landmarkName = "-configureCell:atIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -724,11 +724,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1146"
-            endingLineNumber = "1146"
+            startingLineNumber = "1145"
+            endingLineNumber = "1145"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -740,11 +740,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1037"
-            endingLineNumber = "1037"
+            startingLineNumber = "1036"
+            endingLineNumber = "1036"
             landmarkName = "-showRecipe:animated:"
             landmarkType = "5">
             <Locations>
@@ -800,11 +800,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/Extend/LXNetManager/LXRequestFacebookManager.m"
-            timestampString = "418407910.138112"
+            timestampString = "418444183.385527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "-getUserDesPtionCompletion:withuid:"
             landmarkType = "5">
          </BreakpointContent>
@@ -816,11 +816,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1951"
-            endingLineNumber = "1951"
+            startingLineNumber = "2017"
+            endingLineNumber = "2017"
             landmarkName = "-uploadImage:token:"
             landmarkType = "5">
          </BreakpointContent>
@@ -832,11 +832,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418476093.325393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "606"
-            endingLineNumber = "606"
+            startingLineNumber = "630"
+            endingLineNumber = "630"
             landmarkName = "-SeeUserInfoClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -848,11 +848,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418476093.325393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "608"
-            endingLineNumber = "608"
+            startingLineNumber = "632"
+            endingLineNumber = "632"
             landmarkName = "@implementation ChatViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -864,11 +864,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1833"
-            endingLineNumber = "1833"
+            startingLineNumber = "1899"
+            endingLineNumber = "1899"
             landmarkName = "-getMd5_32Bit_String:"
             landmarkType = "5">
             <Locations>
@@ -910,11 +910,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1836"
-            endingLineNumber = "1836"
+            startingLineNumber = "1902"
+            endingLineNumber = "1902"
             landmarkName = "-getMd5_32Bit_String:"
             landmarkType = "5">
             <Locations>
@@ -984,11 +984,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1848"
-            endingLineNumber = "1848"
+            startingLineNumber = "1914"
+            endingLineNumber = "1914"
             landmarkName = "-SendImageWithMeImageurl:withMsgID:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1000,11 +1000,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1880"
-            endingLineNumber = "1880"
+            startingLineNumber = "1946"
+            endingLineNumber = "1946"
             landmarkName = "@implementation ChatViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1128,11 +1128,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1768"
-            endingLineNumber = "1768"
+            startingLineNumber = "1834"
+            endingLineNumber = "1834"
             landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "5">
             <Locations>
@@ -1174,11 +1174,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1770"
-            endingLineNumber = "1770"
+            startingLineNumber = "1836"
+            endingLineNumber = "1836"
             landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1190,11 +1190,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1775"
-            endingLineNumber = "1775"
+            startingLineNumber = "1841"
+            endingLineNumber = "1841"
             landmarkName = "@implementation ChatViewController"
             landmarkType = "3">
             <Locations>
@@ -1380,11 +1380,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403771.177694"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2460"
-            endingLineNumber = "2460"
+            startingLineNumber = "2526"
+            endingLineNumber = "2526"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1396,11 +1396,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1002"
-            endingLineNumber = "1002"
+            startingLineNumber = "1001"
+            endingLineNumber = "1001"
             landmarkName = "-controllerDidChangeContent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1412,11 +1412,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "999"
-            endingLineNumber = "999"
+            startingLineNumber = "998"
+            endingLineNumber = "998"
             landmarkName = "-controller:didChangeSection:atIndex:forChangeType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1428,11 +1428,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "998"
-            endingLineNumber = "998"
+            startingLineNumber = "997"
+            endingLineNumber = "997"
             landmarkName = "-controller:didChangeSection:atIndex:forChangeType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1476,11 +1476,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/Extend/LXNetManager/LXRequestFacebookManager.m"
-            timestampString = "418407910.138112"
+            timestampString = "418444183.385527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "-getUserDesByNetCompletion:withuid:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1492,11 +1492,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/Extend/LXNetManager/LXRequestFacebookManager.m"
-            timestampString = "418407910.138112"
+            timestampString = "418444183.385527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "-getUserDesByNetCompletion:withuid:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1524,11 +1524,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/Extend/LXNetManager/LXRequestFacebookManager.m"
-            timestampString = "418407910.138112"
+            timestampString = "418444183.385527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "-getUserDesByNetCompletion:withuid:"
             landmarkType = "5">
             <Locations>
@@ -1938,11 +1938,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "768"
-            endingLineNumber = "768"
+            startingLineNumber = "767"
+            endingLineNumber = "767"
             landmarkName = "@implementation XCJMsgListController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1954,11 +1954,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "770"
-            endingLineNumber = "770"
+            startingLineNumber = "769"
+            endingLineNumber = "769"
             landmarkName = "-webSocketDidReceivePushMessage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1970,11 +1970,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "783"
-            endingLineNumber = "783"
+            startingLineNumber = "782"
+            endingLineNumber = "782"
             landmarkName = "-webSocketDidReceivePushMessage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2066,11 +2066,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1145"
-            endingLineNumber = "1145"
+            startingLineNumber = "1144"
+            endingLineNumber = "1144"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2082,11 +2082,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1142"
-            endingLineNumber = "1142"
+            startingLineNumber = "1141"
+            endingLineNumber = "1141"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2098,11 +2098,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1099"
-            endingLineNumber = "1099"
+            startingLineNumber = "1098"
+            endingLineNumber = "1098"
             landmarkName = "-showBadgeValue:inView:"
             landmarkType = "5">
             <Locations>
@@ -2302,11 +2302,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1066"
-            endingLineNumber = "1066"
+            startingLineNumber = "1065"
+            endingLineNumber = "1065"
             landmarkName = "-configureCell:atIndexPath:"
             landmarkType = "5">
             <Locations>
@@ -2348,11 +2348,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1068"
-            endingLineNumber = "1068"
+            startingLineNumber = "1067"
+            endingLineNumber = "1067"
             landmarkName = "-configureCell:atIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2586,11 +2586,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1862"
-            endingLineNumber = "1862"
+            startingLineNumber = "1928"
+            endingLineNumber = "1928"
             landmarkName = "-SendImageWithMeImageurl:withMsgID:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2602,11 +2602,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1838"
-            endingLineNumber = "1838"
+            startingLineNumber = "1904"
+            endingLineNumber = "1904"
             landmarkName = "@implementation ChatViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -2618,11 +2618,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1860"
-            endingLineNumber = "1860"
+            startingLineNumber = "1926"
+            endingLineNumber = "1926"
             landmarkName = "-SendImageWithMeImageurl:withMsgID:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2634,11 +2634,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1715"
-            endingLineNumber = "1715"
+            startingLineNumber = "1758"
+            endingLineNumber = "1758"
             landmarkName = "-moreClick"
             landmarkType = "5">
          </BreakpointContent>
@@ -2650,11 +2650,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418476093.325393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "599"
-            endingLineNumber = "599"
+            startingLineNumber = "623"
+            endingLineNumber = "623"
             landmarkName = "@implementation ChatViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -2666,11 +2666,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418476093.325393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "607"
-            endingLineNumber = "607"
+            startingLineNumber = "631"
+            endingLineNumber = "631"
             landmarkName = "-SeeUserInfoClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2682,11 +2682,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418476093.325393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "605"
-            endingLineNumber = "605"
+            startingLineNumber = "629"
+            endingLineNumber = "629"
             landmarkName = "-SeeUserInfoClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2708,11 +2708,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3056"
-            endingLineNumber = "3056"
+            startingLineNumber = "3156"
+            endingLineNumber = "3156"
             landmarkName = "@implementation ChatViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -2724,11 +2724,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3071"
-            endingLineNumber = "3071"
+            startingLineNumber = "3171"
+            endingLineNumber = "3171"
             landmarkName = "-handlePan:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2740,11 +2740,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3070"
-            endingLineNumber = "3070"
+            startingLineNumber = "3170"
+            endingLineNumber = "3170"
             landmarkName = "-handlePan:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2944,11 +2944,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1471"
-            endingLineNumber = "1471"
+            startingLineNumber = "1520"
+            endingLineNumber = "1520"
             landmarkName = "-SendTextMsgClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2976,11 +2976,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418476093.325393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "573"
-            endingLineNumber = "573"
+            startingLineNumber = "597"
+            endingLineNumber = "597"
             landmarkName = "-recordBtnLongPressed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3008,11 +3008,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1431"
-            endingLineNumber = "1431"
+            startingLineNumber = "1480"
+            endingLineNumber = "1480"
             landmarkName = "-SendTextMsgClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3024,11 +3024,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1440"
-            endingLineNumber = "1440"
+            startingLineNumber = "1489"
+            endingLineNumber = "1489"
             landmarkName = "-SendTextMsgClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3040,11 +3040,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1441"
-            endingLineNumber = "1441"
+            startingLineNumber = "1490"
+            endingLineNumber = "1490"
             landmarkName = "-SendTextMsgClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3056,11 +3056,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1443"
-            endingLineNumber = "1443"
+            startingLineNumber = "1492"
+            endingLineNumber = "1492"
             landmarkName = "-SendTextMsgClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3164,11 +3164,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/CustomCell/XCJChatMessageCell.m"
-            timestampString = "416035133.112438"
+            timestampString = "418490741.442546"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "-sendMessageSucc:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3180,11 +3180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/CustomCell/XCJChatMessageCell.m"
-            timestampString = "416035133.112438"
+            timestampString = "418490741.442546"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "-sendMessageSucc:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3196,11 +3196,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/CustomCell/XCJChatMessageCell.m"
-            timestampString = "416035133.112438"
+            timestampString = "418490741.442546"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "-sendMessageSucc:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3212,11 +3212,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/CustomCell/XCJChatMessageCell.m"
-            timestampString = "416035133.112438"
+            timestampString = "418490741.442546"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "-sendMessageSucc:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3244,11 +3244,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/CustomCell/XCJChatMessageCell.m"
-            timestampString = "416035133.112438"
+            timestampString = "418490741.442546"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "-sendMessageSucc:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3260,11 +3260,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403771.177694"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2263"
-            endingLineNumber = "2263"
+            startingLineNumber = "2330"
+            endingLineNumber = "2330"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3276,11 +3276,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418378465.794583"
+            timestampString = "418473767.931017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -3292,11 +3292,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2674"
-            endingLineNumber = "2674"
+            startingLineNumber = "2774"
+            endingLineNumber = "2774"
             landmarkName = "-SeeBigImageviewClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3308,11 +3308,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418476093.325393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "525"
-            endingLineNumber = "525"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
             landmarkName = "-getFileSize:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3324,11 +3324,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418476093.325393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "424"
+            endingLineNumber = "424"
             landmarkName = "-SendMediaSource:withType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3340,11 +3340,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2793"
-            endingLineNumber = "2793"
+            startingLineNumber = "2893"
+            endingLineNumber = "2893"
             landmarkName = "-playaudioClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3722,11 +3722,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2638"
-            endingLineNumber = "2638"
+            startingLineNumber = "2704"
+            endingLineNumber = "2704"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3738,11 +3738,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2200"
-            endingLineNumber = "2200"
+            startingLineNumber = "2267"
+            endingLineNumber = "2267"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3754,11 +3754,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2690"
-            endingLineNumber = "2690"
+            startingLineNumber = "2790"
+            endingLineNumber = "2790"
             landmarkName = "-playaudioClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3770,11 +3770,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2689"
-            endingLineNumber = "2689"
+            startingLineNumber = "2789"
+            endingLineNumber = "2789"
             landmarkName = "-playaudioClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4408,11 +4408,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1164"
-            endingLineNumber = "1164"
+            startingLineNumber = "1163"
+            endingLineNumber = "1163"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4424,7 +4424,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1179"
+            endingLineNumber = "1179"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1180"
@@ -4440,7 +4456,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1181"
@@ -4456,27 +4472,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1182"
-            endingLineNumber = "1182"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1166"
-            endingLineNumber = "1166"
+            startingLineNumber = "1165"
+            endingLineNumber = "1165"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -4646,11 +4646,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2813"
-            endingLineNumber = "2813"
+            startingLineNumber = "2913"
+            endingLineNumber = "2913"
             landmarkName = "-ShowPlayingimgArray:withTime:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5280,11 +5280,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418404674.672054"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2566"
-            endingLineNumber = "2566"
+            startingLineNumber = "2632"
+            endingLineNumber = "2632"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5296,11 +5296,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418404674.672054"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2569"
-            endingLineNumber = "2569"
+            startingLineNumber = "2635"
+            endingLineNumber = "2635"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5312,11 +5312,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2692"
-            endingLineNumber = "2692"
+            startingLineNumber = "2792"
+            endingLineNumber = "2792"
             landmarkName = "-playaudioClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5328,11 +5328,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2683"
-            endingLineNumber = "2683"
+            startingLineNumber = "2783"
+            endingLineNumber = "2783"
             landmarkName = "-playaudioClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5344,71 +5344,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2678"
-            endingLineNumber = "2678"
-            landmarkName = "-playaudioClick:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2715"
-            endingLineNumber = "2715"
-            landmarkName = "-playaudioClick:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2764"
-            endingLineNumber = "2764"
-            landmarkName = "-playaudioClick:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2763"
-            endingLineNumber = "2763"
-            landmarkName = "-playaudioClick:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2778"
@@ -5424,11 +5360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2785"
-            endingLineNumber = "2785"
+            startingLineNumber = "2815"
+            endingLineNumber = "2815"
             landmarkName = "-playaudioClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5440,11 +5376,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2787"
-            endingLineNumber = "2787"
+            startingLineNumber = "2864"
+            endingLineNumber = "2864"
             landmarkName = "-playaudioClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5456,11 +5392,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2765"
-            endingLineNumber = "2765"
+            startingLineNumber = "2863"
+            endingLineNumber = "2863"
             landmarkName = "-playaudioClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5472,11 +5408,75 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418404674.672054"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2561"
-            endingLineNumber = "2561"
+            startingLineNumber = "2878"
+            endingLineNumber = "2878"
+            landmarkName = "-playaudioClick:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2885"
+            endingLineNumber = "2885"
+            landmarkName = "-playaudioClick:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2887"
+            endingLineNumber = "2887"
+            landmarkName = "-playaudioClick:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2865"
+            endingLineNumber = "2865"
+            landmarkName = "-playaudioClick:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2627"
+            endingLineNumber = "2627"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5488,11 +5488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418405844.901945"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2593"
-            endingLineNumber = "2593"
+            startingLineNumber = "2659"
+            endingLineNumber = "2659"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5630,11 +5630,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403771.177694"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2543"
-            endingLineNumber = "2543"
+            startingLineNumber = "2609"
+            endingLineNumber = "2609"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5646,11 +5646,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418404674.672054"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2563"
-            endingLineNumber = "2563"
+            startingLineNumber = "2629"
+            endingLineNumber = "2629"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5678,11 +5678,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418404674.672054"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2579"
-            endingLineNumber = "2579"
+            startingLineNumber = "2645"
+            endingLineNumber = "2645"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5788,11 +5788,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/YQViewContr/XCJOrderTableViewController.m"
-            timestampString = "418385301.823298"
+            timestampString = "418441072.397972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "-reloadArrays"
             landmarkType = "5">
          </BreakpointContent>
@@ -5804,11 +5804,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1049"
-            endingLineNumber = "1049"
+            startingLineNumber = "1048"
+            endingLineNumber = "1048"
             landmarkName = "-configureCell:atIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -5820,11 +5820,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/XCJMsgListController.m"
-            timestampString = "418406937.558697"
+            timestampString = "418528404.132101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "464"
-            endingLineNumber = "464"
+            startingLineNumber = "463"
+            endingLineNumber = "463"
             landmarkName = "-initHomeData"
             landmarkType = "5">
          </BreakpointContent>
@@ -5916,11 +5916,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/Application/tools.m"
-            timestampString = "418198032.25446"
+            timestampString = "418446073.371992"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "+datebyStr:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6056,11 +6056,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/YQViewContr/XCJOrderTableViewController.m"
-            timestampString = "418385301.823298"
+            timestampString = "418441072.397972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "-valuechangeSegment:"
             landmarkType = "5">
             <Locations>
@@ -6102,11 +6102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/YQViewContr/XCJOrderTableViewController.m"
-            timestampString = "418385301.823298"
+            timestampString = "418441072.397972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "-valuechangeSegment:"
             landmarkType = "5">
             <Locations>
@@ -6162,11 +6162,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/YQViewContr/XCJOrderTableViewController.m"
-            timestampString = "418385301.823298"
+            timestampString = "418441072.397972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "-valuechangeSegment:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6178,11 +6178,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/YQViewContr/XCJOrderTableViewController.m"
-            timestampString = "418385301.823298"
+            timestampString = "418441072.397972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
             landmarkName = "@implementation XCJOrderTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -6194,11 +6194,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418498272.864327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1359"
-            endingLineNumber = "1359"
+            startingLineNumber = "1408"
+            endingLineNumber = "1408"
             landmarkName = "-SendTextMsgClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6210,11 +6210,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403673.090472"
+            timestampString = "418476093.325393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1248"
-            endingLineNumber = "1248"
+            startingLineNumber = "1288"
+            endingLineNumber = "1288"
             landmarkName = "-dealloc"
             landmarkType = "5">
          </BreakpointContent>
@@ -6226,11 +6226,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/support/sendMessageType/RemoteImgOperator.m"
-            timestampString = "418400977.92282"
+            timestampString = "418446073.371992"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "-setuploadRemoteFile:FromURL:fileType:withParems:"
             landmarkType = "5">
             <Locations>
@@ -6272,11 +6272,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/support/sendMessageType/RemoteImgOperator.m"
-            timestampString = "418400977.92282"
+            timestampString = "418446073.371992"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "-setuploadRemoteFile:FromURL:fileType:withParems:"
             landmarkType = "5">
          </BreakpointContent>
@@ -6304,11 +6304,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "xianchangjia/viewcontroller/ChatViewController.m"
-            timestampString = "418403252.085743"
+            timestampString = "418473767.931017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
             landmarkName = "-initchatdata:"
             landmarkType = "5">
             <Locations>
@@ -6319,12 +6319,12 @@
                   symbolName = "-[ChatViewController initchatdata:]"
                   moduleName = "yunqi"
                   urlString = "file:///Users/applepc/Documents/project/ios7Project/yunqi/yunqi/xianchangjia/viewcontroller/ChatViewController.m"
-                  timestampString = "418403252.09497"
+                  timestampString = "418491785.223047"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "230"
-                  endingLineNumber = "230"
-                  offsetFromSymbolStart = "574">
+                  startingLineNumber = "241"
+                  endingLineNumber = "241"
+                  offsetFromSymbolStart = "612">
                </Location>
                <Location
                   shouldBeEnabled = "No"
@@ -6333,14 +6333,302 @@
                   symbolName = "__35-[ChatViewController initchatdata:]_block_invoke"
                   moduleName = "yunqi"
                   urlString = "file:///Users/applepc/Documents/project/ios7Project/yunqi/yunqi/xianchangjia/viewcontroller/ChatViewController.m"
-                  timestampString = "418403252.095223"
+                  timestampString = "418491785.223597"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "230"
-                  endingLineNumber = "230"
-                  offsetFromSymbolStart = "48">
+                  startingLineNumber = "241"
+                  endingLineNumber = "241"
+                  offsetFromSymbolStart = "38">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2719"
+            endingLineNumber = "2719"
+            landmarkName = "-attributedLabel:shouldFollowLink:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2711"
+            endingLineNumber = "2711"
+            landmarkName = "-attributedLabel:shouldFollowLink:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2733"
+            endingLineNumber = "2733"
+            landmarkName = "-attributedLabel:shouldFollowLink:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2718"
+            endingLineNumber = "2718"
+            landmarkName = "-attributedLabel:shouldFollowLink:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2736"
+            endingLineNumber = "2736"
+            landmarkName = "-attributedLabel:shouldFollowLink:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2734"
+            endingLineNumber = "2734"
+            landmarkName = "-attributedLabel:shouldFollowLink:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1807"
+            endingLineNumber = "1807"
+            landmarkName = "-actionSheet:clickedButtonAtIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1815"
+            endingLineNumber = "1815"
+            landmarkName = "-actionSheet:clickedButtonAtIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1813"
+            endingLineNumber = "1813"
+            landmarkName = "-actionSheet:clickedButtonAtIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418476093.325393"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "935"
+            endingLineNumber = "935"
+            landmarkName = "-scrollViewDidScroll:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418473957.757199"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "-initchatdata:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418476093.325393"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "929"
+            endingLineNumber = "929"
+            landmarkName = "-scrollViewDidScroll:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418476093.325393"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "939"
+            endingLineNumber = "939"
+            landmarkName = "-scrollViewDidScroll:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418476093.325393"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "931"
+            endingLineNumber = "931"
+            landmarkName = "-scrollViewDidScroll:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418491783.484202"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
+            landmarkName = "-initchatdata:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418491814.231662"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
+            landmarkName = "-initchatdata:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418491823.365463"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
+            landmarkName = "-initchatdata:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "xianchangjia/viewcontroller/ChatViewController.m"
+            timestampString = "418498272.864327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2816"
+            endingLineNumber = "2816"
+            landmarkName = "-playaudioClick:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

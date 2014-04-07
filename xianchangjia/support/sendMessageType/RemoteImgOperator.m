@@ -220,6 +220,7 @@
     }else  if(typeindex == 2){
         [parametersUploadFiles setValue:@"voice" forKey:@"type"];
     }
+    [tools addAuthMD5:parametersUploadFiles];
     //http://cool1.cloud7.com.cn/
     //[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName]
     NSString * url = [NSString stringWithFormat:@"%@%@",[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName],@"/AdminApi/MediaManager/MediaUpload"];
@@ -301,7 +302,7 @@
                         [parameters setValue:@{@"msgType":@"voice",@"mediaPath":mediaPath} forKey:@"message"];
                     }
                     [parameters setValue:guid  forKey:@"messageId"];
-                    
+                    [tools addAuthMD5:parameters];
                     SLog(@"%@",parameters);
                     // sendmessage media
                      [[DAHttpClient sharedDAHttpClient] postRequestWithParameters:parameters Action:@"/AdminApi/WeChat/SendMessage" success:^(id obj) {

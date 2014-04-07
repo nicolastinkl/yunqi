@@ -45,6 +45,7 @@
 #import "UIImage+Resize.h"
 #import "IDMPhoto.h"
 #import "IDMPhotoBrowser.h"
+#import "NSString+Addition.h"
 #import "YQUserOrdersViewConsoller.h"
 
 #import <OHAttributedLabel/OHAttributedLabel.h>
@@ -54,6 +55,12 @@
 
 //#warning like iMesage will dismiss the keyboard
 #import "UIViewController+TAPKeyboardPop.h"
+
+#define kMarginTop 29.0f
+#define kMarginBottom 4.0f
+#define kPaddingTop 4.0f
+#define kPaddingBottom 8.0f
+#define kBubblePaddingRight 35.0f
 
 #define  keyboardHeight 216
 #define  facialViewWidth 300
@@ -75,9 +82,13 @@ static NSInteger const kAttributedLabelTag = 100;
     NSURL * playingURL;
     XCJChatMessageCell * playingCell;
     
+    NSString * CurrentUrl;
     BOOL _loading;
     BOOL AllLoad;
+    BOOL AllDBdatabaseLoad;
+    NSInteger _currentPage;
 }
+
 @property (weak, nonatomic) IBOutlet UIView *inputContainerView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextView *inputTextView;
@@ -170,17 +181,17 @@ static NSInteger const kAttributedLabelTag = 100;
     if (scrollView==nil) {
         scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, keyboardHeight)];
         [scrollView setBackgroundColor:[UIColor whiteColor]];
-        for (int i=0; i<4; i++) {
-            FacialView *fview=[[FacialView alloc] initWithFrame:CGRectMake(10+320*i, 18, facialViewWidth, facialViewHeight)];
+        for (int i=0; i<6; i++) {
+            FacialView *fview=[[FacialView alloc] initWithFrame:CGRectMake(10+320*i, 30, facialViewWidth, facialViewHeight)];
             [fview setBackgroundColor:[UIColor clearColor]];
-            [fview loadFacialView:i size:CGSizeMake(74, 74)];
+            [fview loadFacialView:i size:CGSizeMake(46, 46)];
             fview.delegate=self;
             [scrollView addSubview:fview];
         }
     }
     [scrollView setShowsVerticalScrollIndicator:NO];
     [scrollView setShowsHorizontalScrollIndicator:NO];
-    scrollView.contentSize=CGSizeMake(320*4, keyboardHeight);
+    scrollView.contentSize=CGSizeMake(320*5, keyboardHeight);
     scrollView.pagingEnabled=YES;
     scrollView.delegate=self;
 
@@ -188,7 +199,7 @@ static NSInteger const kAttributedLabelTag = 100;
     [pageControl setCurrentPage:0];
     pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];//RGBACOLOR(195, 179, 163, 1);
     pageControl.currentPageIndicatorTintColor = ios7BlueColor;//RGBACOLOR(132, 104, 77, 1);
-    pageControl.numberOfPages = 4;//指定页面个数
+    pageControl.numberOfPages = 5;//指定页面个数
     [pageControl setBackgroundColor:[UIColor clearColor]];
     [pageControl addTarget:self action:@selector(changePage:)forControlEvents:UIControlEventValueChanged];
     
@@ -205,7 +216,8 @@ static NSInteger const kAttributedLabelTag = 100;
     /**
      *  init _data
      */
-    [self setUpSequencer:0];
+    _currentPage = 0;
+    [self setUpSequencer];
     
     FCMessage *msg =   [self.messageList firstObject];
     if (msg == nil) {
@@ -213,7 +225,6 @@ static NSInteger const kAttributedLabelTag = 100;
         [self initchatdata:nil];
     }
 }
-
 
 -(void) initchatdata:(NSString * ) messageId
 {
@@ -223,76 +234,75 @@ static NSInteger const kAttributedLabelTag = 100;
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setValue:self.conversation.facebookId forKey:@"weChatId"];
     [params setValue:@(20) forKey:@"max"];
-    if (messageId) {
+    if (messageId && messageId.length > 0) {
         [params setValue:messageId forKey:@"messageId"];
     }
 
-    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/Thead" success:^(id obj) {
-
-        [self.view hideIndicatorViewBlueOrGary];
-        SLog(@"obj %@",obj);
-        NSArray * dataarray = obj[@"data"];
-        [dataarray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if(obj)
-            {
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-                NSString * date = [DataHelper getStringValue:obj[@"time"] defaultValue:@""];
-                NSDictionary * messageDict = obj[@"message"];
-                NSString * typeMessage = [DataHelper getStringValue:messageDict[@"msgType"] defaultValue:@""];
-                NSString * content = [DataHelper getStringValue:messageDict[@"content"] defaultValue:@""];
-                NSString * to = [DataHelper getStringValue:obj[@"to"] defaultValue:@""];
-                NSString * from = [DataHelper getStringValue:obj[@"from"] defaultValue:@""];
-                NSString * messageId = [DataHelper getStringValue:obj[@"messageId"] defaultValue:@""];
-
-                /*
-                 check message id can insert???
-                */
-                
-//                FCMessage * message =  [FCMessage MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageId]];
-//                if (!message ) {                }
-                FCMessage *msg = [FCMessage MR_createInContext:localContext];
-                if ([content isNilOrEmpty]) {
-                    content = @"";
+    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/Thead" success:^(id response) {
+        if (response && [DataHelper getIntegerValue:response[@"code"] defaultValue:0] == 200) {
+            NSArray * dataarray = response[@"data"];
+            [dataarray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if(obj )
+                {
+                    /*
+                     check message id can insert???
+                     */
+                    NSString * messageidNew = [DataHelper getStringValue:obj[@"messageId"] defaultValue:@""];
+                    FCMessage * msg =  [FCMessage MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageidNew]];
+                    if (!msg ) {
+                        
+                        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                        NSString * date = [DataHelper getStringValue:obj[@"time"] defaultValue:@""];
+                        NSDictionary * messageDict = obj[@"message"];
+                        NSString * typeMessage = [DataHelper getStringValue:messageDict[@"msgType"] defaultValue:@""];
+                        NSString * content = [DataHelper getStringValue:messageDict[@"content"] defaultValue:@""];
+                        NSString * to = [DataHelper getStringValue:obj[@"to"] defaultValue:@""];
+                        NSString * from = [DataHelper getStringValue:obj[@"from"] defaultValue:@""];
+                        msg = [FCMessage MR_createInContext:localContext];
+                        if ([content isNilOrEmpty]) {
+                            content = @"";
+                        }
+                        msg.text = content;
+                        msg.sentDate = [tools datebyStr:date];
+                        msg.wechatid = self.conversation.facebookId; // proment
+                        msg.messageId = messageidNew;
+                        if ([typeMessage isEqualToString:@"text"]) {
+                            msg.messageType = @(messageType_text);
+                        }else if ([typeMessage isEqualToString:@"image"]) {
+                            //image
+                            msg.messageType = @(messageType_image);
+                            NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
+                            msg.imageUrl = publicUrl;
+                        }else if ([typeMessage isEqualToString:@"voice"]) {
+                            //audio
+                            NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
+                            msg.audioUrl = publicUrl;
+                            msg.messageType = @(messageType_audio);
+                            int length  = 10;//
+                            msg.audioLength = @(length/audioLengthDefine);
+                        }else{
+                            msg.messageType = @(messageType_text);
+                            
+                        }
+                        
+                        if ([from isEqualToString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name]] && [to isEqualToString:self.conversation.facebookId]) {
+                            // me
+                            // message did come, this will be on right
+                            msg.messageStatus = @(NO);
+                        }else{
+                            //other
+                            // message did come, this will be on left
+                            msg.messageStatus = @(YES);
+                        }
+                        [self.conversation addMessagesObject:msg];
+                        [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
+                        
+                    }
+                    [self.messageList insertObject:msg atIndex:0];
                 }
-                msg.text = content;
-                msg.sentDate = [tools datebyStr:date];
-                msg.wechatid = self.conversation.facebookId; // proment
-                msg.messageId = messageId;
-                if ([typeMessage isEqualToString:@"text"]) {
-                    msg.messageType = @(messageType_text);
-                }else if ([typeMessage isEqualToString:@"image"]) {
-                    //image
-                    msg.messageType = @(messageType_image);
-                    NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
-                    msg.imageUrl = publicUrl;
-                }else if ([typeMessage isEqualToString:@"voice"]) {
-                    //audio
-                    NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
-                    msg.audioUrl = publicUrl;
-                    msg.messageType = @(messageType_audio);
-                    int length  = 10;//
-                    msg.audioLength = @(length/audioLengthDefine);
-                }else{
-                    msg.messageType = @(messageType_text);
-                    
-                }
-                
-                if ([from isEqualToString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name]] && [to isEqualToString:self.conversation.facebookId]) {
-                    // me
-                    // message did come, this will be on right
-                    msg.messageStatus = @(NO);
-                }else{
-                    //other
-                    // message did come, this will be on left
-                    msg.messageStatus = @(YES);
-                }
-                [self.conversation addMessagesObject:msg];
-                [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
-                
-                [self.messageList insertObject:msg atIndex:0];
                 
                 
-            }
+            }];
             
             if (dataarray.count == 20) {
                 AllLoad = NO;
@@ -301,9 +311,23 @@ static NSInteger const kAttributedLabelTag = 100;
                 [self viewdidloadedComplete];
             }
             _loading = NO;
-            [self.tableView reloadData];
-            [self scrollToBottonWithAnimation:NO];
-        }];
+            
+            if (messageId && messageId.length > 0) {
+                CGSize sizePre = self.tableView.contentSize;
+                [self.tableView reloadData];
+                CGSize sizeNew = self.tableView.contentSize;
+                
+                [self.tableView setContentOffset:CGPointMake(0,  sizeNew.height - sizePre.height-63) animated:NO];
+            }else{
+                
+                [self.tableView reloadData];
+                [self scrollToBottonWithAnimation:NO];
+            }
+        }else{
+            AllLoad = NO;
+            [self viewdidloadedComplete];
+        }
+        
     } error:^(NSInteger index) {
         [self.view hideIndicatorViewBlueOrGary];
         _loading = NO;
@@ -622,8 +646,11 @@ static NSInteger const kAttributedLabelTag = 100;
     [self.navigationController pushViewController:groupsettingview animated:YES];
 }
 
-- (void) setUpSequencer:(NSInteger )_currentPage
+- (void) setUpSequencer
 {
+    if (AllDBdatabaseLoad ) {
+        return;
+    }
      NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
@@ -640,16 +667,16 @@ static NSInteger const kAttributedLabelTag = 100;
     
     [request setSortDescriptors:sortDescriptors];
     
-    [request   setFetchLimit:20];
+    [request setFetchLimit:20];
     
     [request  setFetchOffset:_currentPage * 20];
     
-    NSArray  *rssTemp  =[FCMessage MR_executeFetchRequest:request];
+    NSArray  *rssTemp  = [FCMessage MR_executeFetchRequest:request];
     
     if (rssTemp.count == 20) {
-        AllLoad = NO;
+        AllDBdatabaseLoad = NO;
     }else{
-        AllLoad = YES;
+        AllDBdatabaseLoad = YES;
         [self viewdidloadedComplete];
     }
     if (rssTemp.count > 0) {
@@ -664,13 +691,18 @@ static NSInteger const kAttributedLabelTag = 100;
         }else{
             [rssTemp enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 [self.messageList insertObject:obj atIndex:0];
-            }];              
+            }];
+            
+            CGSize sizePre = self.tableView.contentSize;
             [self.tableView reloadData];
+            CGSize sizeNew = self.tableView.contentSize;
+           
+            [self.tableView setContentOffset:CGPointMake(0,  sizeNew.height - sizePre.height-63) animated:NO];
         }
     }
     
     
-    
+    _currentPage++;
     
     /*__weak ChatViewController *self_ = self;
      Sequencer *sequencer = [[Sequencer alloc] init];
@@ -895,13 +927,22 @@ static NSInteger const kAttributedLabelTag = 100;
             return;
         }
         if ( scrollViewDat.contentOffset.y < -30.0f && !_loading) {
-            
-            SLog(@"scrollView.contentOffset.y %f",scrollViewDat.contentOffset.y);
-            FCMessage * message =  [self.messageList firstObject];
-            if (message.messageId && [message.messageId length] > 0) {
-                [self initchatdata:message.messageId];
+            if (AllDBdatabaseLoad) {
+                
+                SLog(@"scrollView.contentOffset.y %f",scrollViewDat.contentOffset.y);
+                FCMessage * message =  [self.messageList firstObject];
+                if (message.messageId && [message.messageId length] > 0) {
+                    [self initchatdata:message.messageId];
+                }else{
+                    [self viewdidloadedComplete];
+                }
             }else{
-                [self viewdidloadedComplete];
+                double delayInSeconds = .5;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [self setUpSequencer];
+                });
+
             }
         }
         
@@ -910,7 +951,6 @@ static NSInteger const kAttributedLabelTag = 100;
 
 - (void) viewdidloadedComplete
 {
-    AllLoad = YES;
     self.activityindret.hidden = YES;
     self.label_titleToast.text = @"加载完成";
 }
@@ -1280,7 +1320,17 @@ static NSInteger const kAttributedLabelTag = 100;
 #pragma mark -
 #pragma mark facialView delegate 点击表情键盘上的文字
 -(void)selectedFacialView:(NSString*)str
-{    
+{
+    
+    
+    /*
+     
+     */
+    self.inputTextView.text = [NSString stringWithFormat:@"%@%@",self.inputTextView.text,str];
+    
+    
+    return;
+    
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     FCMessage *msg = [FCMessage MR_createInContext:localContext];
     msg.text = str;
@@ -1301,7 +1351,6 @@ static NSInteger const kAttributedLabelTag = 100;
     [localContext MR_saveToPersistentStoreAndWait];
     [self insertTableRow];
     
-    return;
     SLog(@"str:%@",str);
     UIButton * button = (UIButton *) [self.inputContainerView subviewWithTag:1];
     [button showIndicatorView];
@@ -1489,12 +1538,6 @@ static NSInteger const kAttributedLabelTag = 100;
 }
 
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        [self uploadImage:ImageFile token:TokenAPP];
-    }
-}
 
 - (IBAction)adjustKeyboardFrame:(id)sender {
     //检测冲突
@@ -1759,6 +1802,29 @@ static NSInteger const kAttributedLabelTag = 100;
                 break;
         }
     }
+    
+    if (actionSheet.tag == 3) {
+
+            if (buttonIndex == 0) {
+                
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                [pasteboard setString:[NSString stringWithFormat:@"%@",CurrentUrl]];
+            }else if(buttonIndex == 1)
+            {
+                NSString * title = [actionSheet buttonTitleAtIndex:buttonIndex];
+                if (![ title  isEqualToString:@"取消"]) {
+                    
+                    if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:CurrentUrl]])
+                    {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:CurrentUrl]];
+                    }else{
+                        [UIAlertView showAlertViewWithMessage:@"打开失败"];
+                    }
+                }
+                
+            }
+        
+    }
 
 }
 
@@ -2002,6 +2068,7 @@ static NSInteger const kAttributedLabelTag = 100;
           [SVProgressHUD dismiss];
 //        [img hideIndicatorViewBlueOrGary];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络错误" message:@"上传失败,是否重新上传?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"重新上传", nil];
+        alert.tag = 1;
         [alert show];
     }];
 }
@@ -2313,6 +2380,8 @@ static NSInteger const kAttributedLabelTag = 100;
         labelName.text = [USER_DEFAULT stringForKey:KeyChain_Laixin_account_user_nick];
         labelContent.textColor = [UIColor whiteColor];
     }
+    
+    
     NSString * timeStr = [tools FormatStringForDate:message.sentDate];
     NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f],NSFontAttributeName,nil];
     CGSize sizetime = [timeStr sizeWithAttributes:tdic];    
@@ -2391,39 +2460,36 @@ static NSInteger const kAttributedLabelTag = 100;
         [OHASBasicMarkupParser processMarkupInAttributedString:mas];
         
         labelContent.attributedText = mas;
-        
+         imageview_Img.hidden = YES;
 //        labelContent.text = message.text;
         //    [self creatAttributedLabel:message.content Label:labelContent];
         /*build test frame */
 //        [labelContent sizeToFit];
-        imageview_Img.hidden = YES;
-//#pragma clang diagnostic push
-//#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-//        CGSize sizeToFit = [ message.text sizeWithFont:labelContent.font constrainedToSize:CGSizeMake(222.0f, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-//#pragma clang diagnostic pop
+        
         
         CGSize sizeToFit = [mas sizeConstrainedToSize:CGSizeMake(222.0f, CGFLOAT_MAX)];
         
         [labelContent setWidth:sizeToFit.width];
         [labelContent setHeight:sizeToFit.height]; // set label content frame with tinkl
+//        CGSize sizeToFitNew = [labelContent sizeThatFits:sizeToFit];        
+//        SLLogSize(sizeToFit); SLLogSize(sizeToFitNew);
+        
+        
+//        float xx = [message.messageStatus boolValue] ? 55.0f : APP_SCREEN_WIDTH - (imageview_BG.width + 55);
+//        CGRect bgRect = CGRectIntegral(CGRectMake(xx,  kMarginTop, sizeToFit.width + kPaddingTop, sizeToFit.height + kMarginBottom));
         
         //min height and width  is 35.0f
         //    fmaxf(35.0f, sizeToFit.height + 5.0f ) ,fmaxf(35.0f, sizeToFit.width + 10.0f )
-        [imageview_BG setHeight:fmaxf(54.0f, sizeToFit.height + 10)];
-        [imageview_BG setWidth:fmaxf(70.0f, sizeToFit.width + 20)];
-        if (sizeToFit.height > 54) {
-            imageview_BG.height += 20;
-            imageview_BG.width += 25;
-        }
         
-//        [labelContent setLeft:imageview_BG.left + 5];
-//        [labelContent setTop:imageview_BG.top + 5];
-        
+        sizeToFit.width +=65/2;
+        sizeToFit.height+=54/2;  //fit to bgview
+        [imageview_BG setHeight:fmaxf(54.0f, sizeToFit.height )];
+        [imageview_BG setWidth:fmaxf(65.0f, sizeToFit.width )];
         
         if ([message.messageStatus boolValue])  //me
         {
             [imageview_BG setLeft:55.0f];
-//            [labelContent setLeft:68.0f];
+            [labelContent setLeft:68.0f];
             labelContent.center = CGPointMake(imageview_BG.center.x+3, imageview_BG.center.y-5);
             
             indictorView.left = imageview_BG.left + imageview_BG.width  + 5;
@@ -2435,8 +2501,8 @@ static NSInteger const kAttributedLabelTag = 100;
         else
         {
             [imageview_BG setLeft: APP_SCREEN_WIDTH - (imageview_BG.width + 55)];
-//            [labelContent setLeft: APP_SCREEN_WIDTH - (labelContent.width + 77 -10 )  ];
-            labelContent.center = CGPointMake(imageview_BG.center.x, imageview_BG.center.y-3);
+            [labelContent setLeft: APP_SCREEN_WIDTH - (labelContent.width + 77 -10 )  ];
+            labelContent.center = CGPointMake(imageview_BG.center.x-2, imageview_BG.center.y-3);
             
             indictorView.left = APP_SCREEN_WIDTH - 70 - imageview_BG.width - 10 ;
             indictorView.top = imageview_BG.height/2  + 20;
@@ -2643,19 +2709,53 @@ static NSInteger const kAttributedLabelTag = 100;
 
 -(BOOL)attributedLabel:(OHAttributedLabel *)attributedLabel shouldFollowLink:(NSTextCheckingResult *)linkInfo
 {
-    [UIAlertView showAlertViewWithMessage:[NSString stringWithFormat:@"Should open link: %@", linkInfo.extendedURL]];
-    return NO;
-    if ([[UIApplication sharedApplication] canOpenURL:linkInfo.extendedURL])
-    {
-        return YES;
+    
+//    if ([[UIApplication sharedApplication] canOpenURL:linkInfo.extendedURL])
+//        return YES;
+//        else
+//        // Unsupported link type (especially phone links are not supported on Simulator, only on device)
+//        return NO;
+    CurrentUrl =  [NSString stringWithFormat:@"%@",linkInfo.extendedURL];
+    if (linkInfo.extendedURL ) {
+        NSString * url = CurrentUrl;
+        NSString * toastText;
+        if ([url isHttpUrl]) {
+            toastText = @"浏览器打开";
+        }else if([url isValidPhone])
+        {
+            toastText = @"电话打开";
+        }else{
+            toastText = url;
+        }
+        UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消 " destructiveButtonTitle:@"复制" otherButtonTitles:toastText, nil];
+        alert.tag = 3;
+        [alert showInView:self.view];
+    }else{
+        NSAttributedString * newStr = [attributedLabel.attributedText  attributedSubstringFromRange:linkInfo.range];
+        CurrentUrl = newStr.string;
+        UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"复制" otherButtonTitles:nil, nil];
+        alert.tag = 3;
+        [alert showInView:self.view];
     }
-    else
+    
+    return NO;
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1) {
+        
+        if (buttonIndex == 1) {
+            [self uploadImage:ImageFile token:TokenAPP];
+        }
+    }else if(alertView.tag == 2)
     {
-        // Unsupported link type (especially phone links are not supported on Simulator, only on device)
-        [UIAlertView showAlertViewWithMessage:[NSString stringWithFormat:@"Should open link: %@", linkInfo.extendedURL]];
-        return NO;
+        //opden extenturl
+        //
     }
 }
+
 
 #pragma mark SeeBigImageviewClick
 -(void) SeeBigImageviewClick:(id) sender
@@ -2714,7 +2814,7 @@ static NSInteger const kAttributedLabelTag = 100;
             NSString * strFile = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
             NSString * fileNameWhole;
             if ([audiourl containString:@".amr"]) {
-                fileNameWhole = [NSString stringWithFormat:@"%@/%@",strFile,filename];
+                fileNameWhole = [NSString stringWithFormat:@"%@/%@.amr",strFile,filename];
             }else{
                 fileNameWhole = [NSString stringWithFormat:@"%@/%@.amr",strFile,filename];
             }
@@ -3151,6 +3251,29 @@ static NSInteger const kAttributedLabelTag = 100;
         }
     }
 }
+
+
+#pragma mark other common
+- (void)scrollToVisibleRow:(NSInteger )index
+{
+    if (self.messageList.count<=0) {
+        return;
+    }
+    
+    
+    NSInteger rows = [self.tableView numberOfRowsInSection:0];
+    
+    if (rows > 0) {
+        
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]  atScrollPosition:UITableViewScrollPositionNone
+                                      animated:NO];
+    }
+    
+    
+    
+    //    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messageList.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:animation];
+}
+
 
 #pragma mark other common
 - (void)scrollToBottonWithAnimation:(BOOL)animation

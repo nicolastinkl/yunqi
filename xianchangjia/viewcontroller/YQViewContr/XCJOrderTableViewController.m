@@ -98,10 +98,10 @@
     
     [params setValue:@"30" forKey:@"max"];
     
-    __block  int countPays;
+    __block  int countPays = 0;
     
     [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/OrderManager/ListOrders" success:^(id obj) {
-        if([DataHelper getIntegerValue:obj[@"code"] defaultValue:-1])
+        if([DataHelper getIntegerValue:obj[@"code"] defaultValue:-1] == 200)
         {
             NSDictionary * dataDict = obj[@"data"];
             int cashOnDeliveryCount = [DataHelper getIntegerValue:dataDict[@"cashOnDeliveryCount"] defaultValue:0];
@@ -130,16 +130,17 @@
             }else{
                 _allLoaded = YES;
             }
-            _datasourceIsLoading = NO;
-            [self doneLoadingTableViewData];
             
+            YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
+            if (countPays > 0) {
+                [delegate.tabBarController.tabBar.items[1] setBadgeValue:[NSString stringWithFormat:@"%d",countPays]];
+            }else{
+                [delegate.tabBarController.tabBar.items[1] setBadgeValue:nil];
+            }
         }
-        YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
-        if (countPays > 0) {
-            [delegate.tabBarController.tabBar.items[1] setBadgeValue:[NSString stringWithFormat:@"%d",countPays]];
-        }else{
-            [delegate.tabBarController.tabBar.items[1] setBadgeValue:nil];
-        }
+        _datasourceIsLoading = NO;
+        [self doneLoadingTableViewData];
+        
         
     } error:^(NSInteger index) {
         [UIAlertView showAlertViewWithMessage:@"请求失败，请检查您的网络设置" ];

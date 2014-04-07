@@ -62,5 +62,7 @@
 
 + (NSString *) getUrlByYQImageUrl:(NSString * ) url;
 
++(void) addAuthMD5:(NSMutableDictionary * ) parames;
+
 
 @end

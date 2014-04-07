@@ -21,6 +21,10 @@
 // THE SOFTWARE.
 
 #import "AFURLRequestSerialization.h"
+#import "XCAlbumDefines.h"
+#import "MyMD5.h"
+#import "OpenUDID.h"
+#import "NSString+Addition.h"
 
 extern NSString * const AFNetworkingErrorDomain;
 
@@ -266,6 +270,15 @@ NSArray * AFQueryStringPairsFromKeyAndValue(NSString *key, id value) {
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:method];
+
+    int dou = [[NSDate date] timeIntervalSince1970];
+    NSString * timeSpan = [NSString stringWithFormat:@"%d",dou];
+    [request  addValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_token] forHTTPHeaderField:@"token"];
+    [request  addValue:timeSpan forHTTPHeaderField:@"timestamp"];
+    //签名值，生成方法：将DeviceId、已登录的用户名和时间戳三个值的字符串形式拼接后，对整体进行MD5加密（小写值）
+    NSString * stringmd5 = [MyMD5 md532:[NSString stringWithFormat:@"%@%@%@",[OpenUDID value],[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name],timeSpan]];
+    [request  addValue:stringmd5 forHTTPHeaderField:@"sign"];
+    
     NSLog(@"url :%@",url);
     request = [[self requestBySerializingRequest:request withParameters:parameters error:nil] mutableCopy];
  

@@ -99,13 +99,28 @@
 {
     if (noti && noti.userInfo && noti.userInfo.allKeys && (noti.userInfo.allKeys.count > 0))
     {
+        
+        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+        UIActivityIndicatorView * indictorView = (UIActivityIndicatorView *) [self.contentView subviewWithTag:9];
+        indictorView.hidden = YES;
+        
+        UIButton * retryButton = (UIButton *) [self.contentView subviewWithTag:10];
+        retryButton.hidden = YES;
+        self.currentMessage.messageSendStatus = @0;
+        SLLog(@"send ok");
+        [localContext MR_saveToPersistentStoreAndWait];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:_objRemoteImgListOper.m_strSuccNotificationName object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:_objRemoteImgListOper.m_strFailedNotificationName object:nil];
+        
+        return;
+        
         NSString *strURL;
         NSDictionary *dataImg;
         strURL = [noti.userInfo.allKeys objectAtIndex:0];
         dataImg = [noti.userInfo objectForKey:strURL];
+        
         if (dataImg) {
-
-            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+//            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
             NSInteger indexMsgID = [DataHelper getIntegerValue:dataImg[@"messageId"] defaultValue:0];
             NSString * guid = dataImg[@"MESSAGE_GUID"];
             NSInteger messageIndex = [USER_DEFAULT integerForKey:KeyChain_Laixin_message_PrivateUnreadIndex];
@@ -148,7 +163,7 @@
             
             UIButton * retryButton = (UIButton *) [self.contentView subviewWithTag:10];
             retryButton.hidden = YES;
-            
+            /*
             NSPredicate * parCMDss = [NSPredicate predicateWithFormat:@"messageguid == %@",guid];
             FCMessage * groupMessage = [FCMessage MR_findFirstWithPredicate:parCMDss ];
             if (groupMessage) {
@@ -173,11 +188,13 @@
                 msg.messageguid = guid;
                 msg.audioLength = self.currentMessage.audioLength;
                 [self.conversation addMessagesObject:msg];
-                //[self.conversation removeMessagesObject:self.currentMessage];
+                [self.currentMessage MR_deleteEntity];
+//                [self.conversation removeMessagesObject:self.currentMessage];
                 [localContext MR_saveToPersistentStoreAndWait];
-
-                SLLog(@"send ok");
             }
+            */
+            
+             SLLog(@"send ok");
             
             [[NSNotificationCenter defaultCenter] removeObserver:self name:_objRemoteImgListOper.m_strSuccNotificationName object:nil];
             [[NSNotificationCenter defaultCenter] removeObserver:self name:_objRemoteImgListOper.m_strFailedNotificationName object:nil];
@@ -189,6 +206,23 @@
 {
     if (noti && noti.userInfo && noti.userInfo.allKeys && (noti.userInfo.allKeys.count > 0))
     {
+        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+        {
+            UIButton * retryButton = (UIButton *) [self.contentView subviewWithTag:10];
+            retryButton.hidden = NO;
+            UIActivityIndicatorView * indictorView = (UIActivityIndicatorView *) [self.contentView subviewWithTag:9];
+            indictorView.hidden = YES;
+        }
+        self.conversation.messageStutes = @(messageStutes_error);
+        self.currentMessage.messageSendStatus = @2;
+        SLLog(@"send ok");
+        [localContext MR_saveToPersistentStoreAndWait];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:_objRemoteImgListOper.m_strSuccNotificationName object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:_objRemoteImgListOper.m_strFailedNotificationName object:nil];
+        
+        return;
+        
+        
         NSString *strURL;
         NSDictionary *dataImg;
         strURL = [noti.userInfo.allKeys objectAtIndex:0];
@@ -196,7 +230,7 @@
         
         UIButton * retryButton = (UIButton *) [self.contentView subviewWithTag:10];
         retryButton.hidden = NO;
-        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+//        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
         NSString * guid = dataImg[@"MESSAGE_GUID"];
         self.currentMessage.messageSendStatus = @2; //error
         UIActivityIndicatorView * indictorView = (UIActivityIndicatorView *) [self.contentView subviewWithTag:9];

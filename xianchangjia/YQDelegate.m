@@ -302,7 +302,8 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     if (notification.object) {
         NSString * userID = [DataHelper getStringValue:notification.object defaultValue:@""];
         if (userID.length > 0) {
-            NSString * strDBName = [NSString stringWithFormat:@"%@_%@.sqlite",kLaixinStoreName,userID];
+            
+            NSString * strDBName = [NSString stringWithFormat:@"%@_%@.sqlite",kLaixinStoreName,[userID md5Hash]];
             [self copyDefaultStoreIfNecessary:strDBName];
             [MagicalRecord cleanUp];
         }
@@ -313,7 +314,7 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
 -(void) laixinStepupDB:(NSString * ) userID
 {
     if (userID.length > 0) {
-        NSString * strDBName = [NSString stringWithFormat:@"%@_%@.sqlite",kLaixinStoreName,userID];
+        NSString * strDBName = [NSString stringWithFormat:@"%@_%@.sqlite",kLaixinStoreName,[userID md5Hash]];
         [self copyDefaultStoreIfNecessary:strDBName];
         [MagicalRecord setupCoreDataStackWithStoreNamed:strDBName];
     }
@@ -324,7 +325,7 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     if (notification.object) {
         NSString * userID = [DataHelper getStringValue:notification.object defaultValue:@""];
         if (userID.length > 0) {
-            NSString * strDBName = [NSString stringWithFormat:@"%@_%@.sqlite",kLaixinStoreName,userID];
+            NSString * strDBName = [NSString stringWithFormat:@"%@_%@.sqlite",kLaixinStoreName,[userID md5Hash]];
             [self laixinStepupDB:strDBName];
         }
     }else{

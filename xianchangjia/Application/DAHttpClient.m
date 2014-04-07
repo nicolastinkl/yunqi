@@ -12,16 +12,23 @@
 #import "GlobalData.h"
 #import "JSONKit.h"
 #import "XCAlbumDefines.h"
+#import "MyMD5.h"
+#import "OpenUDID.h"
+#import "NSString+Addition.h"
+#import "NSDataAddition.h"
+#import "tools.h"
 
 @implementation DAHttpClient
 
-
 SINGLETON_GCD(DAHttpClient);
-
-
 
 - (NSURLSessionDataTask *)getRequestWithParameters:(NSMutableDictionary *) parames Action:(NSString *) action success:(SLObjectBlock)success error:(SLIndexBlock)error
 {
+    if (parames == nil) {
+        parames = [[NSMutableDictionary alloc] init];
+    }
+    [tools addAuthMD5:parames];
+//
     return [[AFAppAPIClient sharedClient] GET:action parameters:parames success:^(NSURLSessionDataTask * __unused task, id JSON) {
         if(JSON){
             SLog(@"json : %@",JSON);
@@ -35,7 +42,13 @@ SINGLETON_GCD(DAHttpClient);
 }
 
 - (NSURLSessionDataTask *) postRequestWithParameters:(NSMutableDictionary *) parames Action:(NSString *) action success:(SLObjectBlock)success error:(SLIndexBlock)error
-{
+{    
+    
+    if (parames == nil) {
+        parames = [[NSMutableDictionary alloc] init];
+    }
+    [tools addAuthMD5:parames];
+    
     return [[AFAppAPIClient sharedClient] POST:action parameters:parames success:^(NSURLSessionDataTask * __unused task, id JSON) {
         if(JSON){
             SLog(@"json : %@",JSON);

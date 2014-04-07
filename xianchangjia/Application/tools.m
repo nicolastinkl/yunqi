@@ -10,6 +10,8 @@
 #import "XCAlbumDefines.h"
 #import "DataHelper.h"
 #import "NSString+Addition.h" 
+#import "MyMD5.h"
+#import "OpenUDID.h"
 #pragma  mark 使用Category来计算同一时代（AD|BC）两个日期午夜之间的天数：
 
 
@@ -559,5 +561,19 @@
     NSString * hostname = [USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName];
     return  url;//[NSString stringWithFormat:@"%@%@",hostname,url];
     
+}
+
++(void) addAuthMD5:(NSMutableDictionary * ) parames
+{
+    if (parames == nil) {
+        parames = [[NSMutableDictionary alloc] init];
+    }
+    int dou = [[NSDate date] timeIntervalSince1970];
+    NSString * timeSpan = [NSString stringWithFormat:@"%d",dou];
+    [parames  setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_token] forKey:@"token"];
+    [parames  setValue:timeSpan forKey:@"timestamp"];
+    //签名值，生成方法：将DeviceId、已登录的用户名和时间戳三个值的字符串形式拼接后，对整体进行MD5加密（小写值）
+    NSString * stringmd5 = [MyMD5 md532:[NSString stringWithFormat:@"%@%@%@",[OpenUDID value],[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name],timeSpan]];
+    [parames  setValue:stringmd5 forKey:@"sign"];
 }
 @end

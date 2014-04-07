@@ -46,8 +46,8 @@
                                         <rect key="frame" x="17" y="192" width="286" height="91"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入用户名" minimumFontSize="17" id="MWo-5r-tE2">
-                                        <rect key="frame" x="62" y="202" width="124" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入用户名" minimumFontSize="17" clearButtonMode="whileEditing" id="MWo-5r-tE2">
+                                        <rect key="frame" x="62" y="202" width="214" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
@@ -990,7 +990,7 @@
             </objects>
             <point key="canvasLocation" x="1131" y="384"/>
         </scene>
-        <!--Msg List Controller - 微信-->
+        <!--Msg List Controller - 最近消息-->
         <scene sceneID="kJ1-M8-6OU">
             <objects>
                 <tableViewController restorationIdentifier="XCJMsgListController" storyboardIdentifier="XCJMsgListController" id="2qe-eA-6c9" customClass="XCJMsgListController" sceneMemberID="viewController">
@@ -1088,12 +1088,23 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" systemItem="topRated" id="J7f-VW-UKT"/>
-                    <navigationItem key="navigationItem" title="微信" id="fQy-CB-L71">
+                    <navigationItem key="navigationItem" title="最近消息" id="fQy-CB-L71">
                         <barButtonItem key="backBarButtonItem" title="返回" id="mB9-cd-F3i"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="hAN-BN-0sl"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="wrx-4r-kBq">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LVh-q4-IgJ">
+                                <rect key="frame" x="280" y="10" width="24" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="popover_icon_refresh_os7">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="refershData:" destination="2qe-eA-6c9" eventType="touchUpInside" id="VnP-sq-76C"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="rightbar" destination="hAN-BN-0sl" id="X72-EC-u44"/>
+                        <outlet property="rightbar" destination="LVh-q4-IgJ" id="sZJ-Jl-ZSI"/>
                         <outlet property="searchbar" destination="vde-kY-mTA" id="iTr-ze-axd"/>
                         <segue destination="P6i-1c-yn0" kind="push" identifier="Chat" id="MVq-OF-ffB"/>
                     </connections>
@@ -1102,11 +1113,11 @@
             </objects>
             <point key="canvasLocation" x="1423" y="-909"/>
         </scene>
-        <!--Navigation Controller - 微信-->
+        <!--Navigation Controller - 最近消息-->
         <scene sceneID="YcO-oI-vSA">
             <objects>
                 <navigationController definesPresentationContext="YES" id="aGV-0M-mpJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="微信" image="itemIcon_message" id="8Pg-lJ-buX"/>
+                    <tabBarItem key="tabBarItem" title="最近消息" image="itemIcon_message" id="8Pg-lJ-buX"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="RvJ-iS-Dim">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1290,7 +1301,7 @@
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="KQ0-Ve-8Ju">
-                                                    <rect key="frame" x="147" y="34" width="100" height="100"/>
+                                                    <rect key="frame" x="147" y="35" width="100" height="100"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dTR-E0-ZN0">
@@ -1564,6 +1575,7 @@
         <image name="itemIcon_message" width="24" height="24"/>
         <image name="itemIcon_order" width="22" height="24"/>
         <image name="message_emotion_background_os7" width="24" height="24"/>
+        <image name="popover_icon_refresh_os7" width="24" height="24"/>
         <image name="tabBarBackground" width="1" height="50"/>
         <image name="whitetabbar" width="44" height="49"/>
         <image name="yunqu_logo" width="167" height="237"/>

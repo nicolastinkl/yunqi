@@ -14,7 +14,8 @@
 #import "LXChatDBStoreManager.h"
 #import "FCAccount.h"
 #import "XCAlbumDefines.h"
-
+#import "MyMD5.h"
+#import "OpenUDID.h"
 @implementation LXRequestFacebookManager
 
 
@@ -23,9 +24,13 @@
     SLog(@"parems %@",parems);
     
 //    [parems  setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_token] forKey:@"token"];
-//    [parems  setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_token] forKey:@"timestamp"];
+//    [parems  setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_tokenExpire] forKey:@"timestamp"];
 //    //签名值，生成方法：将DeviceId、已登录的用户名和时间戳三个值的字符串形式拼接后，对整体进行MD5加密（小写值）
-//    [parems  setValue:@"" forKey:@"sign"];
+//    
+//    NSString * stringmd5 = [MyMD5 md5:[NSString stringWithFormat:@"%@%@%@",[OpenUDID value],[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name],[USER_DEFAULT stringForKey:KeyChain_yunqi_account_tokenExpire]]];
+//    [parems  setValue:stringmd5 forKey:@"sign"];
+    
+    
     [[IQSocialRequestBaseClient sharedClient] POST:action parameters:parems success:^(NSURLSessionDataTask *task, id responseObject) {
         SLog(@"%@",responseObject);
         if (completion) {
