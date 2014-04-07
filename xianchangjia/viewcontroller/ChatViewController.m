@@ -248,8 +248,8 @@ static NSInteger const kAttributedLabelTag = 100;
                      check message id can insert???
                      */
                     NSString * messageidNew = [DataHelper getStringValue:obj[@"messageId"] defaultValue:@""];
-                    FCMessage * msg =  [FCMessage MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageidNew]];
-                    if (!msg ) {
+                    FCMessage * msgOld =  [[FCMessage MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageidNew]] firstObject];
+                    if (!msgOld || [messageidNew isEqualToString:@""]) {
                         
                         NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                         NSString * date = [DataHelper getStringValue:obj[@"time"] defaultValue:@""];
@@ -258,10 +258,11 @@ static NSInteger const kAttributedLabelTag = 100;
                         NSString * content = [DataHelper getStringValue:messageDict[@"content"] defaultValue:@""];
                         NSString * to = [DataHelper getStringValue:obj[@"to"] defaultValue:@""];
                         NSString * from = [DataHelper getStringValue:obj[@"from"] defaultValue:@""];
-                        msg = [FCMessage MR_createInContext:localContext];
+                        FCMessage* msg = [FCMessage MR_createInContext:localContext];
                         if ([content isNilOrEmpty]) {
                             content = @"";
                         }
+                        SLog(@"content :%@",content);
                         msg.text = content;
                         msg.sentDate = [tools datebyStr:date];
                         msg.wechatid = self.conversation.facebookId; // proment
@@ -296,9 +297,12 @@ static NSInteger const kAttributedLabelTag = 100;
                         }
                         [self.conversation addMessagesObject:msg];
                         [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
-                        
+                        [self.messageList insertObject:msg atIndex:0];
+                    }else{
+                        [self.messageList insertObject:msgOld atIndex:0];
                     }
-                    [self.messageList insertObject:msg atIndex:0];
+                    
+                    
                 }
                 
                 
@@ -1324,7 +1328,6 @@ static NSInteger const kAttributedLabelTag = 100;
     
     
     /*
-     
      */
     self.inputTextView.text = [NSString stringWithFormat:@"%@%@",self.inputTextView.text,str];
     
@@ -2661,7 +2664,7 @@ static NSInteger const kAttributedLabelTag = 100;
         {
             [imageview_BG setLeft:55.0f];
             audioButton.left = 60.0f;
-            Image_playing.left = imageview_BG.left + imageview_BG.width + 10;
+            Image_playing.left = audioButton.left + 6;//imageview_BG.left + imageview_BG.width + 10;
             
             indictorView.left = imageview_BG.left + imageview_BG.width  + 5;
             indictorView.top = imageview_BG.height/2  + 20;
@@ -2678,7 +2681,7 @@ static NSInteger const kAttributedLabelTag = 100;
             [audioButton setWidth:95];
             [imageview_BG setLeft:APP_SCREEN_WIDTH -  imageview_BG.width - 55.0f ];
             audioButton.left = APP_SCREEN_WIDTH -  50.0f -  55.0f -50;
-            Image_playing.left = APP_SCREEN_WIDTH -  imageview_BG.width - 55.0f - 25;
+            Image_playing.left =  APP_SCREEN_WIDTH -  imageview_BG.width - 5;// - 55.0f;// - 25;
             UIImage * image = [UIImage imageNamed:@"chat_my_bottom_voice_press"];
             audioButton.imageEdgeInsets = UIEdgeInsetsMake(0., audioButton.frame.size.width - (image.size.width + 5.), 0., 0.);
             audioButton.titleEdgeInsets = UIEdgeInsetsMake(0., 0., 0., image.size.width);
@@ -2689,7 +2692,7 @@ static NSInteger const kAttributedLabelTag = 100;
             retryButton.left = APP_SCREEN_WIDTH - 70 - imageview_BG.width - 10 -10 ;
             retryButton.top = imageview_BG.height/2  + 10;
         }
-         Image_playing.top = imageview_BG.height/2 + 17 ;
+        Image_playing.top = 40;// imageview_BG.height/2 + 17 ;
          if ([message.messageStatus boolValue])
          {
              //other
@@ -2913,16 +2916,18 @@ static NSInteger const kAttributedLabelTag = 100;
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
     NSString * string = cell.reuseIdentifier;
     NSArray * gifArray;
-    if ([string isEqualToString:@"XCJMyChatMessageCell"]) {
+    if (![string isEqualToString:@"XCJMyChatMessageCell"]) {
         gifArray = [NSArray arrayWithObjects:
-                              [UIImage imageNamedTwo:@"voice_receive_icon_my_1"],
-                              [UIImage imageNamedTwo:@"voice_receive_icon_my_2"],
-                              [UIImage imageNamedTwo:@"voice_receive_icon_my_3"], nil];
+                              [UIImage imageNamedTwo:@"ReceiverVoiceNodePlaying000_ios7"],
+                              [UIImage imageNamedTwo:@"ReceiverVoiceNodePlaying001_ios7"],
+                              [UIImage imageNamedTwo:@"ReceiverVoiceNodePlaying002_ios7"],
+                              [UIImage imageNamedTwo:@"ReceiverVoiceNodePlaying003_ios7"], nil];
     }else{
         gifArray = [NSArray arrayWithObjects:
-                              [UIImage imageNamedTwo:@"voice_receive_icon_1"],
-                              [UIImage imageNamedTwo:@"voice_receive_icon_2"],
-                              [UIImage imageNamedTwo:@"voice_receive_icon_3"], nil];
+                              [UIImage imageNamedTwo:@"SenderVoiceNodePlaying000_ios7"],
+                              [UIImage imageNamedTwo:@"SenderVoiceNodePlaying001_ios7"],
+                              [UIImage imageNamedTwo:@"SenderVoiceNodePlaying002_ios7"],
+                    [UIImage imageNamedTwo:@"SenderVoiceNodePlaying003_ios7"],nil];
     }
     
     UIImageView * Image_playing = (UIImageView*)[cell.contentView subviewWithTag:12];
