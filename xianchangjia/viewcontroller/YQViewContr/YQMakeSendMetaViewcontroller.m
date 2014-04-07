@@ -57,6 +57,7 @@
     [[DAHttpClient sharedDAHttpClient] postRequestWithParameters:params Action:@"AdminApi/OrderManager/OrderShipped" success:^(id obj) {
         int code = [DataHelper getIntegerValue: obj[@"code"] defaultValue:0];
         if (code == 200) {
+            self.orderpro.orderStatus = 30;
             [UIAlertView showAlertViewWithMessage:@"标记发货成功"];
         }else
         {

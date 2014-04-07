@@ -67,7 +67,8 @@
         [mutaDict setValue:@"iPhone"    forKey:@"devicetype"];
         [mutaDict setValue:openUDID     forKey:@"deviceid"];
         [mutaDict setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_token]  forKey:@"token"];
-        [mutaDict setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName]     forKey:@"hostname"];
+        NSString *host = [[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName] stringByReplacingOccurrencesOfString:@"http://" withString:@""];
+        [mutaDict setValue:host forKey:@"hostname"];
         [[[LXAPIController sharedLXAPIController] requestLaixinManager]  requestPostActionWithCompletion:^(id response, NSError *error) {
             /*
              code = 200;
@@ -86,10 +87,9 @@
                 [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:LaixinCloseDBMessageNotification object:nil];
-                
+                [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
                 YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
                 delegate.tabBarController.selectedIndex = 0;
-                [SVProgressHUD dismiss];
                 YQLoginviewViewController * viewcon =  [self.storyboard instantiateViewControllerWithIdentifier:@"YQLoginviewViewController"];
                 [self presentViewController:viewcon animated:NO completion:nil];
 

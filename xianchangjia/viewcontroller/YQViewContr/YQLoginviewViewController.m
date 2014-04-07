@@ -44,8 +44,11 @@
     
     self.image_sign_log.top = APP_SCREEN_CONTENT_HEIGHT - self.image_sign_log.height -5;
     
-    self.Text_LoginName.text = @"ciznx@qq.com";
-    self.Text_LoginPwd.text = @"111111";
+    if (NEED_OUTPUT_LOG == 1) {
+        
+        self.Text_LoginName.text = @"ciznx@qq.com";
+        self.Text_LoginPwd.text = @"111111";
+    }
     
 }
 
@@ -174,9 +177,7 @@
                //error from server ...
                [UIAlertView showAlertViewWithMessage:@"登录失败"];
            }
-       } withParems:mutaDict withAction:@"Cloud7/WebApp/DeviceSignin"];
-    
-    
+       } withParems:mutaDict withAction:@"Cloud7/WebApp/DeviceSignin"];     
 }
 
 

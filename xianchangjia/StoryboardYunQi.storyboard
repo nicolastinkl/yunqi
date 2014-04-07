@@ -978,6 +978,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="轻应用" id="tBW-9W-JSt">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="yQq-xt-vkZ">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="v8z-BR-Afv">
+                                <rect key="frame" x="16" y="10" width="24" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="popover_icon_refresh_os7">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="refreshClick:" destination="GYd-xl-fdp" eventType="touchUpInside" id="NhH-t1-baA"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="mtL-li-Kgu">
                             <connections>
                                 <segue destination="AnP-xH-Tcq" kind="modal" id="mKp-ju-fgQ"/>
@@ -985,6 +997,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <connections>
+                        <outlet property="refreshButton" destination="v8z-BR-Afv" id="YBO-pa-Mz4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eeu-Ou-wEk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -16,6 +16,7 @@
 
 
 @interface YQWebViewController ()<UIWebViewDelegate>
+@property (weak, nonatomic) IBOutlet UIButton *refreshButton;
 
 @end
 
@@ -41,7 +42,7 @@
 //    [self followScrollView:webview];
     [self.view showIndicatorViewLargeBlue];
     [webview loadRequest:
-     [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://m.xmato.com/"]]];
+     [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName] ]]];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendurltouser:) name:@"SENDURLTOUSER" object:nil];
@@ -130,6 +131,37 @@
 
 }
 
+
+- (void)startAnimation:(UIView *)button{
+    CABasicAnimation* rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 ];///* full rotation*/ * rotations * duration ];
+    rotationAnimation.duration = 1.0;
+    rotationAnimation.cumulative = YES;
+    rotationAnimation.repeatCount = CGFLOAT_MAX;
+    
+    [button.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+}
+
+- (void)stopAnimation:(UIView *) indicator{
+    
+    if (indicator) {
+        [indicator.layer removeAllAnimations];
+        //        indicator.hidden = YES;
+        //        [indicator removeFromSuperview];
+        //        indicator = nil;
+    }
+}
+
+- (IBAction)refreshClick:(id)sender {
+    UIWebView * webview = (UIWebView*) [self.view subviewWithTag:1];
+    webview.delegate = self;
+    webview.backgroundColor = [UIColor clearColor];
+    
+    [webview loadRequest:
+     [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName]]]];
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     return YES;
@@ -137,17 +169,21 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [self.navigationController showSGProgressWithDuration:3 andTintColor:ios7BlueColor];
+    self.refreshButton.enabled = NO;
+    [self  startAnimation:self.refreshButton];
+//    [self.navigationController showSGProgressWithDuration:3 andTintColor:ios7BlueColor];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    self.refreshButton.enabled = YES;
+    [self stopAnimation:self.refreshButton];
     [self.view hideIndicatorViewBlueOrGary];
-    [self.navigationController finishSGProgress];
+//    [self.navigationController finishSGProgress];
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [self.view hideIndicatorViewBlueOrGary];
-    [self showErrorInfoWithRetry];
+//    [self showErrorInfoWithRetry];
     [self.navigationController finishSGProgress];
 }
 
