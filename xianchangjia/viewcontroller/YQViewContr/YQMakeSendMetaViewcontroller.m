@@ -58,6 +58,7 @@
         int code = [DataHelper getIntegerValue: obj[@"code"] defaultValue:0];
         if (code == 200) {
             self.orderpro.orderStatus = 30;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCellWITHCHANGEORDER" object:nil];
             [UIAlertView showAlertViewWithMessage:@"标记发货成功"];
         }else
         {

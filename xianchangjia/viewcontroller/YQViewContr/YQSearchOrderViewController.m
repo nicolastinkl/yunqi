@@ -83,6 +83,17 @@
         _allLoaded = YES;
     }
     [self doneLoadingTableViewData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCell) name:@"updateCellWITHCHANGEORDER" object:nil];
+}
+
+-(void) updateCell
+{
+    [self.tableView reloadData];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateCellWITHCHANGEORDER" object:nil];
 }
 
 - (void)didReceiveMemoryWarning

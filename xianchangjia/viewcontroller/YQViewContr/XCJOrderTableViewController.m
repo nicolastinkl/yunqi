@@ -15,6 +15,8 @@
 #import "YQSearchOrderViewController.h"
 #import "PWLoadMoreTableFooterView.h"
 #import "YQDelegate.h"
+#import "FBKVOController.h"
+
 @interface XCJOrderTableViewController ()<UIScrollViewDelegate,UISearchBarDelegate,PWLoadMoreTableFooterDelegate>
 {
     NSMutableArray * onlinePayOrderList;
@@ -25,6 +27,7 @@
     PWLoadMoreTableFooterView *_loadMoreFooterView;
     BOOL _datasourceIsLoading;
     bool _allLoaded;
+    FBKVOController * _KVOController;
     
 }
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segementbar;
@@ -75,7 +78,15 @@
      * MARK: init net data.
      */
 //    [self.view showIndicatorViewLargeBlue];
-    [self initDatawithNet:0];    
+    [self initDatawithNet:0];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCell) name:@"updateCellWITHCHANGEORDER" object:nil];
+}
+
+-(void) updateCell
+{
+    [self.tableView reloadData];
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollViewDat
@@ -406,6 +417,20 @@
         }
         [button addTarget:self action:@selector(signSendMetaClick:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
+    /*
+     _KVOController = [FBKVOController controllerWithObserver:self];
+     [_KVOController observe:orderInfo keyPath:@"orderStatus" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+     if ([object isKindOfClass:[YQListOrderInfo class]]) {
+     // update observer with new value
+     [self.tableView reloadData];
+     SLog(@"new NSKeyValueChangeNewKey");
+     //                ((ActivityTableViewCell *)observer).activity = change[NSKeyValueChangeNewKey];
+     //                CLOCK_LAYER(((ClockView *)observer)).date = change[NSKeyValueChangeNewKey];
+     }
+     
+     }];
+     */
     
     return cell;
 }
