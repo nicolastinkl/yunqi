@@ -237,11 +237,11 @@
             </objects>
             <point key="canvasLocation" x="1180" y="2566"/>
         </scene>
-        <!--Navigation Controller - 我-->
+        <!--Navigation Controller - 云起亲亲-->
         <scene sceneID="XfP-ji-bR3">
             <objects>
                 <navigationController definesPresentationContext="YES" id="hMA-JR-h7T" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" image="itemIcon_me" id="9vP-ry-6dp"/>
+                    <tabBarItem key="tabBarItem" title="云起亲亲" image="itemIcon_me" id="9vP-ry-6dp"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="5n0-DI-HzG">
                         <autoresizingMask key="autoresizingMask"/>
