@@ -8,7 +8,6 @@
 #ifndef Extend_h
 #define Extend_h
 
-#import "AFNetworking.h"
 #import "TTTAttributedLabel.h"
 //#import "UIImageView+AFNetworking.h"
 #import "UIImageView+WebCache.h"

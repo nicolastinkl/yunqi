@@ -17,6 +17,9 @@
 #import "UIButton+Bootstrap.h"
 #import "CTAssetsPickerController.h"
 #import "XCAlbumAdditions.h"
+#import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
+
 
 @implementation MinroadOperation
 @synthesize operationQueue;

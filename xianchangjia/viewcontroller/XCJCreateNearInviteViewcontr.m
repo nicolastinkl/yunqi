@@ -18,6 +18,9 @@
 #import "SCJChooseSignOrDesViewControl.h"
 #import "XCJSelectCroupTypeViewController.h"
 
+#import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
+
 #define BUTTONCOLL  5
 #define DISTANCE_BETWEEN_ITEMS  5.0
 #define LEFT_PADDING            5.0

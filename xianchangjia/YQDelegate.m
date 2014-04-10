@@ -37,6 +37,7 @@
 #import "FCUserDescription.h"
 #import "FCMessage.h"
 #import "Reachability.h"
+//#import "TestFlight.h"
 
 static NSString * const kLaixinStoreName = @"YunqiDB";
 
@@ -84,6 +85,9 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // start of your application:didFinishLaunchingWithOptions // ...
+    //[TestFlight takeOff:@"2a29f692-4783-4ad5-b569-0a317d612b60"];
+    // The rest of your application:didFinishLaunchingWithOptions method// ...
     
     //  友盟的方法本身是异步执行，所以不需要再异步调用
     [self umengTrack];

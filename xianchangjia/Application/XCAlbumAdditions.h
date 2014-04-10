@@ -39,4 +39,10 @@
 #import "EGOCache.h"
 #import "UIAlertViewAddition.h"
 #import "ZAActivityBar.h"
+
+
+
+#import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
+
 #endif

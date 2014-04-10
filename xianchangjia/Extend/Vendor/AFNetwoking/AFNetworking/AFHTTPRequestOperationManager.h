@@ -37,7 +37,7 @@
 #import "AFNetworkReachabilityManager.h"
 
 /**
- `AFHTTPRequestOperationManager` encapsulates the common patterns of communicating with an web application over HTTP, including request creation, response serialization, network reachability monitoring, and security, as well as request operation management.
+ `AFHTTPRequestOperationManager` encapsulates the common patterns of communicating with a web application over HTTP, including request creation, response serialization, network reachability monitoring, and security, as well as request operation management.
 
  ## Subclassing Notes
  
@@ -90,7 +90,7 @@
 @property (readonly, nonatomic, strong) NSURL *baseURL;
 
 /**
- Requests created with `requestWithMethod:URLString:parameters:` & `multipartFormRequestWithMethod:URLString:parameters:constructingBodyWithBlock:` are constructed with a set of default headers using a parameter serialization specified by this property. By default, this is set to an instance of `AFHTTPSerializer`, which serializes query string parameters for `GET`, `HEAD`, and `DELETE` requests, or otherwise URL-form-encodes HTTP message bodies.
+ Requests created with `requestWithMethod:URLString:parameters:` & `multipartFormRequestWithMethod:URLString:parameters:constructingBodyWithBlock:` are constructed with a set of default headers using a parameter serialization specified by this property. By default, this is set to an instance of `AFHTTPRequestSerializer`, which serializes query string parameters for `GET`, `HEAD`, and `DELETE` requests, or otherwise URL-form-encodes HTTP message bodies.
  
  @warning `requestSerializer` must not be `nil`.
  */
@@ -169,7 +169,7 @@
 ///---------------------------------------
 
 /**
- Creates an `AFHTTPRequestOperation`, setting the operation's request serializer and response serializers to those of the HTTP client.
+ Creates an `AFHTTPRequestOperation`, and sets the response serializers to that of the HTTP client.
 
  @param request The request object to be loaded asynchronously during execution of the operation.
  @param success A block object to be executed when the request operation finishes successfully. This block has no return value and takes two arguments: the created request operation and the object created from the response data of request.

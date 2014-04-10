@@ -14,14 +14,13 @@
 //static NSString * const AFAppDotNetAPIBaseURLString =@"http://api.xianchangjia.com/";
 //@"http://app.kidswant.com.cn/";
 
-
 @implementation AFAppAPIClient
 
 + (instancetype)sharedClient {
       static AFAppAPIClient *_sharedClient = nil;
     NSString * kAPIBaseURLString =[USER_DEFAULT valueForKey:KeyChain_yunqi_account_notifyServerhostName];
     
-    //@"http://cool1.cloud7.com.cn/"; //
+    //@"http://cool1.cloud7.com.cn/";
     //[USER_DEFAULT valueForKey:KeyChain_yunqi_account_notifyServerhostName];
     SLog(@"kAPIBaseURLString : %@",kAPIBaseURLString);
     if ([kAPIBaseURLString length]  > 5) {

@@ -15,6 +15,8 @@
 #import "UIImage+Resize.h"
 #import "SCJChooseSignOrDesViewControl.h"
 
+#import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
 
 #define BUTTONCOLL  5
 #define DISTANCE_BETWEEN_ITEMS  5.0

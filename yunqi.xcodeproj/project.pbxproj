@@ -325,14 +325,6 @@
 		868B5D5B1893B068004D1743 /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = 868B5D551893B068004D1743 /* unicode_to_hanyu_pinyin.txt */; };
 		868B5D5E1893D065004D1743 /* XCJChatSendInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B5D5D1893D065004D1743 /* XCJChatSendInfoView.m */; };
 		868B5D601893D07C004D1743 /* XCJChatSendInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 868B5D5F1893D07C004D1743 /* XCJChatSendInfoView.xib */; };
-		8690DE8C18C872C900A14A51 /* room0001.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8690DE8418C872C900A14A51 /* room0001.jpg */; };
-		8690DE8D18C872C900A14A51 /* room0002.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8690DE8518C872C900A14A51 /* room0002.jpg */; };
-		8690DE8E18C872C900A14A51 /* room0003.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8690DE8618C872C900A14A51 /* room0003.jpg */; };
-		8690DE8F18C872C900A14A51 /* room0004.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8690DE8718C872C900A14A51 /* room0004.jpg */; };
-		8690DE9018C872C900A14A51 /* room0005.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8690DE8818C872C900A14A51 /* room0005.jpg */; };
-		8690DE9118C872C900A14A51 /* room0006.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8690DE8918C872C900A14A51 /* room0006.jpg */; };
-		8690DE9218C872C900A14A51 /* room0007.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8690DE8A18C872C900A14A51 /* room0007.jpg */; };
-		8690DE9318C872C900A14A51 /* room0008.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8690DE8B18C872C900A14A51 /* room0008.jpg */; };
 		8690DE9618C875DA00A14A51 /* XCJBuySurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8690DE9518C875DA00A14A51 /* XCJBuySurityViewController.m */; };
 		8690DEC418C8891900A14A51 /* default-controls.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8690DEAE18C8891900A14A51 /* default-controls.bundle */; };
 		8690DEC618C8891900A14A51 /* DZWebBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8690DEB118C8891900A14A51 /* DZWebBrowser.m */; };
@@ -344,7 +336,6 @@
 		8690DECD18C8891900A14A51 /* script.js in Sources */ = {isa = PBXBuildFile; fileRef = 8690DEC318C8891900A14A51 /* script.js */; };
 		8690DECF18C8895000A14A51 /* script.js in Sources */ = {isa = PBXBuildFile; fileRef = 8690DECE18C8895000A14A51 /* script.js */; };
 		8690DED218C88ABA00A14A51 /* UINavigationSample.m in Sources */ = {isa = PBXBuildFile; fileRef = 8690DED118C88ABA00A14A51 /* UINavigationSample.m */; };
-		8690DED418C96E0C00A14A51 /* 易宝支付Logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8690DED318C96E0C00A14A51 /* 易宝支付Logo.jpg */; };
 		8690DED718C974C500A14A51 /* PayPellog.m in Sources */ = {isa = PBXBuildFile; fileRef = 8690DED618C974C500A14A51 /* PayPellog.m */; };
 		8690DEDA18C97BD000A14A51 /* XCJOrderAllViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8690DED918C97BD000A14A51 /* XCJOrderAllViewController.m */; };
 		8690DEDD18C9A1C000A14A51 /* XCJPayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8690DEDC18C9A1C000A14A51 /* XCJPayInfo.m */; };
@@ -559,6 +550,9 @@
 		86E57CFC18796D1100978AFA /* THContactBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E57CF818796D1100978AFA /* THContactBubble.m */; };
 		86E57CFD18796D1100978AFA /* THContactPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E57CFA18796D1100978AFA /* THContactPickerView.m */; };
 		86E57D0118796EB500978AFA /* XCJCreateChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E57D0018796EB500978AFA /* XCJCreateChatViewController.m */; };
+		86E5D9BD18F6C5A5002882E8 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E5D9B918F6C5A5002882E8 /* libTestFlight.a */; };
+		86E5D9BE18F6C5A5002882E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 86E5D9BA18F6C5A5002882E8 /* README.md */; };
+		86E5D9BF18F6C5A5002882E8 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 86E5D9BB18F6C5A5002882E8 /* release_notes.md */; };
 		86E707B41878152B00E2BB07 /* XCJAddUserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E707B31878152B00E2BB07 /* XCJAddUserTableViewController.m */; };
 		86EB76431859A66800836947 /* logo58x58.png in Resources */ = {isa = PBXBuildFile; fileRef = 86EB76401859A66800836947 /* logo58x58.png */; };
 		86EB76441859A66800836947 /* logo80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 86EB76411859A66800836947 /* logo80x80.png */; };
@@ -1130,14 +1124,6 @@
 		868B5D5C1893D065004D1743 /* XCJChatSendInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJChatSendInfoView.h; path = viewcontroller/views/XCJChatSendInfoView.h; sourceTree = "<group>"; };
 		868B5D5D1893D065004D1743 /* XCJChatSendInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJChatSendInfoView.m; path = viewcontroller/views/XCJChatSendInfoView.m; sourceTree = "<group>"; };
 		868B5D5F1893D07C004D1743 /* XCJChatSendInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XCJChatSendInfoView.xib; path = viewcontroller/views/XCJChatSendInfoView.xib; sourceTree = "<group>"; };
-		8690DE8418C872C900A14A51 /* room0001.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = room0001.jpg; sourceTree = "<group>"; };
-		8690DE8518C872C900A14A51 /* room0002.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = room0002.jpg; sourceTree = "<group>"; };
-		8690DE8618C872C900A14A51 /* room0003.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = room0003.jpg; sourceTree = "<group>"; };
-		8690DE8718C872C900A14A51 /* room0004.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = room0004.jpg; sourceTree = "<group>"; };
-		8690DE8818C872C900A14A51 /* room0005.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = room0005.jpg; sourceTree = "<group>"; };
-		8690DE8918C872C900A14A51 /* room0006.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = room0006.jpg; sourceTree = "<group>"; };
-		8690DE8A18C872C900A14A51 /* room0007.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = room0007.jpg; sourceTree = "<group>"; };
-		8690DE8B18C872C900A14A51 /* room0008.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = room0008.jpg; sourceTree = "<group>"; };
 		8690DE9418C875DA00A14A51 /* XCJBuySurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJBuySurityViewController.h; path = viewcontroller/XCJBuySurityViewController.h; sourceTree = "<group>"; };
 		8690DE9518C875DA00A14A51 /* XCJBuySurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJBuySurityViewController.m; path = viewcontroller/XCJBuySurityViewController.m; sourceTree = "<group>"; };
 		8690DEAE18C8891900A14A51 /* default-controls.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "default-controls.bundle"; sourceTree = "<group>"; };
@@ -1157,7 +1143,6 @@
 		8690DECE18C8895000A14A51 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = script.js; sourceTree = "<group>"; };
 		8690DED018C88ABA00A14A51 /* UINavigationSample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UINavigationSample.h; path = viewcontroller/UINavigationSample.h; sourceTree = "<group>"; };
 		8690DED118C88ABA00A14A51 /* UINavigationSample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UINavigationSample.m; path = viewcontroller/UINavigationSample.m; sourceTree = "<group>"; };
-		8690DED318C96E0C00A14A51 /* 易宝支付Logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "易宝支付Logo.jpg"; sourceTree = "<group>"; };
 		8690DED518C974C500A14A51 /* PayPellog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PayPellog.h; path = DAOModel/PayPellog.h; sourceTree = "<group>"; };
 		8690DED618C974C500A14A51 /* PayPellog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PayPellog.m; path = DAOModel/PayPellog.m; sourceTree = "<group>"; };
 		8690DED818C97BD000A14A51 /* XCJOrderAllViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJOrderAllViewController.h; path = viewcontroller/XCJOrderAllViewController.h; sourceTree = "<group>"; };
@@ -1482,6 +1467,10 @@
 		86E57CFA18796D1100978AFA /* THContactPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THContactPickerView.m; sourceTree = "<group>"; };
 		86E57CFF18796EB500978AFA /* XCJCreateChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJCreateChatViewController.h; path = xianchangjia/viewcontroller/XCJCreateChatViewController.h; sourceTree = SOURCE_ROOT; };
 		86E57D0018796EB500978AFA /* XCJCreateChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJCreateChatViewController.m; path = xianchangjia/viewcontroller/XCJCreateChatViewController.m; sourceTree = SOURCE_ROOT; };
+		86E5D9B918F6C5A5002882E8 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		86E5D9BA18F6C5A5002882E8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		86E5D9BB18F6C5A5002882E8 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		86E5D9BC18F6C5A5002882E8 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		86E707B21878152B00E2BB07 /* XCJAddUserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJAddUserTableViewController.h; path = viewcontroller/XCJAddUserTableViewController.h; sourceTree = "<group>"; };
 		86E707B31878152B00E2BB07 /* XCJAddUserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJAddUserTableViewController.m; path = viewcontroller/XCJAddUserTableViewController.m; sourceTree = "<group>"; };
 		86EB76401859A66800836947 /* logo58x58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo58x58.png; sourceTree = "<group>"; };
@@ -1542,7 +1531,6 @@
 		86EB768E185AA6CC00836947 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		86EB768F185AA6CC00836947 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		86EB7690185AA6CC00836947 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		86EB7691185AA6CC00836947 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
 		86EB7693185AA6CC00836947 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		86EB7694185AA6CC00836947 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		86EB7695185AA6CC00836947 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -1611,6 +1599,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86E5D9BD18F6C5A5002882E8 /* libTestFlight.a in Frameworks */,
 				86AECB4A18ED5C420070934F /* StoreKit.framework in Frameworks */,
 				86AFF8CE18D6F5D7000BBAD4 /* CoreTelephony.framework in Frameworks */,
 				86BDD51C18BC6F5100F621F6 /* libOHAttributedLabel.a in Frameworks */,
@@ -1714,15 +1703,6 @@
 			isa = PBXGroup;
 			children = (
 				862ECC1818F1BF510048E2C1 /* emoj */,
-				8690DED318C96E0C00A14A51 /* 易宝支付Logo.jpg */,
-				8690DE8418C872C900A14A51 /* room0001.jpg */,
-				8690DE8518C872C900A14A51 /* room0002.jpg */,
-				8690DE8618C872C900A14A51 /* room0003.jpg */,
-				8690DE8718C872C900A14A51 /* room0004.jpg */,
-				8690DE8818C872C900A14A51 /* room0005.jpg */,
-				8690DE8918C872C900A14A51 /* room0006.jpg */,
-				8690DE8A18C872C900A14A51 /* room0007.jpg */,
-				8690DE8B18C872C900A14A51 /* room0008.jpg */,
 			);
 			path = RoomJPG;
 			sourceTree = "<group>";
@@ -3300,6 +3280,7 @@
 		86D1825C1834AED30005901D /* support */ = {
 			isa = PBXGroup;
 			children = (
+				86E5D9B818F6C5A5002882E8 /* TestFlightSDK1.1 */,
 				8670E38018DECD9000B60D11 /* TAPKeyboardPopClasses */,
 				8648222618DD3A3E00B6F69A /* FBKVOController */,
 				869DAE1718D94C2E0078168B /* ZAActivityBar */,
@@ -3548,6 +3529,17 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		86E5D9B818F6C5A5002882E8 /* TestFlightSDK1.1 */ = {
+			isa = PBXGroup;
+			children = (
+				86E5D9B918F6C5A5002882E8 /* libTestFlight.a */,
+				86E5D9BA18F6C5A5002882E8 /* README.md */,
+				86E5D9BB18F6C5A5002882E8 /* release_notes.md */,
+				86E5D9BC18F6C5A5002882E8 /* TestFlight.h */,
+			);
+			path = TestFlightSDK1.1;
+			sourceTree = "<group>";
+		};
 		86EB764B185AA6CC00836947 /* DAOModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3697,7 +3689,6 @@
 			isa = PBXGroup;
 			children = (
 				86EB767E185AA6CC00836947 /* AFNetworking */,
-				86EB7691185AA6CC00836947 /* AFNetworking.h */,
 				86EB7692185AA6CC00836947 /* UIKit+AFNetworking */,
 			);
 			path = AFNetwoking;
@@ -3929,7 +3920,7 @@
 				ORGANIZATIONNAME = jijia;
 				TargetAttributes = {
 					86D181C91834822C0005901D = {
-						DevelopmentTeam = 89RFBF2W4Q;
+						DevelopmentTeam = W7NKAN6A6C;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -3997,8 +3988,6 @@
 				862ECCAA18F1BF510048E2C1 /* Expression_41@2x.png in Resources */,
 				862ECCC818F1BF510048E2C1 /* Expression_69@2x.png in Resources */,
 				862ECC9818F1BF510048E2C1 /* Expression_25@2x.png in Resources */,
-				8690DE9318C872C900A14A51 /* room0008.jpg in Resources */,
-				8690DED418C96E0C00A14A51 /* 易宝支付Logo.jpg in Resources */,
 				8665168D187BEF75001F05F6 /* SVProgressHUD.bundle in Resources */,
 				862ECCBA18F1BF510048E2C1 /* Expression_56@2x.png in Resources */,
 				866287EE18CCB28500891B2D /* expandableImage.png in Resources */,
@@ -4006,7 +3995,6 @@
 				862ECCCB18F1BF510048E2C1 /* Expression_71@2x.png in Resources */,
 				862ECCAD18F1BF510048E2C1 /* Expression_44@2x.png in Resources */,
 				862ECCA718F1BF510048E2C1 /* Expression_39@2x.png in Resources */,
-				8690DE9018C872C900A14A51 /* room0005.jpg in Resources */,
 				8692E3C018642DB700F9E1DD /* Default@2x.png in Resources */,
 				862ECCC218F1BF510048E2C1 /* Expression_63@2x.png in Resources */,
 				862ECCD518F1BF510048E2C1 /* Expression_80@2x.png in Resources */,
@@ -4035,7 +4023,6 @@
 				86E392BC18A8B9B300FFD8C7 /* XCJFriendGroupNewmsg.xib in Resources */,
 				862ECCB718F1BF510048E2C1 /* Expression_53@2x.png in Resources */,
 				862ECC9518F1BF510048E2C1 /* Expression_22@2x.png in Resources */,
-				8690DE9118C872C900A14A51 /* room0006.jpg in Resources */,
 				862ECC8F18F1BF510048E2C1 /* Expression_17@2x.png in Resources */,
 				862ECCDE18F1BF510048E2C1 /* Expression_89@2x.png in Resources */,
 				8668E47D187540DB00D20C9E /* like_comment_bg@2x.png in Resources */,
@@ -4062,6 +4049,7 @@
 				862ECCAC18F1BF510048E2C1 /* Expression_43@2x.png in Resources */,
 				862ECCCE18F1BF510048E2C1 /* Expression_74@2x.png in Resources */,
 				862ECCA318F1BF510048E2C1 /* Expression_35@2x.png in Resources */,
+				86E5D9BE18F6C5A5002882E8 /* README.md in Resources */,
 				862ECC9418F1BF510048E2C1 /* Expression_21@2x.png in Resources */,
 				862ECC9B18F1BF510048E2C1 /* Expression_28@2x.png in Resources */,
 				862ECCE918F1BF510048E2C1 /* Expression_99@2x.png in Resources */,
@@ -4074,17 +4062,14 @@
 				862ECCBC18F1BF510048E2C1 /* Expression_58@2x.png in Resources */,
 				861C0F4D18DC2F6C001DA32F /* PPPinPadViewController.xib in Resources */,
 				862ECCD418F1BF510048E2C1 /* Expression_7@2x.png in Resources */,
-				8690DE8E18C872C900A14A51 /* room0003.jpg in Resources */,
 				862ECC8318F1BF510048E2C1 /* Expression_101@2x.png in Resources */,
 				862ECCEA18F1BF510048E2C1 /* Expression_9@2x.png in Resources */,
-				8690DE8D18C872C900A14A51 /* room0002.jpg in Resources */,
 				862ECCC918F1BF510048E2C1 /* Expression_6@2x.png in Resources */,
 				86EB76441859A66800836947 /* logo80x80.png in Resources */,
 				862ECC8A18F1BF510048E2C1 /* Expression_12@2x.png in Resources */,
 				862ECC9F18F1BF510048E2C1 /* Expression_31@2x.png in Resources */,
 				862ECCB418F1BF510048E2C1 /* Expression_50@2x.png in Resources */,
 				8690DEC418C8891900A14A51 /* default-controls.bundle in Resources */,
-				8690DE9218C872C900A14A51 /* room0007.jpg in Resources */,
 				862ECCCF18F1BF510048E2C1 /* Expression_75@2x.png in Resources */,
 				862ECC9018F1BF510048E2C1 /* Expression_18@2x.png in Resources */,
 				862ECCB918F1BF510048E2C1 /* Expression_55@2x.png in Resources */,
@@ -4093,7 +4078,6 @@
 				862ECCB818F1BF510048E2C1 /* Expression_54@2x.png in Resources */,
 				862ECCD218F1BF510048E2C1 /* Expression_78@2x.png in Resources */,
 				862ECC9C18F1BF510048E2C1 /* Expression_29@2x.png in Resources */,
-				8690DE8C18C872C900A14A51 /* room0001.jpg in Resources */,
 				86EB76451859A66800836947 /* logo120x120.png in Resources */,
 				867FEE9A18EFEA2000F9DAEE /* XCJXIBTESTViewController.xib in Resources */,
 				862ECCCD18F1BF510048E2C1 /* Expression_73@2x.png in Resources */,
@@ -4136,10 +4120,10 @@
 				866287EF18CCB28500891B2D /* expandableImage@2x.png in Resources */,
 				8668E47C187540DB00D20C9E /* edit_text_bg@2x.png in Resources */,
 				8668E479187540DB00D20C9E /* btn_like@2x.png in Resources */,
-				8690DE8F18C872C900A14A51 /* room0004.jpg in Resources */,
 				862ECC9918F1BF510048E2C1 /* Expression_26@2x.png in Resources */,
 				862ECCD818F1BF510048E2C1 /* Expression_83@2x.png in Resources */,
 				862ECCB318F1BF510048E2C1 /* Expression_4@2x.png in Resources */,
+				86E5D9BF18F6C5A5002882E8 /* release_notes.md in Resources */,
 				862ECCDD18F1BF510048E2C1 /* Expression_88@2x.png in Resources */,
 				862ECCBD18F1BF510048E2C1 /* Expression_59@2x.png in Resources */,
 				8692E3BF18642DB700F9E1DD /* Default.png in Resources */,
@@ -4641,8 +4625,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yao zhang (3NW254563D)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yao zhang (3NW254563D)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4660,7 +4644,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "972C5A88-58A7-418B-9435-4929D06E09A8";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -4682,8 +4666,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: YONGJUN WANG (89RFBF2W4Q)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: YONGJUN WANG (89RFBF2W4Q)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4694,7 +4678,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "972C5A88-58A7-418B-9435-4929D06E09A8";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4721,13 +4705,14 @@
 					./QRCodeEncoder/QRCodeEncoderObjectiveCAtGithub,
 				);
 				INFOPLIST_FILE = "xianchangjia/yunqi-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/Extend/Vendor/SDWebImage,
 					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/support/UMAnalytics_Sdk_2.2.1.OpenUDID,
 					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/viewcontroller/AudioView/VoiceConvert/lib,
 					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/support/WeChatSDK_1.4.2.1,
+					"$(PROJECT_DIR)/xianchangjia/support/TestFlightSDK1.1",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = yunqi;
@@ -4759,13 +4744,14 @@
 					./QRCodeEncoder/QRCodeEncoderObjectiveCAtGithub,
 				);
 				INFOPLIST_FILE = "xianchangjia/yunqi-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/Extend/Vendor/SDWebImage,
 					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/support/UMAnalytics_Sdk_2.2.1.OpenUDID,
 					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/viewcontroller/AudioView/VoiceConvert/lib,
 					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/support/WeChatSDK_1.4.2.1,
+					"$(PROJECT_DIR)/xianchangjia/support/TestFlightSDK1.1",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = yunqi;

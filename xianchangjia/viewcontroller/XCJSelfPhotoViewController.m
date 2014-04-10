@@ -18,6 +18,11 @@
 #import "UITableViewCell+TKCategory.h"
 #import "DAImageResizedImageView.h"
 
+
+
+#import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
+
 @interface XCJSelfPhotoViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     NSMutableArray * dataSource;

@@ -14,6 +14,11 @@
 #import "UIImage+WebP.h"
 #import "UIImage+Resize.h"
 
+
+
+#import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
+
 @protocol DownloadImgProgressDelegate <NSObject>
 
 - (void)setProgress:(float)newProgress;

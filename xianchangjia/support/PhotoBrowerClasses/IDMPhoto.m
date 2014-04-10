@@ -10,6 +10,8 @@
 #import "IDMPhotoBrowser.h"
 #import "NSString+Addition.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+
+#import "AFHTTPRequestOperation.h"
 // Private
 @interface IDMPhoto () {
     // Image Sources

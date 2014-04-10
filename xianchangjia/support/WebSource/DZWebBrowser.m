@@ -13,12 +13,15 @@
 #import "SDCachedURLResponse.h"
 #import <objc/runtime.h>
 #import "XCJAppDelegate.h"
-#import "AFNetworking.h"
+//#import "AFNetworking.h"
 #import "SVProgressHUD.h"
 #import "XCAlbumDefines.h"
 #import "DataHelper.h"
 #import "UIView+Animation.h"
 #import "UIAlertViewAddition.h"
+
+
+#import "AFHTTPRequestOperationManager.h"
 
 #define kWebLoadingTimout          10.0
 #define kDefaultControlsBundleName @"default-controls"

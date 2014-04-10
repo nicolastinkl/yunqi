@@ -56,6 +56,10 @@
 //#warning like iMesage will dismiss the keyboard
 #import "UIViewController+TAPKeyboardPop.h"
 
+#import "AFHTTPRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
+
+
 #define kMarginTop 29.0f
 #define kMarginBottom 4.0f
 #define kPaddingTop 4.0f
@@ -184,7 +188,7 @@ static NSInteger const kAttributedLabelTag = 100;
         for (int i=0; i<6; i++) {
             FacialView *fview=[[FacialView alloc] initWithFrame:CGRectMake(10+320*i, 30, facialViewWidth, facialViewHeight)];
             [fview setBackgroundColor:[UIColor clearColor]];
-            [fview loadFacialView:i size:CGSizeMake(46, 46)];
+            [fview loadFacialView:i size:CGSizeMake(42, 42)];
             fview.delegate=self;
             [scrollView addSubview:fview];
         }
@@ -2817,7 +2821,13 @@ static NSInteger const kAttributedLabelTag = 100;
             NSString * strFile = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
             NSString * fileNameWhole;
             if ([audiourl containString:@".amr"]) {
-                fileNameWhole = [NSString stringWithFormat:@"%@/%@.amr",strFile,filename];
+                if ([audiourl containString:@"wavToAmr"]) {
+                    //from local
+                    fileNameWhole = [NSString stringWithFormat:@"%@/%@",strFile,filename];
+                }else{
+                    fileNameWhole = [NSString stringWithFormat:@"%@/%@.amr",strFile,filename];
+                }
+                
             }else{
                 fileNameWhole = [NSString stringWithFormat:@"%@/%@.amr",strFile,filename];
             }
@@ -2836,31 +2846,38 @@ static NSInteger const kAttributedLabelTag = 100;
                     NSString * filename = [response suggestedFilename];
                     return [documentsDirectoryPath URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.amr",filename]];
                 } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-                    NSLog(@"File downloaded to: %@", filePath);
-                    [button hideIndicatorView];
-                    button.userInteractionEnabled = YES;
-                    int leng = [self getFileSize:[NSString stringWithFormat:@"%@",fileNameWhole]];
-                    //                [button setTitle:[NSString stringWithFormat:@"%d''",leng/1000] forState:UIControlStateNormal];
-                    [VoiceConverter amrToWav:[VoiceRecorderBaseVC getPathByFileName:filename ofType:@"amr"] wavSavePath:[VoiceRecorderBaseVC getPathByFileName:filename ofType:@"wav"]];
-                    
-                    //初始化播放器的时候如下设置
-                    UInt32 sessionCategory = kAudioSessionCategory_MediaPlayback;
-                    AudioSessionSetProperty(kAudioSessionProperty_AudioCategory,
-                                            sizeof(sessionCategory),&sessionCategory);
-                    
-                    UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
-                    AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute,
-                                             sizeof (audioRouteOverride), &audioRouteOverride);
-                    
-                    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-                    //默认情况下扬声器播放
-                    [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
-                    [audioSession setActive:YES error:nil];
-                    playingURL = [NSURL URLWithString:[VoiceRecorderBaseVC getPathByFileName:filename ofType:@"wav"]];
-                    player = [[AVAudioPlayer alloc] initWithContentsOfURL:playingURL error:nil];
-                    [player prepareToPlay];
-                    [player play];
-                    [self ShowPlayingimgArray:cell withTime:(int) leng/1024];
+                    if(filePath)
+                    {
+                        NSLog(@"File downloaded to: %@", filePath);
+                        [button hideIndicatorView];
+                        button.userInteractionEnabled = YES;
+                        int leng = [self getFileSize:[NSString stringWithFormat:@"%@",fileNameWhole]];
+                        //                [button setTitle:[NSString stringWithFormat:@"%d''",leng/1000] forState:UIControlStateNormal];
+                        [VoiceConverter amrToWav:[VoiceRecorderBaseVC getPathByFileName:filename ofType:@"amr"] wavSavePath:[VoiceRecorderBaseVC getPathByFileName:filename ofType:@"wav"]];
+                        
+                        //初始化播放器的时候如下设置
+                        UInt32 sessionCategory = kAudioSessionCategory_MediaPlayback;
+                        AudioSessionSetProperty(kAudioSessionProperty_AudioCategory,
+                                                sizeof(sessionCategory),&sessionCategory);
+                        
+                        UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
+                        AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute,
+                                                 sizeof (audioRouteOverride), &audioRouteOverride);
+                        
+                        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+                        //默认情况下扬声器播放
+                        [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+                        [audioSession setActive:YES error:nil];
+                        playingURL = [NSURL URLWithString:[VoiceRecorderBaseVC getPathByFileName:filename ofType:@"wav"]];
+                        player = [[AVAudioPlayer alloc] initWithContentsOfURL:playingURL error:nil];
+                        [player prepareToPlay];
+                        [player play];
+                        [self ShowPlayingimgArray:cell withTime:(int) leng/1024];
+                    }else{
+                         [UIAlertView showAlertViewWithMessage:@"播放失败,录音文件不存在"];
+                    }
+                        
+                   
                 }];
                 [downloadTask resume];
             }else{
