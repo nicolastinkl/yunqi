@@ -995,6 +995,7 @@ static NSString * const kLaixinStoreName = @"Laixins";
 ///bak of the database
 - (void) copyDefaultStoreIfNecessary:(NSString * ) laixinDBname;
 {
+    SLLog(@"laixinDBname %@",laixinDBname);
 	NSFileManager *fileManager = [NSFileManager defaultManager];
     
     NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:laixinDBname];

@@ -9,7 +9,7 @@
 #import "XCJLoginViewController.h"
 #import "XCJAppDelegate.h"
 #import "UIAlertViewAddition.h"
-#import "UIAlertView+AFNetworking.h"
+//#import "UIAlertView+AFNetworking.h"
 #import "XCAlbumAdditions.h"
 
 @interface XCJLoginViewController ()

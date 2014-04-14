@@ -313,7 +313,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 
     self.responseSerializer = [AFJSONResponseSerializer serializer];
 
-    self.sessionConfiguration = configuration;
+    self.sessionConfiguration =  configuration;
     self.session = [NSURLSession sessionWithConfiguration:self.sessionConfiguration delegate:self delegateQueue:self.operationQueue];
 
     self.mutableTaskDelegatesKeyedByTaskIdentifier = [[NSMutableDictionary alloc] init];
@@ -432,8 +432,9 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 - (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
                             completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
 {
+ 
     NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request];
-
+   
     AFURLSessionManagerTaskDelegate *delegate = [AFURLSessionManagerTaskDelegate delegateForManager:self completionHandler:completionHandler];
     [self setDelegate:delegate forTask:dataTask];
 

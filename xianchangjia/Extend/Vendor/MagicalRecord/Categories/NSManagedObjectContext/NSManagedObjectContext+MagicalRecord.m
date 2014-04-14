@@ -224,7 +224,8 @@ static NSString * const kMagicalRecordNSManagedObjectContextWorkingName = @"kNSM
     NSString *workingName = [[self userInfo] objectForKey:kMagicalRecordNSManagedObjectContextWorkingName];
     if (nil == workingName)
     {
-        workingName = @"UNNAMED";
+        workingName = @"UNKNOWTINKLNAME";
+        MRLog(@"UNKNOWTINKLNAME......by tinkl");
     }
     return workingName;
 }

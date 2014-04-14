@@ -42,7 +42,7 @@
 
 
 
-#import "AFHTTPRequestOperation.h"
-#import "AFHTTPRequestOperationManager.h"
-
+//#import "AFHTTPRequestOperation.h"
+//#import "AFHTTPRequestOperationManager.h"
+#import "AFNetworking.h"
 #endif

@@ -121,18 +121,40 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     }
     
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending)
+    {
+        
+    }
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_7_0
+        
+        //第一次调用这个方法的时候，系统会提示用户让他同意你的app获取麦克风的数据
+        // 其他时候调用方法的时候，则不会提醒用户
+        // 而会传递之前的值来要求用户同意
+//        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+//            if (granted) {
+//                // 用户同意获取数据
+//            } else {
+//                // 可以显示一个提示框告诉用户这个app没有得到允许？
+//            }
+//        }];
     
-    //第一次调用这个方法的时候，系统会提示用户让他同意你的app获取麦克风的数据
-    // 其他时候调用方法的时候，则不会提醒用户
-    // 而会传递之前的值来要求用户同意
-    [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
-        if (granted) {
-            // 用户同意获取数据
-        } else {
-            // 可以显示一个提示框告诉用户这个app没有得到允许？
-        }
-    }];
-    
+    __block BOOL bCanRecord = YES;
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    if ([audioSession respondsToSelector:@selector(requestRecordPermission:)]) {
+        [audioSession performSelector:@selector(requestRecordPermission:) withObject:^(BOOL granted) {
+            if (granted) {
+                bCanRecord = YES;
+            }
+            else {
+                bCanRecord = NO;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //app需要访问您的麦克风。\n请启用麦克风-设置/隐私/麦克风
+                });
+            }
+        }];
+    }
+
+#endif
     //[[UIView appearance] setTintColor:[UIColor colorWithHex:SystemKidsColor]];
     //[[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHex:SystemKidsColor]];
     //self.window.tintColor = [UIColor colorWithHex:SystemKidsColor];
@@ -226,9 +248,8 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
 //        [self.tabBarController.tabBar setBarTintColor:[UIColor colorWithHex:0xff008ccd]];
     
     {
-        
         UIImage *musicImage = [UIImage imageNamed:@"msgitem_Click"];
-        musicImage = [musicImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        musicImage = [musicImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 
         UITabBarItem * item = self.tabBarController.tabBar.items[0];
         item.selectedImage = musicImage;
@@ -298,8 +319,6 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     SLLog(@"error : %@",[error.userInfo objectForKey:NSLocalizedDescriptionKey]);
 }
 
-
-
 - (void)laixinCloseNotification:(NSNotification *)notification
 {
     if (notification.object) {
@@ -311,6 +330,7 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
             [MagicalRecord cleanUp];
         }
     }else{
+        [self copyDefaultStoreIfNecessary:kLaixinStoreName];
         [MagicalRecord cleanUp];
     }
 }
@@ -320,6 +340,10 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
         NSString * strDBName = [NSString stringWithFormat:@"%@_%@.sqlite",kLaixinStoreName,[userID md5Hash]];
         [self copyDefaultStoreIfNecessary:strDBName];
         [MagicalRecord setupCoreDataStackWithStoreNamed:strDBName];
+    }else
+    {
+        [self copyDefaultStoreIfNecessary:[NSString stringWithFormat:@"%@.sqlite",kLaixinStoreName]];
+        [MagicalRecord setupCoreDataStackWithStoreNamed:[NSString stringWithFormat:@"%@.sqlite",kLaixinStoreName]];
     }
 }
 
@@ -328,12 +352,10 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     if (notification.object) {
         NSString * userID = [DataHelper getStringValue:notification.object defaultValue:@""];
         if (userID.length > 0) {
-            NSString * strDBName = [NSString stringWithFormat:@"%@_%@.sqlite",kLaixinStoreName,[userID md5Hash]];
-            [self laixinStepupDB:strDBName];
+            [self laixinStepupDB:userID];
         }
     }else{
-        [self copyDefaultStoreIfNecessary:[NSString stringWithFormat:@"%@.sqlite",kLaixinStoreName]];
-        [MagicalRecord setupCoreDataStackWithStoreNamed:[NSString stringWithFormat:@"%@.sqlite",kLaixinStoreName]];
+        [self laixinStepupDB:@""];
     }
 }
 

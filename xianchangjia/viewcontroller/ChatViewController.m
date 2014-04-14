@@ -690,7 +690,9 @@ static NSInteger const kAttributedLabelTag = 100;
     if (rssTemp.count > 0) {
         if (_currentPage == 0) {
             self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
-            [self.messageList addObjectsFromArray:rssTemp];
+            [rssTemp enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [self.messageList insertObject:obj atIndex:0];
+            }];
             
             [self.tableView reloadData];
             //tableView底部
@@ -709,7 +711,7 @@ static NSInteger const kAttributedLabelTag = 100;
         }
     }
     
-    
+    _loading = NO;
     _currentPage++;
     
     /*__weak ChatViewController *self_ = self;
@@ -945,6 +947,7 @@ static NSInteger const kAttributedLabelTag = 100;
                     [self viewdidloadedComplete];
                 }
             }else{
+                _loading = YES;
                 double delayInSeconds = .5;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
