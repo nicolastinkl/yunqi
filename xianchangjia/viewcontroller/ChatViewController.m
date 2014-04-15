@@ -151,8 +151,9 @@ static NSInteger const kAttributedLabelTag = 100;
     
     {
         UIButton * buttonAudioss = (UIButton *) [self.inputContainerView subviewWithTag:9];
-        [buttonAudioss sendMessageWhiteStyle];
-        [buttonAudioss setTitle:@"按住说话" forState:UIControlStateNormal];
+//        [buttonAudioss sendMessageWhiteStyle];
+//        [buttonAudioss setTitle:@"按住说话" forState:UIControlStateNormal];
+        
 //        [buttonAudioss addTarget:self action:@selector(speakClick:) forControlEvents:UIControlStateNormal];
         //添加长按手势
         UILongPressGestureRecognizer *gr = [[UILongPressGestureRecognizer alloc] init];
@@ -387,8 +388,9 @@ static NSInteger const kAttributedLabelTag = 100;
             // send amr
             SLog(@"amr : %@",strAMRName);
             UIButton * buttonAudio = (UIButton *) [self.inputContainerView subviewWithTag:9];
-            [buttonAudio setTitle:@"按住开始" forState:UIControlStateNormal];
-            [buttonAudio sendMessageWhiteStyle];
+//            [buttonAudio setTitle:@"按住开始" forState:UIControlStateNormal];
+//            [buttonAudio sendMessageWhiteStyle];
+            [buttonAudio setBackgroundImage:[UIImage imageNamed:@"yunqi_按住说话"] forState:UIControlStateNormal];
             //2.audio   3.video
             [self SendMediaSource:strAMRName withType:2];
         }
@@ -578,8 +580,9 @@ static NSInteger const kAttributedLabelTag = 100;
     //设置文件名
     self.originWav = [VoiceRecorderBaseVC getCurrentTimeString];
     UIButton * buttonAudio = (UIButton *) [self.inputContainerView subviewWithTag:9];
-    [buttonAudio setTitle:@"松开结束" forState:UIControlStateNormal];
-    [buttonAudio infoStyle];
+//    [buttonAudio setTitle:@"松开结束" forState:UIControlStateNormal];
+//    [buttonAudio infoStyle];
+    [buttonAudio setBackgroundImage:[UIImage imageNamed:@"yunqi_松开结束"] forState:UIControlStateNormal];
     //开始录音
     [recorderVC beginRecordByFileName:self.originWav];
 }
@@ -610,9 +613,11 @@ static NSInteger const kAttributedLabelTag = 100;
         [self speakClick:nil];
     }//长按结束
     else if(longPressedRecognizer.state == UIGestureRecognizerStateEnded || longPressedRecognizer.state == UIGestureRecognizerStateCancelled){
-        [buttonAudio sendMessageWhiteStyle];
-        buttonAudio.backgroundColor = [UIColor whiteColor];
-        [buttonAudio setTitle:@"按住说话" forState:UIControlStateNormal];
+//        [buttonAudio sendMessageWhiteStyle];
+//        buttonAudio.backgroundColor = [UIColor whiteColor];
+//        [buttonAudio setTitle:@"按住说话" forState:UIControlStateNormal];
+        [buttonAudio setBackgroundImage:[UIImage imageNamed:@"yunqi_按住说话"] forState:UIControlStateNormal];
+        
 //        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"nScreenTouch" object:nil userInfo:[NSDictionary dictionaryWithObject:nil forKey:@"data"]]];
     }
 }
@@ -669,7 +674,7 @@ static NSInteger const kAttributedLabelTag = 100;
     NSPredicate * predicate = [NSPredicate predicateWithFormat:@"wechatid == %@",self.conversation.facebookId];
     [request setPredicate:predicate];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor  alloc] initWithKey:@"sentDate"  ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor  alloc] initWithKey:@"sentDate"  ascending:NO];
     
     NSArray *sortDescriptors = [[NSArray  alloc] initWithObjects:sortDescriptor, nil];
     

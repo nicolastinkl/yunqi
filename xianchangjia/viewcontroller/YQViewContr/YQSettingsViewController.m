@@ -50,7 +50,8 @@
     
     if (indexPath.section == 0) {
         //评价
-        [self presentAppStoreForID:@(541873451) withDelegate:self withURL:[NSURL URLWithString:APP_COMMENT_LINK_iTunes]];
+         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_STORE_LINK_http]];
+//        [self presentAppStoreForID:@(541873451) withDelegate:self withURL:[NSURL URLWithString:APP_STORE_LINK_http]];
     }else  if (indexPath.section == 1) {
         UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出登录" otherButtonTitles:nil, nil];
         [action showInView:self.view];
