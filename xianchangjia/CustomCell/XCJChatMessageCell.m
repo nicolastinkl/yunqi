@@ -16,7 +16,7 @@
 #import "Conversation.h"
 #import "DataHelper.h"
 #import "XCAlbumAdditions.h"
-#import "MLCanPopUpImageView.h"
+//#import "MLCanPopUpImageView.h"
 @implementation XCJChatMessageCell
 @synthesize m_objRemoteImgListOper = _objRemoteImgListOper;
 

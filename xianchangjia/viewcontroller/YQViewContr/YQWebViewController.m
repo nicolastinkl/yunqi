@@ -84,7 +84,7 @@
             NSManagedObjectContext *localContext  = [NSManagedObjectContext MR_contextForCurrentThread];
             NSPredicate * pre = [NSPredicate predicateWithFormat:@"facebookId == %@",wechat.facebookId];
             Conversation * conversation =  [Conversation MR_findFirstWithPredicate:pre inContext:localContext];
-            ChatViewController * chatview = [self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+           
             if (conversation) {
                 
                 // create new
@@ -114,9 +114,14 @@
                     [conversation addMessagesObject:msg];
                     
                     [localContext MR_saveOnlySelfAndWait];
-                    chatview.conversation = conversation;
-                    chatview.title = conversation.facebookName;
-                    [self.navigationController pushViewController:chatview animated:YES];
+                    double delayInSeconds = .3; 
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                        ChatViewController * chatview = [self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+                        chatview.conversation = conversation;
+                        chatview.title = conversation.facebookName;
+                        [self.navigationController pushViewController:chatview animated:YES];
+                    });
                 }
             }
         }else

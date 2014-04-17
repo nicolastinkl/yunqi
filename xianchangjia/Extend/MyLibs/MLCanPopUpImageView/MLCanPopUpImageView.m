@@ -8,7 +8,7 @@
 
 #import "MLCanPopUpImageView.h"
 #import "UIImageView+WebCache.h"
-#import "SDWebImageManager.h"
+//#import "SDWebImageManager.h"
 #import "XCAlbumDefines.h"
 #import "UIView+Additon.h"
 #import "UIAlertViewAddition.h"

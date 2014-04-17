@@ -9,7 +9,7 @@
 #import "ListItem.h"
 #import "UIImageView+AFNetworking.h"
 #import "tools.h"
-#import "MLCanPopUpImageView.h"
+//#import "MLCanPopUpImageView.h"
 @implementation ListItem
 
 - (id)initWithFrame:(CGRect)frame image:(UIImage *)image text:(NSString *)imageTitle
@@ -97,9 +97,9 @@
         [self setUserInteractionEnabled:YES];
         
         self.imageurl = imageurl;
-        MLCanPopUpImageView *imageView = [[MLCanPopUpImageView alloc] init];
+        UIImageView *imageView = [[UIImageView alloc] init];
         [imageView setImageWithURL:[NSURL URLWithString:[tools getUrlByImageUrl:imageurl Size:200]] placeholderImage:[UIImage imageNamed:@"aio_ogactivity_default"]];
-        [imageView setFullScreenImageURL:[NSURL URLWithString:imageurl]];
+//        [imageView setFullScreenImageURL:[NSURL URLWithString:imageurl]];
         CALayer *roundCorner = [imageView layer];
         [roundCorner setMasksToBounds:YES];
 //        [roundCorner setCornerRadius:1.0];

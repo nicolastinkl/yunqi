@@ -4736,6 +4736,7 @@
 					"./zxing/iphone/ZXingWidget/Classes/**",
 					./zxing/cpp/core/src,
 					./QRCodeEncoder/QRCodeEncoderObjectiveCAtGithub,
+					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/Extend/Vendor/SDWebImage,
 				);
 				INFOPLIST_FILE = "xianchangjia/yunqi-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;

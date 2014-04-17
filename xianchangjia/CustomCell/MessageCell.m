@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewTopConstraint;
 
-@property (weak, nonatomic) IBOutlet MLCanPopUpImageView *messageImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *messageImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageImageViewHeightConstraint;
 @end
 

@@ -15,7 +15,7 @@
 
 #import "MLJson.h"
 #import "MLActionSheet.h"
-#import "MLCanPopUpImageView.h"
+//#import "MLCanPopUpImageView.h"
 #import "MLNetworkingManager.h"
 
 #import "UIView+Convenience.h"
