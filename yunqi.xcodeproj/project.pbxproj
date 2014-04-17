@@ -409,6 +409,11 @@
 		86ADDA371894E73F000A0C22 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ADDA351894E73E000A0C22 /* WebP.framework */; };
 		86AECB4A18ED5C420070934F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AECB4918ED5C420070934F /* StoreKit.framework */; };
 		86AFF8CE18D6F5D7000BBAD4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AFF8CD18D6F5D7000BBAD4 /* CoreTelephony.framework */; };
+		86BA1C6F18FF86D0006B4678 /* AFAppDotNetAPIClient6.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BA1C6E18FF86D0006B4678 /* AFAppDotNetAPIClient6.m */; };
+		86BA1C7318FF896F006B4678 /* IQSocialRequestBaseClient6.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BA1C7218FF896F006B4678 /* IQSocialRequestBaseClient6.m */; };
+		86BA1C771900129E006B4678 /* logo29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 86BA1C741900129E006B4678 /* logo29x29.png */; };
+		86BA1C781900129E006B4678 /* logo57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 86BA1C751900129E006B4678 /* logo57x57.png */; };
+		86BA1C791900129E006B4678 /* logo114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 86BA1C761900129E006B4678 /* logo114x114.png */; };
 		86BDD4FE18BC501C00F621F6 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86BDD4FD18BC501C00F621F6 /* CoreText.framework */; };
 		86BDD51C18BC6F5100F621F6 /* libOHAttributedLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86BDD51B18BC6F4700F621F6 /* libOHAttributedLabel.a */; };
 		86C1A56B1885384600D78242 /* FCAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C1A56A1885384600D78242 /* FCAccount.m */; };
@@ -566,9 +571,6 @@
 		86E57CFC18796D1100978AFA /* THContactBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E57CF818796D1100978AFA /* THContactBubble.m */; };
 		86E57CFD18796D1100978AFA /* THContactPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E57CFA18796D1100978AFA /* THContactPickerView.m */; };
 		86E57D0118796EB500978AFA /* XCJCreateChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E57D0018796EB500978AFA /* XCJCreateChatViewController.m */; };
-		86E5D9BD18F6C5A5002882E8 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E5D9B918F6C5A5002882E8 /* libTestFlight.a */; };
-		86E5D9BE18F6C5A5002882E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 86E5D9BA18F6C5A5002882E8 /* README.md */; };
-		86E5D9BF18F6C5A5002882E8 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 86E5D9BB18F6C5A5002882E8 /* release_notes.md */; };
 		86E707B41878152B00E2BB07 /* XCJAddUserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E707B31878152B00E2BB07 /* XCJAddUserTableViewController.m */; };
 		86EB76431859A66800836947 /* logo58x58.png in Resources */ = {isa = PBXBuildFile; fileRef = 86EB76401859A66800836947 /* logo58x58.png */; };
 		86EB76441859A66800836947 /* logo80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 86EB76411859A66800836947 /* logo80x80.png */; };
@@ -1287,6 +1289,13 @@
 		86AFF8C918D6F560000BBAD4 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		86AFF8CB18D6F580000BBAD4 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Instabug.framework; path = xianchangjia/instabug/Instabug.framework; sourceTree = "<group>"; };
 		86AFF8CD18D6F5D7000BBAD4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		86BA1C6D18FF86D0006B4678 /* AFAppDotNetAPIClient6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFAppDotNetAPIClient6.h; sourceTree = "<group>"; };
+		86BA1C6E18FF86D0006B4678 /* AFAppDotNetAPIClient6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFAppDotNetAPIClient6.m; sourceTree = "<group>"; };
+		86BA1C7118FF896F006B4678 /* IQSocialRequestBaseClient6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IQSocialRequestBaseClient6.h; path = LXNetManager/IQSocialRequestBaseClient6.h; sourceTree = "<group>"; };
+		86BA1C7218FF896F006B4678 /* IQSocialRequestBaseClient6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IQSocialRequestBaseClient6.m; path = LXNetManager/IQSocialRequestBaseClient6.m; sourceTree = "<group>"; };
+		86BA1C741900129E006B4678 /* logo29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo29x29.png; sourceTree = "<group>"; };
+		86BA1C751900129E006B4678 /* logo57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo57x57.png; sourceTree = "<group>"; };
+		86BA1C761900129E006B4678 /* logo114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo114x114.png; sourceTree = "<group>"; };
 		86BDD4FD18BC501C00F621F6 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		86BDD51618BC6F4700F621F6 /* OHAttributedLabel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OHAttributedLabel.xcodeproj; path = OHAttributedLabel/OHAttributedLabel.xcodeproj; sourceTree = "<group>"; };
 		86C1A5691885384600D78242 /* FCAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FCAccount.h; path = DAOModel/coredata/FCAccount.h; sourceTree = "<group>"; };
@@ -1501,10 +1510,6 @@
 		86E57CFA18796D1100978AFA /* THContactPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THContactPickerView.m; sourceTree = "<group>"; };
 		86E57CFF18796EB500978AFA /* XCJCreateChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJCreateChatViewController.h; path = xianchangjia/viewcontroller/XCJCreateChatViewController.h; sourceTree = SOURCE_ROOT; };
 		86E57D0018796EB500978AFA /* XCJCreateChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJCreateChatViewController.m; path = xianchangjia/viewcontroller/XCJCreateChatViewController.m; sourceTree = SOURCE_ROOT; };
-		86E5D9B918F6C5A5002882E8 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		86E5D9BA18F6C5A5002882E8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		86E5D9BB18F6C5A5002882E8 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
-		86E5D9BC18F6C5A5002882E8 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		86E707B21878152B00E2BB07 /* XCJAddUserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJAddUserTableViewController.h; path = viewcontroller/XCJAddUserTableViewController.h; sourceTree = "<group>"; };
 		86E707B31878152B00E2BB07 /* XCJAddUserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJAddUserTableViewController.m; path = viewcontroller/XCJAddUserTableViewController.m; sourceTree = "<group>"; };
 		86EB76401859A66800836947 /* logo58x58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo58x58.png; sourceTree = "<group>"; };
@@ -1600,7 +1605,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86E5D9BD18F6C5A5002882E8 /* libTestFlight.a in Frameworks */,
 				86AECB4A18ED5C420070934F /* StoreKit.framework in Frameworks */,
 				86AFF8CE18D6F5D7000BBAD4 /* CoreTelephony.framework in Frameworks */,
 				86BDD51C18BC6F5100F621F6 /* libOHAttributedLabel.a in Frameworks */,
@@ -1791,6 +1795,9 @@
 			children = (
 				867FEE9118EFC91A00F9DAEE /* Default-568h@2x.png */,
 				8692E3BC18642DB700F9E1DD /* Default.png */,
+				86BA1C741900129E006B4678 /* logo29x29.png */,
+				86BA1C751900129E006B4678 /* logo57x57.png */,
+				86BA1C761900129E006B4678 /* logo114x114.png */,
 				8692E3BD18642DB700F9E1DD /* Default@2x.png */,
 				86EB76401859A66800836947 /* logo58x58.png */,
 				86EB76411859A66800836947 /* logo80x80.png */,
@@ -2709,6 +2716,8 @@
 				869CE4D3186BDB160004C1EC /* IQSocialRequestBaseClient.m */,
 				869CE4D9186BE1A80004C1EC /* LXRequestFacebookManager.h */,
 				869CE4DA186BE1A80004C1EC /* LXRequestFacebookManager.m */,
+				86BA1C7118FF896F006B4678 /* IQSocialRequestBaseClient6.h */,
+				86BA1C7218FF896F006B4678 /* IQSocialRequestBaseClient6.m */,
 			);
 			name = LXNetManager;
 			sourceTree = "<group>";
@@ -3329,7 +3338,6 @@
 		86D1825C1834AED30005901D /* support */ = {
 			isa = PBXGroup;
 			children = (
-				86E5D9B818F6C5A5002882E8 /* TestFlightSDK1.1 */,
 				8670E38018DECD9000B60D11 /* TAPKeyboardPopClasses */,
 				8648222618DD3A3E00B6F69A /* FBKVOController */,
 				869DAE1718D94C2E0078168B /* ZAActivityBar */,
@@ -3372,6 +3380,8 @@
 				86D182D61834AF2D0005901D /* XCAlbumDefines.h */,
 				86D183081834AFD90005901D /* DAHttpClient.h */,
 				86D183091834AFD90005901D /* DAHttpClient.m */,
+				86BA1C6D18FF86D0006B4678 /* AFAppDotNetAPIClient6.h */,
+				86BA1C6E18FF86D0006B4678 /* AFAppDotNetAPIClient6.m */,
 				86D1830C1834AFFE0005901D /* AFAppAPIClient.h */,
 				86D1830D1834AFFE0005901D /* AFAppAPIClient.m */,
 				865632EF185FFF1300E9903C /* XCJExtendClass.h */,
@@ -3576,17 +3586,6 @@
 				86893DB5187FCCC500DC0CB8 /* XCJCreateChatNaviController.m */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		86E5D9B818F6C5A5002882E8 /* TestFlightSDK1.1 */ = {
-			isa = PBXGroup;
-			children = (
-				86E5D9B918F6C5A5002882E8 /* libTestFlight.a */,
-				86E5D9BA18F6C5A5002882E8 /* README.md */,
-				86E5D9BB18F6C5A5002882E8 /* release_notes.md */,
-				86E5D9BC18F6C5A5002882E8 /* TestFlight.h */,
-			);
-			path = TestFlightSDK1.1;
 			sourceTree = "<group>";
 		};
 		86EB764B185AA6CC00836947 /* DAOModel */ = {
@@ -4025,6 +4024,7 @@
 				868A0EF818B3624300C2875F /* XCJFindMMView.xib in Resources */,
 				862ECCC418F1BF510048E2C1 /* Expression_65@2x.png in Resources */,
 				862ECC8418F1BF510048E2C1 /* Expression_102@2x.png in Resources */,
+				86BA1C781900129E006B4678 /* logo57x57.png in Resources */,
 				862ECCE618F1BF510048E2C1 /* Expression_96@2x.png in Resources */,
 				862ECCA118F1BF510048E2C1 /* Expression_33@2x.png in Resources */,
 				8681BDBB1834B2A300521D36 /* DirectionsJson.geojson in Resources */,
@@ -4043,7 +4043,6 @@
 				862ECCAC18F1BF510048E2C1 /* Expression_43@2x.png in Resources */,
 				862ECCCE18F1BF510048E2C1 /* Expression_74@2x.png in Resources */,
 				862ECCA318F1BF510048E2C1 /* Expression_35@2x.png in Resources */,
-				86E5D9BE18F6C5A5002882E8 /* README.md in Resources */,
 				862ECC9418F1BF510048E2C1 /* Expression_21@2x.png in Resources */,
 				862ECC9B18F1BF510048E2C1 /* Expression_28@2x.png in Resources */,
 				862ECCE918F1BF510048E2C1 /* Expression_99@2x.png in Resources */,
@@ -4066,6 +4065,7 @@
 				8690DEC418C8891900A14A51 /* default-controls.bundle in Resources */,
 				862ECCCF18F1BF510048E2C1 /* Expression_75@2x.png in Resources */,
 				862ECC9018F1BF510048E2C1 /* Expression_18@2x.png in Resources */,
+				86BA1C791900129E006B4678 /* logo114x114.png in Resources */,
 				862ECCB918F1BF510048E2C1 /* Expression_55@2x.png in Resources */,
 				8668E47B187540DB00D20C9E /* btn_unlike@2x.png in Resources */,
 				862ECCE118F1BF510048E2C1 /* Expression_91@2x.png in Resources */,
@@ -4077,6 +4077,7 @@
 				862ECCCD18F1BF510048E2C1 /* Expression_73@2x.png in Resources */,
 				862ECC8D18F1BF510048E2C1 /* Expression_15@2x.png in Resources */,
 				862ECCA018F1BF510048E2C1 /* Expression_32@2x.png in Resources */,
+				86BA1C771900129E006B4678 /* logo29x29.png in Resources */,
 				862ECC8B18F1BF510048E2C1 /* Expression_13@2x.png in Resources */,
 				8622C882187D2BFA00776A38 /* XCJErrorView.xib in Resources */,
 				862ECCBE18F1BF510048E2C1 /* Expression_5@2x.png in Resources */,
@@ -4117,7 +4118,6 @@
 				862ECC9918F1BF510048E2C1 /* Expression_26@2x.png in Resources */,
 				862ECCD818F1BF510048E2C1 /* Expression_83@2x.png in Resources */,
 				862ECCB318F1BF510048E2C1 /* Expression_4@2x.png in Resources */,
-				86E5D9BF18F6C5A5002882E8 /* release_notes.md in Resources */,
 				862ECCDD18F1BF510048E2C1 /* Expression_88@2x.png in Resources */,
 				862ECCBD18F1BF510048E2C1 /* Expression_59@2x.png in Resources */,
 				8692E3BF18642DB700F9E1DD /* Default.png in Resources */,
@@ -4408,6 +4408,7 @@
 				86EB76BF185AA6CC00836947 /* Model.m in Sources */,
 				8690DEC618C8891900A14A51 /* DZWebBrowser.m in Sources */,
 				8668E47F187540DB00D20C9E /* InterceptTouchView.m in Sources */,
+				86BA1C6F18FF86D0006B4678 /* AFAppDotNetAPIClient6.m in Sources */,
 				86CC9B4918FBE14A005E4BC1 /* UIProgressView+AFNetworking.m in Sources */,
 				8668E482187540DB00D20C9E /* MLScrollRefreshHeader.m in Sources */,
 				865632ED185FFDDA00E9903C /* XCJSettingsViewController.m in Sources */,
@@ -4425,6 +4426,7 @@
 				86608403188FB20100F4870B /* XCJAddGroupInfoViewController.m in Sources */,
 				8681BE3D1839AABA00521D36 /* UserInfo.m in Sources */,
 				866516A2187BF276001F05F6 /* QRCodeGenerator.m in Sources */,
+				86BA1C7318FF896F006B4678 /* IQSocialRequestBaseClient6.m in Sources */,
 				8665168E187BEF75001F05F6 /* SVProgressHUD.m in Sources */,
 				86660DC91876DA0D007477C0 /* XCJCreateNaviController.m in Sources */,
 				865632E4185FFDDA00E9903C /* XCJCommentViewController.m in Sources */,

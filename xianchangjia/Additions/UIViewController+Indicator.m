@@ -145,6 +145,7 @@ typedef enum {
         textContent.textColor = [UIColor grayColor];
         textContent.font = [UIFont systemFontOfSize:14.0f];
         textContent.textAlignment = NSTextAlignmentCenter;
+        textContent.backgroundColor = [UIColor clearColor];
     }
     textContent.text = message;
     [self.view addSubview:textContent];

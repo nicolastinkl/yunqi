@@ -110,6 +110,8 @@
 {
     [super viewDidLoad];
     
+    [tools setnavigationBarbg:self.navigationController];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -1050,27 +1052,49 @@
     [imageIcon setImageWithURL:[NSURL URLWithString:[tools getUrlByYQImageUrl:conver.facebookavatar]] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
     imageIcon.layer.cornerRadius = 5;
     imageIcon.layer.masksToBounds = YES;
-//    UIImageView * imageFrame = (UIImageView *)[cell.contentView viewWithTag:6]; // frame
+    UIImageView * imageFrame = (UIImageView *)[cell.contentView viewWithTag:6]; // frame
     [imageStuts setImage:nil];
-    UITabBar *tabBar =(UITabBar*) [cell.contentView viewWithTag:12];
-    for (UIView *viewTab in tabBar.subviews) {
-        for (UIView *subview in viewTab.subviews) {
-            NSString *strClassName = [NSString stringWithUTF8String:object_getClassName(subview)];
-            if (![strClassName isEqualToString:@"_UIBadgeView"]) {
-                [subview removeFromSuperview];
+   
+  UITabBar *tabBar =(UITabBar*) [cell.contentView viewWithTag:12];
+    if([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
+    {
+        tabBar.hidden = YES;
+        if ([conver.badgeNumber intValue] > 0) {
+             [self showBadgeValue:[NSString stringWithFormat:@"%d",[conver.badgeNumber intValue]] inView:imageFrame];
+        }else{
+            [tabBar.items[0] setBadgeValue:nil];
+             [self removeBadgeValueInView:imageFrame];
+        }
+    }else{
+        
+      
+        for (UIView *viewTab in tabBar.subviews) {
+            for (UIView *subview in viewTab.subviews) {
+                NSString *strClassName = [NSString stringWithUTF8String:object_getClassName(subview)];
+                if (![strClassName isEqualToString:@"_UIBadgeView"]) {
+//                    subview.hidden = YES;
+                    [subview removeFromSuperview];
+                    //                subview.frame = CGRectMake(tabBar.frame.size.width-subview.frame.size.width, 0, subview.frame.size.width, subview.frame.size.height);
+                }
             }
         }
+        if ([conver.badgeNumber intValue] > 0) {
+            tabBar.hidden = NO;
+            [tabBar.items[0] setBadgeValue:[NSString stringWithFormat:@"%@",conver.badgeNumber]];
+            //[self showBadgeValue:[NSString stringWithFormat:@"%d",[conver.badgeNumber intValue]] inView:imageFrame];
+        }else{
+            tabBar.hidden = YES;
+            [tabBar.items[0] setBadgeValue:nil];
+            //[self removeBadgeValueInView:imageFrame];
+        }
     }
-    if ([conver.badgeNumber intValue] > 0) {
-         [tabBar.items[0] setBadgeValue:[NSString stringWithFormat:@"%@",conver.badgeNumber]];
-        //[self showBadgeValue:[NSString stringWithFormat:@"%d",[conver.badgeNumber intValue]] inView:imageFrame];
-    }else{
-         [tabBar.items[0] setBadgeValue:nil];
-        //[self removeBadgeValueInView:imageFrame];
-    }
+        
+   
     ((UILabel *)[cell.contentView viewWithTag:11]).height = 0.5f;
     
 }
+
+
 
 //-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 //{
@@ -1105,7 +1129,7 @@
                 [subview removeFromSuperview];
                 //添加到新视图右上角
                 [view addSubview:subview];
-                subview.frame = CGRectMake(view.frame.size.width-subview.frame.size.width/2-4, -4+4,
+                subview.frame = CGRectMake(view.frame.size.width-subview.frame.size.width/2-7, -6+4,
                                            subview.frame.size.width, subview.frame.size.height);
                 return subview;
             }

@@ -14,6 +14,9 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>logo29x29</string>
+				<string>logo114x114</string>
+				<string>logo57x57</string>
 				<string>logo80x80</string>
 				<string>logo58x58</string>
 				<string>logo120x120</string>
@@ -29,7 +32,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>1.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -46,7 +49,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3219</string>
+	<string>5342</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>

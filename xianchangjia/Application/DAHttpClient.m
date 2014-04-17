@@ -17,6 +17,7 @@
 #import "NSString+Addition.h"
 #import "NSDataAddition.h"
 #import "tools.h"
+#import "AFAppDotNetAPIClient6.h"
 
 @implementation DAHttpClient
 
@@ -24,21 +25,36 @@ SINGLETON_GCD(DAHttpClient);
 
 - (NSURLSessionDataTask *)getRequestWithParameters:(NSMutableDictionary *) parames Action:(NSString *) action success:(SLObjectBlock)success error:(SLIndexBlock)error
 {
+    
     if (parames == nil) {
         parames = [[NSMutableDictionary alloc] init];
     }
     [tools addAuthMD5:parames];
-//
-    return [[AFAppAPIClient sharedClient] GET:action parameters:parames success:^(NSURLSessionDataTask * __unused task, id JSON) {
-        if(JSON){
-            SLog(@"json : %@",JSON);
-            success(JSON);
-        }else{
-			error(0);           //0  failure
-        }
-    } failure:^(NSURLSessionDataTask *__unused task, NSError *err) {
-        error(1);               //1 error
-    }];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [[AFAppDotNetAPIClient6 sharedClient] GET:action parameters:parames success:^(AFHTTPRequestOperation *operation, id JSON) {
+            if(JSON){
+                SLog(@"json : %@",JSON);
+                success(JSON);
+            }else{
+                error(0);           //0  failure
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *errossr) {
+                error(1);               //1 error
+        }];
+    }else{
+        
+        return [[AFAppAPIClient sharedClient] GET:action parameters:parames success:^(NSURLSessionDataTask * __unused task, id JSON) {
+            if(JSON){
+                SLog(@"json : %@",JSON);
+                success(JSON);
+            }else{
+                error(0);           //0  failure
+            }
+        } failure:^(NSURLSessionDataTask *__unused task, NSError *err) {
+            error(1);               //1 error
+        }];
+    }
+    return nil;
 }
 
 - (NSURLSessionDataTask *) postRequestWithParameters:(NSMutableDictionary *) parames Action:(NSString *) action success:(SLObjectBlock)success error:(SLIndexBlock)error
@@ -48,17 +64,31 @@ SINGLETON_GCD(DAHttpClient);
         parames = [[NSMutableDictionary alloc] init];
     }
     [tools addAuthMD5:parames];
-    
-    return [[AFAppAPIClient sharedClient] POST:action parameters:parames success:^(NSURLSessionDataTask * __unused task, id JSON) {
-        if(JSON){
-            SLog(@"json : %@",JSON);
-            success(JSON);
-        }else{
-			error(0);           //0  failure
-        }
-    } failure:^(NSURLSessionDataTask *__unused task, NSError *err) {
-        error(1);               //1 error
-    }];
+     
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [[AFAppDotNetAPIClient6 sharedClient] POST:action parameters:parames success:^(AFHTTPRequestOperation *operation, id JSON) {
+            if(JSON){
+                SLog(@"json : %@",JSON);
+                success(JSON);
+            }else{
+                error(0);           //0  failure
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *errossr) {
+            error(1);               //1 error
+        }];
+    }else{
+        return [[AFAppAPIClient sharedClient] POST:action parameters:parames success:^(NSURLSessionDataTask * __unused task, id JSON) {
+            if(JSON){
+                SLog(@"json : %@",JSON);
+                success(JSON);
+            }else{
+                error(0);           //0  failure
+            }
+        } failure:^(NSURLSessionDataTask *__unused task, NSError *err) {
+            error(1);               //1 error
+        }];
+    }
+    return  nil;
 }
 /**
  *  所有网络请求接口

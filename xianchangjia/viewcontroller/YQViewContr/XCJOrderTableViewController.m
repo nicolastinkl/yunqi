@@ -50,7 +50,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [tools setnavigationBarbg:self.navigationController];
     
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)    {
+    
+        [self.segementbar setBackgroundImage:[UIImage imageNamed:@"table_single_highlight"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    }
+        
     /**
      *  MARK: dosomething init... with tinkl
      */

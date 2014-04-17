@@ -16,6 +16,9 @@
 #import "XCAlbumDefines.h"
 #import "MyMD5.h"
 #import "OpenUDID.h"
+#import "IQSocialRequestBaseClient6.h"
+
+
 @implementation LXRequestFacebookManager
 
 
@@ -29,36 +32,60 @@
 //    
 //    NSString * stringmd5 = [MyMD5 md5:[NSString stringWithFormat:@"%@%@%@",[OpenUDID value],[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name],[USER_DEFAULT stringForKey:KeyChain_yunqi_account_tokenExpire]]];
 //    [parems  setValue:stringmd5 forKey:@"sign"];
-    
-    
-    [[IQSocialRequestBaseClient sharedClient] POST:action parameters:parems success:^(NSURLSessionDataTask *task, id responseObject) {
-        SLog(@"%@",responseObject);
-        if (completion) {
-            completion(responseObject, nil);
-        }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        SLog(@"%@",error);
-        if (completion) {
-            completion(nil, error);
-        }
-    }];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [[IQSocialRequestBaseClient6 sharedClient] POST:action parameters:parems success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            SLog(@"%@",responseObject);
+            if (completion) {
+                completion(responseObject, nil);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            SLog(@"%@",error);
+            if (completion) {
+                completion(nil, error);
+            }
+        }];
+    }else{
+        [[IQSocialRequestBaseClient sharedClient] POST:action parameters:parems success:^(NSURLSessionDataTask *task, id responseObject) {
+            SLog(@"%@",responseObject);
+            if (completion) {
+                completion(responseObject, nil);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            SLog(@"%@",error);
+            if (completion) {
+                completion(nil, error);
+            }
+        }];
+    }
 }
 
 - (void)requestGetURLWithCompletion:(CompletionBlock)completion withDict:(NSMutableDictionary*)dict withParems:(NSString * ) action
 {
-    
-    [[IQSocialRequestBaseClient sharedClient] GET:action parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
-        SLog(@"responseObject : %@",responseObject);
-        if (completion) {
-            completion(responseObject, nil);
-        }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        SLog(@" error : %@",error);
-        if (completion) {
-            completion(nil, error);
-        }
-    }];
-    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [[IQSocialRequestBaseClient6 sharedClient] GET:action parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            SLog(@"%@",responseObject);
+            if (completion) {
+                completion(responseObject, nil);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            SLog(@"%@",error);
+            if (completion) {
+                completion(nil, error);
+            }
+        }];
+    }else{
+        [[IQSocialRequestBaseClient sharedClient] GET:action parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
+            SLog(@"responseObject : %@",responseObject);
+            if (completion) {
+                completion(responseObject, nil);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            SLog(@" error : %@",error);
+            if (completion) {
+                completion(nil, error);
+            }
+        }];
+    }
 }
 
 - (void)requestGetURLWithCompletion:(CompletionBlock)completion withParems:(NSString * ) parems
@@ -78,7 +105,19 @@
                                                   }
                                               }];*/
     SLog(@"parems get token : %@",parems);
-    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [[IQSocialRequestBaseClient6 sharedClient] GET:parems   parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            SLog(@"%@",responseObject);
+            if (completion) {
+                completion(responseObject, nil);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            SLog(@"%@",error);
+            if (completion) {
+                completion(nil, error);
+            }
+        }];
+    }else{
     [[IQSocialRequestBaseClient sharedClient] GET:parems parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject : %@",responseObject);
         if (completion) {
@@ -89,7 +128,7 @@
         if (completion) {
             completion(nil, error);
         }
-    }];
+    }];}
 }
 
 

@@ -151,73 +151,31 @@ static NSInteger const kAttributedLabelTag = 100;
     
     {
         UIButton * buttonAudioss = (UIButton *) [self.inputContainerView subviewWithTag:9];
-//        [buttonAudioss sendMessageWhiteStyle];
-//        [buttonAudioss setTitle:@"按住说话" forState:UIControlStateNormal];
-        
-//        [buttonAudioss addTarget:self action:@selector(speakClick:) forControlEvents:UIControlStateNormal];
         //添加长按手势
         UILongPressGestureRecognizer *gr = [[UILongPressGestureRecognizer alloc] init];
         [gr addTarget:self action:@selector(recordBtnLongPressed:)];
         gr.minimumPressDuration = 0.15;
         [buttonAudioss addGestureRecognizer:gr];
-        
-        
-//        UILongPressGestureRecognizer *longPrees = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(recordBtnLongPressed:)];
-//        longPrees.delegate = self;
-//        longPrees.minimumPressDuration = 0.3;
-//        [buttonAudioss addGestureRecognizer:longPrees];
     }
     
     UIButton * buttonAudio8 = (UIButton *) [self.inputContainerView subviewWithTag:8];
     
     [buttonAudio8 addTarget:self action:@selector(ShowkeyboardButtonClick:) forControlEvents:UIControlEventTouchUpInside ];
-    
-//    self.inputContainerView.layer.borderColor = [UIColor grayColor].CGColor;
-//    self.inputContainerView.layer.borderWidth = 0.5f;
-    self.inputContainerView.top = self.view.height - self.inputContainerView.height;
-    self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    //监视输入内容大小，在KVO里自动调整
-//    [self.inputTextView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-
+    if([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
+    {
+        self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        self.inputContainerView.top = APP_SCREEN_CONTENT_HEIGHT - self.inputContainerView.height-44;
+    }else{
+        
+        self.inputContainerView.top = self.view.height - self.inputContainerView.height;
+        self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        
+    }
     
     _objImgListOper = [[RemoteImgListOperator alloc] init];
     
-    //创建表情键盘
-    if (scrollView==nil) {
-        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, keyboardHeight)];
-        [scrollView setBackgroundColor:[UIColor whiteColor]];
-        for (int i=0; i<6; i++) {
-            FacialView *fview=[[FacialView alloc] initWithFrame:CGRectMake(10+320*i, 30, facialViewWidth, facialViewHeight)];
-            [fview setBackgroundColor:[UIColor clearColor]];
-            [fview loadFacialView:i size:CGSizeMake(42, 42)];
-            fview.delegate=self;
-            [scrollView addSubview:fview];
-        }
-    }
-    [scrollView setShowsVerticalScrollIndicator:NO];
-    [scrollView setShowsHorizontalScrollIndicator:NO];
-    scrollView.contentSize=CGSizeMake(320*5, keyboardHeight);
-    scrollView.pagingEnabled=YES;
-    scrollView.delegate=self;
-
-    pageControl=[[UIPageControl alloc]initWithFrame:CGRectMake(98, keyboardHeight-40, 150, 30)];
-    [pageControl setCurrentPage:0];
-    pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];//RGBACOLOR(195, 179, 163, 1);
-    pageControl.currentPageIndicatorTintColor = ios7BlueColor;//RGBACOLOR(132, 104, 77, 1);
-    pageControl.numberOfPages = 5;//指定页面个数
-    [pageControl setBackgroundColor:[UIColor clearColor]];
-    [pageControl addTarget:self action:@selector(changePage:)forControlEvents:UIControlEventValueChanged];
-    
-    EmjView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, keyboardHeight)];
-    [EmjView addSubview:scrollView];
-    [EmjView addSubview:pageControl];
-    [self.view addSubview:EmjView];
-
     self.title = self.conversation.facebookName;
     
-    //初始化播放器
-    player = [[AVAudioPlayer alloc]init];
-
     /**
      *  init _data
      */
@@ -782,6 +740,38 @@ static NSInteger const kAttributedLabelTag = 100;
 - (void)handleWillShowKeyboardNotification:(NSNotification *)notification
 {
 
+    
+    //创建表情键盘
+    if (scrollView==nil) {
+        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, keyboardHeight)];
+        [scrollView setBackgroundColor:[UIColor whiteColor]];
+        for (int i=0; i<6; i++) {
+            FacialView *fview=[[FacialView alloc] initWithFrame:CGRectMake(10+320*i, 30, facialViewWidth, facialViewHeight)];
+            [fview setBackgroundColor:[UIColor clearColor]];
+            [fview loadFacialView:i size:CGSizeMake(42, 42)];
+            fview.delegate=self;
+            [scrollView addSubview:fview];
+        }
+        [scrollView setShowsVerticalScrollIndicator:NO];
+        [scrollView setShowsHorizontalScrollIndicator:NO];
+        scrollView.contentSize=CGSizeMake(320*5, keyboardHeight);
+        scrollView.pagingEnabled=YES;
+        scrollView.delegate=self;
+        
+        pageControl=[[UIPageControl alloc]initWithFrame:CGRectMake(98, keyboardHeight-40, 150, 30)];
+        [pageControl setCurrentPage:0];
+        pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];//RGBACOLOR(195, 179, 163, 1);
+        pageControl.currentPageIndicatorTintColor = ios7BlueColor;//RGBACOLOR(132, 104, 77, 1);
+        pageControl.numberOfPages = 5;//指定页面个数
+        [pageControl setBackgroundColor:[UIColor clearColor]];
+        [pageControl addTarget:self action:@selector(changePage:)forControlEvents:UIControlEventValueChanged];
+        
+        EmjView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, keyboardHeight)];
+        [EmjView addSubview:scrollView];
+        [EmjView addSubview:pageControl];
+        [self.view addSubview:EmjView];
+    }
+    
     [self keyboardWillShowHide:notification];
          scrollView.delegate = self;
     [self scrollToBottonWithAnimation:YES];
@@ -944,7 +934,6 @@ static NSInteger const kAttributedLabelTag = 100;
         if ( scrollViewDat.contentOffset.y < -30.0f && !_loading) {
             if (AllDBdatabaseLoad) {
                 
-                SLog(@"scrollView.contentOffset.y %f",scrollViewDat.contentOffset.y);
                 FCMessage * message =  [self.messageList firstObject];
                 if (message.messageId && [message.messageId length] > 0) {
                     [self initchatdata:message.messageId];
@@ -1304,7 +1293,16 @@ static NSInteger const kAttributedLabelTag = 100;
 {
     //删除Observer
 //	[self.messageList removeObserver:self forKeyPath:@"array"];
-
+    if(player && [player isPlaying])
+    {
+        [player stop];
+        player = nil;
+    }
+    if(player )
+    {
+        player = nil;
+    }
+    
     scrollView.delegate  = nil;
     [_tableView setDelegate:nil];
     
@@ -2238,18 +2236,23 @@ static NSInteger const kAttributedLabelTag = 100;
 }
 
 
-- (CGFloat)heightForCellWithPost:(NSString *)post withWidth:(float) width{
-    NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f],NSFontAttributeName,nil];
+- (CGSize)heightForCellWithPost:(NSString *)post withWidth:(float) width{
     
-    [post sizeWithAttributes:tdic];
-    //ios7方法，获取文本需要的size，限制宽度
-    CGSize  actualsize = [post boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:tdic context:nil].size;
-    
-    //#pragma clang diagnostic push
-    //#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    //    CGSize sizeToFit = [post sizeWithFont:[UIFont systemFontOfSize:15.0f] constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-    //#pragma clang diagnostic pop
-    return  fmaxf(20.0f, actualsize.height );
+    NSString *osversion = [UIDevice currentDevice].systemVersion;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        CGSize sizeToFit = [post sizeWithFont:[UIFont systemFontOfSize:12.0f] constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+#pragma clang diagnostic pop
+        return  sizeToFit;// fmaxf(20.0f, sizeToFit.width + 10 );
+    }else{
+        NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f],NSFontAttributeName,nil];
+        
+        [post sizeWithAttributes:tdic];
+        //ios7方法，获取文本需要的size，限制宽度
+        CGSize  actualsize = [post boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:tdic context:nil].size;
+        return actualsize;// fmaxf(20.0f, actualsize.height );
+    }
 }
 
 #pragma mark  cellfor
@@ -2319,6 +2322,7 @@ static NSInteger const kAttributedLabelTag = 100;
         labelContent.centerVertically = YES;
         labelContent.automaticallyAddLinksForType = NSTextCheckingAllTypes;
         labelContent.delegate = self;
+        labelContent.backgroundColor = [UIColor clearColor];
         labelContent.highlightedTextColor = [UIColor whiteColor];
         labelContent.tag = kAttributedLabelTag;
         [cell addSubview:labelContent];
@@ -2398,8 +2402,10 @@ static NSInteger const kAttributedLabelTag = 100;
     
     
     NSString * timeStr = [tools FormatStringForDate:message.sentDate];
-    NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f],NSFontAttributeName,nil];
-    CGSize sizetime = [timeStr sizeWithAttributes:tdic];    
+//    NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f],NSFontAttributeName,nil];
+//    CGSize sizetime = [timeStr sizeWithAttributes:tdic];
+    
+    CGSize sizetime  = [self heightForCellWithPost:timeStr withWidth:300];
     labelTime.text = timeStr ;
     sizetime.width +=6;
     sizetime.height +=6;
@@ -2791,11 +2797,28 @@ static NSInteger const kAttributedLabelTag = 100;
 
 -(IBAction)playaudioClick:(id)sender
 {
+    if([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
+    {
+        return;
+    }
+    
+    //初始化播放器
+    if(player == nil)
+    player = [[AVAudioPlayer alloc]init];
+    
     UIButton * button = (UIButton*)sender;
     NSString * audiourl = [button.layer valueForKey:@"audiourl"];
     //close or stop other audio
     //[self.tableView reloadData];
-     XCJChatMessageCell *cell = (XCJChatMessageCell *)button.superview.superview.superview;
+    XCJChatMessageCell *cell;
+    if([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
+    {
+        cell = (XCJChatMessageCell *)button.superview.superview;
+    }else
+    {
+        cell = (XCJChatMessageCell *)button.superview.superview.superview;
+    }
+
     if (playingCell && cell != playingCell &&  playingCell.isplayingAudio) {
         if (playingURL) {
             player = [[AVAudioPlayer alloc] initWithContentsOfURL:playingURL error:nil];

@@ -37,6 +37,8 @@
 {
     [super viewDidLoad];
     
+    [tools setnavigationBarbg:self.navigationController];
+    
     [self _init];
     
     

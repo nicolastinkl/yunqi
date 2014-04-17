@@ -528,6 +528,29 @@
     
 }
 
+/*设置导航栏默认背景*/
++(void) setnavigationBarbg:(UINavigationController *) navi
+{
+    
+	// 透明度设置为0.3
+    //	navi.navigationBar.alpha = 0.500;
+	// 设置为半透明
+	
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"XEATabBar_bg"]];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        //iOS 5
+        [navi.tabBarController.tabBar insertSubview:imageView atIndex:1];
+        [navi.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_navigationBar"] forBarMetrics:UIBarMetricsDefault];
+         [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+    }
+    else {
+        //iOS 4.whatever and below
+//        [navi.tabBarController.tabBar insertSubview:imageView atIndex:0];
+    }
+    //	navi.navigationBar.tintColor = [UIColor colorWithHex:0xf47c38];
+    //	navi.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+}
+
 + (NSString *) getUrlByImageUrl:(NSString * ) url Size:(NSInteger) value
 {
     if ([url isNilOrEmpty]) {

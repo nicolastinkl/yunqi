@@ -34,6 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [tools setnavigationBarbg:self.navigationController];    
 	// Do any additional setup after loading the view.
     UIWebView * webview = (UIWebView*) [self.view subviewWithTag:1];
     webview.delegate = self;
