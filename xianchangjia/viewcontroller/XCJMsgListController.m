@@ -43,6 +43,9 @@
 #import "YQLoginviewViewController.h"
 #import "YQDelegate.h"
 #import "EGORefreshTableHeaderView.h"
+
+#import "UINavigationController+OverBackBtn.h"
+
 #define audioLengthDefine 1024
 
 @interface XCJMsgListController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,XCJHomeMenuViewDelegate,EGORefreshTableHeaderDelegate>//,UISearchDisplayDelegate,UISearchBarDelegate
@@ -111,6 +114,8 @@
     [super viewDidLoad];
     
     [tools setnavigationBarbg:self.navigationController];
+    
+    [self.navigationController ios6backview];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

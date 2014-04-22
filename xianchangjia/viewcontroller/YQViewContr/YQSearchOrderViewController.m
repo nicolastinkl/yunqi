@@ -40,6 +40,15 @@
 {
     [super viewDidLoad];
     
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        self.seachbar.hidden = YES;
+        UILabel * titleLabel = [[UILabel alloc] init];
+        titleLabel.text = @"搜索结果";
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.textColor = [UIColor whiteColor];
+        titleLabel.backgroundColor = [UIColor clearColor];         
+        [self.navigationItem.titleView addSubview:titleLabel];
+    }
     /**
      *  change place holder text color
      */

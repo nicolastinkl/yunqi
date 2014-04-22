@@ -712,7 +712,6 @@ static NSString * const kLaixinStoreName = @"Laixins";
                     NSString * messagessLog =[NSString stringWithFormat:@"商品名称:%@\n K歌指导员%d位,\n支付价格:%@ \n \n更多详情请进入\n'%@'中查看",paylog.productname,paylog.ex_people,stringss,description];
                     [UIAlertView showAlertViewWithTitle:title message:messagessLog];
                     
-                    
                 }
             }
 
@@ -910,7 +909,6 @@ static NSString * const kLaixinStoreName = @"Laixins";
 {
     _scene = scene;
 }
-
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {

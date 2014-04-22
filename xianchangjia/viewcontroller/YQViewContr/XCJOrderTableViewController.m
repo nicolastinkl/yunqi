@@ -54,9 +54,12 @@
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)    {
     
-        [self.segementbar setBackgroundImage:[UIImage imageNamed:@"table_single_highlight"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    }
+        [self.segementbar setBackgroundImage:[UIImage imageNamed:@"bg_navigationBar"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         
+//        [self.segementbar setBackgroundColor : [UIColor clearColor] ];
+    }
+    
+    [self.navigationController ios6backview];
     /**
      *  MARK: dosomething init... with tinkl
      */

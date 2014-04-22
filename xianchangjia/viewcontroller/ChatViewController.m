@@ -47,6 +47,7 @@
 #import "IDMPhotoBrowser.h"
 #import "NSString+Addition.h"
 #import "YQUserOrdersViewConsoller.h"
+#import "SJAvatarBrowser.h"
 
 #import <OHAttributedLabel/OHAttributedLabel.h>
 #import <OHAttributedLabel/NSAttributedString+Attributes.h>
@@ -129,6 +130,8 @@ static NSInteger const kAttributedLabelTag = 100;
 {
     [super viewDidLoad];
     
+    [self.navigationController ios6backview];
+    
     [[OHAttributedLabel appearance] setLinkColor:ios7BlueColor];
     [[OHAttributedLabel appearance] setHighlightedLinkColor:[UIColor colorWithWhite:0.4 alpha:0.3]];
     [[OHAttributedLabel appearance] setLinkUnderlineStyle:kCTUnderlineStyleNone];
@@ -165,6 +168,13 @@ static NSInteger const kAttributedLabelTag = 100;
     {
         self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         self.inputContainerView.top = APP_SCREEN_CONTENT_HEIGHT - self.inputContainerView.height-44;
+        
+        UIButton * rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [rightButton setImage:[UIImage imageNamed:@"itemIcon_order"] forState:UIControlStateNormal];
+        [rightButton addTarget:self action:@selector(SeeUserOrdersClick:) forControlEvents:UIControlEventTouchUpInside];
+        [rightButton setFrame:CGRectMake(0, 0, 44, 44)];
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     }else{
         
         self.inputContainerView.top = self.view.height - self.inputContainerView.height;
@@ -2784,15 +2794,33 @@ static NSInteger const kAttributedLabelTag = 100;
     UITapGestureRecognizer * ges = sender;
     UIImageView *buttonSender = (UIImageView *)ges.view;
     UIView * uiview =  buttonSender.superview.superview;
-    XCJChatMessageCell * cell = (XCJChatMessageCell* ) uiview.superview;
-    if ([cell.currentMessage.messageType  intValue] == messageType_image) {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        XCJChatMessageCell * cell = (XCJChatMessageCell* ) uiview;
+//        if ([cell.currentMessage.messageType  intValue] == messageType_image) {
+//            
+//            //    UIImageView *buttonSender = (UIImageView*)sender;
+//            IDMPhoto * photo = [IDMPhoto photoWithURL:[NSURL URLWithString:cell.currentMessage.imageUrl]];
+//            // Create and setup browser
+//            IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:@[photo]];
+//            [self presentViewController:browser animated:YES completion:nil];
+//        }
         
-        //    UIImageView *buttonSender = (UIImageView*)sender;
-        IDMPhoto * photo = [IDMPhoto photoWithURL:[NSURL URLWithString:cell.currentMessage.imageUrl]];
-        // Create and setup browser
-        IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:@[photo]];
-        [self presentViewController:browser animated:YES completion:nil];
+        [SJAvatarBrowser showImage:buttonSender withURL:cell.currentMessage.imageUrl];
+        
+    }else{
+    
+        XCJChatMessageCell * cell = (XCJChatMessageCell* ) uiview.superview;
+        if ([cell.currentMessage.messageType  intValue] == messageType_image) {
+            
+            //    UIImageView *buttonSender = (UIImageView*)sender;
+            IDMPhoto * photo = [IDMPhoto photoWithURL:[NSURL URLWithString:cell.currentMessage.imageUrl]];
+            // Create and setup browser
+            IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:@[photo]];
+            [self presentViewController:browser animated:YES completion:nil];
+        }
     }
+    
+   
 }
 
 -(IBAction)playaudioClick:(id)sender

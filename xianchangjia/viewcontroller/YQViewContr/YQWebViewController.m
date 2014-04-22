@@ -34,6 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.navigationController ios6backview];
     [tools setnavigationBarbg:self.navigationController];    
 	// Do any additional setup after loading the view.
     UIWebView * webview = (UIWebView*) [self.view subviewWithTag:1];

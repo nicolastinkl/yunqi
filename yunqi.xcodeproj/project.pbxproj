@@ -18,6 +18,7 @@
 		8605B9DE18EA911D00D456F6 /* YQOrderMetaViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8605B9DD18EA911D00D456F6 /* YQOrderMetaViewcontroller.m */; };
 		8605B9E218EA9EA500D456F6 /* YQUserOrdersViewConsoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8605B9E118EA9EA500D456F6 /* YQUserOrdersViewConsoller.m */; };
 		8607385418AB4BFC003830DE /* SJAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8607385318AB4BFC003830DE /* SJAvatarBrowser.m */; };
+		860FB0ED19068AAB00367344 /* UINavigationController+OverBackBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 860FB0EC19068AAB00367344 /* UINavigationController+OverBackBtn.m */; };
 		8613A6F6187F9ADC002B9013 /* FCBeInviteGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 8613A6F5187F9ADC002B9013 /* FCBeInviteGroup.m */; };
 		861C0F4A18DC2F6C001DA32F /* PPCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 861C0F4418DC2F6C001DA32F /* PPCircleButton.m */; };
 		861C0F4B18DC2F6C001DA32F /* PPPinCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 861C0F4618DC2F6C001DA32F /* PPPinCircleView.m */; };
@@ -655,6 +656,8 @@
 		8605B9E118EA9EA500D456F6 /* YQUserOrdersViewConsoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQUserOrdersViewConsoller.m; path = viewcontroller/YQViewContr/YQUserOrdersViewConsoller.m; sourceTree = "<group>"; };
 		8607385218AB4BFC003830DE /* SJAvatarBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAvatarBrowser.h; sourceTree = "<group>"; };
 		8607385318AB4BFC003830DE /* SJAvatarBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAvatarBrowser.m; sourceTree = "<group>"; };
+		860FB0EB19068AAB00367344 /* UINavigationController+OverBackBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+OverBackBtn.h"; sourceTree = "<group>"; };
+		860FB0EC19068AAB00367344 /* UINavigationController+OverBackBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+OverBackBtn.m"; sourceTree = "<group>"; };
 		8613A6F4187F9ADC002B9013 /* FCBeInviteGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FCBeInviteGroup.h; path = DAOModel/coredata/FCBeInviteGroup.h; sourceTree = "<group>"; };
 		8613A6F5187F9ADC002B9013 /* FCBeInviteGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FCBeInviteGroup.m; path = DAOModel/coredata/FCBeInviteGroup.m; sourceTree = "<group>"; };
 		861C0F4318DC2F6C001DA32F /* PPCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCircleButton.h; sourceTree = "<group>"; };
@@ -1687,6 +1690,15 @@
 				86045FC918B2F7EF0002581E /* AOTag.m */,
 			);
 			name = AOtag;
+			sourceTree = "<group>";
+		};
+		860FB0E919068A7F00367344 /* Navi */ = {
+			isa = PBXGroup;
+			children = (
+				860FB0EB19068AAB00367344 /* UINavigationController+OverBackBtn.h */,
+				860FB0EC19068AAB00367344 /* UINavigationController+OverBackBtn.m */,
+			);
+			name = Navi;
 			sourceTree = "<group>";
 		};
 		861C0F4218DC2F6C001DA32F /* PinPad */ = {
@@ -3253,6 +3265,7 @@
 		86D182161834AED30005901D /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				860FB0E919068A7F00367344 /* Navi */,
 				868B5D3C189284C6004D1743 /* UIImage-Helpers */,
 				86740A921839FA1F0041B603 /* UIViewContr */,
 				86D182171834AED30005901D /* BTSAnchorPointLayer.h */,
@@ -4384,6 +4397,7 @@
 				869CE522186BE38D0004C1EC /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				869CE533186BE38D0004C1EC /* MagicalRecord+Options.m in Sources */,
 				869DAE2318D94D4F0078168B /* SKBounceAnimation.m in Sources */,
+				860FB0ED19068AAB00367344 /* UINavigationController+OverBackBtn.m in Sources */,
 				8690DECA18C8891900A14A51 /* SDCachedURLResponse.m in Sources */,
 				867FEE8C18EEB29200F9DAEE /* YQSearchOrderViewController.m in Sources */,
 				86E57CE318794E2900978AFA /* XCJChangeNickViewController.m in Sources */,
