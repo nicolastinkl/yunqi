@@ -243,7 +243,9 @@
         <scene sceneID="XfP-ji-bR3">
             <objects>
                 <navigationController definesPresentationContext="YES" id="hMA-JR-h7T" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="云起亲亲" image="itemIcon_me" id="9vP-ry-6dp"/>
+                    <tabBarItem key="tabBarItem" title="云起亲亲" image="itemIcon_me" id="9vP-ry-6dp">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="5n0-DI-HzG">
                         <autoresizingMask key="autoresizingMask"/>
@@ -934,7 +936,7 @@
         <scene sceneID="otH-EA-BHP">
             <objects>
                 <navigationController definesPresentationContext="YES" id="r8L-qn-k4g" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="订单" image="tabbaricon" id="B3v-fx-P1W">
+                    <tabBarItem key="tabBarItem" title="订单" image="itemIcon_order" id="B3v-fx-P1W">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
                     </tabBarItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
@@ -958,7 +960,9 @@
         <scene sceneID="rwq-tC-aK5">
             <objects>
                 <navigationController definesPresentationContext="YES" id="t7e-Pw-9zM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="轻应用" image="itemIcon_light" id="ZW9-EM-nq5"/>
+                    <tabBarItem key="tabBarItem" title="轻应用" image="itemIcon_light" id="ZW9-EM-nq5">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="OHb-Xk-yfY">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1160,7 +1164,9 @@
         <scene sceneID="YcO-oI-vSA">
             <objects>
                 <navigationController definesPresentationContext="YES" id="aGV-0M-mpJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="最近消息" image="itemIcon_message" id="8Pg-lJ-buX"/>
+                    <tabBarItem key="tabBarItem" title="最近消息" image="itemIcon_message" id="8Pg-lJ-buX">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="RvJ-iS-Dim">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1617,7 +1623,6 @@
         <image name="popover_icon_refresh_os7" width="24" height="24"/>
         <image name="share_forward" width="23" height="23"/>
         <image name="tabBarBackground" width="1" height="50"/>
-        <image name="tabbaricon" width="20" height="20"/>
         <image name="whitetabbar" width="44" height="49"/>
         <image name="yunqi_keyboard" width="33" height="32"/>
         <image name="yunqi_pic" width="33" height="32"/>

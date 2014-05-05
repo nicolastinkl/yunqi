@@ -12,7 +12,6 @@
 //#import "UIActivityIndicatorView+AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "DAImageResizedImageView.h"
-#import "XCJUserViewController.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBook/ABPerson.h>
@@ -24,7 +23,6 @@
 #import "FCAccount.h"
 #import "FCUserDescription.h"
 #import "CoreData+MagicalRecord.h"
-#import "XCJUserInfoController.h"
 #import "Conversation.h"
 #import "FCMessage.h"
 #import "LXRequestFacebookManager.h"
@@ -33,25 +31,27 @@
 #import "XCJAppDelegate.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "FCHomeGroupMsg.h"
-#import "XCJHomeDynamicViewController.h"
-#import "XCJGroupPost_list.h"
-#import "XCJHomeMenuView.h"
-#import "XCJCreateNaviController.h"
-#import "XCJAddFriendNaviController.h"
-#import "XCJScanViewController.h"
-#import "FCFriends.h"
 #import "YQLoginviewViewController.h"
+//#import "XCJHomeDynamicViewController.h"
+//#import "XCJGroupPost_list.h"
+//#import "XCJHomeMenuView.h"
+//#import "XCJCreateNaviController.h"
+//#import "XCJAddFriendNaviController.h"
+//#import "XCJScanViewController.h"
+#import "FCFriends.h"
+//#import "YQLoginviewViewController.h"
 #import "YQDelegate.h"
 #import "EGORefreshTableHeaderView.h"
 
 #import "UINavigationController+OverBackBtn.h"
+#import "XCJGroupPost_list.h"
 
 #define audioLengthDefine 1024
 
-@interface XCJMsgListController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,XCJHomeMenuViewDelegate,EGORefreshTableHeaderDelegate>//,UISearchDisplayDelegate,UISearchBarDelegate
+@interface XCJMsgListController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,EGORefreshTableHeaderDelegate>//,UISearchDisplayDelegate,UISearchBarDelegate
 {
     int tryCatchCount;
-    XCJHomeMenuView * menuView;
+//    XCJHomeMenuView * menuView;
     NSArray *allItems;
     
     EGORefreshTableHeaderView *_refreshHeaderView;
@@ -179,7 +179,7 @@
         YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
         if (badgeNumber > 0) {
             [delegate.tabBarController.tabBar.items[0] setBadgeValue:[NSString stringWithFormat:@"%d",badgeNumber]];
-            [UIApplication sharedApplication].applicationIconBadgeNumber = badgeNumber;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = badgeNumber;                        
         }else{
             [delegate.tabBarController.tabBar.items[0] setBadgeValue:nil];
             [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -301,7 +301,7 @@
 }
 
 - (IBAction)ShowMenuClick:(id)sender {
-    
+    /*
     if (!menuView) {
         menuView = [[NSBundle mainBundle] loadNibNamed:@"XCJHomeMenuView" owner:self options:nil][0];
         [self.view.window addSubview:menuView];
@@ -336,7 +336,7 @@
             //            self.ShowMenubutton.transform = CGAffineTransformMakeRotation(M_PI/2);
         } completion:^(BOOL finished) {
         }];
-    }
+    }*/
 }
 
 - (void) hiddenSelfViewClick;
@@ -347,30 +347,30 @@
 - (void) createGroupClick
 {
     [self ShowMenuClick:nil];
-    XCJCreateNaviController * navi = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJCreateNaviController"];
-    [self presentViewController:navi animated:YES completion:^{
-        
-    }];
+//    XCJCreateNaviController * navi = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJCreateNaviController"];
+//    [self presentViewController:navi animated:YES completion:^{
+//        
+//    }];
     
 }
 
 - (void) addFriendClick
 {
     [self ShowMenuClick:nil];
-    XCJAddFriendNaviController *navi = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJAddFriendNaviController"];
-    [self presentViewController:navi animated:YES completion:^{
-        
-    }];
+//    XCJAddFriendNaviController *navi = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJAddFriendNaviController"];
+//    [self presentViewController:navi animated:YES completion:^{
+//        
+//    }];
 }
 
 - (void) findandfindCodeClick
 {
     [self ShowMenuClick:nil];
     // go to erwei code
-    XCJScanViewController * view = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJScanViewController"];
-    view.scanTypeIndex = findAll;
-    [self.navigationController pushViewController:view
-                                         animated:YES];
+//    XCJScanViewController * view = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJScanViewController"];
+//    view.scanTypeIndex = findAll;
+//    [self.navigationController pushViewController:view
+//                                         animated:YES];
     
 }
 
@@ -1016,13 +1016,13 @@
     switch ([friend.messageType intValue]) {
         case XCMessageActivity_UserGroupMessage:
         {
-            NSString * gid =[friend.facebookId stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@_",XCMessageActivity_User_GroupMessage] withString:@""];
+//            NSString * gid =[friend.facebookId stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@_",XCMessageActivity_User_GroupMessage] withString:@""];
 //            chatview.gid = gid;
-            XCJHomeDynamicViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJHomeDynamicViewController"];
-            vc.Currentgid = gid;
-            vc.title = friend.facebookName;
-            vc.groupInfo = friend;
-            [self.navigationController pushViewController:vc animated:YES];
+//            XCJHomeDynamicViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJHomeDynamicViewController"];
+//            vc.Currentgid = gid;
+//            vc.title = friend.facebookName;
+//            vc.groupInfo = friend;
+//            [self.navigationController pushViewController:vc animated:YES];
             
         }
             break;

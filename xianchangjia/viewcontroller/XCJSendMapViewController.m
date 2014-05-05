@@ -7,7 +7,7 @@
 //
 
 #import "XCJSendMapViewController.h"
-#import "XCJAboutViewController.h"
+//#import "XCJAboutViewController.h"
 #import "XCAlbumAdditions.h"
 #import <MapKit/MapKit.h>
 #import "MMLocationManager.h"

@@ -5,20 +5,17 @@
 //  Created by apple on 2/27/14.
 //  Copyright (c) 2014 jijia. All rights reserved.
 
-
 #import "YQDelegate.h"
 #import "MobClick.h"
 #import "CRGradientNavigationBar.h"
 #import "XCAlbumAdditions.h"
 #import "XCAlbumDefines.h"
 #import "SinaWeibo.h"
-#import "XCJLoginViewController.h"
 #import "MLNetworkingManager.h"
 #import "LXAPIController.h"
 #import "CoreData+MagicalRecord.h"
 #import "LXChatDBStoreManager.h"
 #import "UIAlertViewAddition.h"
-#import "XCJLoginNaviController.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "blocktypedef.h"
 #import "XCAlbumDefines.h"

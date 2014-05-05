@@ -29,8 +29,6 @@
 #import "XCJSendMapViewController.h"
 #import "FDStatusBarNotifierView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "XCJSettingGroupViewController.h"
-#import "XCJAddUserTableViewController.h"
 #import "FCHomeGroupMsg.h"
 #import "FacialView.h"
 #import "XCJChatSendImgViewController.h"
@@ -606,25 +604,25 @@ static NSInteger const kAttributedLabelTag = 100;
 -(IBAction)SeeUserInfoClick:(id)sender
 {
     //查看好友资料
-    XCJAddUserTableViewController * addUser = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJAddUserTableViewController"];
-    addUser.UserInfo = self.userinfo;
-    [self.navigationController pushViewController:addUser animated:YES];
+//    XCJAddUserTableViewController * addUser = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJAddUserTableViewController"];
+//    addUser.UserInfo = self.userinfo;
+//    [self.navigationController pushViewController:addUser animated:YES];
 }
 
 -(IBAction)SeeGroupInfoClick:(id)sender
 {
-    XCJSettingGroupViewController * groupsettingview = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJSettingGroupViewController"];
-    groupsettingview.title = self.title;
-    NSMutableArray * array = [[NSMutableArray alloc] init];
-    [userArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSString * uid = [DataHelper getStringValue:obj[@"uid"] defaultValue:@""];
-        if (uid.length > 0) {
-            [array addObject:uid];
-        }
-    }];
-    groupsettingview.uidArray = array;
-    groupsettingview.gid = self.gid;
-    [self.navigationController pushViewController:groupsettingview animated:YES];
+//    XCJSettingGroupViewController * groupsettingview = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJSettingGroupViewController"];
+//    groupsettingview.title = self.title;
+//    NSMutableArray * array = [[NSMutableArray alloc] init];
+//    [userArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//        NSString * uid = [DataHelper getStringValue:obj[@"uid"] defaultValue:@""];
+//        if (uid.length > 0) {
+//            [array addObject:uid];
+//        }
+//    }];
+//    groupsettingview.uidArray = array;
+//    groupsettingview.gid = self.gid;
+//    [self.navigationController pushViewController:groupsettingview animated:YES];
 }
 
 - (void) setUpSequencer
@@ -716,6 +714,19 @@ static NSInteger const kAttributedLabelTag = 100;
         self.conversation.badgeNumber = @(0);
         [[[LXAPIController sharedLXAPIController] chatDataStoreManager] saveContext];
       //  [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMessageTabBarItemBadge" object:nil];
+        double delayInSeconds = .5;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            // update mesage status
+            NSMutableDictionary * dic = [[NSMutableDictionary alloc] init];
+            [dic setValue:self.conversation.facebookId forKey:@"weChatId"];
+            [dic setValue:@"unread" forKey:@"state"];
+            [dic setValue:@"read" forKey:@"afterState"];
+            [[DAHttpClient sharedDAHttpClient] postRequestWithParameters:dic Action:@"AdminApi/WeChat/UpdateState" success:^(id obj) {
+            } error:^(NSInteger index) {
+                
+            }];
+        });
     }
 
    

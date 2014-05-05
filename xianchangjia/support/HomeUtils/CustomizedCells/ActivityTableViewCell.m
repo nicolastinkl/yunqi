@@ -25,7 +25,7 @@
 #import "HTCopyableLabel.h"
 #import "POHorizontalList.h"
 #import "DataHelper.h"
-#import "BaseDetailViewController.h"
+//#import "BaseDetailViewController.h"
 #import "IDMPhotoBrowser.h"
 
 #import <OHAttributedLabel/OHAttributedLabel.h>
