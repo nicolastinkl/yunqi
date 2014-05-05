@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A598" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="fbI-TE-zdI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5037.2" systemVersion="13A598" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="fbI-TE-zdI">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -364,10 +364,10 @@
                     <navigationItem key="navigationItem" title="转发给买家" id="s7V-vM-yKT">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="6NG-Uz-5iP">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Dg7-pj-yWU">
-                                <rect key="frame" x="16" y="5" width="71" height="33"/>
+                                <rect key="frame" x="16" y="10" width="23" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="取消">
+                                <state key="normal" image="help-close-button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1015,7 +1015,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="share_forward">
+                                <state key="normal" image="actionIconShareSelected">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1606,6 +1606,7 @@
         <image name="ReceiverVoiceNodePlaying_ios7" width="20" height="20"/>
         <image name="SenderTextNodeBkg" width="66" height="54"/>
         <image name="SenderVoiceNodePlaying_ios7" width="20" height="20"/>
+        <image name="actionIconShareSelected" width="20" height="20"/>
         <image name="bg" width="320" height="548"/>
         <image name="button" width="286" height="44"/>
         <image name="button click" width="286" height="44"/>
@@ -1613,6 +1614,7 @@
         <image name="chat_bottom_up_press" width="34" height="34"/>
         <image name="composerTextFieldBackground" width="21" height="30"/>
         <image name="groupMask" width="60" height="60"/>
+        <image name="help-close-button" width="19" height="19"/>
         <image name="inboxErrorIcon" width="15" height="15"/>
         <image name="input_bg-1" width="572" height="182"/>
         <image name="input_logo" width="323" height="59"/>
@@ -1621,7 +1623,6 @@
         <image name="itemIcon_message" width="24" height="24"/>
         <image name="itemIcon_order" width="22" height="24"/>
         <image name="popover_icon_refresh_os7" width="24" height="24"/>
-        <image name="share_forward" width="23" height="23"/>
         <image name="tabBarBackground" width="1" height="50"/>
         <image name="whitetabbar" width="44" height="49"/>
         <image name="yunqi_keyboard" width="33" height="32"/>
