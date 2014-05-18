@@ -32,6 +32,8 @@
 {
     [super viewDidLoad];
     
+    [self.view setBackgroundColor:SystembackgroundColor];
+    
 //    UIButton * buttonComplete = (UIButton * )self.navigationItem.rightBarButtonItem.customView;
 //    [buttonComplete infoStyle];
 

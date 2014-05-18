@@ -177,7 +177,7 @@ typedef enum{
 
 #pragma mark - Core Data
 #define SystemTextColor				[UIColor colorWithHex:0x51575a]
-#define SystembackgroundColor		[UIColor colorWithHex:0xe2e2dd]
+#define SystembackgroundColor		[UIColor colorWithHex:0xeeeeee]// [UIColor colorWithHex:0xe2e2dd]
 #define SystemTextFont				19.0f
 
 #define CoreDataName				@"xiangchangjia.sqlite"

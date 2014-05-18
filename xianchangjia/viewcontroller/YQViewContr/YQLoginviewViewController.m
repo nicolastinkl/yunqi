@@ -45,7 +45,7 @@
     self.image_sign_log.top = APP_SCREEN_CONTENT_HEIGHT - self.image_sign_log.height -5;
     
     if (NEED_OUTPUT_LOG == 1) {
-        
+        //app@cloud7.com.cn Cloud7App
         self.Text_LoginName.text = @"ciznx@qq.com";
         self.Text_LoginPwd.text = @"111111";
     }

@@ -34,11 +34,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self.view setBackgroundColor:SystembackgroundColor];
     [self.navigationController ios6backview];
     [tools setnavigationBarbg:self.navigationController];    
 	// Do any additional setup after loading the view.
     UIWebView * webview = (UIWebView*) [self.view subviewWithTag:1];
+    [webview setBackgroundColor:SystembackgroundColor];
     webview.delegate = self;
     webview.backgroundColor = [UIColor clearColor];
 //    [webview setHeight:APP_SCREEN_HEIGHT];
