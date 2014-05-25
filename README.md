@@ -70,7 +70,7 @@ if you have some Question to ask me, you can contact email <nicolastinkl@gmail.c
 ##### websockte interfece
 
 * (1) 登录时添加必要的参数（DevicePushToken）
-* (2) 使用 SignalR 客户端登录响应中的鉴权信息连接到 Cloud7 Alive 服务器（尝试 http://dyknow.github.io/SignalR-ObjC/）
+* (2) 使用 SignalR 客户端登录响应中的鉴权信息连接到 Cloud7 Alive 服务器（尝试 https://github.com/DyKnow/SignalR-ObjC）
 * (3) 完成连接过程中、已连接、失去连接的界面功能；
 * (4) 处理 APN 消息
  
@@ -89,6 +89,21 @@ if you have some Question to ask me, you can contact email <nicolastinkl@gmail.c
 * (5) *断线之后按 SDK 方法重连（SDK 已内置，考虑优化）
 * (6) *注意 401 响应，一旦发生 401 响应，请重新登录（服务器出现不稳定的情况，登录信息已丢失）
 * (7) 可能不一定好搞定，可以捕获连接失败事件，如果多次失败，则要求重新登录；可以通过传回错误的鉴权参数来发起这一状况
+
+
+
+今天更新完善了文档（即补全了 推送业务 的微信的部分），另外也更新了测试环境的站点，供你完成调试和测试。
+明天，我还将更新另外一个网址，方便用于调用发送消息。
+
+测试网址（与之前的一致）
+登录网址：http://terry.cloud7.com.cn/Cloud7/Account/Logon
+用户名：ciznx@qq.com
+密码：111111（六个 1）
+
+轻应用：http://apiservicetest.cloud7.com.cn
+持续连接服务器：http://alive.cloud7.com.cn/keep-alive（请参考 SignalR相关 SDK和文档完成开发和调试，有任何问题，请直接邮件或者 QQ 与我联系。）
+
+
 
 
 
