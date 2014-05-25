@@ -10,6 +10,7 @@
 #import "XCAlbumAdditions.h"
 #import "UIButton+Bootstrap.h"
 #include "OpenUDID.h"
+#import "MLNetworkingManager.h"
 
 @interface YQLoginviewViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *Text_LoginName;
@@ -177,6 +178,7 @@
                [self dismissViewControllerAnimated:YES completion:^{
                    [[NSNotificationCenter defaultCenter] postNotificationName:@"MainappControllerUpdateData" object:nil];
                }];
+               
            }else{
                //error from server ...
                [UIAlertView showAlertViewWithMessage:@"登录失败"];

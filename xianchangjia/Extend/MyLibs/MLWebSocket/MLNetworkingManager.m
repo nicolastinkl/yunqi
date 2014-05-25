@@ -292,7 +292,7 @@ static dispatch_queue_t request_is_timeout_judge_queue() {
 {
     //如果没有就执行重连接等等
     if (!_webSocket) {
-         NSString * MLNetworkingManagerBaseURLString = [USER_DEFAULT objectForKey:KeyChain_Laixin_systemconfig_websocketURL];
+         NSString * MLNetworkingManagerBaseURLString =  [USER_DEFAULT objectForKey:KeyChain_Laixin_account_aliveServerUrl];
         _webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:MLNetworkingManagerBaseURLString]]];
         _webSocket.delegate = self;
         [_webSocket open];

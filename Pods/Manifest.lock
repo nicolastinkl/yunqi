@@ -1,0 +1,13 @@
+PODS:
+  - OHAttributedLabel (3.5.4)
+  - UIColor-Utilities (1.0.1)
+
+DEPENDENCIES:
+  - OHAttributedLabel
+  - UIColor-Utilities (= 1.0.1)
+
+SPEC CHECKSUMS:
+  OHAttributedLabel: fcf1d1245b4c8d2df94da91369b1474901d7fb14
+  UIColor-Utilities: 3f13aebe447f5e19c8d3aa18c194c53116b23537
+
+COCOAPODS: 0.32.1

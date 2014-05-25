@@ -143,6 +143,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketdidreceingWithMsg:) name:@"webSocketdidreceingWithMsg" object:nil];
     
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (![YQDelegate hasLogin]) {
@@ -167,6 +168,13 @@
     
     // update unread message badge number
     if ([YQDelegate hasLogin]) {
+        
+        [[MLNetworkingManager sharedManager] webSocket];  // connection
+        NSDictionary * parames = @{@"auth":[USER_DEFAULT stringForKey:KeyChain_Laixin_account_aliveServerAuthKey]};
+        [[MLNetworkingManager sharedManager] sendWithAction:@"AuthKey.start"  parameters:parames success:^(MLRequest *request, id responseObject) {
+        } failure:^(MLRequest *request, NSError *error) {
+        }];
+        
         NSPredicate * preCMD = [NSPredicate predicateWithFormat:@"badgeNumber > %d",0];
         //        NSInteger  inter =  [Conversation MR_countOfEntitiesWithPredicate:preCMD];
         NSArray * array = [Conversation MR_findAllWithPredicate:preCMD];
