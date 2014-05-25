@@ -28,7 +28,7 @@ typedef enum {
 	KMessage_private_Location = 3, //location
 } KMessage_private_user_Msg_type;
 
-#define NEED_OUTPUT_LOG                     0   // 0 relese  1 debug
+#define NEED_OUTPUT_LOG                     1   // 0 relese  1 debug
 
 #define IOS7                                [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
 
@@ -106,6 +106,10 @@ typedef enum {
 #define KeyChain_Laixin_Max_ReplyID                 @"KeyChain_Laixin_Max_ReplyID"
 #define KeyChain_Laixin_Code_Jihuo                  @"KeyChain_Laixin_Code_Jihuo"
 #define KeyChain_Laixin_Max_beforeid                @"KeyChain_Laixin_Max_beforeid"
+
+
+#define KeyChain_Laixin_account_aliveServerUrl      @"KeyChain_Laixin_account_aliveServerUrl"
+#define KeyChain_Laixin_account_aliveServerAuthKey  @"KeyChain_Laixin_account_aliveServerAuthKey"
 
 /* yunqi */
 /*

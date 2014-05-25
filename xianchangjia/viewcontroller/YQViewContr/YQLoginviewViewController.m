@@ -136,10 +136,10 @@
     NSMutableDictionary * mutaDict = [[NSMutableDictionary alloc] init];
     [mutaDict setValue:@"iPhone"    forKey:@"devicetype"];
     [mutaDict setValue:openUDID     forKey:@"deviceid"];
-    [mutaDict setValue:@""          forKey:@"domain"];    //.cloud7.com.cn
+//    [mutaDict setValue:@""          forKey:@"domain"];    //.cloud7.com.cn
     [mutaDict setValue:username     forKey:@"username"];
     [mutaDict setValue:pwd          forKey:@"password"];
-    
+    [mutaDict setValue:[USER_DEFAULT stringForKey:KeyChain_Laixin_account_devtokenstring] forKey:@"devicePushToken"];
        [[[LXAPIController sharedLXAPIController] requestLaixinManager]  requestPostActionWithCompletion:^(id response, NSError *error) {
            /*
             code = 200;
@@ -160,17 +160,17 @@
                    hostname = [NSString stringWithFormat:@"http://%@",hostname];
                NSString * token = [DataHelper getStringValue:dataDict[@"token"] defaultValue:@""];
                NSString * tokenValidDuration = [DataHelper getStringValue:dataDict[@"tokenValidDuration"] defaultValue:@""];
-               
                NSString * logoUrl = [DataHelper getStringValue:dataDict[@"logoUrl"] defaultValue:@""];
-               
-               
+               NSString * aliveServerUrl = [DataHelper getStringValue:dataDict[@"aliveServerUrl"] defaultValue:@""];
+               NSString * aliveServerAuthKey = [DataHelper getStringValue:dataDict[@"aliveServerAuthKey"] defaultValue:@""];               
                [USER_DEFAULT setValue:username forKey:KeyChain_yunqi_account_name];
                [USER_DEFAULT setValue:hostname forKey:KeyChain_yunqi_account_notifyServerhostName];
                [USER_DEFAULT setValue:tokenValidDuration forKey:KeyChain_yunqi_account_tokenExpire];
                [USER_DEFAULT setValue:token forKey:KeyChain_yunqi_account_token];
                [USER_DEFAULT setValue:token forKey:KeyChain_Laixin_account_sessionid];
                [USER_DEFAULT setValue:logoUrl forKey:KeyChain_Laixin_account_user_headpic];
-               
+               [USER_DEFAULT setValue:aliveServerUrl forKey:KeyChain_Laixin_account_aliveServerUrl];
+               [USER_DEFAULT setValue:aliveServerAuthKey forKey:KeyChain_Laixin_account_aliveServerAuthKey];
                [USER_DEFAULT setBool:YES forKey:KeyChain_Laixin_account_HasLogin];
                [USER_DEFAULT synchronize];
                [[NSNotificationCenter defaultCenter] postNotificationName:LaixinSetupDBMessageNotification object:token];
