@@ -346,7 +346,6 @@
 		86BA1C781900129E006B4678 /* logo57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 86BA1C751900129E006B4678 /* logo57x57.png */; };
 		86BA1C791900129E006B4678 /* logo114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 86BA1C761900129E006B4678 /* logo114x114.png */; };
 		86BDD4FE18BC501C00F621F6 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86BDD4FD18BC501C00F621F6 /* CoreText.framework */; };
-		86BDD51C18BC6F5100F621F6 /* libOHAttributedLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86BDD51B18BC6F4700F621F6 /* libOHAttributedLabel.a */; };
 		86C1A56B1885384600D78242 /* FCAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C1A56A1885384600D78242 /* FCAccount.m */; };
 		86C642321887A3D200E0CDDB /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C6422E1887A3D200E0CDDB /* CTAssetsPickerController.m */; };
 		86C642331887A3D200E0CDDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86C6422F1887A3D200E0CDDB /* Images.xcassets */; };
@@ -520,22 +519,25 @@
 		86FB20F0186D5B90006BDE32 /* LXChatDBStoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FB20EF186D5B90006BDE32 /* LXChatDBStoreManager.m */; };
 		86FB20F6186D8215006BDE32 /* FCFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FB20F5186D8215006BDE32 /* FCFriends.m */; };
 		86FB20F9186D8256006BDE32 /* FCUserDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FB20F8186D8256006BDE32 /* FCUserDescription.m */; };
+		93A65B0019190A9000B1BE2A /* libOHAttributedLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A65AFF19190A7900B1BE2A /* libOHAttributedLabel.a */; };
+		93BE37BC1927057D006061EF /* DMFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BE37BB1927057D006061EF /* DMFilterView.m */; };
+		93BE37CC19272372006061EF /* LXActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BE37CB19272372006061EF /* LXActionSheet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		86BDD51A18BC6F4700F621F6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 86BDD51618BC6F4700F621F6 /* OHAttributedLabel.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 09E159E8160F573A003025B4;
-			remoteInfo = OHAttributedLabel;
-		};
 		86D181F31834822D0005901D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 86D181C21834822C0005901D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 86D181C91834822C0005901D;
 			remoteInfo = xianchangjia;
+		};
+		93A65AFE19190A7900B1BE2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93A65AFA19190A7900B1BE2A /* OHAttributedLabel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 09E159E8160F573A003025B4;
+			remoteInfo = OHAttributedLabel;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1070,7 +1072,6 @@
 		86BA1C751900129E006B4678 /* logo57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo57x57.png; sourceTree = "<group>"; };
 		86BA1C761900129E006B4678 /* logo114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo114x114.png; sourceTree = "<group>"; };
 		86BDD4FD18BC501C00F621F6 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		86BDD51618BC6F4700F621F6 /* OHAttributedLabel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OHAttributedLabel.xcodeproj; path = OHAttributedLabel/OHAttributedLabel.xcodeproj; sourceTree = "<group>"; };
 		86C1A5691885384600D78242 /* FCAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FCAccount.h; path = DAOModel/coredata/FCAccount.h; sourceTree = "<group>"; };
 		86C1A56A1885384600D78242 /* FCAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FCAccount.m; path = DAOModel/coredata/FCAccount.m; sourceTree = "<group>"; };
 		86C6422D1887A3D200E0CDDB /* CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerController.h; sourceTree = "<group>"; };
@@ -1329,6 +1330,11 @@
 		86FB20F5186D8215006BDE32 /* FCFriends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FCFriends.m; path = DAOModel/coredata/FCFriends.m; sourceTree = "<group>"; };
 		86FB20F7186D8256006BDE32 /* FCUserDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FCUserDescription.h; path = DAOModel/coredata/FCUserDescription.h; sourceTree = "<group>"; };
 		86FB20F8186D8256006BDE32 /* FCUserDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FCUserDescription.m; path = DAOModel/coredata/FCUserDescription.m; sourceTree = "<group>"; };
+		93A65AFA19190A7900B1BE2A /* OHAttributedLabel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OHAttributedLabel.xcodeproj; path = OHAttributedLabel/OHAttributedLabel.xcodeproj; sourceTree = "<group>"; };
+		93BE37BA1927057D006061EF /* DMFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMFilterView.h; path = viewcontroller/DMFilterView.h; sourceTree = "<group>"; };
+		93BE37BB1927057D006061EF /* DMFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DMFilterView.m; path = viewcontroller/DMFilterView.m; sourceTree = "<group>"; };
+		93BE37CA19272372006061EF /* LXActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXActionSheet.h; sourceTree = "<group>"; };
+		93BE37CB19272372006061EF /* LXActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXActionSheet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1336,9 +1342,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93A65B0019190A9000B1BE2A /* libOHAttributedLabel.a in Frameworks */,
 				86AECB4A18ED5C420070934F /* StoreKit.framework in Frameworks */,
 				86AFF8CE18D6F5D7000BBAD4 /* CoreTelephony.framework in Frameworks */,
-				86BDD51C18BC6F5100F621F6 /* libOHAttributedLabel.a in Frameworks */,
 				86BDD4FE18BC501C00F621F6 /* CoreText.framework in Frameworks */,
 				867B054018C41D3B00A562FA /* libWeChatSDK.a in Frameworks */,
 				8622C893187D866300776A38 /* MessageUI.framework in Frameworks */,
@@ -2405,6 +2411,8 @@
 			children = (
 				86A306A71871A8B100C7168B /* XCJSuperViewController.h */,
 				86A306A81871A8B100C7168B /* XCJSuperViewController.m */,
+				93BE37BA1927057D006061EF /* DMFilterView.h */,
+				93BE37BB1927057D006061EF /* DMFilterView.m */,
 			);
 			name = SuperViewController;
 			sourceTree = "<group>";
@@ -2435,14 +2443,6 @@
 				86ADDA351894E73E000A0C22 /* WebP.framework */,
 			);
 			path = "iOS-WebP";
-			sourceTree = "<group>";
-		};
-		86BDD51718BC6F4700F621F6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				86BDD51B18BC6F4700F621F6 /* libOHAttributedLabel.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		86C6422C1887A3D200E0CDDB /* CTAssetsPickerController */ = {
@@ -2509,7 +2509,7 @@
 		86D181C11834822C0005901D = {
 			isa = PBXGroup;
 			children = (
-				86BDD51618BC6F4700F621F6 /* OHAttributedLabel.xcodeproj */,
+				93A65AFA19190A7900B1BE2A /* OHAttributedLabel.xcodeproj */,
 				86D181D31834822C0005901D /* yunqi */,
 				86D181F51834822D0005901D /* yunqiTests */,
 				86D181CC1834822C0005901D /* Frameworks */,
@@ -2636,6 +2636,7 @@
 		86D1820518349B0A0005901D /* SupportView */ = {
 			isa = PBXGroup;
 			children = (
+				93BE37C919272372006061EF /* LXActionSheet */,
 				86656CC118EE8422009B7726 /* RefreshTableHeaderView */,
 				861C0F4218DC2F6C001DA32F /* PinPad */,
 				866287E518CCB28500891B2D /* TKViewMoreCell */,
@@ -3202,6 +3203,23 @@
 			name = Chat;
 			sourceTree = "<group>";
 		};
+		93A65AFB19190A7900B1BE2A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93A65AFF19190A7900B1BE2A /* libOHAttributedLabel.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		93BE37C919272372006061EF /* LXActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				93BE37CA19272372006061EF /* LXActionSheet.h */,
+				93BE37CB19272372006061EF /* LXActionSheet.m */,
+			);
+			path = LXActionSheet;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3283,8 +3301,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 86BDD51718BC6F4700F621F6 /* Products */;
-					ProjectRef = 86BDD51618BC6F4700F621F6 /* OHAttributedLabel.xcodeproj */;
+					ProductGroup = 93A65AFB19190A7900B1BE2A /* Products */;
+					ProjectRef = 93A65AFA19190A7900B1BE2A /* OHAttributedLabel.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -3296,11 +3314,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		86BDD51B18BC6F4700F621F6 /* libOHAttributedLabel.a */ = {
+		93A65AFF19190A7900B1BE2A /* libOHAttributedLabel.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libOHAttributedLabel.a;
-			remoteRef = 86BDD51A18BC6F4700F621F6 /* PBXContainerItemProxy */;
+			remoteRef = 93A65AFE19190A7900B1BE2A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -3566,6 +3584,7 @@
 				869CE52E186BE38D0004C1EC /* NSPersistentStore+MagicalRecord.m in Sources */,
 				8690DECF18C8895000A14A51 /* script.js in Sources */,
 				868AC8A418ED60A10068CC77 /* YQURLForwardViewController.m in Sources */,
+				93BE37CC19272372006061EF /* LXActionSheet.m in Sources */,
 				86FB20F6186D8215006BDE32 /* FCFriends.m in Sources */,
 				86CC9B4118FBE14A005E4BC1 /* AFURLRequestSerialization.m in Sources */,
 				861C0F4B18DC2F6C001DA32F /* PPPinCircleView.m in Sources */,
@@ -3664,6 +3683,7 @@
 				866618A318951B07000228FC /* VoiceConverter.mm in Sources */,
 				86D183021834AF9F0005901D /* tools.m in Sources */,
 				868B5D3918922FE4004D1743 /* EGOCache.m in Sources */,
+				93BE37BC1927057D006061EF /* DMFilterView.m in Sources */,
 				869CE529186BE38D0004C1EC /* NSManagedObjectContext+MagicalObserving.m in Sources */,
 				867FEE9018EECA2300F9DAEE /* PWLoadMoreTableFooterView.m in Sources */,
 				869DDC5F1872BB9300560AFD /* XCJMsgListController.m in Sources */,
@@ -3858,8 +3878,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yao zhang (3NW254563D)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yao zhang (3NW254563D)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3877,7 +3897,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "972C5A88-58A7-418B-9435-4929D06E09A8";
+				PROVISIONING_PROFILE = "7D525904-3305-4AB2-82E2-4D4D4F94185D";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -3899,8 +3919,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yao zhang (3NW254563D)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yao zhang (3NW254563D)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3911,7 +3931,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "972C5A88-58A7-418B-9435-4929D06E09A8";
+				PROVISIONING_PROFILE = "7D525904-3305-4AB2-82E2-4D4D4F94185D";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3920,11 +3940,11 @@
 		86D182001834822D0005901D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/support/iOS-WebP";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/xianchangjia/support/iOS-WebP";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "xianchangjia/yunqi-Prefix.pch";
@@ -3941,10 +3961,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/Extend/Vendor/SDWebImage,
-					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/support/UMAnalytics_Sdk_2.2.1.OpenUDID,
-					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/viewcontroller/AudioView/VoiceConvert/lib,
-					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/support/WeChatSDK_1.4.2.1,
+					"$(PROJECT_DIR)/xianchangjia/Extend/Vendor/SDWebImage",
+					"$(PROJECT_DIR)/xianchangjia/support/UMAnalytics_Sdk_2.2.1.OpenUDID",
+					"$(PROJECT_DIR)/xianchangjia/viewcontroller/AudioView/VoiceConvert/lib",
+					"$(PROJECT_DIR)/xianchangjia/support/WeChatSDK_1.4.2.1",
 					"$(PROJECT_DIR)/xianchangjia/support/TestFlightSDK1.1",
 				);
 				OTHER_LDFLAGS = "-ObjC";
@@ -3959,11 +3979,11 @@
 		86D182011834822D0005901D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/support/iOS-WebP";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/xianchangjia/support/iOS-WebP";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "xianchangjia/yunqi-Prefix.pch";
@@ -3975,16 +3995,16 @@
 					"./zxing/iphone/ZXingWidget/Classes/**",
 					./zxing/cpp/core/src,
 					./QRCodeEncoder/QRCodeEncoderObjectiveCAtGithub,
-					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/Extend/Vendor/SDWebImage,
+					"$(PROJECT_DIR)/xianchangjia/Extend/Vendor/SDWebImage",
 				);
 				INFOPLIST_FILE = "xianchangjia/yunqi-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/Extend/Vendor/SDWebImage,
-					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/support/UMAnalytics_Sdk_2.2.1.OpenUDID,
-					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/viewcontroller/AudioView/VoiceConvert/lib,
-					/Users/applepc/Documents/project/ios7Project/laixin/xianchangjia/support/WeChatSDK_1.4.2.1,
+					"$(PROJECT_DIR)/xianchangjia/Extend/Vendor/SDWebImage",
+					"$(PROJECT_DIR)/xianchangjia/support/UMAnalytics_Sdk_2.2.1.OpenUDID",
+					"$(PROJECT_DIR)/xianchangjia/viewcontroller/AudioView/VoiceConvert/lib",
+					"$(PROJECT_DIR)/xianchangjia/support/WeChatSDK_1.4.2.1",
 					"$(PROJECT_DIR)/xianchangjia/support/TestFlightSDK1.1",
 				);
 				OTHER_LDFLAGS = "-ObjC";

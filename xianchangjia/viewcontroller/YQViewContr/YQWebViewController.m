@@ -34,11 +34,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.navigationItem.leftBarButtonItem = nil;
+    [self.view setBackgroundColor:SystembackgroundColor];
     [self.navigationController ios6backview];
     [tools setnavigationBarbg:self.navigationController];    
 	// Do any additional setup after loading the view.
     UIWebView * webview = (UIWebView*) [self.view subviewWithTag:1];
+    [webview setBackgroundColor:SystembackgroundColor];
     webview.delegate = self;
     webview.backgroundColor = [UIColor clearColor];
 //    [webview setHeight:APP_SCREEN_HEIGHT];
@@ -46,7 +48,6 @@
     [self.view showIndicatorViewLargeBlue];
     [webview loadRequest:
      [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName] ]]];
-    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendurltouser:) name:@"SENDURLTOUSER" object:nil];
 }
@@ -64,8 +65,10 @@
 -(void)sendurltouser :(NSNotification * ) notify
 {
     UIWebView * webview = (UIWebView*) [self.view subviewWithTag:1];
-    NSString * string = [NSString stringWithFormat:@"%@", webview.request.URL];
-    
+//    NSString * string = [NSString stringWithFormat:@"%@", webview.request.URL];
+    NSString *string = [webview stringByEvaluatingJavaScriptFromString:@"window.location.href"];
+//      NSString *string =  webview.request.URL.absoluteString;
+    SLog(@"%@",string);
     if ([string isNilOrEmpty]) {
         [UIAlertView showAlertViewWithMessage:@"没有网址信息"];
         return;

@@ -16,8 +16,9 @@
 #import "PWLoadMoreTableFooterView.h"
 #import "YQDelegate.h"
 #import "FBKVOController.h"
+#import "DMFilterView.h"
 
-@interface XCJOrderTableViewController ()<UIScrollViewDelegate,UISearchBarDelegate,PWLoadMoreTableFooterDelegate>
+@interface XCJOrderTableViewController ()<UIScrollViewDelegate,UISearchBarDelegate,PWLoadMoreTableFooterDelegate,DMFilterViewDelegate>
 {
     NSMutableArray * onlinePayOrderList;
     NSMutableArray * offlinePayOrderList;
@@ -33,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segementbar;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *seachbar;
+
+@property (nonatomic, strong) DMFilterView *filterView;
 
 @end
 
@@ -50,7 +53,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"订单";
     [tools setnavigationBarbg:self.navigationController];
+    
+    [self.view setBackgroundColor:SystembackgroundColor];
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)    {
     
@@ -59,7 +65,6 @@
 //        [self.segementbar setBackgroundColor : [UIColor clearColor] ];
     }
     
-    [self.navigationController ios6backview];
     /**
      *  MARK: dosomething init... with tinkl
      */
@@ -83,6 +88,16 @@
     _allLoaded = NO;
     _datasourceIsLoading = YES;
     
+/*
+ 
+ self.seachbar.layer.borderColor = [UIColor lightGrayColor].CGColor;
+ 
+ self.seachbar.layer.borderWidth = .5f;
+ 
+ self.seachbar.layer.masksToBounds = YES;
+ 
+ */
+    
     /**
      * MARK: init net data.
      */
@@ -90,12 +105,75 @@
     [self initDatawithNet:0];
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCell) name:@"updateCellWITHCHANGEORDER" object:nil];
+    {
+        _filterView = [[DMFilterView alloc]initWithStrings:@[@"在线支付", @"货到付款", @"全部订单"] containerView:self.view];
+        [self.filterView attachToContainerView];
+        [self.filterView setDelegate:self];
+        
+        [self.filterView setSelectedItemBackgroundImage:[UIImage imageNamed:@"tabbarselectedbg"]];
+        [self.filterView setBackgroundImage:[UIImage imageNamed:@"tabtopbarbg"]];
+        [self.filterView setTitlesColor:[UIColor whiteColor]];
+        [self.filterView setTitlesFont:[UIFont systemFontOfSize:15]];
+        [self.filterView setTitleInsets:UIEdgeInsetsMake(7, 0, 0, 0)];
+        [self.filterView setDraggable:YES];
+    }
+    
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCell:) name:@"updateCellWITHCHANGEORDER" object:nil];
 }
 
--(void) updateCell
+#pragma mark - FilterVie delegate
+- (void)filterView:(DMFilterView *)filterView didSelectedAtIndex:(NSInteger)index
 {
-    [self.tableView reloadData];
+    currentSelectedSegmentIndex = index;
+    switch (index) {
+        case 0:
+            //在线支付待发货
+            break;
+        case 1:
+            //货到付款待发货
+            break;
+        case 2:
+            //全部订单
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self reloadArrays];
+}
+
+- (CGFloat )filterViewSelectionAnimationSpeed:(DMFilterView *)filterView
+{
+    //return the default value as example, you don't have to implement this delegate
+    //if you don't want to modify the selection speed
+    //Or you can return 0.0 to disable the animation totally
+    return kAnimationSpeed;
+}
+
+-(void) updateCell:(NSNotification * ) notify
+{
+    //update un send express
+    if (notify && notify.object) {
+        if([notify.object isEqualToString:@"Minus"])
+        {
+            /*YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
+            UITabBarItem * item =delegate.tabBarController.tabBar.items[1];
+            NSString * countStr  = item.badgeValue;
+            
+            if (countStr && [countStr intValue] > 0) {
+                int num = [countStr intValue];
+                --num;
+                [delegate.tabBarController.tabBar.items[1] setBadgeValue:[NSString stringWithFormat:@"%d",num]];
+            }else{
+                [delegate.tabBarController.tabBar.items[1] setBadgeValue:nil];
+            }
+            */
+        }
+    }
+       [self.tableView reloadData];
+    
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollViewDat
@@ -131,6 +209,10 @@
             [self.segementbar setTitle:[NSString stringWithFormat:@"在线支付(%d)",onlinePaymentCount] forSegmentAtIndex:0];
             [self.segementbar setTitle:[NSString stringWithFormat:@"货到付款(%d)",cashOnDeliveryCount]  forSegmentAtIndex:1];
             [self.segementbar setTitle:[NSString stringWithFormat:@"全部订单(%d)",allNoProcessCount]  forSegmentAtIndex:2];
+            
+            [self.filterView setTitle:[NSString stringWithFormat:@"在线支付(%d)",onlinePaymentCount] atIndex:0];
+            [self.filterView setTitle:[NSString stringWithFormat:@"货到付款(%d)",cashOnDeliveryCount] atIndex:1];
+            [self.filterView setTitle:[NSString stringWithFormat:@"全部订单(%d)",allNoProcessCount] atIndex:2];
             
             NSArray * array = dataDict[@"orders"];
             
@@ -407,13 +489,26 @@
         label_price.text = product.price;
         label_number.text = [NSString stringWithFormat:@"x%d",product.count];
         
+        
+        UIImageView * imageviewTop = (UIImageView*) [cell.contentView subviewWithTag:8];
+        UIImageView * imageviewMid = (UIImageView*) [cell.contentView subviewWithTag:7];
+        
+        if (indexPath.row  == 0) {
+            imageviewTop.image = [UIImage imageNamed:@"bubble_upside_normal"];
+            imageviewMid.image = nil; //bubble_middle_normal
+        }else{
+            imageviewTop.image = nil;//[UIImage imageNamed:@"bubble_upside_normal"];
+            imageviewMid.image = [UIImage imageNamed:@"bubble_middle_normal"];
+        }
+        
+        
     }else{
         cell  = [tableView dequeueReusableCellWithIdentifier:@"OrderPayCell" forIndexPath:indexPath];
         UILabel * label_price = (UILabel*) [cell.contentView subviewWithTag:1];
         UILabel * label_number = (UILabel*) [cell.contentView subviewWithTag:2];
         UIButton * button = (UIButton*) [cell.contentView subviewWithTag:3];
         
-        label_price.text = orderInfo.orderTotal;
+        label_price.text = [NSString stringWithFormat:@"￥%@", orderInfo.orderTotal];
         label_number.text = [NSString stringWithFormat:@"x%d",orderInfo.orderProducts.count];
         
         //(orderInfo.paymentStatus == 30 || orderInfo.paymentMethodType == 10)  &&
@@ -491,9 +586,9 @@
     }
     YQListOrderInfo *orderInfo = currentArray[indexPath.section];
     if (indexPath.row <= orderInfo.orderProducts.count - 1 ) {
-        return 102.0f;
+        return 98.0f;
     }
-    return 47.0f;
+    return 71.0f;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

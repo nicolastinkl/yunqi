@@ -36,6 +36,19 @@
 
 }
 
+-(void)telWhiteStyle
+{
+    self.layer.borderWidth = 0.5;
+    self.layer.cornerRadius = 4.0;
+    self.layer.masksToBounds = YES;
+    [self setAdjustsImageWhenHighlighted:NO];
+    self.layer.borderColor = [UIColor colorWithHex:0x6bc90f].CGColor;
+    self.backgroundColor = [UIColor colorWithHex:0x6bc90f];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self setBackgroundImage:[self buttonImageFromColor:[UIColor colorWithRed:0.280 green:0.832 blue:0.251 alpha:1.000]] forState:UIControlStateHighlighted];
+}
+
+
 /**
  *  用户标签选择
  */
@@ -89,7 +102,7 @@
     [self bootstrapStyle];
     self.backgroundColor = [UIColor colorWithRed:91/255.0 green:192/255.0 blue:222/255.0 alpha:1];
     self.layer.borderColor = [[UIColor colorWithRed:70/255.0 green:184/255.0 blue:218/255.0 alpha:1] CGColor];
-    [self setBackgroundImage:[self buttonImageFromColor:[UIColor colorWithRed:57/255.0 green:180/255.0 blue:211/255.0 alpha:1]] forState:UIControlStateHighlighted];
+    [self setBackgroundImage:[self buttonImageFromColor:[UIColor colorWithRed:0.456 green:0.765 blue:0.916 alpha:1.000]] forState:UIControlStateHighlighted];
     
     self.backgroundColor = ios7BlueColor;
     self.layer.borderColor = [ios7BlueColor CGColor];

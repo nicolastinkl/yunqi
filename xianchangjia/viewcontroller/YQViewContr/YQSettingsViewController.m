@@ -12,9 +12,10 @@
 #import "YQDelegate.h"
 #import "YQLoginviewViewController.h"
 #import <StoreKit/StoreKit.h>
+#import "LXActionSheet.h"
 
-@interface YQSettingsViewController ()<UIActionSheetDelegate,SKStoreProductViewControllerDelegate>
-
+@interface YQSettingsViewController ()<UIActionSheetDelegate,SKStoreProductViewControllerDelegate,LXActionSheetDelegate>
+@property (nonatomic,strong) LXActionSheet *actionSheet;
 @end
 
 @implementation YQSettingsViewController
@@ -31,6 +32,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view setBackgroundColor:SystembackgroundColor];
+    
     [tools setnavigationBarbg:self.navigationController];    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -53,10 +56,58 @@
          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_STORE_LINK_http]];
 //        [self presentAppStoreForID:@(541873451) withDelegate:self withURL:[NSURL URLWithString:APP_STORE_LINK_http]];
     }else  if (indexPath.section == 1) {
-        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出登录" otherButtonTitles:nil, nil];
-        [action showInView:self.view];
+//        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出登录" otherButtonTitles:nil, nil];
+//        [action showInView:self.view];
+        
+        self.actionSheet = [[LXActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出登录" otherButtonTitles:nil];
+        [self.actionSheet showInView:self.view];
+        
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)didClickOnButtonIndex:(NSInteger *)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [SVProgressHUD show];
+        NSString* openUDID = [OpenUDID value];
+        NSMutableDictionary * mutaDict = [[NSMutableDictionary alloc] init];
+        [mutaDict setValue:@"iPhone"    forKey:@"devicetype"];
+        [mutaDict setValue:openUDID     forKey:@"deviceid"];
+        [mutaDict setValue:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_token]  forKey:@"token"];
+        NSString *host = [[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName] stringByReplacingOccurrencesOfString:@"http://" withString:@""];
+        [mutaDict setValue:host forKey:@"hostname"];
+        [[[LXAPIController sharedLXAPIController] requestLaixinManager]  requestPostActionWithCompletion:^(id response, NSError *error) {
+            /*
+             code = 200;
+             data =     {
+             hostName = "apiservicetest.cloud7.com.cn";
+             token = "x0tMaZQtslIksQGL0sgspnqDW+BtFozy//unzGXdcQvNnaEzT1Al7e6Z56AnzHQG5AVG3MfAUpZXYmuFCSte9085+VgCrBeNnXSFKiXr8LFpl8Dgrq/eNeIk";
+             tokenValidDuration = 259200;
+             };
+             message = OK;
+             */
+            [SVProgressHUD dismiss];
+            int code = [DataHelper getIntegerValue:response[@"code"] defaultValue:0];
+            if (code == 200) {
+                //success ...
+                NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+                [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:LaixinCloseDBMessageNotification object:nil];
+                [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+                YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
+                delegate.tabBarController.selectedIndex = 0;
+                YQLoginviewViewController * viewcon =  [self.storyboard instantiateViewControllerWithIdentifier:@"YQLoginviewViewController"];
+                [self presentViewController:viewcon animated:NO completion:nil];
+                
+            }else{
+                //error from server ...
+                [UIAlertView showAlertViewWithMessage:@"退出登录失败"];
+            }
+        } withParems:mutaDict withAction:@"Cloud7/WebApp/DeviceSignout"];
+        
+    }
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

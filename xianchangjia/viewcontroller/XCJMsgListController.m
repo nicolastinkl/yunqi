@@ -668,7 +668,7 @@
 
 -(void) webSocketDidOpen:(NSNotification * ) noty
 {
-    self.title = @"最近消息";
+    self.title = @"微信";
     [self.navigationItem.titleView sizeToFit];
     [self.tableView hideIndicatorViewBlueOrGary];
     
@@ -687,7 +687,7 @@
 
 -(void) webSocketdidFailWithError:(NSNotification * ) noty
 {
-    self.title = @"最近消息(未连接)";
+    self.title = @"微信(未连接)";
     [self.navigationItem.titleView sizeToFit];
     /*XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
      
@@ -724,8 +724,8 @@
 
 -(void) webSocketdidreceingWithMsg:(NSNotification * ) noty
 {
-    self.title = @"最近消息(正在载入...)";
-    
+//    self.title = @"微信(正在载入...)";
+    self.title = @"微信";
     /*XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
      
      UITabBarItem  *item = delegate.tabBarController.tabBar.items[0] ;

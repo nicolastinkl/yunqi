@@ -20,4 +20,5 @@
 -(void)sendMessageStyle;
 -(void)labelphotoStyle;
 -(void)sendMessageWhiteStyle;
+-(void)telWhiteStyle;
 @end

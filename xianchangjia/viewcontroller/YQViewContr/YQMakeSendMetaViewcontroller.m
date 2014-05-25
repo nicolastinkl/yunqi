@@ -32,6 +32,8 @@
 {
     [super viewDidLoad];
     
+    [self.view setBackgroundColor:SystembackgroundColor];
+    
 //    UIButton * buttonComplete = (UIButton * )self.navigationItem.rightBarButtonItem.customView;
 //    [buttonComplete infoStyle];
 
@@ -58,8 +60,10 @@
         int code = [DataHelper getIntegerValue: obj[@"code"] defaultValue:0];
         if (code == 200) {
             self.orderpro.orderStatus = 30;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCellWITHCHANGEORDER" object:nil];
-            [UIAlertView showAlertViewWithMessage:@"标记发货成功"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCellWITHCHANGEORDER" object:@"Minus"];
+            [SVProgressHUD  dismiss];
+            [self.navigationController popViewControllerAnimated:YES];
+           // [UIAlertView showAlertViewWithMessage:@"标记发货成功"];
         }else
         {
             [UIAlertView showAlertViewWithMessage:@"标记发货失败"];

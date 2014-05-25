@@ -13,7 +13,6 @@
 
 #import "SVProgressHUD.h"
 #import <QuartzCore/QuartzCore.h>
-#import "XCAlbumDefines.h"
 
 NSString * const SVProgressHUDDidReceiveTouchEventNotification = @"SVProgressHUDDidReceiveTouchEventNotification";
 NSString * const SVProgressHUDWillDisappearNotification = @"SVProgressHUDWillDisappearNotification";
@@ -760,8 +759,11 @@ static const CGFloat SVProgressHUDRingThickness = 6;
 		stringLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
 
         // UIAppearance is used when iOS >= 5.0
-		stringLabel.textColor = ios7BlueColor;// self.hudForegroundColor;
-		stringLabel.font = [UIFont systemFontOfSize:15.0f];//self.hudFont;
+//		stringLabel.textColor = ios7BlueColor;// self.hudForegroundColor;
+//		stringLabel.font = [UIFont systemFontOfSize:15.0f];//self.hudFont;
+        
+        stringLabel.textColor = self.hudForegroundColor;
+		stringLabel.font = self.hudFont;
         
 //#if __IPHONE_OS_VERSION_MIN_REQUIRED < 70000
 //		stringLabel.shadowColor = self.hudStatusShadowColor;
@@ -855,23 +857,23 @@ static const CGFloat SVProgressHUDRingThickness = 6;
 
 - (UIColor *)hudBackgroundColor {
     
-    return  [UIColor colorWithWhite:.8 alpha:.9];//RGBACOLOR(500, 500, 500, 0.5);
-//    
-//#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 50000
-//    if(_uiHudBgColor == nil) {
-//        _uiHudBgColor = [[[self class] appearance] hudBackgroundColor];
-//    }
-//    
-//    if(_uiHudBgColor != nil) {
-//        return _uiHudBgColor;
-//    }
-//#endif
-//    
-//#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-//    return [UIColor whiteColor];
-//#else
-//    return [UIColor colorWithWhite:0 alpha:0.8];
-//#endif
+//    return  [UIColor colorWithWhite:.8 alpha:.9];//RGBACOLOR(500, 500, 500, 0.5);
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 50000
+    if(_uiHudBgColor == nil) {
+        _uiHudBgColor = [[[self class] appearance] hudBackgroundColor];
+    }
+    
+    if(_uiHudBgColor != nil) {
+        return _uiHudBgColor;
+    }
+#endif
+    
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
+    return [UIColor whiteColor];
+#else
+    return [UIColor colorWithWhite:0 alpha:0.8];
+#endif
 }
 
 - (UIColor *)hudForegroundColor {

@@ -17,8 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *Button_login;
 @property (weak, nonatomic) IBOutlet UIView *view_bg;
 @property (weak, nonatomic) IBOutlet UIImageView *image_sign_log;
-
 @property (weak, nonatomic) IBOutlet UIImageView *image_line;
+
 @end
 
 @implementation YQLoginviewViewController
@@ -41,11 +41,15 @@
     
     self.image_line.height = .5f;
     
-    
-    self.image_sign_log.top = APP_SCREEN_CONTENT_HEIGHT - self.image_sign_log.height -5;
+    if(IOS7)
+    {
+        self.image_sign_log.top = APP_SCREEN_HEIGHT - self.image_sign_log.height;
+    }else{
+        self.image_sign_log.top = APP_SCREEN_CONTENT_HEIGHT - self.image_sign_log.height;
+    }
     
     if (NEED_OUTPUT_LOG == 1) {
-        
+        //app@cloud7.com.cn Cloud7App
         self.Text_LoginName.text = @"ciznx@qq.com";
         self.Text_LoginPwd.text = @"111111";
     }

@@ -40,6 +40,7 @@
 {
     [super viewDidLoad];
     
+    [self.view setBackgroundColor:SystembackgroundColor];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         self.seachbar.hidden = YES;
         UILabel * titleLabel = [[UILabel alloc] init];
@@ -51,7 +52,7 @@
     }
     /**
      *  change place holder text color
-     */
+
     for (UIView *subView in self.seachbar.subviews)
     {
         for (UIView *secondLevelSubview in subView.subviews){
@@ -66,7 +67,7 @@
             }
         }
     }
-    
+     */    
     
     //config the load more view
     if (_loadMoreFooterView == nil) {
@@ -204,9 +205,9 @@
 {
     YQListOrderInfo *orderInfo = self.AllOrderList[indexPath.section];
     if (indexPath.row <= orderInfo.orderProducts.count - 1 ) {
-        return 102.0f;
+        return 98.0f;
     }
-    return 47.0f;
+    return 71.0f;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -254,6 +255,17 @@
         label_des.text = product.productDesc;
         label_price.text = product.price;
         label_number.text = [NSString stringWithFormat:@"x%d",product.count];
+        
+        UIImageView * imageviewTop = (UIImageView*) [cell.contentView subviewWithTag:8];
+        UIImageView * imageviewMid = (UIImageView*) [cell.contentView subviewWithTag:7];
+        
+        if (indexPath.row  == 0) {
+            imageviewTop.image = [UIImage imageNamed:@"bubble_upside_normal"];
+            imageviewMid.image = nil; //bubble_middle_normal
+        }else{
+            imageviewTop.image = nil;//[UIImage imageNamed:@"bubble_upside_normal"];
+            imageviewMid.image = [UIImage imageNamed:@"bubble_middle_normal"];
+        }
         
     }else{
         cell  = [tableView dequeueReusableCellWithIdentifier:@"OrderPayCell" forIndexPath:indexPath];

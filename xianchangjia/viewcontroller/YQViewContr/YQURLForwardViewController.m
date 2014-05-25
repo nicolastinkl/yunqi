@@ -97,8 +97,8 @@
     
     Conversation * conver = datasource[indexPath.row];
     [imageview setImageWithURL:[NSURL URLWithString:conver.facebookavatar] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
-    imageview.layer.cornerRadius = 5;
-    imageview.layer.masksToBounds = YES;
+//    imageview.layer.cornerRadius = 5;
+//    imageview.layer.masksToBounds = YES;
     label.text = conver.facebookName;
     return cell;
 }
