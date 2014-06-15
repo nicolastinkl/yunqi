@@ -137,7 +137,7 @@ typedef enum {
     UIImageView *indicator = (UIImageView *)[self subviewWithTag:kTagIndicatorViewImg];
     
     if (!indicator) {
-        indicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loadingSpinnerBlue"]];
+        indicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loadingSpinnerSmallBlue"]];
         indicator.frame = CGRectMake(point.x, point.y, 55, 55);
         indicator.tag = kTagIndicatorViewImg;
         indicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;

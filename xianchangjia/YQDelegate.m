@@ -34,6 +34,11 @@
 #import "FCUserDescription.h"
 #import "FCMessage.h"
 #import "Reachability.h"
+#import "FDStatusBarNotifierView/FDStatusBarNotifierView.h"
+#import "YQOrderMetaViewcontroller.h"
+#import "YQListOrderInfo.h"
+#import "ChatViewController.h"
+#import "TKSignalWebScoket.h"
 //#import "TestFlight.h"
 
 static NSString * const kLaixinStoreName = @"YunqiDB";
@@ -157,12 +162,12 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     //self.window.tintColor = [UIColor colorWithHex:SystemKidsColor];
     
     
-    /* receive websocket message
-     [[NSNotificationCenter defaultCenter] addObserver:self
-     selector:@selector(webSocketDidReceivePushMessage:)
-     name:MLNetworkingManagerDidReceivePushMessageNotification
-     object:nil];
-     */
+    // receive websocket message
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(webSocketDidReceivePushMessage:)
+                                                 name:MLNetworkingManagerDidReceivePushMessageNotification
+                                               object:nil];
+     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(laixinCloseNotification:)
@@ -231,8 +236,35 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     
 }
 
-
-
+-(void) webSocketDidReceivePushMessage:(NSNotification * ) notify
+{
+    if (notify.userInfo) {
+        /* MessageId = "YunqiQinqinConnection;af67aa246b8f4a12b157e47ccbaca6e2";
+         PayLoad =     {
+         Content = "\U4e91\U8d77\U4eb2\U4eb2\U6b22\U8fce\U60a8\U52a0\U5165ads";
+         Title = "<null>";
+         };*/
+        id message = notify.userInfo[@"message"];
+        
+        if ([message isKindOfClass:[NSDictionary class]]) {
+            NSDictionary * dict = message[@"PayLoad"];
+            if (dict) {
+                [tools playVirate];
+                
+                NSString  * title = [DataHelper getStringValue:dict[@"Title"] defaultValue:@""];
+                
+                NSString  * content = [DataHelper getStringValue:dict[@"Content"] defaultValue:@""];
+                
+                if (title.length > 0) {
+                    [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:F(@"%@ %@",title,content)];
+                }else{
+                    [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:content];
+                }
+            }
+        }
+    }
+}
+ 
 - (void) initAllControlos
 {
     self.tabBarController = (UITabBarController *)((UIWindow*)[UIApplication sharedApplication].windows[0]).rootViewController;
@@ -298,14 +330,13 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     });*/
 }
 
-
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString* devtokenstring=[[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
 	devtokenstring=[devtokenstring stringByReplacingOccurrencesOfString:@" " withString:@""];
 	devtokenstring=[devtokenstring stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 	devtokenstring=[devtokenstring stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     //devtokenstring:  d8009e6c8e074d1bbcb592f321367feaef5674a82fc4cf3b78b066b7c8ad59bd
-    SLLog(@"devtokenstring : %@",devtokenstring);
+    NSLog(@"devtokenstring : %@",devtokenstring);
     
     [USER_DEFAULT setValue:devtokenstring forKey:KeyChain_Laixin_account_devtokenstring];
     [USER_DEFAULT synchronize];
@@ -314,6 +345,116 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error NS_AVAILABLE_IOS(3_0)
 {
     SLLog(@"error : %@",[error.userInfo objectForKey:NSLocalizedDescriptionKey]);
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    
+    /*
+     新订单：OrderManager://ordercreated/<Order>
+     订单已付款：OrderManager://orderpaid/<Order>
+     订单取消：OrderManager://ordercanceled/<Order>
+     
+     微信消息：WeChat://WeChat/12
+     未读消息：WeChat://WeChat/UnRead
+     
+     OrderManager://orderpaid?orderid=91872834&orderno=oqweiruoqr
+     
+    */
+    
+    NSLog(@"url openURL .......    %@  ....   %@   ",[url query],[url host]);
+    
+    if ([[url host] isEqualToString:@"ordercreated"] || [[url host] isEqualToString:@"orderpaid"] || [[url host] isEqualToString:@"ordercanceled"]) {
+        // 新订单
+//        NSString * newUrl = [url absoluteString];
+//        NSString * itemId = [newUrl stringByReplacingOccurrencesOfString:@"ordermanager://ordercreated/" withString:@""];
+        
+        NSString * urlQuery = [url query];
+        NSArray *firstSplit = [urlQuery componentsSeparatedByString:@"&"];
+        //orderid=91872834&orderno=oqweiruoqr
+        NSString * orderid = [firstSplit firstObject];
+        NSString * orderno = [firstSplit lastObject];
+        orderid = [orderid  stringByReplacingOccurrencesOfString:@"orderid=" withString:@""];
+        orderno = [orderno  stringByReplacingOccurrencesOfString:@"orderno=" withString:@""];
+        [self queryOrderInfoWithOrderID:orderid orderNo:orderno];
+        
+    }else if ([[url host] isEqualToString:@"Message"]) {
+        
+        NSString * itemId = [[url absoluteString] stringByReplacingOccurrencesOfString:@"wechat://Message/" withString:@""];
+        if ([itemId isEqualToString:@"UnRead"]) {
+            // 未读消息
+            
+        }else{
+            // 微信消息
+            if (itemId && itemId.length > 0) {
+                [self targetWeichatView:itemId];
+            }
+        }        
+    }
+    
+    return YES;
+}
+
+-(void) targetWeichatView:(NSString *  ) weichatID
+{
+    if([YQDelegate hasLogin])
+    {
+        NSManagedObjectContext *localContext  = [NSManagedObjectContext MR_contextForCurrentThread];
+        NSPredicate * pre = [NSPredicate predicateWithFormat:@"facebookId == %@",weichatID];
+        Conversation * conversation =  [Conversation MR_findFirstWithPredicate:pre inContext:localContext];
+        
+        if (conversation) {
+            // create new
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StoryboardYunQi" bundle:nil];
+            ChatViewController * chatview = [storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+            chatview.conversation = conversation;
+            chatview.title = conversation.facebookName;
+            UINavigationController * navi = self.tabBarController.childViewControllers[self.tabBarController.selectedIndex];
+            [navi pushViewController:chatview animated:YES];
+            
+        }
+    }
+}
+
+
+-(void) queryOrderInfoWithOrderID:(NSString*)orderID orderNo:(NSString *) orderNO
+{
+    
+    if([YQDelegate hasLogin])
+    {
+        if (orderID && orderID.length > 0) {
+            
+            [SVProgressHUD showWithStatus:@"正在加载订单..."];
+            NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+            [params setValue:orderID forKey:@"orderId"];
+            [params setValue:orderNO forKey:@"orderNo"];
+            //orderpro
+            [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/OrderManager/ConsumerOrder" success:^(id obj) {
+                int code = [DataHelper getIntegerValue: obj[@"code"] defaultValue:0];
+                if (code == 200) {
+                    [SVProgressHUD dismiss];
+                    NSDictionary * dataDict = obj[@"data"];
+                    YQListOrderInfo * info = [YQListOrderInfo turnObject:dataDict];
+                    
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StoryboardYunQi" bundle:nil];
+                    YQOrderMetaViewcontroller * ordrmeta  = [storyboard instantiateViewControllerWithIdentifier:@"YQOrderMetaViewcontroller"];
+                    ordrmeta.orderpro = info;
+                    ordrmeta.title = @"订单详情";
+                    UINavigationController * navi = self.tabBarController.childViewControllers[self.tabBarController.selectedIndex];
+                    [navi pushViewController:ordrmeta animated:YES];
+                }else{
+                    [UIAlertView showAlertViewWithMessage:@"订单加载失败"];
+                }
+                
+            } error:^(NSInteger index) {
+                [UIAlertView showAlertViewWithMessage:@"订单加载失败"];
+            }];
+        }else{
+            [UIAlertView showAlertViewWithMessage:@"订单不存在"];
+        }
+    }
+   
+    
 }
 
 - (void)laixinCloseNotification:(NSNotification *)notification
@@ -390,15 +531,40 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
 }
 
 
+
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-   
+    // tell websocket disconnect
+    if([YQDelegate hasLogin])
+    {
+        /*[[MLNetworkingManager sharedManager] sendWithAction:@"session.stop" parameters:@{} success:^(MLRequest *request, id responseObject) {
+         
+         } failure:^(MLRequest *request, NSError *error) {
+         
+         }];*/
+        SLLog(@"applicationDidEnterBackground webSocket close");
+        [[TKSignalWebScoket sharedTKSignalWebScoket] stop];
+    }
+    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    
+    // tell websocket disconnect
+    if([YQDelegate hasLogin])
+    {
+        /*[[MLNetworkingManager sharedManager] sendWithAction:@"session.stop" parameters:@{} success:^(MLRequest *request, id responseObject) {
+         
+         } failure:^(MLRequest *request, NSError *error) {
+         
+         }];*/
+        SLLog(@"applicationDidEnterBackground webSocket close");
+        [[TKSignalWebScoket sharedTKSignalWebScoket] start];
+    }
+    
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 

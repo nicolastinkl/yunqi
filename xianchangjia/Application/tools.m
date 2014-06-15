@@ -12,6 +12,8 @@
 #import "NSString+Addition.h" 
 #import "MyMD5.h"
 #import "OpenUDID.h"
+#import <AudioToolbox/AudioToolbox.h>
+
 #pragma  mark 使用Category来计算同一时代（AD|BC）两个日期午夜之间的天数：
 
 
@@ -569,6 +571,7 @@
     return [NSString stringWithFormat:@"%@?imageView/1/w/%d/h/%d/q/85",url,width,height];
     
 }
+
 +(UIColor *) colorWithIndex:( int ) strIndex
 {
     if (strIndex >= 7) {
@@ -578,10 +581,9 @@
     return  [UIColor colorWithPatternImage:[UIImage imageNamed:[NSString stringWithFormat:@"med-name-bg-%d",strIndex]]];
 }
 
-
 + (NSString *) getUrlByYQImageUrl:(NSString * ) url
 {
-    NSString * hostname = [USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName];
+    //    NSString * hostname = [USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName];
     return  url;//[NSString stringWithFormat:@"%@%@",hostname,url];
     
 }
@@ -598,5 +600,9 @@
     //签名值，生成方法：将DeviceId、已登录的用户名和时间戳三个值的字符串形式拼接后，对整体进行MD5加密（小写值）
     NSString * stringmd5 = [MyMD5 md532:[NSString stringWithFormat:@"%@%@%@",[OpenUDID value],[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name],timeSpan]];
     [parames  setValue:stringmd5 forKey:@"sign"];
+}
+
++(void)playVirate{
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 @end

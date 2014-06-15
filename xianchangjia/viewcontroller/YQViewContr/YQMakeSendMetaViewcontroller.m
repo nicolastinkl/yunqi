@@ -11,7 +11,7 @@
 #import "XCAlbumAdditions.h"
 #import "UIButton+Bootstrap.h"
 
-@interface YQMakeSendMetaViewcontroller ()
+@interface YQMakeSendMetaViewcontroller ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *wuliuName;
 @property (weak, nonatomic) IBOutlet UITextField *wuliuNumber;
 
@@ -37,16 +37,52 @@
 //    UIButton * buttonComplete = (UIButton * )self.navigationItem.rightBarButtonItem.customView;
 //    [buttonComplete infoStyle];
 
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    if (IOS6) {
+         UIImage *buttonImage = [UIImage imageNamed:@"commercialize_payment_icon_success_os7"];
+        self.navigationItem.rightBarButtonItem = nil;
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, 44, 44);
+        //[button setTitle:@"完成" forState:UIControlStateNormal];
+        [button setImage:buttonImage forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(complete:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        self.navigationItem.rightBarButtonItem = customBarItem;
+    }
+    
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.wuliuName) {
+        [self.wuliuNumber becomeFirstResponder];
+    }
+    
+    if (textField == self.wuliuNumber) {
+        [self complete:nil];
+        [self.wuliuNumber resignFirstResponder];
+    }
+    
+    return YES;
 }
 
 -(IBAction)complete:(id)sender
 {
+    if (self.wuliuName.text.length == 0) {
+        [UIAlertView showAlertViewWithMessage:@"物流公司不能为空"];
+        return;
+    }
+    
+    if (self.wuliuNumber.text.length == 0) {
+        [UIAlertView showAlertViewWithMessage:@"物流单号不能为空"];
+        return;
+    }
+    
     [self.wuliuName resignFirstResponder];
     [self.wuliuNumber resignFirstResponder];
     [SVProgressHUD showWithStatus:@"正在处理发货..."];
@@ -79,84 +115,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
- 
- 
- #pragma mark - Table view data source
- 
- - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
- {
- #warning Potentially incomplete method implementation.
- // Return the number of sections.
- return 0;
- }
- 
- - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
- {
- #warning Incomplete method implementation.
- // Return the number of rows in the section.
- return 0;
- }
-
- 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

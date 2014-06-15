@@ -51,7 +51,8 @@
 #import <OHAttributedLabel/NSAttributedString+Attributes.h>
 #import <OHAttributedLabel/OHASBasicMarkupParser.h>
 
-
+#import "UIActionSheet+Blocks.h"
+#import "RIButtonItem.h"
 //#warning like iMesage will dismiss the keyboard
 #import "UIViewController+TAPKeyboardPop.h"
 
@@ -3065,12 +3066,51 @@ static NSInteger const kAttributedLabelTag = 100;
     }else
     {
         FCMessage *message = self.messageList[indexPath.row];
-        if ([message.messageType intValue] == messageType_text) {
+        if ([message.messageType intValue] == messageType_text || [message.messageType intValue] == messageType_audio || [message.messageType intValue] == messageType_image) {
             
-            UIActionSheet * action = [[UIActionSheet alloc] initWithTitle:message.text delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"复制", nil];
-             action.tag = 1;
-              PasteboardStr = message.text;
-              [action showInView:self.view];
+            if (message.text && message.text.length > 0) {
+                PasteboardStr = message.text;
+            }
+            
+            if (message.imageUrl && message.imageUrl.length > 0) {
+                PasteboardStr = message.imageUrl;
+            }
+            if (message.audioUrl && message.audioUrl.length > 0) {
+                PasteboardStr = message.audioUrl;
+            }
+
+            
+            UIActionSheet * actionview = [[UIActionSheet alloc] initWithTitle:@"" cancelButtonItem:[RIButtonItem itemWithLabel:@"取消" action:^{
+                
+            }] destructiveButtonItem:[RIButtonItem itemWithLabel:@"复制" action:^{
+                
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                [pasteboard setString:PasteboardStr];
+                [UIAlertView showAlertViewWithMessage:@"已经复制到剪切板"];
+                
+            }] otherButtonItems:[RIButtonItem itemWithLabel:@"删除" action:^{
+                
+                [self.messageList removeObject:message];
+                [self.tableView reloadData];
+                
+                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                
+                [message MR_deleteInContext:localContext];
+                
+                [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
+                
+
+            }], nil];
+            
+            [actionview showInView:self.view];
+            
+            
+//            UIActionSheet * action = [[UIActionSheet alloc] initWithTitle:message.text delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"复制", nil];
+//             action.tag = 1;
+//              PasteboardStr = message.text;
+//              [action showInView:self.view];
+            
+            
         }else if([message.messageType intValue] == messageType_map)
         {
             XCJSendMapViewController *mapview = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJSendMapViewController"];
@@ -3079,7 +3119,6 @@ static NSInteger const kAttributedLabelTag = 100;
             mapview.TCoordinate = mylocation;
             mapview.title = message.text;
             mapview.subtitle = @"";
-
             [self.navigationController pushViewController:mapview animated:YES];
             
         }

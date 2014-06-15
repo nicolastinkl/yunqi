@@ -13,7 +13,6 @@
 extern NSString * const MLNetworkingManagerDidReceivePushMessageNotification;
 extern NSString * const MLNetworkingManagerDidReceiveForcegroundMessageNotification;
 
-
 @interface MLNetworkingManager : NSObject
 
 //对于requests的操作必须放在主线程，以免不安全

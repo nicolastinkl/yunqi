@@ -66,4 +66,6 @@
 /*设置导航栏默认背景*/
 +(void) setnavigationBarbg:(UINavigationController *) navi;
 
++(void) playVirate;
+
 @end

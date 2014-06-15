@@ -10,6 +10,7 @@
 #import "XCAlbumAdditions.h"
 #import "UIButton+Bootstrap.h"
 #include "OpenUDID.h"
+#import "TKSignalWebScoket.h"
 #import "MLNetworkingManager.h"
 
 @interface YQLoginviewViewController ()<UITextFieldDelegate>
@@ -133,14 +134,17 @@
     NSString * username = [self.Text_LoginName text];
     NSString * pwd = [self.Text_LoginPwd text];
     NSString* openUDID = [OpenUDID value];
-    
+    NSString * tokenPush = [USER_DEFAULT stringForKey:KeyChain_Laixin_account_devtokenstring];
+    if (tokenPush == nil || [tokenPush isNilOrEmpty]) {
+        tokenPush = @"notokenPushbecauseregisterfaild";
+    }
     NSMutableDictionary * mutaDict = [[NSMutableDictionary alloc] init];
     [mutaDict setValue:@"iPhone"    forKey:@"devicetype"];
     [mutaDict setValue:openUDID     forKey:@"deviceid"];
 //    [mutaDict setValue:@""          forKey:@"domain"];    //.cloud7.com.cn
     [mutaDict setValue:username     forKey:@"username"];
     [mutaDict setValue:pwd          forKey:@"password"];
-    [mutaDict setValue:[USER_DEFAULT stringForKey:KeyChain_Laixin_account_devtokenstring] forKey:@"devicePushToken"];
+    [mutaDict setValue:tokenPush    forKey:@"devicePushToken"];
        [[[LXAPIController sharedLXAPIController] requestLaixinManager]  requestPostActionWithCompletion:^(id response, NSError *error) {
            /*
             code = 200;

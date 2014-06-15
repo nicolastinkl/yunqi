@@ -31,7 +31,8 @@ typedef enum {
 #define NEED_OUTPUT_LOG                     1   // 0 relese  1 debug
 
 #define IOS7                                [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
-
+#define IOS6                                [[[UIDevice currentDevice] systemVersion] floatValue] < 7.0
+#define F(string, args...)                  [NSString stringWithFormat:string, args]
 #define LaixinSetupDBMessageNotification    @"com.laixin.LaixinSetupDBMessageNotification"
 #define LaixinCloseDBMessageNotification    @"com.laixin.LaixinCloseDBMessageNotification"
 
@@ -56,6 +57,18 @@ typedef enum {
 #define kidswantURL                         @"http://api.xianchangjia.com/"//@"http://app.kidswant.com.cn"
 #define xianchangjiaURI						@"2824743419://com.liveplus"
 #define LaixinWebsocketURL                  @"ws://127.0.0.1:8000/ws"
+
+
+#define RectSetWidth(f, w)                  CGRectMake(RectX(f), RectY(f), w, RectHeight(f))
+#define RectSetHeight(f, h)                 CGRectMake(RectX(f), RectY(f), RectWidth(f), h)
+#define RectSetX(f, x)                      CGRectMake(x, RectY(f), RectWidth(f), RectHeight(f))
+#define RectSetY(f, y)                      CGRectMake(RectX(f), y, RectWidth(f), RectHeight(f))
+#define RectSetSize(f, w, h)                CGRectMake(RectX(f), RectY(f), w, h)
+#define RectSetOrigin(f, x, y)              CGRectMake(x, y, RectWidth(f), RectHeight(f))
+#define RectSetOriginWH(x, w, h)            CGRectMake(x, 5, w, h)
+#define RectSetOriginXYWH(x,y, w, h)            CGRectMake(x, y, w, h)
+
+#define RGB(r, g, b)                        [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 
 #define USER_DEFAULT                [NSUserDefaults standardUserDefaults]
 #define FILE_MANAGER                [NSFileManager defaultManager]

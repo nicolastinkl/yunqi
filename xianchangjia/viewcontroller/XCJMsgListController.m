@@ -32,6 +32,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "FCHomeGroupMsg.h"
 #import "YQLoginviewViewController.h"
+#import "TKSignalWebScoket.h"
 //#import "XCJHomeDynamicViewController.h"
 //#import "XCJGroupPost_list.h"
 //#import "XCJHomeMenuView.h"
@@ -143,7 +144,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(webSocketdidreceingWithMsg:) name:@"webSocketdidreceingWithMsg" object:nil];
     
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (![YQDelegate hasLogin]) {
@@ -168,12 +168,11 @@
     
     // update unread message badge number
     if ([YQDelegate hasLogin]) {
-        
-        [[MLNetworkingManager sharedManager] webSocket];  // connection
-        NSDictionary * parames = @{@"auth":[USER_DEFAULT stringForKey:KeyChain_Laixin_account_aliveServerAuthKey]};
-        [[MLNetworkingManager sharedManager] sendWithAction:@"AuthKey.start"  parameters:parames success:^(MLRequest *request, id responseObject) {
-        } failure:^(MLRequest *request, NSError *error) {
-        }];
+//        [[MLNetworkingManager sharedManager] webSocket];  // connection
+//        NSDictionary * parames = @{@"auth":[USER_DEFAULT stringForKey:KeyChain_Laixin_account_aliveServerAuthKey]};
+//        [[MLNetworkingManager sharedManager] sendWithAction:@"AuthKey.start"  parameters:parames success:^(MLRequest *request, id responseObject) {
+//        } failure:^(MLRequest *request, NSError *error) {
+//        }];
         
         NSPredicate * preCMD = [NSPredicate predicateWithFormat:@"badgeNumber > %d",0];
         //        NSInteger  inter =  [Conversation MR_countOfEntitiesWithPredicate:preCMD];
@@ -305,6 +304,8 @@
 -(void) uploadDataWithLogin:(NSNotification *) notify
 {
     [self initHomeData];  // get all data
+    
+    
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginInReceivingAllMessage" object:nil];
 }
 
@@ -474,7 +475,9 @@
 {
     self.managedObjectContext = [NSManagedObjectContext MR_defaultContext];
     [self reloadFetchedResults:nil];
-   
+    
+    [[TKSignalWebScoket sharedTKSignalWebScoket] start];
+    
     if ([Conversation MR_findFirst] == nil) {
         [self filldata];
         
@@ -732,8 +735,8 @@
 
 -(void) webSocketdidreceingWithMsg:(NSNotification * ) noty
 {
-//    self.title = @"微信(正在载入...)";
-    self.title = @"微信";
+    self.title = @"微信(正在载入...)";
+//    self.title = @"微信";
     /*XCJAppDelegate *delegate = (XCJAppDelegate *)[UIApplication sharedApplication].delegate;
      
      UITabBarItem  *item = delegate.tabBarController.tabBar.items[0] ;

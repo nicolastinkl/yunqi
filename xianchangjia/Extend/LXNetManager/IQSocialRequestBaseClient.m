@@ -11,8 +11,8 @@
 #import "XCAlbumDefines.h"
 #import "NSString+Addition.h"
 
-//static NSString * const kAPIBaseURLString = @"https://www.cloud7.com.cn";
-static NSString * const kAPIBaseURLString = @"http://terry.cloud7.com.cn";
+static NSString * const kAPIBaseURLString = @"https://www.cloud7.com.cn";
+//static NSString * const kAPIBaseURLString = @"http://terry.cloud7.com.cn";
 
 @implementation IQSocialRequestBaseClient
 + (IQSocialRequestBaseClient *)sharedClient {

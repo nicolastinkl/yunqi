@@ -60,6 +60,18 @@
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)    {
     
+        for ( UIView * subview in self.seachbar.subviews )
+        {
+            if ([subview isKindOfClass:NSClassFromString(@"UISearchBarBackground") ] )
+                subview.alpha = 0.0;
+            
+            if ([subview isKindOfClass:NSClassFromString(@"UISegmentedControl") ] )
+                subview.alpha = 0.0;
+        }
+        
+        [self.seachbar setBackgroundImage:[UIImage new]];
+        [self.seachbar setTranslucent:YES];
+        
         [self.segementbar setBackgroundImage:[UIImage imageNamed:@"bg_navigationBar"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         
 //        [self.segementbar setBackgroundColor : [UIColor clearColor] ];
@@ -538,6 +550,7 @@
      }];
      */
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

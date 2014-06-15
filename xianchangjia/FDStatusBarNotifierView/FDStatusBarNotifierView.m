@@ -9,7 +9,7 @@
 #import "FDStatusBarNotifierView.h"
 #import "SINGLETONGCD.h"
 
-NSTimeInterval const kTimeOnScreen = 2.0;
+NSTimeInterval const kTimeOnScreen = 4.0;
 
 @interface FDStatusBarNotifierView ()
 
@@ -34,8 +34,8 @@ SINGLETON_GCD(FDStatusBarNotifierView)
         self.clipsToBounds = YES;
         self.frame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 20);
         
-        self.messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, ([UIScreen mainScreen].bounds.size.width - 20), 20)];
-        self.messageLabel.backgroundColor = [UIColor clearColor];
+        self.messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
+        self.messageLabel.backgroundColor = [UIColor blackColor];
         self.messageLabel.textColor = [UIColor whiteColor];
         self.messageLabel.textAlignment = NSTextAlignmentCenter;
         self.messageLabel.font = [UIFont boldSystemFontOfSize:12];

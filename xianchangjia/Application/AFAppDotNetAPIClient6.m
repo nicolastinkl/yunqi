@@ -9,6 +9,7 @@
 #import "AFAppDotNetAPIClient6.h"
 #import "XCAlbumDefines.h"
 #import "AFNetworkActivityIndicatorManager.h"
+
 @implementation AFAppDotNetAPIClient6
 
 + (AFAppDotNetAPIClient6 *)sharedClient {

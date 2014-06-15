@@ -13,6 +13,7 @@
 #import "YQLoginviewViewController.h"
 #import <StoreKit/StoreKit.h>
 #import "LXActionSheet.h"
+#import "TKSignalWebScoket.h"
 
 @interface YQSettingsViewController ()<UIActionSheetDelegate,SKStoreProductViewControllerDelegate,LXActionSheetDelegate>
 @property (nonatomic,strong) LXActionSheet *actionSheet;
@@ -91,8 +92,14 @@
             int code = [DataHelper getIntegerValue:response[@"code"] defaultValue:0];
             if (code == 200) {
                 //success ...
+                NSString * tokenPush = [USER_DEFAULT stringForKey:KeyChain_Laixin_account_devtokenstring];
+                
+                
                 NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
                 [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+                
+                [USER_DEFAULT setValue:tokenPush forKey:KeyChain_Laixin_account_devtokenstring];
+                [USER_DEFAULT synchronize];
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:LaixinCloseDBMessageNotification object:nil];
                 [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -137,7 +144,7 @@
                 //success ...
                 NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
                 [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-                
+                [[TKSignalWebScoket sharedTKSignalWebScoket] stop];
                 [[NSNotificationCenter defaultCenter] postNotificationName:LaixinCloseDBMessageNotification object:nil];
                 [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
                 YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;

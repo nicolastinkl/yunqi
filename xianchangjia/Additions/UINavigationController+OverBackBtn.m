@@ -14,7 +14,7 @@
 {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         
-        UIImage *buttonImage = [UIImage imageNamed:@"backbtn"];
+        UIImage *buttonImage = [UIImage imageNamed:@"WebView_Backward_disable"];
 
         UIImage *backButtonImage = [buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, buttonImage.size.width - 1, 0, 0)];
         [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage  forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
