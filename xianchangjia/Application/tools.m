@@ -382,8 +382,8 @@
 {
 	NSDate *fromDate;
 	if (strTime) {
-        strTime = [strTime stringByReplacingOccurrencesOfString:@"T" withString:@" "];
-        strTime = [strTime stringByReplacingOccurrencesOfString:@".000Z" withString:@""];
+        strTime = [self datebyStrByYQQQ:strTime];
+        
 		NSDateFormatter *format=[[NSDateFormatter alloc] init];
 		[format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 		NSDate *fromdate=[format dateFromString:strTime];
@@ -397,8 +397,14 @@
 +(NSString *) datebyStrByYQQQ:(NSString *) strTime
 {
 	if (strTime) {
+        NSString * ohresStr = [strTime substringFromIndex:19];
+        if ([ohresStr containString:@"."]) {
+            strTime = [strTime stringByReplacingOccurrencesOfString:ohresStr withString:@""];
+        }
         strTime = [strTime stringByReplacingOccurrencesOfString:@"T" withString:@" "];
         strTime = [strTime stringByReplacingOccurrencesOfString:@".000Z" withString:@""];
+        strTime = [strTime stringByReplacingOccurrencesOfString:@"Z" withString:@""];
+        
         return strTime;
     }
     return @"";

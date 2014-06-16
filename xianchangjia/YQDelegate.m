@@ -39,6 +39,11 @@
 #import "YQListOrderInfo.h"
 #import "ChatViewController.h"
 #import "TKSignalWebScoket.h"
+
+#import "JSONKit.h"
+
+#import "UIAlertView+Blocks.h"
+#import "RIButtonItem.h"
 //#import "TestFlight.h"
 
 static NSString * const kLaixinStoreName = @"YunqiDB";
@@ -233,7 +238,6 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
 //        [self LoginInReceivingAllMessage];
          [[NSNotificationCenter defaultCenter] postNotificationName:@"webSocketDidOpen" object:nil];
     }
-    
 }
 
 -(void) webSocketDidReceivePushMessage:(NSNotification * ) notify
@@ -243,28 +247,215 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
          PayLoad =     {
          Content = "\U4e91\U8d77\U4eb2\U4eb2\U6b22\U8fce\U60a8\U52a0\U5165ads";
          Title = "<null>";
-         };*/
+         ==================================
+         
+         PayLoad =     {
+         Content = "{\
+         
+         "title\":null,\
+         
+         "content\":\"\U8bfa\U666e:\U201c\U4e91\U8d77\U8f7b\U5e94\U7528 Cloud7.com.cn\U201d \U662f\U4e00\U4e2a\U53ef\U4ee5\U5feb\U901f\U5e2e\U52a9\U4e2a\U4eba\U6216\U5546\U6237\U521b\U5efa\U5b98\U65b9\U624b\U673a\U8f7b\U5e94\",\
+         "time\":\"2014-06-15T08:47:37.194Z\",\
+         "badge\":-1,\
+         "appLink\":\"WeChat://Message/ocUAetzTkLjV0wb7ZQkQs-srgvcE\",\
+         "data\":\"{\\\"time\\\":\\\"2014-06-15T08:47:37.194Z\\\",\\\"message\\\":{\\\"msgType\\\":\\\"text\\\",\\\"content\\\":\\\"\U201c\U4e91\U8d77\U8f7b\U5e94\U7528 Cloud7.com.cn\U201d \U662f\U4e00\U4e2a\U53ef\U4ee5\U5feb\U901f\U5e2e\U52a9\U4e2a\U4eba\U6216\U5546\U6237\U521b\U5efa\U5b98\U65b9\U624b\U673a\U8f7b\U5e94\\\"},\\\"messageId\\\":\\\"83c94096-9184-418a-bc5a-171f4e5498fd\\\",\\\"from\\\":\\\"ocUAetzTkLjV0wb7ZQkQs-srgvcE\\\",\\\"to\\\":\\\"admin\\\"}\"}";
+         Title = "<null>";
+         };
+         */
+        
         id message = notify.userInfo[@"message"];
         
         if ([message isKindOfClass:[NSDictionary class]]) {
+
             NSDictionary * dict = message[@"PayLoad"];
+            
+          
+            
             if (dict) {
                 [tools playVirate];
                 
-                NSString  * title = [DataHelper getStringValue:dict[@"Title"] defaultValue:@""];
+//                NSString  * title = [DataHelper getStringValue:dict[@"Title"] defaultValue:@""];
                 
-                NSString  * content = [DataHelper getStringValue:dict[@"Content"] defaultValue:@""];
+                id objdata = dict[@"Content"];
+                  SLog(@"message %@",[objdata JSONString]);
+                /*if ([obj isKindOfClass:[NSString class]]) {
+                    
+                    NSString  * content = [DataHelper getStringValue:dict[@"Content"] defaultValue:@""];
+                    
+                    if (title.length > 0) {
+                        [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:F(@"%@ %@",title,content)];
+                    }else{
+                        [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:content];
+                    }
+                }else if ([obj isKindOfClass:[NSDictionary class]])
+                {
+                }*/
                 
-                if (title.length > 0) {
-                    [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:F(@"%@ %@",title,content)];
-                }else{
-                    [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:content];
+                if ([objdata isKindOfClass:[NSString class]]) {
+                    id obj =  [objdata objectFromJSONString];
+                    if ([obj isKindOfClass:[NSDictionary class]])
+                    {
+                        if (obj) {
+                            NSString  * content = [DataHelper getStringValue:obj[@"content"] defaultValue:@""];
+                            [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:content];
+                            
+                            NSString  * applick = [DataHelper getStringValue:obj[@"appLink"] defaultValue:@""];
+                            
+                            id dataObj = obj[@"data"];
+                            NSDictionary * dataDict ;
+                            if ([dataObj isKindOfClass:[NSDictionary class]]) {
+                                dataDict = dataObj;
+                            }else{
+                                dataDict=[DataHelper getDictionaryValue:[dataObj objectFromJSONString] defaultValue:[NSMutableDictionary dictionary]];
+                            }
+                            
+                            SLog(@"dataDict %@",dataDict);
+                            if ([applick containString:@"WeChat"]) {
+                                //  未读消息
+                                [self saveLocalDatawithJson:dataDict];
+                            }else if([applick containString:@"OrderManager"]){
+                                // 订单状态
+//                                NSURL * url = [NSURL URLWithString:applick];
+//                                NSString * urlQuery = [url query];
+//                                NSArray *firstSplit = [urlQuery componentsSeparatedByString:@"&"];
+//                                //orderid=91872834&orderno=oqweiruoqr
+//                                NSString * orderid = [firstSplit firstObject];
+//                                NSString * orderno = [firstSplit lastObject];
+//                                orderid = [orderid  stringByReplacingOccurrencesOfString:@"orderid=" withString:@""];
+//                                orderno = [orderno  stringByReplacingOccurrencesOfString:@"orderno=" withString:@""];
+//                                [self queryOrderInfoWithOrderID:orderid orderNo:orderno];
+
+                                 
+                                [[[UIAlertView alloc] initWithTitle:@"提醒" message:@"查看新订单" cancelButtonItem:[RIButtonItem itemWithLabel:@"取消" action:^{
+                                    
+                                }] otherButtonItems:[RIButtonItem itemWithLabel:@"查看" action:^{
+                                    YQListOrderInfo * info = [YQListOrderInfo turnObject:dataDict];
+                                    
+                                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StoryboardYunQi" bundle:nil];
+                                    YQOrderMetaViewcontroller * ordrmeta  = [storyboard instantiateViewControllerWithIdentifier:@"YQOrderMetaViewcontroller"];
+                                    ordrmeta.orderpro = info;
+                                    ordrmeta.title = @"订单详情";
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:NSNotificationCenter_RefreshOrderTableView object:info];
+                                    UINavigationController * navi = self.tabBarController.childViewControllers[self.tabBarController.selectedIndex];
+                                    [navi pushViewController:ordrmeta animated:YES];
+                                }], nil] show];
+                            }
+                        }
+                    }
+                    
                 }
+                
             }
         }
     }
 }
- 
+/*!
+
+ {
+ from = ocUAetzPcjvjc7OJOUburCuQ7LNM;
+ message =     {
+    content = "If if";
+    msgType = text;
+ };
+ messageId = "900d3c77-fa43-4e37-9dfe-5586d60723d9";
+ time = "2014-06-16T02:08:57.544Z";
+ to = admin;
+ }
+
+ *
+ *  @param Dict
+ */
+-(void) saveLocalDatawithJson:(NSDictionary * ) Dict
+{
+    NSDictionary * obj  = Dict[@"message"];
+    NSString * lastMessageTime = [DataHelper getStringValue:Dict[@"time"] defaultValue:@""];
+    lastMessageTime = [tools datebyStrByYQQQ:lastMessageTime];
+//    NSString * name = [DataHelper getStringValue:obj[@"name"] defaultValue:@""];
+//    NSString * avatar = [DataHelper getStringValue:obj[@"avatar"] defaultValue:@""];
+    NSDate * date = [tools datebyStr:lastMessageTime];
+    NSString * wechatId = [DataHelper getStringValue:Dict[@"from"] defaultValue:@""];
+//    NSString * to = [DataHelper getStringValue:Dict[@"to"] defaultValue:@""];
+    NSString * content = [DataHelper getStringValue:obj[@"content"] defaultValue:@""];
+    NSString * lastMessageId = [DataHelper getStringValue:Dict[@"messageId"] defaultValue:@""];
+    NSString * typeMessage = [DataHelper getStringValue:obj[@"msgType"] defaultValue:@""];
+    { //更新列表信息
+        // Build the predicate to find the person sought
+        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"facebookId == %@", wechatId];
+        Conversation *conversation = [Conversation MR_findFirstWithPredicate:predicate inContext:localContext];
+        if(conversation == nil)
+        {
+            conversation =  [Conversation MR_createInContext:localContext];
+        }
+        if ([content isNilOrEmpty]) {
+            content = @"";
+        }
+        if ([typeMessage isEqualToString:@"text"]) {
+            
+        }else if ([typeMessage isEqualToString:@"image"]) {
+            //image
+            content = @"[图片]";
+        }else if ([typeMessage isEqualToString:@"voice"]) {
+            content = @"[语音]";
+        }
+        conversation.messageId = lastMessageId;
+        //    conversation.facebookName = name;
+        conversation.messageType = @(XCMessageActivity_UserPrivateMessage);
+        conversation.lastMessageDate = date;
+        //                        conversation.messageId = [NSString stringWithFormat:@"%@_%@",XCMessageActivity_User_privateMessage,[tools getStringValue:obj[@"msgid"] defaultValue:@"0"]];
+        conversation.lastMessage = content ;
+        conversation.messageStutes = @(messageStutes_incoming);
+        conversation.facebookId = wechatId;
+        //    conversation.facebookavatar = avatar;
+        // increase badge number.
+        int badgeNumber = [conversation.badgeNumber intValue];
+        badgeNumber += 1;
+        conversation.badgeNumber = [NSNumber numberWithInt:badgeNumber];
+        [localContext MR_saveToPersistentStoreAndWait];
+        
+    }
+    
+    {
+        FCMessage * msgOld =  [[FCMessage MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",lastMessageId]] firstObject];
+        if (!msgOld || ![lastMessageId isEqualToString:@""]) {
+            
+            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+            
+            FCMessage* msg = [FCMessage MR_createInContext:localContext];
+            if ([content isNilOrEmpty]) {
+                content = @"";
+            }
+            SLog(@"content :%@",content);
+            msg.text = content;
+            msg.sentDate = date;
+            msg.wechatid = wechatId;
+            msg.messageId = lastMessageId;
+            if ([typeMessage isEqualToString:@"text"]) {
+                msg.messageType = @(messageType_text);
+            }else if ([typeMessage isEqualToString:@"image"]) {
+                //image
+                msg.messageType = @(messageType_image);
+                NSString * publicUrl = [DataHelper getStringValue:obj[@"mediaPath"] defaultValue:@""];
+                msg.imageUrl = publicUrl;
+            }else if ([typeMessage isEqualToString:@"voice"]) {
+                //audio
+                NSString * publicUrl = [DataHelper getStringValue:obj[@"publicUrl"] defaultValue:@""];
+                msg.audioUrl = publicUrl;
+                msg.messageType = @(messageType_audio);
+                int length  = 10;//
+                msg.audioLength = @(length/1024);
+            }else{
+                msg.messageType = @(messageType_text);
+            }
+            msg.messageStatus = @(YES);
+            [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
+            
+            //最新的数据推送给聊天界面
+            [[NSNotificationCenter defaultCenter] postNotificationName:NSNotificationCenter_RefreshChatTableView object:msg];
+        }
+    }
+}
+
 - (void) initAllControlos
 {
     self.tabBarController = (UITabBarController *)((UIWindow*)[UIApplication sharedApplication].windows[0]).rootViewController;
@@ -440,6 +631,8 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
                     YQOrderMetaViewcontroller * ordrmeta  = [storyboard instantiateViewControllerWithIdentifier:@"YQOrderMetaViewcontroller"];
                     ordrmeta.orderpro = info;
                     ordrmeta.title = @"订单详情";
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NSNotificationCenter_RefreshOrderTableView object:info];
+                    
                     UINavigationController * navi = self.tabBarController.childViewControllers[self.tabBarController.selectedIndex];
                     [navi pushViewController:ordrmeta animated:YES];
                 }else{

@@ -64,7 +64,7 @@ SINGLETON_GCD(DAHttpClient);
         parames = [[NSMutableDictionary alloc] init];
     }
     [tools addAuthMD5:parames];
-     
+    SLog(@"parames : %@",parames);
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         [[AFAppDotNetAPIClient6 sharedClient] POST:action parameters:parames success:^(AFHTTPRequestOperation *operation, id JSON) {
             if(JSON){

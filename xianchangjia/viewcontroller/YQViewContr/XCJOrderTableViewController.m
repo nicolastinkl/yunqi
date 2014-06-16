@@ -132,6 +132,19 @@
     
 //    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCell:) name:@"updateCellWITHCHANGEORDER" object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshOrderTableView:) name:NSNotificationCenter_RefreshOrderTableView object:nil];
+}
+
+
+-(void) refreshOrderTableView:(NSNotification * ) notify
+{
+
+    if (notify.object && [notify.object isKindOfClass:[YQListOrderInfo class]]) {
+        [AllOrderList insertObject:notify.object atIndex:0];
+        [self reloadArrays];
+    }
 }
 
 #pragma mark - FilterVie delegate

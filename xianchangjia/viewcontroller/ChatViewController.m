@@ -150,7 +150,6 @@ static NSInteger const kAttributedLabelTag = 100;
     UIButton * buttonChangeAudio = (UIButton *) [self.inputContainerView subviewWithTag:7];
     [buttonChangeAudio addTarget:self action:@selector(SHowAudioButtonClick:) forControlEvents:UIControlEventTouchUpInside ];
     
-    
     {
         UIButton * buttonAudioss = (UIButton *) [self.inputContainerView subviewWithTag:9];
         //添加长按手势
@@ -195,6 +194,23 @@ static NSInteger const kAttributedLabelTag = 100;
     if (msg == nil) {
 //        [self.view showIndicatorViewLargeBlue];
         [self initchatdata:nil];
+    }
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refershTableView:) name:NSNotificationCenter_RefreshChatTableView object:nil];
+}
+
+-(void) refershTableView :(NSNotification * ) notify
+{
+    if (notify) {
+        [self.messageList addObject:notify.object];
+        [self insertTableRow];
+
+        /*!
+         *  清空首页未读消息条数
+         */
+        self.conversation.badgeNumber = @(0);
+        [[[LXAPIController sharedLXAPIController] chatDataStoreManager] saveContext];
     }
 }
 
@@ -1334,6 +1350,8 @@ static NSInteger const kAttributedLabelTag = 100;
                                                     name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:MLNetworkingManagerDidReceivePushMessageNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSNotificationCenter_RefreshChatTableView object:nil];
     
 }
 
