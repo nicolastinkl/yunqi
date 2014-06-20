@@ -807,16 +807,16 @@
 
 - (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didDismissAtPageIndex:(NSUInteger)index
 {
-    id <IDMPhoto> photo = [photoBrowser photoAtIndex:index];
-    SLog(@"Dissmised with photo index: %d, photo caption: %@", index, photo.caption);
+//    id <IDMPhoto> photo = [photoBrowser photoAtIndex:index];
+//    SLog(@"Dissmised with photo index: %d, photo caption: %@", index, photo.caption);
 }
 
 - (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didDismissActionSheetWithButtonIndex:(NSUInteger)buttonIndex photoIndex:(NSUInteger)photoIndex
 {
     [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Option %d", buttonIndex+1] message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     
-    id <IDMPhoto> photo = [photoBrowser photoAtIndex:photoIndex];
-    SLog(@"Dissmised actionSheet with photo index: %d, photo caption: %@", photoIndex, photo.caption);
+//    id <IDMPhoto> photo = [photoBrowser photoAtIndex:photoIndex];
+//    SLog(@"Dissmised actionSheet with photo index: %d, photo caption: %@", photoIndex, photo.caption);
 }
 
 

@@ -86,15 +86,16 @@
         switch (messagetype) {
             case messageType_text:
             case messageType_emj:
-            {                
+            {
                 NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
                 [params setValue:userID forKey:@"weChatId"];
-                [params setValue:@{@"content":content,@"msgType":@"text"} forKey:@"message"];
+                [params setValue:@{@"content":content,@"msgType":@"text"}   forKey:@"message"];
                 [params setValue:strGUID forKey:@"messageId"]; //new message
                 
                 [[DAHttpClient sharedDAHttpClient] postRequestWithParameters:params Action:@"AdminApi/WeChat/SendMessage" success:^(id response) {
                     int errorCode  = [DataHelper getIntegerValue:response[@"code"] defaultValue:-1];
                     if (errorCode == 200) {
+                        
                         dict[@"messageId"] = strGUID;
                         
                         if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgSuccess:fromGuid:)])

@@ -25,7 +25,6 @@ SINGLETON_GCD(DAHttpClient);
 
 - (NSURLSessionDataTask *)getRequestWithParameters:(NSMutableDictionary *) parames Action:(NSString *) action success:(SLObjectBlock)success error:(SLIndexBlock)error
 {
-    
     if (parames == nil) {
         parames = [[NSMutableDictionary alloc] init];
     }
@@ -58,8 +57,7 @@ SINGLETON_GCD(DAHttpClient);
 }
 
 - (NSURLSessionDataTask *) postRequestWithParameters:(NSMutableDictionary *) parames Action:(NSString *) action success:(SLObjectBlock)success error:(SLIndexBlock)error
-{    
-    
+{
     if (parames == nil) {
         parames = [[NSMutableDictionary alloc] init];
     }

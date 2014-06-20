@@ -122,7 +122,7 @@
         if (dataImg) {
 //            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
             NSInteger indexMsgID = [DataHelper getIntegerValue:dataImg[@"messageId"] defaultValue:0];
-            NSString * guid = dataImg[@"MESSAGE_GUID"];
+//            NSString * guid = dataImg[@"MESSAGE_GUID"];
             NSInteger messageIndex = [USER_DEFAULT integerForKey:KeyChain_Laixin_message_PrivateUnreadIndex];
             if (messageIndex < indexMsgID) {
                 [USER_DEFAULT setInteger:indexMsgID forKey:KeyChain_Laixin_message_PrivateUnreadIndex];

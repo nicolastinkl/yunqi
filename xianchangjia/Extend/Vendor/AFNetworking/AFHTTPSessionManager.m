@@ -41,6 +41,9 @@
 #import <UIKit/UIKit.h>
 #endif
 
+
+#import "NSString+Addition.h"
+
 @interface AFHTTPSessionManager ()
 @property (readwrite, nonatomic, strong) NSURL *baseURL;
 @property (readwrite, nonatomic, strong) AFNetworkReachabilityManager *reachabilityManager;
@@ -161,8 +164,18 @@
                        success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 {
-    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"POST" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:nil];
-
+    NSMutableURLRequest * request;
+    if ([URLString containString:@"AdminApi/WeChat/SendMessage"]) {
+        NSError * error;
+        request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:&error];
+        [request addValue:parameters[@"sign"] forHTTPHeaderField:@"sign"];
+        [request addValue:parameters[@"timestamp"] forHTTPHeaderField:@"timestamp"];
+        [request addValue:parameters[@"token"] forHTTPHeaderField:@"token"];
+        
+    }else{
+        request = [self.requestSerializer requestWithMethod:@"POST" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:nil];
+    }
+    
     __block NSURLSessionDataTask *task = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
         if (error) {
             if (failure) {

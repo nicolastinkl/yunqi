@@ -80,7 +80,7 @@ SINGLETON_GCD(FDStatusBarNotifierView)
 - (void)showInWindow
 {
     UIWindow * wind = ((UIWindow*)[UIApplication sharedApplication].windows[0]);
-    wind.windowLevel =  UIWindowLevelStatusBar + 1;
+    wind.windowLevel =  UIWindowLevelStatusBar ;//+ 1;
     [self showInWindow:wind];
 }
 
@@ -224,7 +224,7 @@ SINGLETON_GCD(FDStatusBarNotifierView)
         animationDestinationFrame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.height, 0);
     }
     
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO  withAnimation:UIStatusBarAnimationSlide];
+//  [[UIApplication sharedApplication] setStatusBarHidden:NO  withAnimation:UIStatusBarAnimationSlide];
     [UIView animateWithDuration:.4
                      animations:^{
                          self.frame = animationDestinationFrame;
@@ -238,7 +238,7 @@ SINGLETON_GCD(FDStatusBarNotifierView)
                              [self removeFromSuperview];
                              
                              UIWindow * wind = ((UIWindow*)[UIApplication sharedApplication].windows[0]);
-                             wind.windowLevel =  UIWindowLevelNormal-1;
+                             wind.windowLevel = (UIWindowLevelNormal-1);
                              [wind makeKeyWindow];
                          }
                      }];

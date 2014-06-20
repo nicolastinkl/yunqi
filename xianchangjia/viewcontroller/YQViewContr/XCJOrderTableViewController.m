@@ -29,7 +29,7 @@
     BOOL _datasourceIsLoading;
     bool _allLoaded;
     FBKVOController * _KVOController;
-    
+    int allTotalOrders;
 }
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segementbar;
 
@@ -140,10 +140,22 @@
 
 -(void) refreshOrderTableView:(NSNotification * ) notify
 {
-
-    if (notify.object && [notify.object isKindOfClass:[YQListOrderInfo class]]) {
+//&& [notify.object isKindOfClass:[YQListOrderInfo class]]
+    if (notify.object) {
         [AllOrderList insertObject:notify.object atIndex:0];
         [self reloadArrays];
+         ++ allTotalOrders;
+//        [self.filterView setTitle:[NSString stringWithFormat:@"在线支付(%d)",allTotalOrders] atIndex:0];
+        [self.filterView setTitle:[NSString stringWithFormat:@"货到付款(%d)",allTotalOrders] atIndex:1];
+        [self.filterView setTitle:[NSString stringWithFormat:@"全部订单(%d)",allTotalOrders] atIndex:2];
+        
+        YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
+        if (allTotalOrders > 0) {
+            [delegate.tabBarController.tabBar.items[1] setBadgeValue:[NSString stringWithFormat:@"%d",allTotalOrders]];
+        }else{
+            [delegate.tabBarController.tabBar.items[1] setBadgeValue:nil];
+        }
+        
     }
 }
 
@@ -231,6 +243,7 @@
             int onlinePaymentCount = [DataHelper getIntegerValue:dataDict[@"onlinePaymentCount"] defaultValue:0];
             int allNoProcessCount = [DataHelper getIntegerValue:dataDict[@"allNoProcessCount"] defaultValue:0];
             countPays = allNoProcessCount;
+            allTotalOrders = allNoProcessCount;
             [self.segementbar setTitle:[NSString stringWithFormat:@"在线支付(%d)",onlinePaymentCount] forSegmentAtIndex:0];
             [self.segementbar setTitle:[NSString stringWithFormat:@"货到付款(%d)",cashOnDeliveryCount]  forSegmentAtIndex:1];
             [self.segementbar setTitle:[NSString stringWithFormat:@"全部订单(%d)",allNoProcessCount]  forSegmentAtIndex:2];

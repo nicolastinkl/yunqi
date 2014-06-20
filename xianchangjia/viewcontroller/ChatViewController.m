@@ -214,6 +214,92 @@ static NSInteger const kAttributedLabelTag = 100;
     }
 }
 
+/*!
+ *  openurl跳转打开云起亲亲刷新数据问题
+ */
+- (void) fetchNewDataWithLastID
+{
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    [params setValue:self.conversation.facebookId forKey:@"weChatId"];
+    [params setValue:@"" forKey:@"messageId"];
+    [params setValue:@(30) forKey:@"max"];
+    
+    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/Thead" success:^(id response) {
+        if (response && [DataHelper getIntegerValue:response[@"code"] defaultValue:0] == 200) {
+            NSArray * dataarray = response[@"data"];
+            [dataarray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if(obj )
+                {
+                    /*
+                     check message id can insert???
+                     */
+                    NSString * messageidNew = [DataHelper getStringValue:obj[@"messageId"] defaultValue:@""];
+                    FCMessage * msgOld =  [[FCMessage MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageidNew]] firstObject];
+                    if (!msgOld || [messageidNew isEqualToString:@""]) {
+                        
+                        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                        NSString * date = [DataHelper getStringValue:obj[@"time"] defaultValue:@""];
+                        NSDictionary * messageDict = obj[@"message"];
+                        NSString * typeMessage = [DataHelper getStringValue:messageDict[@"msgType"] defaultValue:@""];
+                        NSString * content = [DataHelper getStringValue:messageDict[@"content"] defaultValue:@""];
+                        NSString * to = [DataHelper getStringValue:obj[@"to"] defaultValue:@""];
+                        NSString * from = [DataHelper getStringValue:obj[@"from"] defaultValue:@""];
+                        FCMessage* msg = [FCMessage MR_createInContext:localContext];
+                        if ([content isNilOrEmpty]) {
+                            content = @"";
+                        }
+                        SLog(@"content :%@",content);
+                        msg.text = content;
+                        msg.sentDate = [tools datebyStr:date];
+                        msg.wechatid = self.conversation.facebookId; // proment
+                        msg.messageId = messageidNew;
+                        if ([typeMessage isEqualToString:@"text"]) {
+                            msg.messageType = @(messageType_text);
+                        }else if ([typeMessage isEqualToString:@"image"]) {
+                            //image
+                            msg.messageType = @(messageType_image);
+                            NSString * publicUrl = [DataHelper getStringValue:messageDict[@"mediaPath"] defaultValue:@""];
+                            msg.imageUrl = publicUrl;
+                        }else if ([typeMessage isEqualToString:@"voice"]) {
+                            //audio
+                            NSString * publicUrl = [DataHelper getStringValue:messageDict[@"mediaPath"] defaultValue:@""];
+                            msg.audioUrl = publicUrl;
+                            msg.messageType = @(messageType_audio);
+                            int length  = 10;//
+                            msg.audioLength = @(length/audioLengthDefine);
+                        }else{
+                            msg.messageType = @(messageType_text);
+                            
+                        }
+                        
+                        if ([from isEqualToString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name]] && [to isEqualToString:self.conversation.facebookId]) {
+                            // me
+                            // message did come, this will be on right
+                            msg.messageStatus = @(NO);
+                        }else{
+                            //other
+                            // message did come, this will be on left
+                            msg.messageStatus = @(YES);
+                        }
+                        [self.conversation addMessagesObject:msg];
+                        [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
+                        [self.messageList addObject:msg];
+                    }
+                    
+                    
+                }
+                
+                
+            }];
+            [self.tableView reloadData];
+        }
+    } error:^(NSInteger index) {
+        
+    }];
+    
+}
+
+
 -(void) initchatdata:(NSString * ) messageId
 {
     [self viewdidloading];
@@ -260,18 +346,17 @@ static NSInteger const kAttributedLabelTag = 100;
                         }else if ([typeMessage isEqualToString:@"image"]) {
                             //image
                             msg.messageType = @(messageType_image);
-                            NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
+                            NSString * publicUrl = [DataHelper getStringValue:messageDict[@"mediaPath"] defaultValue:@""];
                             msg.imageUrl = publicUrl;
                         }else if ([typeMessage isEqualToString:@"voice"]) {
                             //audio
-                            NSString * publicUrl = [DataHelper getStringValue:messageDict[@"publicUrl"] defaultValue:@""];
+                            NSString * publicUrl = [DataHelper getStringValue:messageDict[@"mediaPath"] defaultValue:@""];
                             msg.audioUrl = publicUrl;
                             msg.messageType = @(messageType_audio);
                             int length  = 10;//
                             msg.audioLength = @(length/audioLengthDefine);
                         }else{
                             msg.messageType = @(messageType_text);
-                            
                         }
                         
                         if ([from isEqualToString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name]] && [to isEqualToString:self.conversation.facebookId]) {
@@ -285,14 +370,12 @@ static NSInteger const kAttributedLabelTag = 100;
                         }
                         [self.conversation addMessagesObject:msg];
                         [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
-                        [self.messageList insertObject:msg atIndex:0];
+//                        [self.messageList insertObject:msg atIndex:0];
+                        [self.messageList addObject:msg];
                     }else{
                         [self.messageList insertObject:msgOld atIndex:0];
                     }
-                    
-                    
                 }
-                
                 
             }];
             
@@ -947,15 +1030,6 @@ static NSInteger const kAttributedLabelTag = 100;
     }
 }
 
--(void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-//    if (operation && [operation isExecuting]) {
-//        [operation cancel];
-//    }
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollViewDat
 {
     
@@ -1331,11 +1405,21 @@ static NSInteger const kAttributedLabelTag = 100;
 {
     //删除Observer
 //	[self.messageList removeObserver:self forKeyPath:@"array"];
-    if(player && [player isPlaying])
-    {
-        [player stop];
-        player = nil;
+        
+    @try {
+        if(player && ![player isKindOfClass:[NSNull class]] && [player isPlaying])
+        {
+            [player stop];
+            player = nil;
+        }
     }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+   
     if(player )
     {
         player = nil;
@@ -1352,6 +1436,8 @@ static NSInteger const kAttributedLabelTag = 100;
                                                     name:MLNetworkingManagerDidReceivePushMessageNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:NSNotificationCenter_RefreshChatTableView object:nil];
+    
+     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
 
@@ -2275,10 +2361,9 @@ static NSInteger const kAttributedLabelTag = 100;
     return   fmaxf(20.0f, sizeToFit.width + 10 );
 }
 
-
 - (CGSize)heightForCellWithPost:(NSString *)post withWidth:(float) width{
     
-    NSString *osversion = [UIDevice currentDevice].systemVersion;
+//    NSString *osversion = [UIDevice currentDevice].systemVersion;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -2900,7 +2985,6 @@ static NSInteger const kAttributedLabelTag = 100;
         cell.isplayingAudio = YES;
         //self.messageList[[self.tableView indexPathForCell:cell].row];
         if (audiourl) {
-            //http://kidswant.u.qiniudn.com/FpWbDbq6UIkbCw5PunVVB8yphaDL
             NSArray *SeparatedArray = [[NSArray alloc]init];
             SeparatedArray =[audiourl componentsSeparatedByString:@"/"];
             NSString * filename = [SeparatedArray  lastObject];
@@ -3002,6 +3086,8 @@ static NSInteger const kAttributedLabelTag = 100;
             
         }else
         {
+            [self StopPlayingimgArray:playingCell];
+            playingCell.isplayingAudio = NO;
             [UIAlertView showAlertViewWithMessage:@"播放失败,录音文件不存在"];
         }
     }
@@ -3096,7 +3182,6 @@ static NSInteger const kAttributedLabelTag = 100;
             if (message.audioUrl && message.audioUrl.length > 0) {
                 PasteboardStr = message.audioUrl;
             }
-
             
             UIActionSheet * actionview = [[UIActionSheet alloc] initWithTitle:@"" cancelButtonItem:[RIButtonItem itemWithLabel:@"取消" action:^{
                 
