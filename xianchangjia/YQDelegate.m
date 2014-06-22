@@ -564,6 +564,67 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     [USER_DEFAULT synchronize];
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    SLog(@"userInfo %@",userInfo);
+    //如果程序在前台显示就自动忽略
+    
+    if (application.applicationState == UIApplicationStateActive) {
+        return;
+    }
+    if (userInfo) {
+        // web7AppLink = "WeChat://Message/ocUAetzPcjvjc7OJOUburCuQ7LNM";
+        // web7AppLink = "OrderManager://ordercreated?orderid=39&orderno=1406202332299";
+        
+        NSString * applink =  [DataHelper getStringValue:userInfo[@"web7AppLink"] defaultValue:@""];
+        NSURL * url = [NSURL URLWithString:applink];
+        /*if ([applink containString:@"OrderManager"]) {
+            //订单管理
+        }else if ([applink containString:@"WeChat"]) {
+            //个人私信
+        }*/
+        
+        UINavigationController * navi = self.tabBarController.childViewControllers[self.tabBarController.selectedIndex];
+        if ([navi.visibleViewController isKindOfClass:[ChatViewController class]]) {
+            ChatViewController * chat = (ChatViewController *) navi.visibleViewController;
+            [chat fetchNewDataWithLastID];
+            return;
+        }
+        
+        if ([[url host] isEqualToString:@"ordercreated"] || [[url host] isEqualToString:@"orderpaid"] || [[url host] isEqualToString:@"ordercanceled"]) {
+            // 新订单
+            //        NSString * newUrl = [url absoluteString];
+            //        NSString * itemId = [newUrl stringByReplacingOccurrencesOfString:@"ordermanager://ordercreated/" withString:@""];
+            
+            NSString * urlQuery = [url query];
+            NSArray *firstSplit = [urlQuery componentsSeparatedByString:@"&"];
+            //orderid=91872834&orderno=oqweiruoqr
+            NSString * orderid = [firstSplit firstObject];
+            NSString * orderno = [firstSplit lastObject];
+            orderid = [orderid  stringByReplacingOccurrencesOfString:@"orderid=" withString:@""];
+            orderno = [orderno  stringByReplacingOccurrencesOfString:@"orderno=" withString:@""];
+            [self queryOrderInfoWithOrderID:orderid orderNo:orderno];
+            
+        }else if ([[url host] isEqualToString:@"Message"]) {
+            
+            NSString * itemId = [[url absoluteString] stringByReplacingOccurrencesOfString:@"WeChat://Message/" withString:@""];
+            if ([itemId isEqualToString:@"UnRead"]) {
+                // 未读消息
+                
+            }else{
+                // 微信消息
+                if (itemId && itemId.length > 0) {
+                    [self targetWeichatView:itemId];
+                }
+            }        
+        }
+
+        
+    }
+    
+}
+
+
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error NS_AVAILABLE_IOS(3_0)
 {
     SLLog(@"error : %@",[error.userInfo objectForKey:NSLocalizedDescriptionKey]);
@@ -658,19 +719,16 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
                     [SVProgressHUD dismiss];
                     NSDictionary * dataDict = obj[@"data"];
                     YQListOrderInfo * info = [YQListOrderInfo turnObject:dataDict];
-                    
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StoryboardYunQi" bundle:nil];
                     YQOrderMetaViewcontroller * ordrmeta  = [storyboard instantiateViewControllerWithIdentifier:@"YQOrderMetaViewcontroller"];
                     ordrmeta.orderpro = info;
                     ordrmeta.title = @"订单详情";
                     [[NSNotificationCenter defaultCenter] postNotificationName:NSNotificationCenter_RefreshOrderTableView object:info];
-                    
                     UINavigationController * navi = self.tabBarController.childViewControllers[self.tabBarController.selectedIndex];
                     [navi pushViewController:ordrmeta animated:YES];
                 }else{
                     [UIAlertView showAlertViewWithMessage:@"订单加载失败"];
                 }
-                
             } error:^(NSInteger index) {
                 [UIAlertView showAlertViewWithMessage:@"订单加载失败"];
             }];

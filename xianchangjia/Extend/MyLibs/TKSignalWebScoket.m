@@ -38,9 +38,13 @@ SINGLETON_GCD(TKSignalWebScoket);
      // connect with SRConnection
     connection =[SRConnection connectionWithURL:[USER_DEFAULT stringForKey:KeyChain_Laixin_account_aliveServerUrl] query:dict];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"webSocketdidreceingWithMsg" object:nil];
+    
+//    __weak __typeof(self)weakSelf = self;
     connection.received = ^(id data) {
         NSLog(@"received %@  %@",data,[data class]);
         [[NSNotificationCenter defaultCenter] postNotificationName:MLNetworkingManagerDidReceivePushMessageNotification object:nil userInfo:@{@"message":data}];
+//        __strong __typeof(weakSelf)strongSelf = weakSelf;
+         [connection send:@"receive success"];
     };
     connection.started =  ^{
         NSLog(@"started");

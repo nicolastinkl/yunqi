@@ -52,8 +52,10 @@
     
     if (NEED_OUTPUT_LOG == 1) {
         //app@cloud7.com.cn Cloud7App
-        self.Text_LoginName.text = @"1319373@qq.com";
-        self.Text_LoginPwd.text = @"redher7";
+//        self.Text_LoginName.text = @"1319373@qq.com";
+//        self.Text_LoginPwd.text = @"redher7";
+        self.Text_LoginName.text = @"ciznx@qq.com";
+        self.Text_LoginPwd.text = @"111111";
     }
     
 }

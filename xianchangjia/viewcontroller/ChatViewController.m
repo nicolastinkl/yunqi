@@ -221,8 +221,8 @@ static NSInteger const kAttributedLabelTag = 100;
 {
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setValue:self.conversation.facebookId forKey:@"weChatId"];
-    [params setValue:@"" forKey:@"messageId"];
-    [params setValue:@(30) forKey:@"max"];
+//    [params setValue:@"" forKey:@"messageId"];
+    [params setValue:@(10) forKey:@"max"];
     
     [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/Thead" success:^(id response) {
         if (response && [DataHelper getIntegerValue:response[@"code"] defaultValue:0] == 200) {
@@ -235,7 +235,7 @@ static NSInteger const kAttributedLabelTag = 100;
                      */
                     NSString * messageidNew = [DataHelper getStringValue:obj[@"messageId"] defaultValue:@""];
                     FCMessage * msgOld =  [[FCMessage MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageidNew]] firstObject];
-                    if (!msgOld || [messageidNew isEqualToString:@""]) {
+                    if (!msgOld ) {//|| [messageidNew isEqualToString:@""]
                         
                         NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                         NSString * date = [DataHelper getStringValue:obj[@"time"] defaultValue:@""];
@@ -287,9 +287,7 @@ static NSInteger const kAttributedLabelTag = 100;
                     }
                     
                     
-                }
-                
-                
+                } 
             }];
             [self.tableView reloadData];
         }
@@ -323,7 +321,7 @@ static NSInteger const kAttributedLabelTag = 100;
                      */
                     NSString * messageidNew = [DataHelper getStringValue:obj[@"messageId"] defaultValue:@""];
                     FCMessage * msgOld =  [[FCMessage MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageidNew]] firstObject];
-                    if (!msgOld || [messageidNew isEqualToString:@""]) {
+                    if (!msgOld) {// || [messageidNew isEqualToString:@""]
                         
                         NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                         NSString * date = [DataHelper getStringValue:obj[@"time"] defaultValue:@""];
