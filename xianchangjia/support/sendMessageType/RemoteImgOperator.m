@@ -355,9 +355,6 @@
     [operation start];
 }
 
-
-
-
 #pragma mark - 获取文件大小
 - (NSInteger) getFileSize:(NSString*) path{
     NSFileManager * filemanager = [[NSFileManager alloc]init];

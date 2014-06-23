@@ -16,6 +16,7 @@
     NSMutableArray * datasource;
     Conversation * currentVer;
 }
+
 @end
 
 @implementation YQURLForwardViewController

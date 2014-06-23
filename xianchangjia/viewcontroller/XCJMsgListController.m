@@ -1121,8 +1121,7 @@
         {
             
             ChatViewController * chatview = [self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
-            chatview.title = friend.facebookName;
-            
+            chatview.title = friend.facebookName;            
             chatview.conversation = friend;
             //[NSString stringWithFormat:@"%@_%@",XCMessageActivity_User_GroupMessage,gid];
             
@@ -1314,6 +1313,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Conversation *recipe = (Conversation *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     [self showRecipe:recipe animated:YES];
+    
+    
     //    UserInfo_default * info = _dataSource[indexPath.row];
     //
     //    XCJUserViewController *viewcon = [self.storyboard instantiateViewControllerWithIdentifier:@"XCJUserViewController"];

@@ -79,22 +79,20 @@
         NSString *host = [[USER_DEFAULT stringForKey:KeyChain_yunqi_account_notifyServerhostName] stringByReplacingOccurrencesOfString:@"http://" withString:@""];
         [mutaDict setValue:host forKey:@"hostname"];
         [[[LXAPIController sharedLXAPIController] requestLaixinManager]  requestPostActionWithCompletion:^(id response, NSError *error) {
-            /*
-             code = 200;
-             data =     {
-             hostName = "apiservicetest.cloud7.com.cn";
-             token = "x0tMaZQtslIksQGL0sgspnqDW+BtFozy//unzGXdcQvNnaEzT1Al7e6Z56AnzHQG5AVG3MfAUpZXYmuFCSte9085+VgCrBeNnXSFKiXr8LFpl8Dgrq/eNeIk";
-             tokenValidDuration = 259200;
-             };
-             message = OK;
+            
+            /*  code = 200;
+                data =     {
+                hostName = "apiservicetest.cloud7.com.cn";
+                token = "x0tMaZQtslIksQGL0sgspnqDW+BtFozy//unzGXdcQvNnaEzT1Al7e6Z56AnzHQG5AVG3MfAUpZXYmuFCSte9085+VgCrBeNnXSFKiXr8LFpl8Dgrq/eNeIk";
+                tokenValidDuration = 259200;  };
+                message = OK;
              */
             [SVProgressHUD dismiss];
+            
             int code = [DataHelper getIntegerValue:response[@"code"] defaultValue:0];
             if (code == 200) {
                 //success ...
                 NSString * tokenPush = [USER_DEFAULT stringForKey:KeyChain_Laixin_account_devtokenstring];
-                
-                
                 NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
                 [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
                 

@@ -306,7 +306,6 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
                             }else{
                                 dataDict=[DataHelper getDictionaryValue:[dataObj objectFromJSONString] defaultValue:[NSMutableDictionary dictionary]];
                             }
-                            
                             SLog(@"dataDict %@",dataDict);
                             if ([applick containString:@"WeChat"]) {
                                 //  未读消息
@@ -568,15 +567,14 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
 {
     SLog(@"userInfo %@",userInfo);
     //如果程序在前台显示就自动忽略
-    
+
     if (application.applicationState == UIApplicationStateActive) {
         return;
     }
     if (userInfo) {
         // web7AppLink = "WeChat://Message/ocUAetzPcjvjc7OJOUburCuQ7LNM";
         // web7AppLink = "OrderManager://ordercreated?orderid=39&orderno=1406202332299";
-        
-        NSString * applink =  [DataHelper getStringValue:userInfo[@"web7AppLink"] defaultValue:@""];
+        NSString * applink =  [DataHelper getStringValue:userInfo[@"web7Link"] defaultValue:@""];
         NSURL * url = [NSURL URLWithString:applink];
         /*if ([applink containString:@"OrderManager"]) {
             //订单管理
@@ -685,7 +683,6 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
         NSManagedObjectContext *localContext  = [NSManagedObjectContext MR_contextForCurrentThread];
         NSPredicate * pre = [NSPredicate predicateWithFormat:@"facebookId == %@",weichatID];
         Conversation * conversation =  [Conversation MR_findFirstWithPredicate:pre inContext:localContext];
-        
         if (conversation) {
             // create new
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StoryboardYunQi" bundle:nil];

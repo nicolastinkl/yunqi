@@ -192,10 +192,35 @@ static NSInteger const kAttributedLabelTag = 100;
     
     FCMessage *msg =   [self.messageList firstObject];
     if (msg == nil) {
-//        [self.view showIndicatorViewLargeBlue];
+        //        [self.view showIndicatorViewLargeBlue];
         [self initchatdata:nil];
     }
     
+    if ([self.conversation.badgeNumber intValue] > 0) {
+        self.conversation.badgeNumber = @(0);
+        [[[LXAPIController sharedLXAPIController] chatDataStoreManager] saveContext];
+        
+        if (msg) {
+            [self fetchNewDataWithLastID];
+        }
+        //  [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMessageTabBarItemBadge" object:nil];
+        double delayInSeconds = .5;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            // update mesage status
+            NSMutableDictionary * dic = [[NSMutableDictionary alloc] init];
+            [dic setValue:self.conversation.facebookId forKey:@"weChatId"];
+            [dic setValue:@"unread" forKey:@"state"];
+            [dic setValue:@"read" forKey:@"afterState"];
+            [[DAHttpClient sharedDAHttpClient] postRequestWithParameters:dic Action:@"AdminApi/WeChat/UpdateState" success:^(id obj) {
+            } error:^(NSInteger index) {
+            }];
+        });
+        
+    }
+
+    
+   
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refershTableView:) name:NSNotificationCenter_RefreshChatTableView object:nil];
 }
@@ -203,14 +228,17 @@ static NSInteger const kAttributedLabelTag = 100;
 -(void) refershTableView :(NSNotification * ) notify
 {
     if (notify) {
-        [self.messageList addObject:notify.object];
-        [self insertTableRow];
-
-        /*!
-         *  清空首页未读消息条数
-         */
-        self.conversation.badgeNumber = @(0);
-        [[[LXAPIController sharedLXAPIController] chatDataStoreManager] saveContext];
+        
+        FCMessage* msg =  notify.object;
+        if ([msg.wechatid isEqualToString:self.conversation.facebookId]) { //是否是当前会话
+            [self.messageList addObject:notify.object];
+            [self insertTableRow];
+            /*!
+             *  清空首页未读消息条数
+             */
+            self.conversation.badgeNumber = @(0);
+            [[[LXAPIController sharedLXAPIController] chatDataStoreManager] saveContext];
+        }
     }
 }
 
@@ -221,75 +249,79 @@ static NSInteger const kAttributedLabelTag = 100;
 {
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setValue:self.conversation.facebookId forKey:@"weChatId"];
-//    [params setValue:@"" forKey:@"messageId"];
-    [params setValue:@(10) forKey:@"max"];
-    
-    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/Thead" success:^(id response) {
+    FCMessage* msg = [self.messageList lastObject];
+    [params setValue:msg.messageId forKey:@"messageId"];
+    [params setValue:@(30) forKey:@"max"];
+    [[DAHttpClient sharedDAHttpClient] getRequestWithParameters:params Action:@"AdminApi/WeChat/ThreadLatestMessages" success:^(id response) {
         if (response && [DataHelper getIntegerValue:response[@"code"] defaultValue:0] == 200) {
             NSArray * dataarray = response[@"data"];
-            [dataarray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                if(obj )
-                {
-                    /*
-                     check message id can insert???
-                     */
-                    NSString * messageidNew = [DataHelper getStringValue:obj[@"messageId"] defaultValue:@""];
-                    FCMessage * msgOld =  [[FCMessage MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageidNew]] firstObject];
-                    if (!msgOld ) {//|| [messageidNew isEqualToString:@""]
-                        
-                        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-                        NSString * date = [DataHelper getStringValue:obj[@"time"] defaultValue:@""];
-                        NSDictionary * messageDict = obj[@"message"];
-                        NSString * typeMessage = [DataHelper getStringValue:messageDict[@"msgType"] defaultValue:@""];
-                        NSString * content = [DataHelper getStringValue:messageDict[@"content"] defaultValue:@""];
-                        NSString * to = [DataHelper getStringValue:obj[@"to"] defaultValue:@""];
-                        NSString * from = [DataHelper getStringValue:obj[@"from"] defaultValue:@""];
-                        FCMessage* msg = [FCMessage MR_createInContext:localContext];
-                        if ([content isNilOrEmpty]) {
-                            content = @"";
-                        }
-                        SLog(@"content :%@",content);
-                        msg.text = content;
-                        msg.sentDate = [tools datebyStr:date];
-                        msg.wechatid = self.conversation.facebookId; // proment
-                        msg.messageId = messageidNew;
-                        if ([typeMessage isEqualToString:@"text"]) {
-                            msg.messageType = @(messageType_text);
-                        }else if ([typeMessage isEqualToString:@"image"]) {
-                            //image
-                            msg.messageType = @(messageType_image);
-                            NSString * publicUrl = [DataHelper getStringValue:messageDict[@"mediaPath"] defaultValue:@""];
-                            msg.imageUrl = publicUrl;
-                        }else if ([typeMessage isEqualToString:@"voice"]) {
-                            //audio
-                            NSString * publicUrl = [DataHelper getStringValue:messageDict[@"mediaPath"] defaultValue:@""];
-                            msg.audioUrl = publicUrl;
-                            msg.messageType = @(messageType_audio);
-                            int length  = 10;//
-                            msg.audioLength = @(length/audioLengthDefine);
-                        }else{
-                            msg.messageType = @(messageType_text);
+            if (dataarray && dataarray.count > 0) {
+                NSArray * arraySort = [[dataarray reverseObjectEnumerator] allObjects];
+                [arraySort enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    if(obj )
+                    {
+                        /*
+                         check message id can insert???
+                         */
+                        NSString * messageidNew = [DataHelper getStringValue:obj[@"messageId"] defaultValue:@""];
+                        FCMessage * msgOld =  [[FCMessage MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"messageId == %@",messageidNew]] firstObject];
+                        if (!msgOld ) {//|| [messageidNew isEqualToString:@""]
                             
+                            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                            NSString * date = [DataHelper getStringValue:obj[@"time"] defaultValue:@""];
+                            NSDictionary * messageDict = obj[@"message"];
+                            NSString * typeMessage = [DataHelper getStringValue:messageDict[@"msgType"] defaultValue:@""];
+                            NSString * content = [DataHelper getStringValue:messageDict[@"content"] defaultValue:@""];
+                            NSString * to = [DataHelper getStringValue:obj[@"to"] defaultValue:@""];
+                            NSString * from = [DataHelper getStringValue:obj[@"from"] defaultValue:@""];
+                            FCMessage* msg = [FCMessage MR_createInContext:localContext];
+                            if ([content isNilOrEmpty]) {
+                                content = @"";
+                            }
+                            SLog(@"content :%@",content);
+                            msg.text = content;
+                            msg.sentDate = [tools datebyStr:date];
+                            msg.wechatid = self.conversation.facebookId; // proment
+                            msg.messageId = messageidNew;
+                            if ([typeMessage isEqualToString:@"text"]) {
+                                msg.messageType = @(messageType_text);
+                            }else if ([typeMessage isEqualToString:@"image"]) {
+                                //image
+                                msg.messageType = @(messageType_image);
+                                NSString * publicUrl = [DataHelper getStringValue:messageDict[@"mediaPath"] defaultValue:@""];
+                                msg.imageUrl = publicUrl;
+                            }else if ([typeMessage isEqualToString:@"voice"]) {
+                                //audio
+                                NSString * publicUrl = [DataHelper getStringValue:messageDict[@"mediaPath"] defaultValue:@""];
+                                msg.audioUrl = publicUrl;
+                                msg.messageType = @(messageType_audio);
+                                int length  = 10;//
+                                msg.audioLength = @(length/audioLengthDefine);
+                            }else{
+                                msg.messageType = @(messageType_text);
+                                
+                            }
+                            
+                            if ([from isEqualToString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name]] && [to isEqualToString:self.conversation.facebookId]) {
+                                // me
+                                // message did come, this will be on right
+                                msg.messageStatus = @(NO);
+                            }else{
+                                //other
+                                // message did come, this will be on left
+                                msg.messageStatus = @(YES);
+                            }
+                            [self.conversation addMessagesObject:msg];
+                            [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
+                            [self.messageList addObject:msg];
                         }
                         
-                        if ([from isEqualToString:[USER_DEFAULT stringForKey:KeyChain_yunqi_account_name]] && [to isEqualToString:self.conversation.facebookId]) {
-                            // me
-                            // message did come, this will be on right
-                            msg.messageStatus = @(NO);
-                        }else{
-                            //other
-                            // message did come, this will be on left
-                            msg.messageStatus = @(YES);
-                        }
-                        [self.conversation addMessagesObject:msg];
-                        [localContext MR_saveToPersistentStoreAndWait];// MR_saveOnlySelfAndWait];
-                        [self.messageList addObject:msg];
-                    }
-                    
-                    
-                } 
-            }];
-            [self.tableView reloadData];
+                        
+                    } 
+                }];
+                [self.tableView reloadData];
+            }
+            
         }
     } error:^(NSInteger index) {
         
@@ -783,50 +815,11 @@ static NSInteger const kAttributedLabelTag = 100;
     _loading = NO;
     _currentPage++;
     
-    /*__weak ChatViewController *self_ = self;
-     Sequencer *sequencer = [[Sequencer alloc] init];
-     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-     self_.messageList = [NSMutableArray arrayWithArray:[[[LXAPIController sharedLXAPIController] chatDataStoreManager] fetchAllMessagesInConversation:self_.conversation]];
-     //        [self_.messageList turnObjectCore:[NSMutableArray arrayWithArray:[[[LXAPIController sharedLXAPIController] chatDataStoreManager] fetchAllMessagesInConversation:self_.conversation]]];
-     [self_.tableView reloadData];
-     //tableView底部
-     [self scrollToBottonWithAnimation:NO];
-     
-     completion(nil);
-     }];
-     [sequencer run];*/
-    
 }
-
-//- (MessageList*)messageList
-//{
-//    if (!_messageList) {
-//        _messageList = [[MessageList alloc]init];
-//    }
-//    return _messageList;
-//}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([self.conversation.badgeNumber intValue] > 0) {
-        self.conversation.badgeNumber = @(0);
-        [[[LXAPIController sharedLXAPIController] chatDataStoreManager] saveContext];
-      //  [[NSNotificationCenter defaultCenter] postNotificationName:@"updateMessageTabBarItemBadge" object:nil];
-        double delayInSeconds = .5;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            // update mesage status
-            NSMutableDictionary * dic = [[NSMutableDictionary alloc] init];
-            [dic setValue:self.conversation.facebookId forKey:@"weChatId"];
-            [dic setValue:@"unread" forKey:@"state"];
-            [dic setValue:@"read" forKey:@"afterState"];
-            [[DAHttpClient sharedDAHttpClient] postRequestWithParameters:dic Action:@"AdminApi/WeChat/UpdateState" success:^(id obj) {
-            } error:^(NSInteger index) {
-                
-            }];
-        });
-    }
-
+    
    
 	// Do any additional setup after loading the view.
     
