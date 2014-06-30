@@ -1447,13 +1447,17 @@
                                                     <rect key="frame" x="40" y="35" width="80" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                                    <state key="normal" image="ReceiverVoiceNodePlaying_ios7">
+                                                    <state key="normal">
                                                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" tag="12" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="N9L-f5-tju">
                                                     <rect key="frame" x="68" y="40" width="24" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView hidden="YES" appearanceType="aqua" userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_bottom_voice_nor" id="gi7-f5-VqR">
+                                                    <rect key="frame" x="68" y="34" width="34" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -1544,7 +1548,7 @@
                                                     <rect key="frame" x="158" y="35" width="89" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                                    <state key="normal" title="2''" image="SenderVoiceNodePlaying_ios7">
+                                                    <state key="normal">
                                                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -1561,6 +1565,10 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView hidden="YES" appearanceType="aqua" userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_my_bottom_voice_nor" id="yCG-JV-0Qd">
+                                                    <rect key="frame" x="218" y="34" width="34" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1761,9 +1769,7 @@
     <resources>
         <image name="BG_mask" width="1" height="854"/>
         <image name="ReceiverTextNodeBkg_ios7" width="66" height="54"/>
-        <image name="ReceiverVoiceNodePlaying_ios7" width="20" height="20"/>
         <image name="SenderTextNodeBkg" width="66" height="54"/>
-        <image name="SenderVoiceNodePlaying_ios7" width="20" height="20"/>
         <image name="XEATabBar_bg" width="320" height="49"/>
         <image name="actionIconShareSelected" width="22" height="22"/>
         <image name="bg" width="320" height="548"/>
@@ -1774,6 +1780,8 @@
         <image name="button click" width="286" height="44"/>
         <image name="chat_bottom_keyboard_press" width="34" height="34"/>
         <image name="chat_bottom_up_press" width="34" height="34"/>
+        <image name="chat_bottom_voice_nor" width="34" height="34"/>
+        <image name="chat_my_bottom_voice_nor" width="34" height="34"/>
         <image name="composerTextFieldBackground" width="21" height="30"/>
         <image name="groupMask" width="60" height="60"/>
         <image name="help-close-button" width="19" height="19"/>

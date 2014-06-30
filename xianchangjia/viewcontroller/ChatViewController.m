@@ -2431,6 +2431,8 @@ static NSInteger const kAttributedLabelTag = 100;
     UIButton * retryButton = (UIButton *) [cell.contentView subviewWithTag:10];
     UIButton * audioButton = (UIButton *) [cell.contentView subviewWithTag:11];
     UIImageView * Image_playing = (UIImageView*)[cell.contentView subviewWithTag:12];
+    UIImageView * Image_playImg = (UIImageView*)[cell.contentView subviewWithTag:13];
+    
     OHAttributedLabel* labelContent = (OHAttributedLabel*)[cell viewWithTag:kAttributedLabelTag];
     if (labelContent == nil) {
         labelContent = [[OHAttributedLabel alloc] initWithFrame:CGRectMake(0,0,0,0)];
@@ -2531,6 +2533,7 @@ static NSInteger const kAttributedLabelTag = 100;
     
     audioButton.left = 400.0f;
     if ([message.messageType intValue] == messageType_image) {
+        Image_playImg.hidden = YES;
         //display image  115 108
         labelContent.text  = @"";
         // /private/var/mobile/Applications/8703284D-476D-40A3-AE21-3BD108796AB5/tmp/5b87a4c4e8a4113611b9a1e77a38f1e5.jpg
@@ -2589,7 +2592,7 @@ static NSInteger const kAttributedLabelTag = 100;
         labelContent.frame = CGRectMake(0, 0, 0, 0);
         labelContent.attributedText = nil;
     }else if ([message.messageType intValue] == messageType_text) {
-        
+        Image_playImg.hidden = YES;
         NSMutableAttributedString* mas = [NSMutableAttributedString attributedStringWithString:message.text];
         [mas setFont:[UIFont systemFontOfSize: 17.0f]];
         [mas setTextColor:[UIColor blackColor]];        
@@ -2654,6 +2657,7 @@ static NSInteger const kAttributedLabelTag = 100;
         
     }else if([message.messageType intValue] == messageType_emj)
     {
+        Image_playImg.hidden = YES;
         labelContent.text  = @"";
         //display image  115 108
         [imageview_Img setImage:[UIImage imageNamed:message.text]];
@@ -2699,6 +2703,7 @@ static NSInteger const kAttributedLabelTag = 100;
         
     }else if([message.messageType intValue] == messageType_map)
     {
+        Image_playImg.hidden = YES;
         //display image  115 108
         labelContent.text  = @"";
         [imageview_Img setImageWithURL:[NSURL URLWithString:[tools getUrlByImageUrl:message.imageUrl Size:320]] placeholderImage:[UIImage imageNamed:@"messages_map_image_default"]];
@@ -2744,6 +2749,8 @@ static NSInteger const kAttributedLabelTag = 100;
         
     }else if([message.messageType intValue] == messageType_audio)
     {
+
+        Image_playImg.hidden = NO;
         labelContent.frame = CGRectMake(0, 0, 0, 0);
         labelContent.attributedText = nil;
         
@@ -2787,9 +2794,9 @@ static NSInteger const kAttributedLabelTag = 100;
             displayLength = localLength/audioLengthDefine;
         }
         if (displayLength > 0) {
-         [audioButton setTitle:[NSString stringWithFormat:@"%d''",displayLength] forState:UIControlStateNormal];
+            [audioButton setTitle:[NSString stringWithFormat:@"%d''",displayLength] forState:UIControlStateNormal];
         }else{
-          [audioButton setTitle:@" " forState:UIControlStateNormal];
+            [audioButton setTitle:@" " forState:UIControlStateNormal];
         }
         
         [audioButton addTarget:self action:@selector(playaudioClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -2798,17 +2805,17 @@ static NSInteger const kAttributedLabelTag = 100;
         {
             [imageview_BG setLeft:55.0f];
             audioButton.left = 60.0f;
-            Image_playing.left = audioButton.left + 6;//imageview_BG.left + imageview_BG.width + 10;
+            Image_playing.left = audioButton.left + 5.5;//imageview_BG.left + imageview_BG.width + 10;
             
             indictorView.left = imageview_BG.left + imageview_BG.width  + 5;
-            indictorView.top = imageview_BG.height/2  + 20;
+            indictorView.top = imageview_BG.height/2  + 18;
             
             retryButton.left = imageview_BG.left + imageview_BG.width;
-            retryButton.top = imageview_BG.height/2  + 10;
+            retryButton.top = imageview_BG.height/2  + 8;
             
-            UIImage * image = [UIImage imageNamed:@"chat_my_bottom_voice_press"];
-            audioButton.imageEdgeInsets = UIEdgeInsetsMake(0.,0., 0., audioButton.frame.size.width - (image.size.width + 5));
-            audioButton.titleEdgeInsets = UIEdgeInsetsMake(0., 0., 0., image.size.width);
+//            UIImage * image = [UIImage imageNamed:@"chat_my_bottom_voice_press"];
+//            audioButton.imageEdgeInsets = UIEdgeInsetsMake(0.,0., 0., audioButton.frame.size.width - (image.size.width + 5));
+//            audioButton.titleEdgeInsets = UIEdgeInsetsMake(0., 0., 0., image.size.width);
         }
         else
         {
@@ -2816,15 +2823,15 @@ static NSInteger const kAttributedLabelTag = 100;
             [imageview_BG setLeft:APP_SCREEN_WIDTH -  imageview_BG.width - 55.0f ];
             audioButton.left = APP_SCREEN_WIDTH -  50.0f -  55.0f -50;
             Image_playing.left =  APP_SCREEN_WIDTH -  imageview_BG.width - 5;// - 55.0f;// - 25;
-            UIImage * image = [UIImage imageNamed:@"chat_my_bottom_voice_press"];
-            audioButton.imageEdgeInsets = UIEdgeInsetsMake(0., audioButton.frame.size.width - (image.size.width + 5.), 0., 0.);
-            audioButton.titleEdgeInsets = UIEdgeInsetsMake(0., 0., 0., image.size.width);
+//            UIImage * image = [UIImage imageNamed:@"chat_my_bottom_voice_press"];
+//            audioButton.imageEdgeInsets = UIEdgeInsetsMake(0., audioButton.frame.size.width - (image.size.width + 5.), 0., 0.);
+//            audioButton.titleEdgeInsets = UIEdgeInsetsMake(0., 0., 0., image.size.width);
             
             indictorView.left = APP_SCREEN_WIDTH - 70 - imageview_BG.width - 10 - 5;
-            indictorView.top = imageview_BG.height/2  + 20;
+            indictorView.top = imageview_BG.height/2  + 18;
             
             retryButton.left = APP_SCREEN_WIDTH - 70 - imageview_BG.width - 10 -10 ;
-            retryButton.top = imageview_BG.height/2  + 10;
+            retryButton.top = imageview_BG.height/2  + 8;
         }
         Image_playing.top = 40;// imageview_BG.height/2 + 17 ;
          if ([message.messageStatus boolValue])
@@ -2926,7 +2933,6 @@ static NSInteger const kAttributedLabelTag = 100;
         }
     }
     
-   
 }
 
 -(IBAction)playaudioClick:(id)sender
@@ -2936,6 +2942,9 @@ static NSInteger const kAttributedLabelTag = 100;
         return;
     }
     
+    /*!
+     *  隐藏播放图标
+     */
     //初始化播放器
     if(player == nil)
     player = [[AVAudioPlayer alloc]init];
@@ -2952,7 +2961,6 @@ static NSInteger const kAttributedLabelTag = 100;
     {
         cell = (XCJChatMessageCell *)button.superview.superview.superview;
     }
-
     if (playingCell && cell != playingCell &&  playingCell.isplayingAudio) {
         if (playingURL) {
             player = [[AVAudioPlayer alloc] initWithContentsOfURL:playingURL error:nil];
@@ -2960,7 +2968,11 @@ static NSInteger const kAttributedLabelTag = 100;
         }
         [self StopPlayingimgArray:playingCell];
         playingCell.isplayingAudio = NO;
+        
     }
+    
+//    UIButton * audioButton = (UIButton *) [cell.contentView subviewWithTag:11];
+//    audioButton.imageView.image = nil;
     
     if (cell.isplayingAudio) {
         if (playingURL) {
@@ -3092,10 +3104,18 @@ static NSInteger const kAttributedLabelTag = 100;
     UIImageView * Image_playing = (UIImageView*)[cell.contentView subviewWithTag:12];
     [Image_playing stopAnimating];
     [Image_playing.layer removeAllAnimations];
+    UIImageView * Image_playImg = (UIImageView*)[cell.contentView subviewWithTag:13];
+    Image_playImg.hidden = NO;
+ 
 }
 
 - (void) ShowPlayingimgArray:(UITableViewCell * ) cell withTime:(int) timer
 {
+    
+    
+    UIImageView * Image_playImg = (UIImageView*)[cell.contentView subviewWithTag:13];
+    Image_playImg.hidden = YES;
+    
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
     NSString * string = cell.reuseIdentifier;
     NSArray * gifArray;
@@ -3130,6 +3150,8 @@ static NSInteger const kAttributedLabelTag = 100;
     [Image_playing stopAnimating];
     Image_playing.image = nil;
      [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
+    UIImageView * Image_playImg = (UIImageView*)[cellself.contentView subviewWithTag:13];
+    Image_playImg.hidden = NO;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
