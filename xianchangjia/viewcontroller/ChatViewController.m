@@ -60,6 +60,8 @@
 #import "AFHTTPRequestOperationManager.h"
 
 
+
+
 #define kMarginTop 29.0f
 #define kMarginBottom 4.0f
 #define kPaddingTop 4.0f
@@ -72,7 +74,7 @@
 #define  audioLengthDefine  1050
 static NSInteger const kAttributedLabelTag = 100;
 
-@interface ChatViewController () <UITableViewDataSource,UITableViewDelegate, UIGestureRecognizerDelegate,UITextViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIAlertViewDelegate,XCJChatSendImgViewControllerdelegate,UIScrollViewDelegate,facialViewDelegate,XCJChatSendInfoViewDelegate,VoiceRecorderBaseVCDelegate,OHAttributedLabelDelegate>
+@interface ChatViewController () <UITableViewDataSource,UITableViewDelegate, UIGestureRecognizerDelegate,UITextViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIAlertViewDelegate,XCJChatSendImgViewControllerdelegate,UIScrollViewDelegate,facialViewDelegate,XCJChatSendInfoViewDelegate,VoiceRecorderBaseVCDelegate,OHAttributedLabelDelegate,ZBMessageInputViewDelegate,ZBMessageShareMenuViewDelegate,ZBMessageManagerFaceViewDelegate>
 {
     AFHTTPRequestOperation *  operation;
     NSString * TokenAPP;
@@ -91,6 +93,14 @@ static NSInteger const kAttributedLabelTag = 100;
     BOOL AllLoad;
     BOOL AllDBdatabaseLoad;
     NSInteger _currentPage;
+    
+    /*!
+     *  input method about...
+     */
+    double animationDuration;
+    CGRect keyboardRect;
+    UIViewAnimationCurve curve_keyboard;
+    
 }
 
 @property (weak, nonatomic) IBOutlet UIView *inputContainerView;
@@ -116,6 +126,8 @@ static NSInteger const kAttributedLabelTag = 100;
 @implementation ChatViewController
 @synthesize m_objImgListOper = _objImgListOper;
 @synthesize recorderVC,player,originWav,convertAmr;
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -129,6 +141,8 @@ static NSInteger const kAttributedLabelTag = 100;
 {
     [super viewDidLoad];
     
+    [self initilzer];
+    
     [self.navigationController ios6backview];
     
     [[OHAttributedLabel appearance] setLinkColor:ios7BlueColor];
@@ -136,14 +150,11 @@ static NSInteger const kAttributedLabelTag = 100;
     [[OHAttributedLabel appearance] setLinkUnderlineStyle:kCTUnderlineStyleNone];
     
     self.tableView.backgroundColor = [UIColor colorWithHex:0xffefefef];
-    //加个拖动手势
-//    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-//    panRecognizer.delegate = self;
-//    [self.tableView addGestureRecognizer:panRecognizer];
     
     NSMutableArray * array = [[NSMutableArray alloc] init];
-    self.messageList =array;
+    self.messageList = array;
     
+    /*
     UIButton * button = (UIButton *) [self.inputContainerView subviewWithTag:1];
     [button defaultStyle];
     
@@ -179,10 +190,11 @@ static NSInteger const kAttributedLabelTag = 100;
         self.inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         
     }
+    */
     
     _objImgListOper = [[RemoteImgListOperator alloc] init];
     
-    self.title = self.conversation.facebookName;
+    self.title = [DataHelper getStringValue:self.conversation.facebookName defaultValue:@"未知"];
     
     /**
      *  init _data
@@ -190,9 +202,8 @@ static NSInteger const kAttributedLabelTag = 100;
     _currentPage = 0;
     [self setUpSequencer];
     
-    FCMessage *msg =   [self.messageList firstObject];
+    FCMessage * msg =   [self.messageList firstObject];
     if (msg == nil) {
-        //        [self.view showIndicatorViewLargeBlue];
         [self initchatdata:nil];
     }
     
@@ -218,12 +229,269 @@ static NSInteger const kAttributedLabelTag = 100;
         });
         
     }
-
-    
-   
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refershTableView:) name:NSNotificationCenter_RefreshChatTableView object:nil];
 }
+
+#pragma mark - 初始化
+- (void)initilzer{
+    
+    animationDuration = 0.25;
+    
+    CGFloat inputViewHeight = 44.0f;
+    
+    /*
+    if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
+        inputViewHeight = 45.0f;
+    }
+    else{
+        inputViewHeight = 40.0f;
+    }*/
+    
+    ZBMessageInputView * inputView = [[ZBMessageInputView alloc] initWithFrame:CGRectMake(0.0f,
+                                                                               self.view.frame.size.height - inputViewHeight,self.view.frame.size.width,inputViewHeight)];
+    [inputView setup];
+    self.messageToolView = inputView;    
+    self.messageToolView.delegate = self;
+    [self.view addSubview:self.messageToolView];
+    
+    if([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
+    {
+        self.messageToolView.top = APP_SCREEN_CONTENT_HEIGHT - self.messageToolView.height-44;
+    }else{
+        self.messageToolView.top = self.view.height - self.messageToolView.height;
+    }
+    
+    [self shareFaceView];
+    [self shareShareMeun];
+    
+}
+
+- (void)shareFaceView{
+    
+    if (!self.faceView)
+    {
+        self.faceView = [[ZBMessageManagerFaceView alloc]initWithFrame:CGRectMake(0.0f,
+                                                                                  CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame), 196)];
+        self.faceView.delegate = self;
+        [self.view addSubview:self.faceView];
+        
+    }
+}
+
+- (void)shareShareMeun
+{
+    if (!self.shareMenuView)
+    {
+        self.shareMenuView = [[ZBMessageShareMenuView alloc]initWithFrame:CGRectMake(0.0f,
+                                                                                     CGRectGetHeight(self.view.frame),
+                                                                                     CGRectGetWidth(self.view.frame), 196)];
+        [self.view addSubview:self.shareMenuView];
+        self.shareMenuView.delegate = self;
+        
+        ZBMessageShareMenuItem *sharePicItem = [[ZBMessageShareMenuItem alloc]initWithNormalIconImage:[UIImage imageNamed:@"sharemore_pic_ios7"]
+                                                                                                title:@"照片"];
+        ZBMessageShareMenuItem *shareVideoItem = [[ZBMessageShareMenuItem alloc]initWithNormalIconImage:[UIImage imageNamed:@"sharemore_video_ios7"]
+                                                                                                  title:@"拍摄"];
+//        ZBMessageShareMenuItem *shareLocItem = [[ZBMessageShareMenuItem alloc]initWithNormalIconImage:[UIImage imageNamed:@"sharemore_location_ios7"]
+//                                                                                                title:@"位置"];
+//        ZBMessageShareMenuItem *shareVoipItem = [[ZBMessageShareMenuItem alloc]initWithNormalIconImage:[UIImage imageNamed:@"sharemore_videovoip"]       title:@"视频聊天"];
+        self.shareMenuView.shareMenuItems = [NSArray arrayWithObjects:sharePicItem,shareVideoItem, nil];
+        [self.shareMenuView reloadData];
+        
+    }
+}
+#pragma mark - ZBMessageInputView Delegate
+- (void)didSelectedMultipleMediaAction:(BOOL)changed{
+    
+    if (changed)
+    {
+        [self messageViewAnimationWithMessageRect:self.shareMenuView.frame
+                         withMessageInputViewRect:self.messageToolView.frame
+                                      andDuration:animationDuration
+                                         andState:ZBMessageViewStateShowShare];
+    }
+    else{
+        [self messageViewAnimationWithMessageRect:keyboardRect
+                         withMessageInputViewRect:self.messageToolView.frame
+                                      andDuration:animationDuration
+                                         andState:ZBMessageViewStateShowNone];
+    }
+    
+}
+
+- (void)didSendFaceAction:(BOOL)sendFace{
+    if (sendFace) {
+        [self messageViewAnimationWithMessageRect:self.faceView.frame
+                         withMessageInputViewRect:self.messageToolView.frame
+                                      andDuration:animationDuration
+                                         andState:ZBMessageViewStateShowFace];
+    }
+    else{
+        [self messageViewAnimationWithMessageRect:keyboardRect
+                         withMessageInputViewRect:self.messageToolView.frame
+                                      andDuration:animationDuration
+                                         andState:ZBMessageViewStateShowNone];
+    }
+}
+
+- (void)didChangeSendVoiceAction:(BOOL)changed{
+    if (changed){
+        [self messageViewAnimationWithMessageRect:keyboardRect
+                         withMessageInputViewRect:self.messageToolView.frame
+                                      andDuration:animationDuration
+                                         andState:ZBMessageViewStateShowNone];
+    }
+    else{
+        [self messageViewAnimationWithMessageRect:CGRectZero
+                         withMessageInputViewRect:self.messageToolView.frame
+                                      andDuration:animationDuration
+                                         andState:ZBMessageViewStateShowNone];
+    }
+}
+
+/*
+ * 点击输入框代理方法
+ */
+- (void)inputTextViewWillBeginEditing:(ZBMessageTextView *)messageInputTextView{
+    
+}
+
+- (void)inputTextViewDidBeginEditing:(ZBMessageTextView *)messageInputTextView
+{
+    [self messageViewAnimationWithMessageRect:keyboardRect
+                     withMessageInputViewRect:self.messageToolView.frame
+                                  andDuration:animationDuration
+                                     andState:ZBMessageViewStateShowNone];
+    
+    if (!self.previousTextViewContentHeight)
+    {
+        self.previousTextViewContentHeight = messageInputTextView.contentSize.height;
+    }
+}
+
+- (void)inputTextViewDidChange:(ZBMessageTextView *)messageInputTextView
+{
+    CGFloat maxHeight = [ZBMessageInputView maxHeight];
+    CGSize size = [messageInputTextView sizeThatFits:CGSizeMake(CGRectGetWidth(messageInputTextView.frame), maxHeight)];
+    CGFloat textViewContentHeight = size.height;
+    
+    // End of textView.contentSize replacement code
+    BOOL isShrinking = textViewContentHeight < self.previousTextViewContentHeight;
+    CGFloat changeInHeight = textViewContentHeight - self.previousTextViewContentHeight;
+    
+    if(!isShrinking && self.previousTextViewContentHeight == maxHeight) {
+        changeInHeight = 0;
+    }
+    else {
+        changeInHeight = MIN(changeInHeight, maxHeight - self.previousTextViewContentHeight);
+    }
+    
+    if(changeInHeight != 0.0f) {
+        
+        [UIView animateWithDuration:0.01f
+                         animations:^{
+                             
+                             if(isShrinking) {
+                                 // if shrinking the view, animate text view frame BEFORE input view frame
+                                 [self.messageToolView adjustTextViewHeightBy:changeInHeight];
+                             }
+                             
+                             CGRect inputViewFrame = self.messageToolView.frame;
+                             self.messageToolView.frame = CGRectMake(0.0f,
+                                                                     inputViewFrame.origin.y - changeInHeight,
+                                                                     inputViewFrame.size.width,
+                                                                     inputViewFrame.size.height + changeInHeight);
+                             
+                             if(!isShrinking) {
+                                 [self.messageToolView adjustTextViewHeightBy:changeInHeight];
+                             }
+                         }
+                         completion:^(BOOL finished) {
+                             
+                         }];
+        
+        self.previousTextViewContentHeight = MIN(textViewContentHeight, maxHeight);
+    }
+}
+/*
+ * 发送信息
+ */
+- (void)didSendTextAction:(ZBMessageTextView *)messageInputTextView{
+    if (messageInputTextView.text.length > 0) {
+        [self sendtextMessage:messageInputTextView.text];
+        [messageInputTextView setText:nil];
+        [self inputTextViewDidChange:messageInputTextView];
+    }
+    
+}
+
+
+/**
+ *  按下录音按钮开始录音
+ */
+- (void)didStartRecordingVoiceAction
+{
+    self.tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
+    SLog(@"recordBtnLongPressedss..");
+    [self speakClick:nil];
+}
+
+/**
+ *  手指向上滑动取消录音
+ */
+- (void)didCancelRecordingVoiceAction
+{
+
+}
+
+/**
+ *  松开手指完成录音
+ */
+- (void)didFinishRecoingVoiceAction
+{
+    
+}
+#pragma end
+
+#pragma mark - ZBMessageFaceViewDelegate
+- (void)SendTheFaceStr:(NSString *)faceStr isDelete:(BOOL)dele
+{
+    NSString * text  = self.messageToolView.messageInputTextView.text;
+  
+    if(dele)
+    {
+        if(text.length > 0)
+        {
+            self.messageToolView.messageInputTextView.text = [text substringToIndex:(text.length - 1)];
+        }
+        
+    }else{
+        self.messageToolView.messageInputTextView.text = [text stringByAppendingString:faceStr];
+    }
+    
+    [self inputTextViewDidChange:self.messageToolView.messageInputTextView];
+    
+}
+
+#pragma end
+
+#pragma mark - ZBMessageShareMenuView Delegate
+- (void)didSelecteShareMenuItem:(ZBMessageShareMenuItem *)shareMenuItem atIndex:(NSInteger)index{
+    SLog(@" index %d",index);
+    switch (index) {
+        case 0:
+            [self choseFromGalleryClick];
+            break;
+        case 1:
+            [self takePhotoClick];
+            break;
+            
+        default:
+            break;
+    }
+}
+#pragma end
 
 -(void) refershTableView :(NSNotification * ) notify
 {
@@ -320,6 +588,8 @@ static NSInteger const kAttributedLabelTag = 100;
                     } 
                 }];
                 [self.tableView reloadData];
+                
+                [self scrollToBottonWithAnimation:YES];
             }
             
         }
@@ -826,6 +1096,12 @@ static NSInteger const kAttributedLabelTag = 100;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleWillShowKeyboardNotification:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleWillHideKeyboardNotification:) name:UIKeyboardWillHideNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(keyboardChange:)
+                                                name:UIKeyboardDidChangeFrameNotification
+                                              object:nil];
+    
+    
     /* receive websocket message
      */
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webSocketDidReceivePushMessage:)name: MLNetworkingManagerDidReceivePushMessageNotification   object:nil];
@@ -852,7 +1128,10 @@ static NSInteger const kAttributedLabelTag = 100;
 - (void)handleWillShowKeyboardNotification:(NSNotification *)notification
 {
 
-    
+    keyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    animationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    curve_keyboard =  [[notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
+    /*
     //创建表情键盘
     if (scrollView==nil) {
         scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, keyboardHeight)];
@@ -883,9 +1162,20 @@ static NSInteger const kAttributedLabelTag = 100;
         [EmjView addSubview:pageControl];
         [self.view addSubview:EmjView];
     }
+     
+     [self keyboardWillShowHide:notification];
+     scrollView.delegate = self;
+     
+     */
     
-    [self keyboardWillShowHide:notification];
-         scrollView.delegate = self;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:curve_keyboard];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [self setTableViewInsetsWithBottomValue:self.view.frame.size.height
+     - self.messageToolView.frame.origin.y - self.messageToolView.height];
+    [UIView commitAnimations];
+    
     [self scrollToBottonWithAnimation:YES];
 }
 
@@ -900,6 +1190,60 @@ static NSInteger const kAttributedLabelTag = 100;
     }
 }
 
+
+- (void)keyboardChange:(NSNotification *)notification{
+    if ([[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y<CGRectGetHeight(self.view.frame)) {
+        [self messageViewAnimationWithMessageRect:[[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue]
+                         withMessageInputViewRect:self.messageToolView.frame
+                                      andDuration:0.25
+                                         andState:ZBMessageViewStateShowNone];
+    }
+}
+
+
+#pragma mark - messageView animation
+- (void)messageViewAnimationWithMessageRect:(CGRect)rect  withMessageInputViewRect:(CGRect)inputViewRect andDuration:(double)duration andState:(ZBMessageViewState)state{
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:curve_keyboard];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    self.messageToolView.frame = CGRectMake(0.0f,CGRectGetHeight(self.view.frame)-CGRectGetHeight(rect)-CGRectGetHeight(inputViewRect),CGRectGetWidth(self.view.frame),CGRectGetHeight(inputViewRect));
+    
+    switch (state) {
+        case ZBMessageViewStateShowFace:
+        {
+            self.faceView.frame = CGRectMake(0.0f,CGRectGetHeight(self.view.frame)-CGRectGetHeight(rect),CGRectGetWidth(self.view.frame),CGRectGetHeight(rect));
+            
+            self.shareMenuView.frame = CGRectMake(0.0f,CGRectGetHeight(self.view.frame),CGRectGetWidth(self.view.frame),CGRectGetHeight(self.shareMenuView.frame));
+        }
+            break;
+        case ZBMessageViewStateShowNone:
+        {
+            self.faceView.frame = CGRectMake(0.0f,CGRectGetHeight(self.view.frame),CGRectGetWidth(self.view.frame),CGRectGetHeight(self.faceView.frame));
+            
+            self.shareMenuView.frame = CGRectMake(0.0f,CGRectGetHeight(self.view.frame),CGRectGetWidth(self.view.frame),CGRectGetHeight(self.shareMenuView.frame));
+        }
+            break;
+        case ZBMessageViewStateShowShare:
+        {
+            self.shareMenuView.frame = CGRectMake(0.0f,CGRectGetHeight(self.view.frame)-CGRectGetHeight(rect),CGRectGetWidth(self.view.frame),CGRectGetHeight(rect));
+            
+            self.faceView.frame = CGRectMake(0.0f,CGRectGetHeight(self.view.frame),CGRectGetWidth(self.view.frame),CGRectGetHeight(self.faceView.frame));
+        }
+            break;
+            
+        default:
+            break;
+    }
+    [self setTableViewInsetsWithBottomValue:self.view.frame.size.height
+     - self.messageToolView.frame.origin.y - self.messageToolView.height];
+    [UIView commitAnimations];
+}
+#pragma end
+
+
 #pragma mark - Keyboard
 - (void)keyboardWillShowHide:(NSNotification *)notification
 {
@@ -910,7 +1254,7 @@ static NSInteger const kAttributedLabelTag = 100;
     UIViewAnimationCurve curve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
     CGRect keyboardFrame = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGRect keyboardFrameForTextField = [self.inputContainerView.superview convertRect:keyboardFrame fromView:nil];
-    CGRect keyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect keyboardRects = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGRect newTextFieldFrame = self.inputContainerView.frame;
     newTextFieldFrame.origin.y = keyboardFrameForTextField.origin.y - newTextFieldFrame.size.height;
     
@@ -919,7 +1263,7 @@ static NSInteger const kAttributedLabelTag = 100;
     [UIView setAnimationCurve:curve];
     [UIView setAnimationBeginsFromCurrentState:YES];
     
-    CGFloat keyboardY = [self.view convertRect:keyboardRect fromView:nil].origin.y;
+    CGFloat keyboardY = [self.view convertRect:keyboardRects fromView:nil].origin.y;
     
     CGRect inputViewFrame = self.inputContainerView.frame;
     CGFloat inputViewFrameY = keyboardY - inputViewFrame.size.height;
@@ -1416,6 +1760,10 @@ static NSInteger const kAttributedLabelTag = 100;
         player = nil;
     }
     
+    self.messageToolView = nil;
+    self.faceView = nil;
+    self.shareMenuView = nil;
+    
     scrollView.delegate  = nil;
     [_tableView setDelegate:nil];
     
@@ -1427,6 +1775,8 @@ static NSInteger const kAttributedLabelTag = 100;
                                                     name:MLNetworkingManagerDidReceivePushMessageNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:NSNotificationCenter_RefreshChatTableView object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardDidChangeFrameNotification object:nil];
     
      [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -1667,6 +2017,32 @@ static NSInteger const kAttributedLabelTag = 100;
     }
 }
 
+-(void) sendtextMessage:(NSString * ) text
+{
+    if ([text trimWhitespace].length > 0) {
+        //send to websocket message.send(uid,content) 私信 Result={“msgid”:}
+        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+        FCMessage *msg = [FCMessage MR_createInContext:localContext];
+        msg.text = text;
+        msg.wechatid = self.conversation.facebookId;
+        msg.sentDate = [NSDate date];
+        msg.messageType = @(messageType_text);
+        // message did not come, this will be on rigth
+        msg.messageStatus = @(NO);
+        msg.messageSendStatus = @(4); // ready to send
+        msg.messageId = [self getMD4HashWithObj];
+        msg.messageguid = [self getMD4HashWithObj];
+        self.conversation.lastMessage = text;
+        self.conversation.lastMessageDate = [NSDate date];
+        self.conversation.badgeNumber = @0;
+        self.conversation.messageStutes = @(messageStutes_outcoming);
+        self.inputTextView.text = @"";
+        [self.conversation addMessagesObject:msg];
+        [localContext MR_saveToPersistentStoreAndWait];
+        [self.messageList addObject:msg];
+        [self insertTableRow];
+    }
+}
 
 
 - (IBAction)adjustKeyboardFrame:(id)sender {
@@ -3052,8 +3428,6 @@ static NSInteger const kAttributedLabelTag = 100;
                     }else{
                          [UIAlertView showAlertViewWithMessage:@"播放失败,录音文件不存在"];
                     }
-                        
-                   
                 }];
                 [downloadTask resume];
             }else{
@@ -3376,7 +3750,7 @@ static NSInteger const kAttributedLabelTag = 100;
 {
     if([text isEqualToString:@"\n"])  {
         
-        [self SendTextMsgClick:nil];
+//        [self SendTextMsgClick:nil];
         return NO;
     }
     
@@ -3571,6 +3945,7 @@ static NSInteger const kAttributedLabelTag = 100;
     [self.inputTextView reloadInputViews];
     
 }
+
 
 
 

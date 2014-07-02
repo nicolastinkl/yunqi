@@ -100,6 +100,13 @@
     _allLoaded = NO;
     _datasourceIsLoading = YES;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(laixinCloseNotification:)
+                                                 name:LaixinCloseDBMessageNotification_view
+                                               object:nil];
+    
+   
+    
 /*
  
  self.seachbar.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -137,6 +144,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshOrderTableView:) name:NSNotificationCenter_RefreshOrderTableView object:nil];
 }
 
+/*!
+ *  注销登录
+ *
+ *  @param notification <#notification description#>
+ */
+- (void)laixinCloseNotification:(NSNotification *)notification
+{
+    [AllOrderList removeAllObjects];
+    
+    [self reloadArrays];
+    
+    YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
+ 
+    [delegate.tabBarController.tabBar.items[1] setBadgeValue:nil];
+}
 
 -(void) refreshOrderTableView:(NSNotification * ) notify
 {

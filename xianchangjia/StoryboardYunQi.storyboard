@@ -1579,7 +1579,7 @@
                                     <outlet property="delegate" destination="P6i-1c-yn0" id="SiA-51-acL"/>
                                 </connections>
                             </tableView>
-                            <view tag="1" contentMode="scaleToFill" id="PuX-XQ-44e" userLabel="InputContainerView">
+                            <view hidden="YES" tag="1" contentMode="scaleToFill" id="PuX-XQ-44e" userLabel="InputContainerView">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>

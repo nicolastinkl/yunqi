@@ -40,6 +40,7 @@
   #define NSUITextAlignment UITextAlignment
   #define NSUILineBreakMode UILineBreakMode
 #endif
+
 extern CTTextAlignment CTTextAlignmentFromUITextAlignment(NSUITextAlignment alignment);
 extern CTLineBreakMode CTLineBreakModeFromUILineBreakMode(NSUILineBreakMode lineBreakMode);
 

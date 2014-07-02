@@ -281,8 +281,7 @@ SINGLETON_GCD(GlobalData);
 
 /**
  *  add Commond
- *
- *  @param req <#req description#>
+ *  .. push
  */
 -(void)addCommentCommandInfo:(NSMutableDictionary*)req
 {

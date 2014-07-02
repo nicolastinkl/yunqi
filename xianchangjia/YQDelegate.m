@@ -557,7 +557,7 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
 	devtokenstring=[devtokenstring stringByReplacingOccurrencesOfString:@"\n" withString:@""];
 	devtokenstring=[devtokenstring stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     //devtokenstring:  d8009e6c8e074d1bbcb592f321367feaef5674a82fc4cf3b78b066b7c8ad59bd
-    NSLog(@"devtokenstring : %@",devtokenstring);
+    SLog(@"devtokenstring : %@",devtokenstring);
     
     [USER_DEFAULT setValue:devtokenstring forKey:KeyChain_Laixin_account_devtokenstring];
     [USER_DEFAULT synchronize];
@@ -571,9 +571,10 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     if (application.applicationState == UIApplicationStateActive) {
         return;
     }
+    
     if (userInfo) {
-        // web7AppLink = "WeChat://Message/ocUAetzPcjvjc7OJOUburCuQ7LNM";
-        // web7AppLink = "OrderManager://ordercreated?orderid=39&orderno=1406202332299";
+        // web7Link = "WeChat://Message/ocUAetzPcjvjc7OJOUburCuQ7LNM";
+        // web7Link = "OrderManager://ordercreated?orderid=39&orderno=1406202332299";
         NSString * applink =  [DataHelper getStringValue:userInfo[@"web7Link"] defaultValue:@""];
         NSURL * url = [NSURL URLWithString:applink];
         /*if ([applink containString:@"OrderManager"]) {
@@ -750,8 +751,9 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     }else{
         [self copyDefaultStoreIfNecessary:kLaixinStoreName];
         [MagicalRecord cleanUp];
-    }
+    }     
 }
+
 -(void) laixinStepupDB:(NSString * ) userID
 {
     if (userID.length > 0) {

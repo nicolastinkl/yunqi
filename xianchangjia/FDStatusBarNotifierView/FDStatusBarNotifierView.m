@@ -225,13 +225,15 @@ SINGLETON_GCD(FDStatusBarNotifierView)
     }
     
 //  [[UIApplication sharedApplication] setStatusBarHidden:NO  withAnimation:UIStatusBarAnimationSlide];
+    
     [UIView animateWithDuration:.4
                      animations:^{
                          self.frame = animationDestinationFrame;
                      } completion:^(BOOL finished){
                          if (finished) {
-                            
-                             if (self.delegate && [self.delegate respondsToSelector:@selector(didHideNotifierView:)]) {
+                             
+                             if (self.delegate && [self.delegate respondsToSelector:@selector(didHideNotifierView:)])
+                             {
                                  [self.delegate didHideNotifierView:self];
                              }
                              

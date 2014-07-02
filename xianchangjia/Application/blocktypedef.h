@@ -31,5 +31,4 @@ typedef void (^ConfirmationBlock)(BOOL);
 typedef BOOL (^BoolBlock)(id);
 typedef void (^DownloadProgressBlock)(NSUInteger bytesRead, long long totalBytes, long long totalBytesExp);
 
-
 #endif

@@ -93,19 +93,21 @@
             if (code == 200) {
                 //success ...
                 NSString * tokenPush = [USER_DEFAULT stringForKey:KeyChain_Laixin_account_devtokenstring];
+                NSString * yqtoken = [USER_DEFAULT valueForKey:KeyChain_yunqi_account_token];
                 NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
                 [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
                 
                 [USER_DEFAULT setValue:tokenPush forKey:KeyChain_Laixin_account_devtokenstring];
+                [USER_DEFAULT setValue:yqtoken forKey:KeyChain_yunqi_account_token];
                 [USER_DEFAULT synchronize];
+                [[NSNotificationCenter defaultCenter] postNotificationName:LaixinCloseDBMessageNotification_view object:nil];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:LaixinCloseDBMessageNotification object:nil];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:LaixinCloseDBMessageNotification object:yqtoken];
                 [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
                 YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
                 delegate.tabBarController.selectedIndex = 0;
                 YQLoginviewViewController * viewcon =  [self.storyboard instantiateViewControllerWithIdentifier:@"YQLoginviewViewController"];
                 [self presentViewController:viewcon animated:NO completion:nil];
-                
             }else{
                 //error from server ...
                 [UIAlertView showAlertViewWithMessage:@"退出登录失败"];

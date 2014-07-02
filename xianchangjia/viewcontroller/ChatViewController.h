@@ -8,8 +8,32 @@
 
 #import <UIKit/UIKit.h>
 
+#import "ZBMessageInputView.h"
+#import "ZBMessageShareMenuView.h"
+#import "ZBMessageManagerFaceView.h"
+
+
+typedef NS_ENUM(NSInteger,ZBMessageViewState) {
+    ZBMessageViewStateShowFace,
+    ZBMessageViewStateShowShare,
+    ZBMessageViewStateShowNone,
+};
+
+
+
 @class Conversation,FCUserDescription;
 @interface ChatViewController : UIViewController
+
+
+@property (nonatomic,strong) ZBMessageInputView *messageToolView;
+
+@property (nonatomic,strong) ZBMessageManagerFaceView *faceView;
+
+@property (nonatomic,strong) ZBMessageShareMenuView *shareMenuView;
+
+@property (nonatomic,assign) CGFloat previousTextViewContentHeight;
+
+- (void)messageViewAnimationWithMessageRect:(CGRect)rect  withMessageInputViewRect:(CGRect)inputViewRect andDuration:(double)duration andState:(ZBMessageViewState)state;
 
 @property (readwrite, nonatomic, strong) Conversation *conversation;
 

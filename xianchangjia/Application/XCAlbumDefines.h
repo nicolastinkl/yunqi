@@ -28,14 +28,15 @@ typedef enum {
 	KMessage_private_Location = 3, //location
 } KMessage_private_user_Msg_type;
 
-#define NEED_OUTPUT_LOG                     0   // 0 relese  1 debug
+#define NEED_OUTPUT_LOG                     1   // 0 relese  1 debug
 
 #define IOS7                                [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
 #define IOS6                                [[[UIDevice currentDevice] systemVersion] floatValue] < 7.0
 #define F(string, args...)                  [NSString stringWithFormat:string, args]
 
-#define LaixinSetupDBMessageNotification    @"com.laixin.LaixinSetupDBMessageNotification"
-#define LaixinCloseDBMessageNotification    @"com.laixin.LaixinCloseDBMessageNotification"
+#define LaixinSetupDBMessageNotification            @"com.laixin.LaixinSetupDBMessageNotification"
+#define LaixinCloseDBMessageNotification            @"com.laixin.LaixinCloseDBMessageNotification"
+#define LaixinCloseDBMessageNotification_view       @"LaixinCloseDBMessageNotification_view"
 
 #define ipAddress							@"im.xianchangjia.com"
 #define systemUser							@"register@im.xianchangjia.com"
@@ -96,7 +97,7 @@ typedef enum {
 
 #define ios7BlueColor               [UIColor colorWithRed:0.0 green:140.0/205.0 blue:1.0 alpha:1.0]
 
-#define APP_STORE_LINK_http         @"https://itunes.apple.com/us/app/yun-qi-qin-qin-he-ni-qin-bian/id541873451?ls=1&mt=8"
+#define APP_STORE_LINK_http         @"https://itunes.apple.com/us/app/yun-qi-qin-qin/id884976193?l=zh&ls=1&mt=8"
 #define APP_STORE_LINK_iTunes       @"itms-apps://itunes.apple.com/cn/app/541873451?mt=8"
 
 #define APP_COMMENT_LINK_iTunes     @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=541873451"

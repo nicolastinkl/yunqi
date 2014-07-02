@@ -152,6 +152,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(messagewithNewRefreshHome:) name:@"messagewithNewRefreshHome" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(laixinCloseNotification:)
+                                                 name:LaixinCloseDBMessageNotification_view
+                                               object:nil];
+    
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -201,8 +206,32 @@
             [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
         }
     }
+}
+
+
+/*!
+ *  注销登录
+ *
+ */
+- (void)laixinCloseNotification:(NSNotification *)notification
+{
+//    self.fetchedResultsController = nil;
+    
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+    
+    if ([Conversation MR_truncateAllInContext:localContext]) {
+        SLog(@"OK logout");
+        [localContext MR_saveOnlySelfAndWait];
+    }
+    
+    [self.tableView reloadData];
+    
+    
+//    NSString * yqtoken = [DataHelper getStringValue:[USER_DEFAULT valueForKey:KeyChain_yunqi_account_token] defaultValue:@""];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:LaixinCloseDBMessageNotification object:yqtoken];
     
 }
+
 
 /*!
  *  刷新本地列表
@@ -387,6 +416,7 @@
 
 -(void) uploadDataWithLogin:(NSNotification *) notify
 {
+ 
     [self initHomeData];  // get all data
     
     
@@ -551,17 +581,20 @@
     }
 }
 
+/*!
+ *  ok init
+ */
 -(void)  initHomeData
 {
     self.managedObjectContext = [NSManagedObjectContext MR_defaultContext];
     [self reloadFetchedResults:nil];
-    
     [[TKSignalWebScoket sharedTKSignalWebScoket] start];
     
     if ([Conversation MR_findFirst] == nil) {
         [self filldata];
         
     }
+    
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginInReceivingAllMessage" object:nil];
     
     return;
