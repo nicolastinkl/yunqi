@@ -21,4 +21,9 @@
 - (UIImage *)resizedImageWithContentMode:(UIViewContentMode)contentMode
                                   bounds:(CGSize)bounds
                     interpolationQuality:(CGInterpolationQuality)quality;
+
+- (UIImage *)fixOrientation;
+
+- (UIImage *)rotatedByDegrees:(CGFloat)degrees;
+
 @end

@@ -155,11 +155,10 @@
     CGFloat buttonSize = [ZBMessageInputView textViewLineHeight];
     
     // 发送语音
-
-    UIButton *vbutton = [self createButtonWithImage:[UIImage imageNamed:@"ToolViewKeyboard_ios7"]
+    UIButton *vbutton = [self createButtonWithImage:[UIImage imageNamed:@"yunqi_keyboard"]
                                                  HLImage:nil];
     self.voiceChangeButton = vbutton;
-    [self.voiceChangeButton setImage:[UIImage imageNamed:@"ToolViewInputVoice_ios7"]
+    [self.voiceChangeButton setImage:[UIImage imageNamed:@"yunqi_voice"]
                             forState:UIControlStateSelected];
     [self.voiceChangeButton addTarget:self
                                action:@selector(messageStyleButtonClicked:)
@@ -172,7 +171,7 @@
     // 允许发送多媒体消息，为什么不是先放表情按钮呢？因为布局的需要！
 
     
-    UIButton *mButton = [self createButtonWithImage:[UIImage imageNamed:@"TypeSelectorBtn_Black_ios7"]
+    UIButton *mButton = [self createButtonWithImage:[UIImage imageNamed:@"yunqi_pic"]
                                                     HLImage:nil];
 
     self.multiMediaSendButton = mButton;
@@ -187,11 +186,11 @@
                                                  buttonSize);
     
     // 发送表情
-    UIButton * fButton = [self createButtonWithImage:[UIImage imageNamed:@"ToolViewEmotion_ios7"]
+    UIButton * fButton = [self createButtonWithImage:[UIImage imageNamed:@"yunqi_smile"]
                                               HLImage:nil];
 
     self.faceSendButton = fButton;
-    [self.faceSendButton setImage:[UIImage imageNamed:@"ToolViewKeyboard_ios7"]
+    [self.faceSendButton setImage:[UIImage imageNamed:@"yunqi_keyboard"]
                          forState:UIControlStateSelected];
     [self.faceSendButton addTarget:self
                             action:@selector(messageStyleButtonClicked:)

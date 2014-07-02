@@ -382,8 +382,7 @@ static NSInteger const kAttributedLabelTag = 100;
     
     if(!isShrinking && self.previousTextViewContentHeight == maxHeight) {
         changeInHeight = 0;
-    }
-    else {
+    }else {
         changeInHeight = MIN(changeInHeight, maxHeight - self.previousTextViewContentHeight);
     }
     

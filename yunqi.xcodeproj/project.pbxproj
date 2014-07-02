@@ -603,6 +603,7 @@
 		931E4EA01962B4E900806F2B /* NSString+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 931E4E9F1962B4E900806F2B /* NSString+Message.m */; };
 		931E4EA51963D15700806F2B /* ZBMessageInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 931E4EA21963D15700806F2B /* ZBMessageInputView.m */; };
 		931E4EA61963D15700806F2B /* ZBMessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 931E4EA41963D15700806F2B /* ZBMessageTextView.m */; };
+		931E4F0B1964553E00806F2B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 86D183181834B09C0005901D /* libz.dylib */; };
 		938BC9771941644700E52F63 /* TableViewCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 938BC9761941644700E52F63 /* TableViewCellBackgroundView.m */; };
 		93BC29DC1941F599009D0AFC /* RIButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BC29D71941F599009D0AFC /* RIButtonItem.m */; };
 		93BC29DD1941F599009D0AFC /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BC29D91941F599009D0AFC /* UIActionSheet+Blocks.m */; };
@@ -1616,6 +1617,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8669982318792BEF00233C47 /* CoreMedia.framework in Frameworks */,
+				86EB7711185AB1D800836947 /* ImageIO.framework in Frameworks */,
+				86D1832B1834B0E80005901D /* Security.framework in Frameworks */,
+				86D183251834B0D40005901D /* SystemConfiguration.framework in Frameworks */,
+				931E4F0B1964553E00806F2B /* libz.dylib in Frameworks */,
 				86AECB4A18ED5C420070934F /* StoreKit.framework in Frameworks */,
 				86AFF8CE18D6F5D7000BBAD4 /* CoreTelephony.framework in Frameworks */,
 				86BDD4FE18BC501C00F621F6 /* CoreText.framework in Frameworks */,
@@ -1623,17 +1629,14 @@
 				8622C893187D866300776A38 /* MessageUI.framework in Frameworks */,
 				86D183171834B0950005901D /* libiconv.dylib in Frameworks */,
 				8669982518792BF700233C47 /* CoreVideo.framework in Frameworks */,
-				8669982318792BEF00233C47 /* CoreMedia.framework in Frameworks */,
 				8669982118792BE300233C47 /* AudioToolbox.framework in Frameworks */,
 				86D1831D1834B0B10005901D /* AssetsLibrary.framework in Frameworks */,
 				86ADDA371894E73F000A0C22 /* WebP.framework in Frameworks */,
 				86D183231834B0CE0005901D /* MobileCoreServices.framework in Frameworks */,
-				86D1832B1834B0E80005901D /* Security.framework in Frameworks */,
 				869CE54E186BEE820004C1EC /* libxml2.dylib in Frameworks */,
 				8646FDD518863CD2007CE6F4 /* libMobClickLibrary.a in Frameworks */,
 				869CE54D186BEC1A0004C1EC /* CoreData.framework in Frameworks */,
 				869CE549186BEBAF0004C1EC /* libresolv.dylib in Frameworks */,
-				86EB7711185AB1D800836947 /* ImageIO.framework in Frameworks */,
 				86EB770E185AB1AE00836947 /* libz.1.2.5.dylib in Frameworks */,
 				86EB770F185AB1AE00836947 /* libz.1.dylib in Frameworks */,
 				86EB770D185AB14F00836947 /* libicucore.dylib in Frameworks */,
@@ -1645,7 +1648,6 @@
 				86D183281834B0E00005901D /* AddressBook.framework in Frameworks */,
 				86D183291834B0E00005901D /* AddressBookUI.framework in Frameworks */,
 				8646FDDC18868425007CE6F4 /* MapKit.framework in Frameworks */,
-				86D183251834B0D40005901D /* SystemConfiguration.framework in Frameworks */,
 				86D183211834B0C30005901D /* AVFoundation.framework in Frameworks */,
 				86D183151834B0590005901D /* CoreAudio.framework in Frameworks */,
 				866618A218951B07000228FC /* libopencore-amrwb.a in Frameworks */,
@@ -4592,7 +4594,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "CB459F96-771A-4E9E-BE23-792F83C41580";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -4626,7 +4628,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "CB459F96-771A-4E9E-BE23-792F83C41580";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
