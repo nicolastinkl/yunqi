@@ -39,10 +39,11 @@
 //    if (IOS6) {
 //        self.imageView.top = 0;
 //    }
+    
     self.imageView.center = self.navigationController.view.center;
     
-    [self.button_cancel defaultStyle];
-    [self.button_sure  defaultStyle];
+    [self.button_cancel bootstrapStyle];
+    [self.button_sure  bootstrapStyle];
     
     if (isHigherThaniPhone4_SC) {
         self.view_bg.top += 86;
@@ -57,6 +58,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)sureClick:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatViewSendPhotoSure" object:nil];
+    
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
     }];

@@ -58,7 +58,7 @@
 
 #import "AFHTTPRequestOperation.h"
 #import "AFHTTPRequestOperationManager.h"
-
+#import "SCNavigationController.h"
 
 
 
@@ -74,7 +74,7 @@
 #define  audioLengthDefine  1050
 static NSInteger const kAttributedLabelTag = 100;
 
-@interface ChatViewController () <UITableViewDataSource,UITableViewDelegate, UIGestureRecognizerDelegate,UITextViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIAlertViewDelegate,XCJChatSendImgViewControllerdelegate,UIScrollViewDelegate,facialViewDelegate,XCJChatSendInfoViewDelegate,VoiceRecorderBaseVCDelegate,OHAttributedLabelDelegate,ZBMessageInputViewDelegate,ZBMessageShareMenuViewDelegate,ZBMessageManagerFaceViewDelegate>
+@interface ChatViewController () <UITableViewDataSource,UITableViewDelegate, UIGestureRecognizerDelegate,UITextViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIAlertViewDelegate,XCJChatSendImgViewControllerdelegate,UIScrollViewDelegate,facialViewDelegate,XCJChatSendInfoViewDelegate,VoiceRecorderBaseVCDelegate,OHAttributedLabelDelegate,ZBMessageInputViewDelegate,ZBMessageShareMenuViewDelegate,ZBMessageManagerFaceViewDelegate,SCNavigationControllerDelegate>
 {
     AFHTTPRequestOperation *  operation;
     NSString * TokenAPP;
@@ -100,7 +100,7 @@ static NSInteger const kAttributedLabelTag = 100;
     double animationDuration;
     CGRect keyboardRect;
     UIViewAnimationCurve curve_keyboard;
-    
+    UIImage * currentImage;
 }
 
 @property (weak, nonatomic) IBOutlet UIView *inputContainerView;
@@ -231,6 +231,11 @@ static NSInteger const kAttributedLabelTag = 100;
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refershTableView:) name:NSNotificationCenter_RefreshChatTableView object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ChatViewSendPhotoSure:) name:@"ChatViewSendPhotoSure" object:nil];
+    
+    
 }
 
 #pragma mark - 初始化
@@ -2074,12 +2079,33 @@ static NSInteger const kAttributedLabelTag = 100;
 }
 - (void)takePhotoClick
 {
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        UIImagePickerController *camera = [[UIImagePickerController alloc] init];
-        camera.delegate = self;
-        camera.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:camera animated:YES completion:nil];
+//    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//        UIImagePickerController *camera = [[UIImagePickerController alloc] init];
+//        camera.delegate = self;
+//        camera.sourceType = UIImagePickerControllerSourceTypeCamera;
+//        [self presentViewController:camera animated:YES completion:nil];
+//    }
+    
+    SCNavigationController *nav = [[SCNavigationController alloc] init];
+    nav.scNaigationDelegate = self;
+    [nav showCameraWithParentController:self];
+    
+}
+
+-(void) ChatViewSendPhotoSure:(NSNotification *) notify
+{
+    if (currentImage) {
+        [self uploadImage:currentImage token:@""];
     }
+
+}
+
+#pragma mark - SCNavigationController delegate
+- (void)didTakePicture:(SCNavigationController *)navigationController image:(UIImage *)image {
+    
+    //    UIImage * newimage = [image resizedImage:CGSizeMake(image.size.width, image.size.height) interpolationQuality:kCGInterpolationDefault];
+    currentImage = image;
+   
 }
 
 - (void)choseFromGalleryClick
