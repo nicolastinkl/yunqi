@@ -1172,12 +1172,22 @@ static NSInteger const kAttributedLabelTag = 100;
      
      */
     
+
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationCurve:curve_keyboard];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    [self setTableViewInsetsWithBottomValue:self.view.frame.size.height
-     - self.messageToolView.frame.origin.y - self.messageToolView.height];
+
+    CGFloat keyboardY = [self.view convertRect:keyboardRect fromView:nil].origin.y;
+    
+    CGRect inputViewFrame = self.inputContainerView.frame;
+    CGFloat inputViewFrameY = keyboardY - inputViewFrame.size.height;
+    // for ipad modal form presentations
+    CGFloat messageViewFrameBottom = self.view.frame.size.height - inputViewFrame.size.height;
+    if (inputViewFrameY > messageViewFrameBottom)
+        inputViewFrameY = messageViewFrameBottom;
+    
+    [self setTableViewInsetsWithBottomValue:self.view.height - inputViewFrameY - 44];
     [UIView commitAnimations];
     
     [self scrollToBottonWithAnimation:YES];

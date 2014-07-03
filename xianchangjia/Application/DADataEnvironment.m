@@ -16,7 +16,7 @@ NSString * const Key_Album_Name = @"album_name";
 NSString * const Key_Album_Cover = @"album_cover"; //
 NSString * const Key_Album_Describe = @"album_describe";
 
-NSString * const Key_Douban_Collected_Albums_Note_Name = @"现场加";
+NSString * const Key_Douban_Collected_Albums_Note_Name = @"mmm";
 
 static const char *CategoryColors =
 "208,138,138;"
@@ -76,6 +76,7 @@ SINGLETON_GCD(DADataEnvironment)
 }
 
 - (NSMutableArray *)collectedAlbums{
+    
     if (!_collectedAlbums) {
         _collectedAlbums = [NSMutableArray arrayWithCapacity:4];
     }

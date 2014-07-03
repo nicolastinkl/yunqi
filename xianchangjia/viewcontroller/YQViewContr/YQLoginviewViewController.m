@@ -128,7 +128,6 @@
 }
 
 - (IBAction)loginClick:(id)sender {
-    [SVProgressHUD showWithStatus:@"正在登录..."];
     
     [self.Text_LoginName resignFirstResponder];
     [self.Text_LoginPwd resignFirstResponder];
@@ -136,10 +135,23 @@
     NSString * username = [self.Text_LoginName text];
     NSString * pwd = [self.Text_LoginPwd text];
     NSString* openUDID = [OpenUDID value];
+    
+    if (username.length == 0) {
+        [UIAlertView showAlertViewWithMessage:@"帐号不能为空"];
+        return;
+    }
+    
+    if (pwd.length == 0) {
+        [UIAlertView showAlertViewWithMessage:@"密码不能为空"];
+        return;
+    }
+    
     NSString * tokenPush = [USER_DEFAULT stringForKey:KeyChain_Laixin_account_devtokenstring];
     if (tokenPush == nil || [tokenPush isNilOrEmpty]) {
         tokenPush = @"notokenPushbecauseregisterfaild";
     }
+    
+    [SVProgressHUD showWithStatus:@"正在登录..."];
     NSMutableDictionary * mutaDict = [[NSMutableDictionary alloc] init];
     [mutaDict setValue:@"iPhone"    forKey:@"devicetype"];
     [mutaDict setValue:openUDID     forKey:@"deviceid"];
