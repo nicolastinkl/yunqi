@@ -28,7 +28,6 @@
 		8626559C18ADADB700F05B81 /* UINavigationController+SGProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8626559B18ADADB700F05B81 /* UINavigationController+SGProgress.m */; };
 		862D31961855B52C00C2D252 /* UIViewController+Indicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 862D31951855B52C00C2D252 /* UIViewController+Indicator.m */; };
 		862EC4CD188E0FE5006F4D43 /* XCJChatSendImgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 862EC4CC188E0FE5006F4D43 /* XCJChatSendImgViewController.m */; };
-		862EC4D1188E2A8B006F4D43 /* MTAnimatedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 862EC4D0188E2A8B006F4D43 /* MTAnimatedLabel.m */; };
 		862ECC8218F1BF510048E2C1 /* Expression_100@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 862ECC1918F1BF510048E2C1 /* Expression_100@2x.png */; };
 		862ECC8318F1BF510048E2C1 /* Expression_101@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 862ECC1A18F1BF510048E2C1 /* Expression_101@2x.png */; };
 		862ECC8418F1BF510048E2C1 /* Expression_102@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 862ECC1B18F1BF510048E2C1 /* Expression_102@2x.png */; };
@@ -250,7 +249,6 @@
 		8685C03818ED4D6B00A6A1FD /* YQSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8685C03718ED4D6B00A6A1FD /* YQSettingsViewController.m */; };
 		8688CCCC188E513F002CD2C8 /* FacialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8688CCCB188E513F002CD2C8 /* FacialView.m */; };
 		86893DB6187FCCC500DC0CB8 /* XCJCreateChatNaviController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86893DB5187FCCC500DC0CB8 /* XCJCreateChatNaviController.m */; };
-		868A0EF218B3608000C2875F /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 868A0EF118B3608000C2875F /* iCarousel.m */; };
 		868AC8A418ED60A10068CC77 /* YQURLForwardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868AC8A318ED60A10068CC77 /* YQURLForwardViewController.m */; };
 		868B5D3918922FE4004D1743 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B5D3818922FE4004D1743 /* EGOCache.m */; };
 		868B5D44189284C6004D1743 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 868B5D3E189284C6004D1743 /* UIImage+Blur.m */; };
@@ -726,8 +724,6 @@
 		862D31951855B52C00C2D252 /* UIViewController+Indicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Indicator.m"; sourceTree = "<group>"; };
 		862EC4CB188E0FE5006F4D43 /* XCJChatSendImgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJChatSendImgViewController.h; path = viewcontroller/XCJChatSendImgViewController.h; sourceTree = "<group>"; };
 		862EC4CC188E0FE5006F4D43 /* XCJChatSendImgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJChatSendImgViewController.m; path = viewcontroller/XCJChatSendImgViewController.m; sourceTree = "<group>"; };
-		862EC4CF188E2A8B006F4D43 /* MTAnimatedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAnimatedLabel.h; sourceTree = "<group>"; };
-		862EC4D0188E2A8B006F4D43 /* MTAnimatedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTAnimatedLabel.m; sourceTree = "<group>"; };
 		862ECC1918F1BF510048E2C1 /* Expression_100@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Expression_100@2x.png"; sourceTree = "<group>"; };
 		862ECC1A18F1BF510048E2C1 /* Expression_101@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Expression_101@2x.png"; sourceTree = "<group>"; };
 		862ECC1B18F1BF510048E2C1 /* Expression_102@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Expression_102@2x.png"; sourceTree = "<group>"; };
@@ -1034,8 +1030,6 @@
 		8688CCCB188E513F002CD2C8 /* FacialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacialView.m; sourceTree = "<group>"; };
 		86893DB4187FCCC500DC0CB8 /* XCJCreateChatNaviController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XCJCreateChatNaviController.h; path = xianchangjia/viewcontroller/XCJCreateChatNaviController.h; sourceTree = SOURCE_ROOT; };
 		86893DB5187FCCC500DC0CB8 /* XCJCreateChatNaviController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XCJCreateChatNaviController.m; path = xianchangjia/viewcontroller/XCJCreateChatNaviController.m; sourceTree = SOURCE_ROOT; };
-		868A0EF018B3608000C2875F /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
-		868A0EF118B3608000C2875F /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		868AC8A218ED60A10068CC77 /* YQURLForwardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YQURLForwardViewController.h; path = viewcontroller/YQViewContr/YQURLForwardViewController.h; sourceTree = "<group>"; };
 		868AC8A318ED60A10068CC77 /* YQURLForwardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YQURLForwardViewController.m; path = viewcontroller/YQViewContr/YQURLForwardViewController.m; sourceTree = "<group>"; };
 		868B5D3718922FE4004D1743 /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
@@ -1848,15 +1842,6 @@
 			name = image;
 			sourceTree = "<group>";
 		};
-		862EC4CE188E2A80006F4D43 /* AnimationLabel */ = {
-			isa = PBXGroup;
-			children = (
-				862EC4CF188E2A8B006F4D43 /* MTAnimatedLabel.h */,
-				862EC4D0188E2A8B006F4D43 /* MTAnimatedLabel.m */,
-			);
-			name = AnimationLabel;
-			sourceTree = "<group>";
-		};
 		862ECC1818F1BF510048E2C1 /* emoj */ = {
 			isa = PBXGroup;
 			children = (
@@ -2441,15 +2426,6 @@
 			path = YLLabel;
 			sourceTree = "<group>";
 		};
-		868A0EEF18B3608000C2875F /* iCarousel */ = {
-			isa = PBXGroup;
-			children = (
-				868A0EF018B3608000C2875F /* iCarousel.h */,
-				868A0EF118B3608000C2875F /* iCarousel.m */,
-			);
-			path = iCarousel;
-			sourceTree = "<group>";
-		};
 		868B5D3C189284C6004D1743 /* UIImage-Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -2998,7 +2974,6 @@
 				86656CC118EE8422009B7726 /* RefreshTableHeaderView */,
 				861C0F4218DC2F6C001DA32F /* PinPad */,
 				866287E518CCB28500891B2D /* TKViewMoreCell */,
-				862EC4CE188E2A80006F4D43 /* AnimationLabel */,
 				86C6422C1887A3D200E0CDDB /* CTAssetsPickerController */,
 				8622C87D187D2BD300776A38 /* ErrorInfoView */,
 				8622C875187D192100776A38 /* POHorizontalList */,
@@ -3137,7 +3112,6 @@
 				869DAE1718D94C2E0078168B /* ZAActivityBar */,
 				8690DEAD18C8891900A14A51 /* WebSource */,
 				867B053C18C41D3B00A562FA /* WeChatSDK_1.4.2.1 */,
-				868A0EEF18B3608000C2875F /* iCarousel */,
 				86045FC718B2F7E70002581E /* AOtag */,
 				866C153F18ADE75F0054F686 /* PhotoBrowerClasses */,
 				8626559918ADADB700F05B81 /* UINavigationController+SGProgress */,
@@ -4503,7 +4477,6 @@
 				866F0621185724EE007A57CF /* SinaWeibo.m in Sources */,
 				869CE4AB18698D3F0004C1EC /* AsyncImageView.m in Sources */,
 				866618A018951B07000228FC /* wav.mm in Sources */,
-				868A0EF218B3608000C2875F /* iCarousel.m in Sources */,
 				86D182921834AED30005901D /* UIImageView+Exetension.m in Sources */,
 				8666189D18951B07000228FC /* CustomWindow.m in Sources */,
 				93E73B0C1940728F006877FF /* SRConnection.m in Sources */,
@@ -4643,7 +4616,6 @@
 				86D182821834AED30005901D /* BundleHelper.m in Sources */,
 				93E73B0F1940728F006877FF /* SRKeepAliveData.m in Sources */,
 				931E502F1964F05200806F2B /* SCCaptureSessionManager.m in Sources */,
-				862EC4D1188E2A8B006F4D43 /* MTAnimatedLabel.m in Sources */,
 				869CE51F186BE38D0004C1EC /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				86EB76E0185AA6CC00836947 /* NSData+SRB64Additions.m in Sources */,
 				869CE546186BE3A00004C1EC /* DDXMLElement.m in Sources */,

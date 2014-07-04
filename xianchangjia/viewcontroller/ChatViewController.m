@@ -1255,8 +1255,8 @@ static NSInteger const kAttributedLabelTag = 100;
      - self.messageToolView.frame.origin.y - self.messageToolView.height];
     [UIView commitAnimations];
 }
-#pragma end
 
+#pragma end
 
 #pragma mark - Keyboard
 - (void)keyboardWillShowHide:(NSNotification *)notification
