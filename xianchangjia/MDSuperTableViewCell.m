@@ -10,7 +10,6 @@
 #import "XCAlbumDefines.h"
 #import "TableViewCellBackgroundView.h"
 
-
 // CGRect扩张
 CG_INLINE CGRect
 CGRectSetX(CGRect rect, CGFloat x)
@@ -18,12 +17,14 @@ CGRectSetX(CGRect rect, CGFloat x)
     rect.origin.x = x;
     return rect;
 }
+
 CG_INLINE CGRect
 CGRectSetY(CGRect rect, CGFloat y)
 {
     rect.origin.y = y;
     return rect;
 }
+
 CG_INLINE CGRect
 CGRectMakeWithSize(CGSize size)
 {

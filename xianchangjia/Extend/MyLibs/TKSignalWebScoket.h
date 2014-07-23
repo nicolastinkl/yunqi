@@ -17,5 +17,8 @@
 
 -(void) stop;
 
+-(bool) isconnect;
+
+-(void) sendBackMessageID:(NSString *) msgID;
 
 @end

@@ -11,6 +11,7 @@
 #import "MLNetworkingManager.h"
 #import "SINGLETONGCD.h"
 #import "XCAlbumDefines.h"
+#import "JSONKit.h"
 
 @interface TKSignalWebScoket ()
 {
@@ -42,10 +43,10 @@ SINGLETON_GCD(TKSignalWebScoket);
 //    __weak __typeof(self)weakSelf = self;
     connection.received = ^(id data) {
         if (data) {
-            NSLog(@"received %@  %@",data,[data class]);
+//            NSLog(@"received %@  %@",data,[data class]);
             [[NSNotificationCenter defaultCenter] postNotificationName:MLNetworkingManagerDidReceivePushMessageNotification object:nil userInfo:@{@"message":data}];
             //        __strong __typeof(weakSelf)strongSelf = weakSelf;
-            [connection send:@"receive success"];
+           
         }
        
     };
@@ -95,6 +96,27 @@ SINGLETON_GCD(TKSignalWebScoket);
     
     
     CFBridgingRelease(aCFString);
+}
+
+-(void) sendBackMessageID:(NSString *) msgID
+{
+    if (connection) {
+        
+        NSDictionary * msgDict = @{@"__KeepAliveReceivedId__":msgID};
+        SLog(@"back : %@",[msgDict JSONString]);
+        [connection send:[msgDict JSONString]];
+    }
+}
+
+-(bool) isconnect
+{
+    if (connection) {
+        if (connection.state == connected) {
+            return YES;
+        }
+        return NO;
+    }
+    return NO;
 }
 
 -(void) stop

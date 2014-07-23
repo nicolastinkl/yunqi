@@ -3995,7 +3995,7 @@
 				ORGANIZATIONNAME = jijia;
 				TargetAttributes = {
 					86D181C91834822C0005901D = {
-						DevelopmentTeam = W7NKAN6A6C;
+						DevelopmentTeam = CAACSSZ5VZ;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -4769,8 +4769,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing 7CM Technology Corp.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing 7CM Technology Corp.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing 7CM Technology Corp. (CAACSSZ5VZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing 7CM Technology Corp. (CAACSSZ5VZ)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4788,7 +4788,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "E123BB6B-0693-485D-B769-A52D3F213673";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -4810,8 +4810,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing 7CM Technology Corp.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing 7CM Technology Corp.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing 7CM Technology Corp. (CAACSSZ5VZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing 7CM Technology Corp. (CAACSSZ5VZ)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4822,7 +4822,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "E123BB6B-0693-485D-B769-A52D3F213673";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4834,8 +4834,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqiang Wang (6C3CR2F8HK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqiang Wang (6C3CR2F8HK)";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/xianchangjia/support/iOS-WebP";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4861,7 +4861,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = yunqi;
-				PROVISIONING_PROFILE = "20E7CF34-76A7-424E-88D2-7D3E413EFEB7";
+				PROVISIONING_PROFILE = "1C437EC5-BDFF-45DB-BEDE-5C72BF779A1A";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -4874,8 +4874,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ZhiQiang Wang (WN4A4SX292)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqiang Wang (6C3CR2F8HK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqiang Wang (6C3CR2F8HK)";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/xianchangjia/support/iOS-WebP";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4902,7 +4902,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = yunqi;
-				PROVISIONING_PROFILE = "20E7CF34-76A7-424E-88D2-7D3E413EFEB7";
+				PROVISIONING_PROFILE = "1C437EC5-BDFF-45DB-BEDE-5C72BF779A1A";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;

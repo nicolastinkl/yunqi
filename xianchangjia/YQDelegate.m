@@ -265,8 +265,15 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
         
         id message = notify.userInfo[@"message"];
         
+      
+        
         if ([message isKindOfClass:[NSDictionary class]]) {
 
+            NSString * msgIDWithSendBack = [DataHelper getStringValue:message[@"MessageId"] defaultValue:@""];
+            if (msgIDWithSendBack.length > 0) {
+                [[TKSignalWebScoket sharedTKSignalWebScoket] sendBackMessageID:msgIDWithSendBack];
+            }
+            
             NSDictionary * dict = message[@"PayLoad"];
             
           
@@ -568,6 +575,7 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     SLog(@"userInfo %@",userInfo);
     //如果程序在前台显示就自动忽略
 
+    // && [[TKSignalWebScoket sharedTKSignalWebScoket]  isconnect]
     if (application.applicationState == UIApplicationStateActive) {
         return;
     }

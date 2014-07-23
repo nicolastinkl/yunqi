@@ -136,6 +136,22 @@ static NSString * const kLaixinStoreName = @"Laixins";
      “type”:“newlike” //newlike newreply newmsg newpost
      
      “data”:{ }
+     
+     
+     
+     
+     
+     
+     from = ocUAetzPcjvjc7OJOUburCuQ7LNM;
+     message =     {
+     content = "\U5fae\U4fe1and\U5fae\U535a \U8c01\U6b7b\U8c01\U751f \U672a\U77e5";
+     msgType = text;
+     };
+     messageId = "3ffbe435-27a8-4dcf-b9e0-f2372456f68a";
+     time = "2014-07-23T03:28:11.132Z";
+     to = admin;
+     
+     
      */
     NSDictionary * MsgContent = notification.userInfo;
     NSInteger innum = [DataHelper getIntegerValue:MsgContent[@"push"] defaultValue:0];
