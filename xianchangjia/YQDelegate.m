@@ -680,7 +680,6 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
         /*!
          *  如果是通过apn开启app 这时需要检测未读消息
          */
-        
         NSString * itemId = [[url absoluteString] stringByReplacingOccurrencesOfString:@"wechat://Message/" withString:@""];
         if ([itemId isEqualToString:@"UnRead"]) {
             // 未读消息

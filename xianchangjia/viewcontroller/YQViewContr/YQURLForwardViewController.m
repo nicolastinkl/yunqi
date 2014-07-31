@@ -37,15 +37,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.title = @"转发";
     
     [tools setnavigationBarbg:self.navigationController];
     
     [self _init];
     
-    
     //fill data
     datasource = [NSMutableArray arrayWithArray: [Conversation MR_findAll]];
-    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

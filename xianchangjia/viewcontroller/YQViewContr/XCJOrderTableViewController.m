@@ -171,6 +171,19 @@
 {
     if (notify.object) {
         
+        NSString * orderID  = notify.object;
+        
+        [AllOrderList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            YQListOrderInfo *orderInfo = obj;
+            if ([orderInfo.orderNo isEqualToString:orderID]) {
+                //change this orderstatus
+                orderInfo.orderStatus = 30;
+                [self reloadArrays];
+            }
+            
+        }];
+        
+        
         allTotalOrders -- ;
         
         [self.filterView setTitle:[NSString stringWithFormat:@"货到付款(%d)",allTotalOrders] atIndex:1];
@@ -376,15 +389,17 @@
 
 -(void) reloadArrays{
 {
+    
+        
     //AND paymentStatus = 30
-         NSPredicate * preonLine = [NSPredicate predicateWithFormat:@"paymentMethodType = 20"];
+         NSPredicate * preonLine = [NSPredicate predicateWithFormat:@"orderStatus = 10"];
          onlinePayOrderList = [AllOrderList filteredArrayUsingPredicate:preonLine];
         
     }
     
     {
         //AND paymentStatus < 30
-        NSPredicate * preonLine = [NSPredicate predicateWithFormat:@"paymentMethodType = 10"];
+        NSPredicate * preonLine = [NSPredicate predicateWithFormat:@"orderStatus = 20"];
         offlinePayOrderList = [AllOrderList filteredArrayUsingPredicate:preonLine];
         
     }
