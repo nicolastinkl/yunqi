@@ -38,6 +38,18 @@
 
 }
 
+-(void) hiddenKeyboard
+{
+    self.faceSendButton.selected = NO;
+//    self.multiMediaSendButton.selected = NO;
+    [self.messageInputTextView resignFirstResponder];
+    
+    
+    if ([self.delegate respondsToSelector:@selector(didChangeSendVoiceAction:)]) {
+        [self.delegate didChangeSendVoiceAction:NO];
+    }
+}
+
 #pragma mark - Action
 
 - (void)messageStyleButtonClicked:(UIButton *)sender {

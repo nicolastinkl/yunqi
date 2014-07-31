@@ -30,6 +30,7 @@
 @property (strong, nonatomic) NSString *receiptDateUtc;
 @property (strong, nonatomic) NSString *transactionId;
 
+
 @property (strong, nonatomic) NSMutableArray *orderProducts;
 
 @property (strong, nonatomic) YQConsignee *consingee;

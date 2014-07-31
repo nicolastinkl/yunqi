@@ -30,6 +30,8 @@
     bool _allLoaded;
     FBKVOController * _KVOController;
     int allTotalOrders;
+    
+    
 }
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segementbar;
 
@@ -142,6 +144,10 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshOrderTableView:) name:NSNotificationCenter_RefreshOrderTableView object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshOrderTableView_makeStatus:) name:NSNotificationCenter_RefreshOrderTableView_MakeSendStatus object:nil];
+    
+    
 }
 
 /*!
@@ -158,6 +164,26 @@
     YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
  
     [delegate.tabBarController.tabBar.items[1] setBadgeValue:nil];
+}
+
+
+-(void) refreshOrderTableView_makeStatus:(NSNotification *) notify
+{
+    if (notify.object) {
+        
+        allTotalOrders -- ;
+        
+        [self.filterView setTitle:[NSString stringWithFormat:@"货到付款(%d)",allTotalOrders] atIndex:1];
+        [self.filterView setTitle:[NSString stringWithFormat:@"全部订单(%d)",allTotalOrders] atIndex:2];
+        
+        YQDelegate *delegate = (YQDelegate *)[UIApplication sharedApplication].delegate;
+        if (allTotalOrders > 0) {
+            [delegate.tabBarController.tabBar.items[1] setBadgeValue:[NSString stringWithFormat:@"%d",allTotalOrders]];
+        }else{
+            [delegate.tabBarController.tabBar.items[1] setBadgeValue:nil];
+        }
+        
+    }
 }
 
 -(void) refreshOrderTableView:(NSNotification * ) notify
@@ -231,7 +257,7 @@
             */
         }
     }
-       [self.tableView reloadData];
+    [self.tableView reloadData];
     
 }
 

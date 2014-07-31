@@ -1434,6 +1434,10 @@ static NSInteger const kAttributedLabelTag = 100;
 {
     if ([scrollViewDat isKindOfClass:[UITableView class]]) {
         self.tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
+        //[self.messageInputTextView resignFirstResponder];
+        if(self.messageToolView)
+        [self.messageToolView hiddenKeyboard];
+        
         if ([self.inputTextView isFirstResponder]) {
             [self.inputTextView resignFirstResponder];
         }
@@ -3461,12 +3465,18 @@ static NSInteger const kAttributedLabelTag = 100;
                         [player play];
                         [self ShowPlayingimgArray:cell withTime:(int) leng/1024];
                     }else{
-                         [UIAlertView showAlertViewWithMessage:@"播放失败,录音文件不存在"];
+                        player = nil;
+                        [button hideIndicatorView];
+                        [self StopPlayingimgArray:playingCell];
+                        [button hideIndicatorView];
+                        playingCell.isplayingAudio = NO;
+                        [UIAlertView showAlertViewWithMessage:@"播放失败,录音文件不存在"];
                     }
                 }];
                 [downloadTask resume];
             }else{
                 button.userInteractionEnabled = YES;
+                
                 int leng = [self getFileSize:[NSString stringWithFormat:@"%@",fileNameWhole]];
                 
                 [VoiceConverter amrToWav:[VoiceRecorderBaseVC getPathByFileName:fileNameWhole ofType:@"amr"] wavSavePath:[VoiceRecorderBaseVC getPathByFileName:filename ofType:@"wav"]];
@@ -3499,6 +3509,7 @@ static NSInteger const kAttributedLabelTag = 100;
         }else
         {
             [self StopPlayingimgArray:playingCell];
+            [button hideIndicatorView];
             playingCell.isplayingAudio = NO;
             [UIAlertView showAlertViewWithMessage:@"播放失败,录音文件不存在"];
         }
@@ -3594,18 +3605,20 @@ static NSInteger const kAttributedLabelTag = 100;
         FCMessage *message = self.messageList[indexPath.row];
         if ([message.messageType intValue] == messageType_text || [message.messageType intValue] == messageType_audio || [message.messageType intValue] == messageType_image) {
             
-            if (message.text && message.text.length > 0) {
+            if ([message.messageType intValue] == messageType_text && message.text && message.text.length > 0) {
                 PasteboardStr = message.text;
+            }else{
+                PasteboardStr = @"";
             }
             
-            if (message.imageUrl && message.imageUrl.length > 0) {
-                PasteboardStr = message.imageUrl;
-            }
-            if (message.audioUrl && message.audioUrl.length > 0) {
-                PasteboardStr = message.audioUrl;
-            }
+//            if (message.imageUrl && message.imageUrl.length > 0) {
+//                PasteboardStr = message.imageUrl;
+//            }
+//            if (message.audioUrl && message.audioUrl.length > 0) {
+//                PasteboardStr = message.audioUrl;
+//            }
             
-            UIActionSheet * actionview = [[UIActionSheet alloc] initWithTitle:@"" cancelButtonItem:[RIButtonItem itemWithLabel:@"取消" action:^{
+            UIActionSheet * actionview = [[UIActionSheet alloc] initWithTitle:F(@"%@",PasteboardStr) cancelButtonItem:[RIButtonItem itemWithLabel:@"取消" action:^{
                 
             }] destructiveButtonItem:[RIButtonItem itemWithLabel:@"复制" action:^{
                 

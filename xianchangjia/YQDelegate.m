@@ -669,6 +669,9 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
         [self queryOrderInfoWithOrderID:orderid orderNo:orderno];
         
     }else if ([[url host] isEqualToString:@"Message"]) {
+        /*!
+         *  如果是通过apn开启app 这时需要检测未读消息
+         */
         
         NSString * itemId = [[url absoluteString] stringByReplacingOccurrencesOfString:@"wechat://Message/" withString:@""];
         if ([itemId isEqualToString:@"UnRead"]) {
@@ -851,6 +854,7 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
          } failure:^(MLRequest *request, NSError *error) {
          
          }];*/
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"messagewithNewRefreshAllMsg" object:nil];
         SLLog(@"applicationDidEnterBackground webSocket close");
         [[TKSignalWebScoket sharedTKSignalWebScoket] start];
     }

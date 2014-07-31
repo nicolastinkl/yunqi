@@ -100,7 +100,6 @@
         [self stringbyJson:CurrentInfo.deliveryDateUtc wityType:@"发货时间"];
         [self stringbyJson:CurrentInfo.cancelDateUtc wityType:@"取消订单时间"];
         [self stringbyJson:CurrentInfo.receiptDateUtc wityType:@"发货时间"];
-        
     }
     
     ((UILabel * ) [self.tableView.tableHeaderView subviewWithTag:1]).text = [NSString stringWithFormat:@"%@%@",@"收货人：",CurrentInfo.consingee.name == nil?@"正在加载":CurrentInfo.consingee.name];
@@ -118,27 +117,28 @@
     [tel_button telWhiteStyle];
     [sign_button infoStyle];
     
-   
-        
-    
     /*
      货到付款的订单 会显示拨打电话。
      在线支付的只有标记发货
      */
-    if (CurrentInfo.paymentMethodType == 10) {
+   /* if (CurrentInfo.paymentMethodType == 10) {
         //货到付款
-        if (CurrentInfo.orderStatus >= 40) {
+        if (CurrentInfo.orderStatus  == 20 && [CurrentInfo.deliveryDateUtc isEmptyOrWhitespace]) {
             // 订单已经完成
             sign_button.hidden = YES;
             [tel_button setWidth:261.0f];
         }
-        
     }else if (CurrentInfo.paymentMethodType == 20) {
         //在线支付
         tel_button.hidden = YES;
         sign_button.hidden = NO;
         [sign_button setLeft:30.0f];
         [sign_button setWidth:261.0f];
+    }*/
+    
+    if (CurrentInfo.orderStatus  != 20) {
+        sign_button.hidden = YES;
+        [tel_button setWidth:261.0f];
     }
     
     

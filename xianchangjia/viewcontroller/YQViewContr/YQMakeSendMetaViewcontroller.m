@@ -54,7 +54,6 @@
         UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
         self.navigationItem.rightBarButtonItem = customBarItem;
     }
-    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -96,9 +95,11 @@
         int code = [DataHelper getIntegerValue: obj[@"code"] defaultValue:0];
         if (code == 200) {
             self.orderpro.orderStatus = 30;
+            [[NSNotificationCenter defaultCenter] postNotificationName:NSNotificationCenter_RefreshOrderTableView_MakeSendStatus object:@"Minus"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updateCellWITHCHANGEORDER" object:@"Minus"];
             [SVProgressHUD  dismiss];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+//            [self.navigationController popViewControllerAnimated:YES];
            // [UIAlertView showAlertViewWithMessage:@"标记发货成功"];
         }else
         {

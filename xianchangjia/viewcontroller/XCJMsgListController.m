@@ -152,6 +152,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(messagewithNewRefreshHome:) name:@"messagewithNewRefreshHome" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(messagewithNewRefreshAllMsg:) name:@"messagewithNewRefreshAllMsg" object:nil];    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(laixinCloseNotification:)
                                                  name:LaixinCloseDBMessageNotification_view
@@ -253,6 +255,13 @@
         }
     }
 
+}
+
+
+-(void) messagewithNewRefreshAllMsg:(NSNotification *) notify
+{
+    
+    [self filldataWithNoFillData];
 }
 
 -(void) filldataWithNoFillData

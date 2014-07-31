@@ -149,6 +149,11 @@ typedef enum
  */
 + (CGFloat)maxHeight;
 
+/*!
+ *  隐藏键盘
+ */
+-(void) hiddenKeyboard;
+
 #pragma end
 
 @end

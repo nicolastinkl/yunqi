@@ -95,14 +95,27 @@
                 [[DAHttpClient sharedDAHttpClient] postRequestWithParameters:params Action:@"AdminApi/WeChat/SendMessage" success:^(id response) {
                     int errorCode  = [DataHelper getIntegerValue:response[@"code"] defaultValue:-1];
                     if (errorCode == 200) {
-                        
-                        dict[@"messageId"] = strGUID;
-                        
-                        if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgSuccess:fromGuid:)])
-                        {
-                            // delegate 通知获取成功
-                            [blockSelf.delegate sendMessage:blockSelf sendMsgSuccess:dict fromGuid:guid];
+                        NSDictionary * data = [DataHelper getDictionaryValue:response[@"data"] defaultValue:[NSMutableDictionary dictionary]];
+                        int errorcodesss = [DataHelper getIntegerValue:data[@"errcode"] defaultValue:0];
+                        if (errorcodesss == 0) {
+                            //success
+                            dict[@"messageId"] = strGUID;
+                            
+                            if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgSuccess:fromGuid:)])
+                            {
+                                // delegate 通知获取成功
+                                [blockSelf.delegate sendMessage:blockSelf sendMsgSuccess:dict fromGuid:guid];
+                            }
+                        }else{
+                            if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgFailed:fromGuid:)])
+                            {
+                                // delegate 通知获取失败
+                                [blockSelf.delegate sendMessage:blockSelf sendMsgFailed:dict fromGuid:guid];
+                            }
+                            [UIAlertView showAlertViewWithMessage:@"由于超过时限而无法发送消息,只有当前用户下次与您联系时，您才能再次回复他"];
                         }
+                        
+                        
                     }else{
                         if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgFailed:fromGuid:)])
                         {
@@ -292,9 +305,9 @@
             
             NSDictionary * response = responseObject[@"data"];
             if (response) {
-                NSString * returnurl = [DataHelper getStringValue:response[@"publicUrl"] defaultValue:@""];
-                parems[@"url"]  = returnurl;
                 
+                NSString * returnurl = [DataHelper getStringValue:response[@"publicUrl"] defaultValue:@""];
+                parems[@"url"]  = returnurl;                
                 {
                     NSMutableDictionary *parameters=[[NSMutableDictionary alloc] init];
                     NSString * userID = [DataHelper getStringValue:parems[@"userid"] defaultValue:@""];
@@ -312,11 +325,36 @@
                     SLog(@"%@",parameters);
                     // sendmessage media
                      [[DAHttpClient sharedDAHttpClient] postRequestWithParameters:parameters Action:@"/AdminApi/WeChat/SendMessage" success:^(id obj) {
-                         if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgSuccess:fromGuid:)])
-                         {
-                             // delegate 通知获取成功
-                             [blockSelf.delegate sendMessage:blockSelf sendMsgSuccess:parems fromGuid:guid];
+                         
+                         int errorCodess  = [DataHelper getIntegerValue:obj[@"code"] defaultValue:-1];
+                         if (errorCodess == 200) {
+                             NSDictionary * data = [DataHelper getDictionaryValue:obj[@"data"] defaultValue:[NSMutableDictionary dictionary]];
+                             
+                             int errorcodesss = [DataHelper getIntegerValue:data[@"errcode"] defaultValue:0];
+                             if (errorcodesss == 0) {
+                                 //success
+                                 
+                                 if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgSuccess:fromGuid:)])
+                                 {
+                                     // delegate 通知获取成功
+                                     [blockSelf.delegate sendMessage:blockSelf sendMsgSuccess:parems fromGuid:guid];
+                                 }
+                             }else{
+                                 if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgFailed:fromGuid:)])
+                                 {
+                                     // delegate 通知获取失败
+                                     [blockSelf.delegate sendMessage:blockSelf sendMsgFailed:parems fromGuid:guid];
+                                 }
+                                 [UIAlertView showAlertViewWithMessage:@"由于超过时限而无法发送消息,只有当前用户下次与您联系时，您才能再次回复他"];
+                             }
+                         }else{
+                             if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgFailed:fromGuid:)])
+                             {
+                                 // delegate 通知获取失败
+                                 [blockSelf.delegate sendMessage:blockSelf sendMsgFailed:parems fromGuid:guid];
+                             }
                          }
+                        
                      } error:^(NSInteger index) {
                          if (blockSelf.delegate && [blockSelf.delegate respondsToSelector:@selector(sendMessage:sendMsgFailed:fromGuid:)])
                          {
