@@ -46,6 +46,7 @@
 #import "NSString+Addition.h"
 #import "YQUserOrdersViewConsoller.h"
 #import "SJAvatarBrowser.h"
+#import "JDStatusBarNotification.h"
 
 #import <OHAttributedLabel/OHAttributedLabel.h>
 #import <OHAttributedLabel/NSAttributedString+Attributes.h>
@@ -1626,8 +1627,11 @@ static NSInteger const kAttributedLabelTag = 100;
                     msg.videoUrl = imageurl;
                     msg.messageType = @(messageType_video);
                 }
+                [JDStatusBarNotification showWithStatus:[NSString stringWithFormat:@"%@:%@",self.conversation.facebookName,self.conversation.lastMessage]
+                                           dismissAfter:3.0
+                                              styleName:JDStatusBarStyleDark];
                 
-                [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:[NSString stringWithFormat:@"%@:%@",self.conversation.facebookName,self.conversation.lastMessage]];
+//                [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:[NSString stringWithFormat:@"%@:%@",self.conversation.facebookName,self.conversation.lastMessage]];
                 // message did come, this will be on left
                 msg.messageStatus = @(YES);
                 msg.messageId = [tools getStringValue:dicMessage[@"msgid"] defaultValue:@"0"];
@@ -1728,7 +1732,11 @@ static NSInteger const kAttributedLabelTag = 100;
                     msg.messageType = @(messageType_text);
                     self.conversation.lastMessage = content;
                 }
-                [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:[NSString stringWithFormat:@"%@:%@",self.conversation.facebookName,self.conversation.lastMessage]];
+                [JDStatusBarNotification showWithStatus:[NSString stringWithFormat:@"%@:%@",self.conversation.facebookName,self.conversation.lastMessage]
+                                           dismissAfter:3.0
+                                              styleName:JDStatusBarStyleDark];
+                
+//                [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:[NSString stringWithFormat:@"%@:%@",self.conversation.facebookName,self.conversation.lastMessage]];
                 // message did come, this will be on left
                 msg.messageStatus = @(YES);
                 msg.messageId =  [NSString stringWithFormat:@"UID_%@", uid];//[tools getStringValue:dicMessage[@"msgid"] defaultValue:@"0"];

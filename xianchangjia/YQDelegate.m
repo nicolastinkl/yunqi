@@ -39,7 +39,7 @@
 #import "YQListOrderInfo.h"
 #import "ChatViewController.h"
 #import "TKSignalWebScoket.h"
-
+#import "JDStatusBarNotification/JDStatusBarNotification.h"
 #import "JSONKit.h"
 
 #import "UIAlertView+Blocks.h"
@@ -338,7 +338,11 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
                                                 [tools playVirate];
                                                 
                                                 NSString  * contentNotify = [DataHelper getStringValue:obj[@"content"] defaultValue:@""];
-                                                [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:contentNotify];
+//                                                [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:contentNotify];
+                                                
+                                                [JDStatusBarNotification showWithStatus:contentNotify
+                                                                           dismissAfter:3.0
+                                                                              styleName:JDStatusBarStyleDark];
                                                 
                                                 [[NSNotificationCenter defaultCenter] postNotificationName:NSNotificationCenter_RefreshOrderTableView object:infoDic];
                                                 [[[UIAlertView alloc] initWithTitle:@"提醒" message:@"查看新订单" cancelButtonItem:[RIButtonItem itemWithLabel:@"取消" action:^{
@@ -405,7 +409,11 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     }
     
     NSString  * contentNotify = [DataHelper getStringValue:objDict[@"content"] defaultValue:@""];
-    [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:contentNotify];
+    [JDStatusBarNotification showWithStatus:contentNotify
+                               dismissAfter:3.0
+                                  styleName:JDStatusBarStyleDark];
+    
+//    [[FDStatusBarNotifierView sharedFDStatusBarNotifierView] showInWindowMessage:contentNotify];
     
     [tools playVirate];
 //    NSString * to = [DataHelper getStringValue:Dict[@"to"] defaultValue:@""];

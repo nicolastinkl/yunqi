@@ -28,7 +28,7 @@ typedef enum {
 	KMessage_private_Location = 3, //location
 } KMessage_private_user_Msg_type;
 
-#define NEED_OUTPUT_LOG                     1   // 0 relese  1 debug
+#define NEED_OUTPUT_LOG                     0   // 0 relese  1 debug
 
 #define IOS7                                [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
 #define IOS6                                [[[UIDevice currentDevice] systemVersion] floatValue] < 7.0

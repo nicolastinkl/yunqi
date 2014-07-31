@@ -637,6 +637,9 @@
 		931E502F1964F05200806F2B /* SCCaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 931E500D1964F05200806F2B /* SCCaptureSessionManager.m */; };
 		931E50301964F05200806F2B /* SCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 931E500F1964F05200806F2B /* SCNavigationController.m */; };
 		931E50311964F05200806F2B /* SCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 931E50111964F05200806F2B /* SCSlider.m */; };
+		9327C9AC1989FD5100BA8D36 /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 9327C9A71989FD5100BA8D36 /* JDStatusBarNotification.m */; };
+		9327C9AD1989FD5100BA8D36 /* JDStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9327C9A91989FD5100BA8D36 /* JDStatusBarStyle.m */; };
+		9327C9AE1989FD5100BA8D36 /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9327C9AB1989FD5100BA8D36 /* JDStatusBarView.m */; };
 		938BC9771941644700E52F63 /* TableViewCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 938BC9761941644700E52F63 /* TableViewCellBackgroundView.m */; };
 		93BC29DC1941F599009D0AFC /* RIButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BC29D71941F599009D0AFC /* RIButtonItem.m */; };
 		93BC29DD1941F599009D0AFC /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BC29D91941F599009D0AFC /* UIActionSheet+Blocks.m */; };
@@ -1605,6 +1608,12 @@
 		931E500F1964F05200806F2B /* SCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNavigationController.m; sourceTree = "<group>"; };
 		931E50101964F05200806F2B /* SCSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSlider.h; sourceTree = "<group>"; };
 		931E50111964F05200806F2B /* SCSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSlider.m; sourceTree = "<group>"; };
+		9327C9A61989FD5100BA8D36 /* JDStatusBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarNotification.h; sourceTree = "<group>"; };
+		9327C9A71989FD5100BA8D36 /* JDStatusBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarNotification.m; sourceTree = "<group>"; };
+		9327C9A81989FD5100BA8D36 /* JDStatusBarStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarStyle.h; sourceTree = "<group>"; };
+		9327C9A91989FD5100BA8D36 /* JDStatusBarStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarStyle.m; sourceTree = "<group>"; };
+		9327C9AA1989FD5100BA8D36 /* JDStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarView.h; sourceTree = "<group>"; };
+		9327C9AB1989FD5100BA8D36 /* JDStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarView.m; sourceTree = "<group>"; };
 		938BC9751941644700E52F63 /* TableViewCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellBackgroundView.h; sourceTree = "<group>"; };
 		938BC9761941644700E52F63 /* TableViewCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellBackgroundView.m; sourceTree = "<group>"; };
 		93BC29D61941F599009D0AFC /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIButtonItem.h; sourceTree = "<group>"; };
@@ -2968,6 +2977,7 @@
 		86D1820518349B0A0005901D /* SupportView */ = {
 			isa = PBXGroup;
 			children = (
+				9327C9A51989FD5100BA8D36 /* JDStatusBarNotification */,
 				931E4F701964EE7600806F2B /* CameraView */,
 				93BC29D51941F57F009D0AFC /* TKUIActionBar */,
 				93BE37C919272372006061EF /* LXActionSheet */,
@@ -3794,6 +3804,19 @@
 			path = SCCamera;
 			sourceTree = "<group>";
 		};
+		9327C9A51989FD5100BA8D36 /* JDStatusBarNotification */ = {
+			isa = PBXGroup;
+			children = (
+				9327C9A61989FD5100BA8D36 /* JDStatusBarNotification.h */,
+				9327C9A71989FD5100BA8D36 /* JDStatusBarNotification.m */,
+				9327C9A81989FD5100BA8D36 /* JDStatusBarStyle.h */,
+				9327C9A91989FD5100BA8D36 /* JDStatusBarStyle.m */,
+				9327C9AA1989FD5100BA8D36 /* JDStatusBarView.h */,
+				9327C9AB1989FD5100BA8D36 /* JDStatusBarView.m */,
+			);
+			path = JDStatusBarNotification;
+			sourceTree = "<group>";
+		};
 		93BC29D51941F57F009D0AFC /* TKUIActionBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -4367,6 +4390,7 @@
 				869CE4BF186A73880004C1EC /* MarkupParser.m in Sources */,
 				866516A6187BF276001F05F6 /* rscode.c in Sources */,
 				931E4E8B1962B4A700806F2B /* ZBFaceView.m in Sources */,
+				9327C9AE1989FD5100BA8D36 /* JDStatusBarView.m in Sources */,
 				86EB76E1185AA6CC00836947 /* SRWebSocket.m in Sources */,
 				86EB76C2185AA6CC00836947 /* MLActionSheet.m in Sources */,
 				86D182B21834AED30005901D /* LKDBUtils.m in Sources */,
@@ -4472,6 +4496,7 @@
 				93E73B061940728F006877FF /* SRHubResult.m in Sources */,
 				866287F018CCB28500891B2D /* SKSTableView.m in Sources */,
 				86D1827E1834AED30005901D /* NSDataAddition.m in Sources */,
+				9327C9AD1989FD5100BA8D36 /* JDStatusBarStyle.m in Sources */,
 				931E4EA51963D15700806F2B /* ZBMessageInputView.m in Sources */,
 				868B5D581893B068004D1743 /* NSString+PinYin4Cocoa.m in Sources */,
 				866F0621185724EE007A57CF /* SinaWeibo.m in Sources */,
@@ -4649,6 +4674,7 @@
 				8605B9E218EA9EA500D456F6 /* YQUserOrdersViewConsoller.m in Sources */,
 				8668E480187540DB00D20C9E /* MLJson.m in Sources */,
 				86D9A8A2186D30C800147631 /* FCConversationModel.m in Sources */,
+				9327C9AC1989FD5100BA8D36 /* JDStatusBarNotification.m in Sources */,
 				86ADDA2F1893DAC7000A0C22 /* MKMapView+ZoomLevel.m in Sources */,
 				866C155F18ADE75F0054F686 /* DCFrameView.m in Sources */,
 				86D182781834AED30005901D /* BTSAnchorPointLayer.m in Sources */,
