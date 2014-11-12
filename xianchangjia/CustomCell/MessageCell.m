@@ -34,6 +34,17 @@
     return self;
 }
 
+/*!
+ *  @author tinkl, 14-11-12 17:11:09
+ *
+ *  <#Description#>
+ *
+ *  @param aDecoder <#aDecoder description#>
+ *
+ *  @return <#return value description#>
+ *
+ *  @since <#version number#>
+ */
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];

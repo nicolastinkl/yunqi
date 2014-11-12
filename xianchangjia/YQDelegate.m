@@ -103,12 +103,14 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
     self.launchingWithAps=[launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey]; 
     [self initAllControlos];
     //注册推送通知
+   /*
     [[UIApplication sharedApplication]
-     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                         UIRemoteNotificationTypeSound |
-                                         UIRemoteNotificationTypeAlert |
-                                         UIRemoteNotificationTypeNewsstandContentAvailability)];
+    registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+    UIRemoteNotificationTypeSound |
+    UIRemoteNotificationTypeAlert |
+    UIRemoteNotificationTypeNewsstandContentAvailability)];
     
+    */
     Reachability* reach = [Reachability reachabilityForInternetConnection];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
@@ -649,6 +651,7 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
 {
     
     /*
+     
      新订单：OrderManager://ordercreated/<Order>
      订单已付款：OrderManager://orderpaid/<Order>
      订单取消：OrderManager://ordercanceled/<Order>
@@ -657,7 +660,6 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
      未读消息：WeChat://WeChat/UnRead
      
      OrderManager://orderpaid?orderid=91872834&orderno=oqweiruoqr
-     
     */
     
     NSLog(@"url openURL .......    %@  ....   %@   ",[url query],[url host]);
@@ -864,6 +866,13 @@ static NSString * const kLaixinStoreName = @"YunqiDB";
         [[NSNotificationCenter defaultCenter] postNotificationName:@"messagewithNewRefreshAllMsg" object:nil];
         SLLog(@"applicationDidEnterBackground webSocket close");
         [[TKSignalWebScoket sharedTKSignalWebScoket] start];
+        
+        
+        UINavigationController * navi = self.tabBarController.childViewControllers[self.tabBarController.selectedIndex];
+        
+        if ([navi.visibleViewController isKindOfClass:[ChatViewController class]]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"NotifyBacktoForceView" object:nil];
+        };
     }
     
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.

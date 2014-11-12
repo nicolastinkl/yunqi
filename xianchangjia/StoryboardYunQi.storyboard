@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="fbI-TE-zdI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="fbI-TE-zdI">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -271,7 +271,7 @@
             </objects>
             <point key="canvasLocation" x="1790" y="1274"/>
         </scene>
-        <!--Navigation Controller - 云起亲亲-->
+        <!--云起亲亲-->
         <scene sceneID="XfP-ji-bR3">
             <objects>
                 <navigationController definesPresentationContext="YES" id="hMA-JR-h7T" sceneMemberID="viewController">
@@ -291,7 +291,7 @@
             </objects>
             <point key="canvasLocation" x="542" y="958"/>
         </scene>
-        <!--Settings View Controller - 云起亲亲-->
+        <!--云起亲亲-->
         <scene sceneID="dg7-zD-RJU">
             <objects>
                 <tableViewController restorationIdentifier="YQSettingsViewController" storyboardIdentifier="YQSettingsViewController" id="DQk-pS-qyc" customClass="YQSettingsViewController" sceneMemberID="viewController">
@@ -363,7 +363,7 @@
             </objects>
             <point key="canvasLocation" x="1163" y="1040"/>
         </scene>
-        <!--Forward View Controller - 转发给买家-->
+        <!--转发给买家-->
         <scene sceneID="l3j-TK-ASe">
             <objects>
                 <tableViewController restorationIdentifier="YQURLForwardViewController" storyboardIdentifier="YQURLForwardViewController" id="bRC-LQ-Cxp" customClass="YQURLForwardViewController" sceneMemberID="viewController">
@@ -436,7 +436,7 @@
             </objects>
             <point key="canvasLocation" x="1640" y="400"/>
         </scene>
-        <!--Order Table View Controller - 订单-->
+        <!--订单-->
         <scene sceneID="N7R-eb-HR1">
             <objects>
                 <tableViewController restorationIdentifier="XCJOrderTableViewController" storyboardIdentifier="XCJOrderTableViewController" id="GQf-Jw-9Za" customClass="XCJOrderTableViewController" sceneMemberID="viewController">
@@ -868,7 +868,7 @@
             </objects>
             <point key="canvasLocation" x="1484" y="-257"/>
         </scene>
-        <!--Make Send Meta Viewcontroller - 物流信息 -->
+        <!--物流信息 -->
         <scene sceneID="4zy-Qh-Vpa">
             <objects>
                 <tableViewController restorationIdentifier="YQMakeSendMetaViewcontroller" storyboardIdentifier="YQMakeSendMetaViewcontroller" hidesBottomBarWhenPushed="YES" id="h8q-bf-ELI" customClass="YQMakeSendMetaViewcontroller" sceneMemberID="viewController">
@@ -1090,7 +1090,7 @@
             </objects>
             <point key="canvasLocation" x="2452" y="-191"/>
         </scene>
-        <!--Navigation Controller - 订单-->
+        <!--订单-->
         <scene sceneID="otH-EA-BHP">
             <objects>
                 <navigationController definesPresentationContext="YES" id="r8L-qn-k4g" sceneMemberID="viewController">
@@ -1114,7 +1114,7 @@
             </objects>
             <point key="canvasLocation" x="583" y="-257"/>
         </scene>
-        <!--Navigation Controller - 轻应用-->
+        <!--轻应用-->
         <scene sceneID="rwq-tC-aK5">
             <objects>
                 <navigationController definesPresentationContext="YES" id="t7e-Pw-9zM" sceneMemberID="viewController">
@@ -1138,7 +1138,7 @@
             </objects>
             <point key="canvasLocation" x="593" y="384"/>
         </scene>
-        <!--Web View Controller - 轻应用-->
+        <!--轻应用-->
         <scene sceneID="jpg-03-TAq">
             <objects>
                 <viewController restorationIdentifier="YQWebViewController" storyboardIdentifier="YQWebViewController" id="GYd-xl-fdp" customClass="YQWebViewController" sceneMemberID="viewController">
@@ -1191,7 +1191,7 @@
             </objects>
             <point key="canvasLocation" x="1131" y="384"/>
         </scene>
-        <!--Msg List Controller - 微信-->
+        <!--微信-->
         <scene sceneID="kJ1-M8-6OU">
             <objects>
                 <tableViewController restorationIdentifier="XCJMsgListController" storyboardIdentifier="XCJMsgListController" id="2qe-eA-6c9" customClass="XCJMsgListController" sceneMemberID="viewController">
@@ -1200,7 +1200,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" hidden="YES" contentMode="scaleToFill" id="9W7-pd-YLI">
-                            <rect key="frame" x="0.0" y="64" width="320" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gVP-lI-JJr">
@@ -1318,7 +1317,7 @@
             </objects>
             <point key="canvasLocation" x="1423" y="-909"/>
         </scene>
-        <!--Navigation Controller - 微信-->
+        <!--微信-->
         <scene sceneID="YcO-oI-vSA">
             <objects>
                 <navigationController definesPresentationContext="YES" id="aGV-0M-mpJ" sceneMemberID="viewController">
@@ -1342,7 +1341,7 @@
             </objects>
             <point key="canvasLocation" x="921" y="-909"/>
         </scene>
-        <!--Chat View Controller - 聊天-->
+        <!--聊天-->
         <scene sceneID="Dvk-IQ-ogU">
             <objects>
                 <viewController restorationIdentifier="ChatViewController" storyboardIdentifier="ChatViewController" title="聊天" hidesBottomBarWhenPushed="YES" id="P6i-1c-yn0" customClass="ChatViewController" sceneMemberID="viewController">
@@ -1456,7 +1455,7 @@
                                                     <rect key="frame" x="68" y="40" width="24" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <imageView hidden="YES" appearanceType="aqua" userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_bottom_voice_nor" id="gi7-f5-VqR">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_bottom_voice_nor" id="gi7-f5-VqR">
                                                     <rect key="frame" x="68" y="34" width="34" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -1565,7 +1564,7 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView hidden="YES" appearanceType="aqua" userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_my_bottom_voice_nor" id="yCG-JV-0Qd">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_my_bottom_voice_nor" id="yCG-JV-0Qd">
                                                     <rect key="frame" x="218" y="34" width="34" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>

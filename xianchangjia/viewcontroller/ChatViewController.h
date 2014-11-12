@@ -19,8 +19,6 @@ typedef NS_ENUM(NSInteger,ZBMessageViewState) {
     ZBMessageViewStateShowNone,
 };
 
-
-
 @class Conversation,FCUserDescription;
 @interface ChatViewController : UIViewController
 

@@ -20,6 +20,6 @@
 @property (nonatomic, retain) NSString * uid;
 @property (nonatomic, retain) NSString * typeReply;
 @property (nonatomic, retain) id jsonStr;
-@property (nonatomic, retain) ConverReply *newRelationship;
+@property (nonatomic, retain) ConverReply *nRelationship;
 
 @end

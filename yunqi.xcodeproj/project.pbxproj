@@ -1614,6 +1614,7 @@
 		9327C9A91989FD5100BA8D36 /* JDStatusBarStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarStyle.m; sourceTree = "<group>"; };
 		9327C9AA1989FD5100BA8D36 /* JDStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarView.h; sourceTree = "<group>"; };
 		9327C9AB1989FD5100BA8D36 /* JDStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarView.m; sourceTree = "<group>"; };
+		935682CB1A135DA1002A1F19 /* yunqi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = yunqi.entitlements; sourceTree = SOURCE_ROOT; };
 		938BC9751941644700E52F63 /* TableViewCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellBackgroundView.h; sourceTree = "<group>"; };
 		938BC9761941644700E52F63 /* TableViewCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellBackgroundView.m; sourceTree = "<group>"; };
 		93BC29D61941F599009D0AFC /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIButtonItem.h; sourceTree = "<group>"; };
@@ -2914,6 +2915,7 @@
 		86D181D31834822C0005901D /* yunqi */ = {
 			isa = PBXGroup;
 			children = (
+				935682CB1A135DA1002A1F19 /* yunqi.entitlements */,
 				869CE4A7186957C30004C1EC /* iPad */,
 				8692E3C118642E6F00F9E1DD /* laixin.entitlements */,
 				86EB770B185AB0A200836947 /* DBCommon */,
@@ -4859,7 +4861,7 @@
 			baseConfigurationReference = 628D32EFF2B343BCBB64B372 /* Pods.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = yunqi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqiang Wang (6C3CR2F8HK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqiang Wang (6C3CR2F8HK)";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/xianchangjia/support/iOS-WebP";
@@ -4899,7 +4901,7 @@
 			baseConfigurationReference = 628D32EFF2B343BCBB64B372 /* Pods.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = yunqi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqiang Wang (6C3CR2F8HK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqiang Wang (6C3CR2F8HK)";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/xianchangjia/support/iOS-WebP";

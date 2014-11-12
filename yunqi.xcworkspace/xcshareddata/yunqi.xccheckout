@@ -10,29 +10,60 @@
 	<string>yunqi</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>14091008-F59E-4153-A033-294DCB9AC1F8</key>
+		<key>FD2FC9923336D93995DC4A6984B1ED520E90C4A0</key>
 		<string>ssh://github.com/nicolastinkl/yunqi.git</string>
+		<key>eccd39b4-39d4-47ab-bb89-e81f4763b8b8++3220</key>
+		<string>svn://192.168.0.240/repository/taojinroad/mobile/iphone/TJRtaojinroad/TJRtaojinroad/TJRManagerUI/VoiceConvert</string>
+		<key>eccd39b4-39d4-47ab-bb89-e81f4763b8b8++5109</key>
+		<string>svn://192.168.0.240/repository/taojinroad/mobile/iphone/TJRtaojinroad/TJRtaojinroad/TJRManagerUI/VoiceRecorderVC</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>yunqi.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>14091008-F59E-4153-A033-294DCB9AC1F8</key>
+		<key>FD2FC9923336D93995DC4A6984B1ED520E90C4A0</key>
 		<string>..</string>
+		<key>eccd39b4-39d4-47ab-bb89-e81f4763b8b8++3220</key>
+		<string>../xianchangjia/viewcontroller/AudioView/VoiceConvert</string>
+		<key>eccd39b4-39d4-47ab-bb89-e81f4763b8b8++5109</key>
+		<string>../xianchangjia/viewcontroller/AudioView/VoiceRecorderVC</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>eccd39b4-39d4-47ab-bb89-e81f4763b8b8++3220</key>
+		<string>svn://192.168.0.240/repository</string>
+		<key>eccd39b4-39d4-47ab-bb89-e81f4763b8b8++5109</key>
+		<string>svn://192.168.0.240/repository</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/nicolastinkl/yunqi.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>14091008-F59E-4153-A033-294DCB9AC1F8</string>
+	<string>FD2FC9923336D93995DC4A6984B1ED520E90C4A0</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>eccd39b4-39d4-47ab-bb89-e81f4763b8b8++3220</string>
+			<key>IDESourceControlWCCName</key>
+			<string>VoiceConvert</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>eccd39b4-39d4-47ab-bb89-e81f4763b8b8++5109</string>
+			<key>IDESourceControlWCCName</key>
+			<string>VoiceRecorderVC</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>14091008-F59E-4153-A033-294DCB9AC1F8</string>
+			<string>FD2FC9923336D93995DC4A6984B1ED520E90C4A0</string>
 			<key>IDESourceControlWCCName</key>
 			<string>yunqi</string>
 		</dict>

@@ -237,6 +237,9 @@ static NSInteger const kAttributedLabelTag = 100;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ChatViewSendPhotoSure:) name:@"ChatViewSendPhotoSure" object:nil];
     
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchNewDataWithLastID) name:@"NotifyBacktoForceView" object:nil];
+    
+    
 }
 
 #pragma mark - 初始化
@@ -2962,7 +2965,7 @@ static NSInteger const kAttributedLabelTag = 100;
         // /private/var/mobile/Applications/8703284D-476D-40A3-AE21-3BD108796AB5/tmp/5b87a4c4e8a4113611b9a1e77a38f1e5.jpg
         
         if ([message.imageUrl containString:@"private/var/mobile"]) {
-            UIImage * imageviewLocal =  [UIImage imageWithContentsOfFile:message.imageUrl];
+            UIImage * imageviewLocal = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@",message.imageUrl]];
             UIImage * imageviewLocalNew = [imageviewLocal imageByScalingAndCroppingForSize:CGSizeMake(100, 100)];
             [imageview_Img setImage:imageviewLocalNew];
         }else{

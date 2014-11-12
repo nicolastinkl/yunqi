@@ -19,6 +19,6 @@
 @dynamic uid;
 @dynamic typeReply;
 @dynamic jsonStr;
-@dynamic newRelationship;
+@dynamic nRelationship;
 
 @end

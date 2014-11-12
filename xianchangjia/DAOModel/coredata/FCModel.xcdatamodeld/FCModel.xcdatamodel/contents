@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5041" systemVersion="13A598" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A343f" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="ConverReply" representedClassName="ConverReply" syncable="YES">
         <attribute name="badgeNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="postid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="fcreplymesgships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FCReplyMessage" inverseName="newRelationship" inverseEntity="FCReplyMessage" syncable="YES"/>
+        <relationship name="fcreplymesgships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FCReplyMessage" inverseName="nRelationship" inverseEntity="FCReplyMessage" syncable="YES"/>
     </entity>
     <entity name="Conversation" representedClassName="Conversation" syncable="YES">
         <attribute name="badgeNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -98,7 +98,7 @@
         <attribute name="time" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="typeReply" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="newRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ConverReply" inverseName="fcreplymesgships" inverseEntity="ConverReply" syncable="YES"/>
+        <relationship name="nRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ConverReply" inverseName="fcreplymesgships" inverseEntity="ConverReply" syncable="YES"/>
     </entity>
     <entity name="FCUserDescription" representedClassName="FCUserDescription" syncable="YES">
         <attribute name="active_by" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
